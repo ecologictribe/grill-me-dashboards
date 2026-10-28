@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress-Testing the Gates: Validating & Hardening the Anti-Drift Dashboard Grader | Aplly.xyz</title>
+    <meta name="description" content="We implemented the Grill Me → Spec Doc → Gated Generation tutorial end-to-end and attacked its automated grader with adversarial dashboards. Two of four gates produce false positives. Here is the evidence, the hardened grader.v2, and the roadmap for the next version.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandNavy: '#183868',
+                        brandCyan: '#28a8e8',
+                        brandTeal: '#3c9080',
+                        brandGreen: '#48b838',
+                        brandGreenLight: '#84c657',
+                        brandMint: '#c6eeb0',
+                        brandTealLight: '#91c5cd',
+                        slateBg: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'],
+                        heading: ['Sora', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Google Fonts: Sora & DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- KaTeX for Math -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+
+    <style>
+        :root {
+            --brand-primary:   #183868;
+            --brand-secondary: #28a8e8;
+            --brand-teal:      #3c9080;
+            --brand-light:     #e8f6f6;
+            --brand-dark:      #0F172A;
+            --surface:         #FFFFFF;
+            --card-border:     #E2E8F0;
+            --card-shadow:     0 1px 4px rgba(24,56,104,0.06), 0 4px 16px rgba(24,56,104,0.04);
+            --text-primary:    #1F1F2E;
+            --text-secondary:  #475569;
+            --radius-card:     12px;
+            --radius-tag:      999px;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--surface);
+            color: var(--text-primary);
+            line-height: 1.7;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Sora', sans-serif; color: var(--brand-dark); letter-spacing: -0.02em; }
+        code, pre { font-family: 'Fira Code', monospace; }
+
+        /* Reading Progress Bar */
+        #progress-bar {
+            position: fixed; top: 0; left: 0; height: 4px;
+            background: linear-gradient(90deg, #28a8e8, #3c9080, #48b838);
+            z-index: 100; transition: width 0.1s ease-out; width: 0%;
+        }
+
+        /* Article Header */
+        .article-header { background: linear-gradient(135deg, #183868 0%, #28a8e8 100%); color: #FFFFFF; padding: 3rem 1.5rem 2.5rem; }
+        .article-header-inner { max-width: 860px; margin: 0 auto; }
+        .series-tag {
+            display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; background: rgba(255,255,255,0.18); padding: 4px 12px;
+            border-radius: var(--radius-tag); margin-bottom: 0.8rem; border: 1px solid rgba(255,255,255,0.25);
+        }
+        .article-header h1 { font-size: clamp(2rem, 4.5vw, 2.9rem); font-weight: 800; color: #FFFFFF; line-height: 1.18; margin: 0 0 0.75rem; }
+        .article-header p.subtitle { font-size: 1.12rem; opacity: 0.95; margin: 0 0 1.25rem; line-height: 1.6; max-width: 720px; color: #f0faf8; }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+        .tag-chip { background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.3); padding: 4px 12px; border-radius: var(--radius-tag); font-size: 0.78rem; font-weight: 600; color: #FFFFFF; }
+        .read-time-badge { background: rgba(255,255,255,0.25); padding: 4px 12px; border-radius: var(--radius-tag); font-size: 0.78rem; font-weight: 700; color: #FFFFFF; }
+        .desk-attribution {
+            display: inline-flex; align-items: center; background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(8px); padding: 6px 14px; border-radius: var(--radius-tag);
+            font-size: 0.82rem; font-weight: 600; color: #c6eeb0; border: 1px solid rgba(255,255,255,0.2); margin-top: 1rem;
+        }
+
+        /* Main Container */
+        main.article-body { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+        /* Standard Cards */
+        section.card {
+            background: #FFFFFF; border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
+            border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 2rem; transition: all 0.25s ease;
+        }
+        section.card:hover { box-shadow: 0 8px 24px rgba(24,56,104,0.08); transform: translateY(-2px); }
+
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Outcomes / Prereq Boxes */
+        .outcomes-box { background: #eef8f6; border-left: 4px solid var(--brand-teal); border-radius: var(--radius-card); padding: 1.4rem 1.6rem; margin-bottom: 1.5rem; }
+        .outcomes-box h2 { margin-top: 0; font-size: 1.15rem; display: flex; align-items: center; }
+        .outcomes-box ul { margin: 0.6rem 0 0; padding-left: 1.25rem; }
+        .outcomes-box li { margin-bottom: 0.4rem; color: #1e293b; font-size: 0.95rem; }
+        .prereq-box { background: #FFFBEB; border-left: 4px solid #D97706; border-radius: var(--radius-card); padding: 1.4rem 1.6rem; margin-bottom: 2rem; }
+        .prereq-box h2 { margin-top: 0; font-size: 1.15rem; color: #92400E; display: flex; align-items: center; }
+        .prereq-box ul { margin: 0.6rem 0 0; padding-left: 1.25rem; }
+        .prereq-box li { margin-bottom: 0.4rem; color: #78350F; font-size: 0.95rem; }
+
+        /* TOC */
+        .toc { background: #FAFAFA; border: 1px solid var(--card-border); border-radius: var(--radius-card); padding: 1.25rem 1.6rem; margin-bottom: 2.2rem; }
+        .toc h2 { margin: 0 0 0.75rem; font-size: 1.05rem; }
+        .toc ol { margin: 0; padding-left: 1.3rem; }
+        .toc li { margin-bottom: 0.35rem; font-size: 0.92rem; }
+        .toc a { color: var(--brand-primary); text-decoration: none; font-weight: 500; transition: color 0.15s; }
+        .toc a:hover { color: var(--brand-secondary); text-decoration: underline; }
+
+        /* Section Meta Badges */
+        .section-meta { display: flex; gap: 0.5rem; margin: 0.2rem 0 0.8rem; }
+        .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: var(--radius-tag); }
+        .badge-beginner     { background: #D1FAE5; color: #065F46; }
+        .badge-intermediate { background: #FEF3C7; color: #92400E; }
+        .badge-advanced     { background: #FEE2E2; color: #991B1B; }
+        .badge-time         { background: #e8f6f6; color: #183868; }
+
+        /* Takeaways & Citations */
+        .takeaways { background: #eef8f6; border-left: 4px solid var(--brand-teal); border-radius: var(--radius-card); padding: 1.5rem 1.75rem; margin-bottom: 2rem; }
+        .takeaways h2 { margin-top: 0; font-size: 1.25rem; }
+        .takeaways ul { padding-left: 1.25rem; margin: 0.6rem 0 0; }
+        .takeaways li { margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .citations-box { background: #FFFFFF; border: 1px solid var(--card-border); border-left: 4px solid var(--brand-primary); border-radius: var(--radius-card); padding: 1.5rem 1.75rem; margin-bottom: 2rem; }
+        .citations-box h2 { margin-top: 0; font-size: 1.25rem; }
+
+        /* Styled Tables */
+        table.op-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        table.op-table th, table.op-table td { text-align: left; padding: 0.75rem 0.85rem; border-bottom: 1px solid var(--card-border); }
+        table.op-table th { color: var(--brand-primary); font-family: 'Sora', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; background: #f8fafc; }
+
+        blockquote.callout { border-left: 3px solid var(--brand-secondary); background: #F8FAFC; margin: 1.2rem 0; padding: 0.9rem 1.2rem; font-style: italic; color: #334155; border-radius: 0 8px 8px 0; }
+
+        /* Stat strip */
+        .stat-card { text-align: center; padding: 1rem 0.5rem; border-radius: var(--radius-card); border: 1px solid var(--card-border); background: #fff; }
+        .stat-num { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--brand-primary); line-height: 1.1; }
+        .stat-label { font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem; }
+
+        /* Grader simulator */
+        .gate-row { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.7rem 0.9rem; border-radius: 10px; border: 1px solid var(--card-border); background: #F8FAFC; opacity: 0.45; transform: translateX(-6px); transition: all 0.35s ease; }
+        .gate-row.done { opacity: 1; transform: translateX(0); }
+        .gate-row.pass { background: #ECFDF5; border-color: #A7F3D0; }
+        .gate-row.fail { background: #FEF2F2; border-color: #FECACA; }
+        .gate-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; margin-top: 2px; background: #E2E8F0; color: #64748B; transition: all 0.3s ease; }
+        .gate-row.pass .gate-icon { background: #10B981; color: #fff; }
+        .gate-row.fail .gate-icon { background: #EF4444; color: #fff; }
+        .score-pill { padding: 3px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; transition: all 0.3s ease; }
+
+        .fixture-btn { transition: all 0.2s ease; }
+        .fixture-btn.active { background: #183868 !important; color: #fff !important; border-color: #183868 !important; }
+        .grader-btn.active { background: #3c9080 !important; color: #fff !important; border-color: #3c9080 !important; }
+
+        .node-bar { height: 14px; border-radius: 7px; background: linear-gradient(90deg, #28a8e8, #3c9080); width: 0%; transition: width 1s cubic-bezier(0.22, 1, 0.36, 1); }
+
+        /* Footer */
+        .article-footer { text-align: center; padding: 2.5rem 1.5rem; background: #183868; color: rgba(255,255,255,0.85); font-size: 0.88rem; }
+    </style>
+</head>
+<body>
+
+    <!-- Reading Progress Bar -->
+    <div id="progress-bar" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+    <!-- Global Top Nav -->
+    <nav class="bg-[#183868] border-b border-[#234c7d] text-white py-3 px-4 sm:px-8 flex justify-between items-center text-sm sticky top-0 z-40">
+        <a href="https://aplly.xyz/" class="flex items-center space-x-2 font-bold text-lg text-white">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </a>
+        <div class="flex items-center space-x-5 text-xs sm:text-sm">
+            <a href="https://aplly.xyz/case-studies" class="text-gray-300 hover:text-white transition">Case Studies</a>
+            <a href="https://aplly.xyz/tutorials-library" class="text-white font-bold transition">Tutorials</a>
+            <a href="https://aplly.xyz/powerbi" class="text-gray-300 hover:text-white transition hidden sm:inline">Power BI</a>
+            <a href="https://aplly.xyz/" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">Free Mocks</a>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="article-header-inner">
+            <span class="series-tag">Part 8 · Data Visualization Architecture Series</span>
+            <h1>Stress-Testing the Gates: Validating &amp; Hardening the Anti-Drift Dashboard Grader</h1>
+            <p class="subtitle">We built the Grill Me → Spec Doc → Gated Generation pipeline end-to-end, then attacked its automated grader with adversarial dashboards — and found two false-positive gates. Here is the evidence, the hardened grader, and the v2 roadmap.</p>
+            <div class="tag-row">
+                <span class="tag-chip">Tutorial Validation</span><span class="tag-chip">Anti-Drift Gates</span><span class="tag-chip">Adversarial Testing</span><span class="tag-chip">JSDOM Grader</span><span class="tag-chip">Okabe Ito CVD Palette</span><span class="tag-chip">AI Quality Assurance</span>
+                <span class="read-time-badge">⏱ ~8 min read</span>
+            </div>
+            <div>
+                <div class="desk-attribution">
+                    <i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i>
+                    <span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Article Body -->
+    <main class="article-body">
+
+        <!-- 🎯 What You'll Learn -->
+        <section class="outcomes-box reveal" aria-label="Learning outcomes">
+            <h2>🎯 What You'll Learn</h2>
+            <ul>
+                <li>Why a verification gate must itself be verified: the false-positive problem in automated dashboard rubrics.</li>
+                <li>Reproduce three concrete grader defects: an undocumented dependency, OR-logic palette checks, and static-only DOM counting.</li>
+                <li>Attack a grader the way students and lazy LLM outputs attack it — with adversarial fixture dashboards.</li>
+                <li>Read the full test matrix: which gate passed, which should have failed, and why.</li>
+                <li>Deploy <code>grader.v2</code> — a hardened grader that catches what the original misses.</li>
+            </ul>
+        </section>
+
+        <!-- 📋 Before You Begin -->
+        <section class="prereq-box reveal" aria-label="Prerequisites and Expected Outcomes">
+            <h2>📋 Before You Begin &amp; Expected Outcomes</h2>
+            <ul>
+                <li>Read <a href="https://aplly.xyz/uploads/tutorials/6ae17d0187a7e_1793162497.html" class="underline font-semibold">Part 7: The Grill Me Method &amp; Drift-Proof Evaluation Frameworks</a> — this article validates that tutorial by building it.</li>
+                <li>Node.js v18+ and <code>npm</code> installed. That is the one prerequisite Part 7 forgot for its own grader.</li>
+                <li>Target benchmark: every claim below is reproducible from the open-source validation repo (<code>ecologictribe/grill-me-dashboards</code>).</li>
+            </ul>
+        </section>
+
+        <!-- TOC -->
+        <nav class="toc reveal" aria-label="Table of contents">
+            <h2>Contents</h2>
+            <ol>
+                <li><a href="#validation-experiment">1. The Validation Experiment: Build It, Then Break It</a></li>
+                <li><a href="#three-defects">2. Three Defects the Grader Hides (One Blocker)</a></li>
+                <li><a href="#grader-simulator">3. Live Test Matrix: Run the Grader Yourself</a></li>
+                <li><a href="#hardened-grader">4. grader.v2: The Hardened Gates</a></li>
+                <li><a href="#verdict">5. Verdict & the Part 9 Roadmap</a></li>
+            </ol>
+        </nav>
+
+        <!-- ======================= SECTION 1 ======================= -->
+        <section class="card reveal" id="validation-experiment">
+            <div class="section-meta">
+                <span class="badge badge-beginner">🌱 Beginner</span>
+                <span class="badge badge-time">⏱ ~2 min</span>
+            </div>
+            <h2>1. The Validation Experiment: Build It, Then Break It</h2>
+
+            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                Part 7 promises a complete pipeline: grill the human with an adversarial LLM, lock the answers into an unyielding <strong>Spec Doc</strong>, generate code under boolean gates, and verify the result with a headless DOM grader. The only honest way to validate that claim is to <em>run every stage yourself</em> — then attack the verifier.
+            </p>
+
+            <p class="text-sm md:text-base leading-relaxed text-gray-700 mt-3">
+                We executed all five stages. The Grill Me interview produced the exact decisions in Part 7 (5-second tumbling windows, grey null-banding, Okabe-Ito tokens). The Spec Doc bound a reference implementation: <code>dashboard/index.html</code> — F-pattern grid, canvas trend chart with $y_{\text{min}} = 0$, simulated 100 Hz feed, and a scripted MTR-05 gateway disconnect that renders as a hatched band instead of interpolating zeros.
+            </p>
+
+            <!-- Animated stat strip -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6" id="stat-strip">
+                <div class="stat-card reveal"><div class="stat-num" data-target="5" data-suffix="/5">0</div><div class="stat-label">Pipeline stages implemented</div></div>
+                <div class="stat-card reveal"><div class="stat-num" data-target="4" data-suffix="/4">0</div><div class="stat-label">Gates passed (compliant build)</div></div>
+                <div class="stat-card reveal"><div class="stat-num text-rose-600" data-target="2">0</div><div class="stat-label">False-positive gates exposed</div></div>
+                <div class="stat-card reveal"><div class="stat-num text-rose-600" data-target="7" data-prefix="F">0</div><div class="stat-label">Findings logged (1 blocker)</div></div>
+            </div>
+
+            <blockquote class="callout mt-6">
+                "A rubric you have never tried to cheat is not a rubric — it is a wish." The rest of this article is the cheating, done carefully and in public.
+            </blockquote>
+        </section>
+
+        <!-- ======================= SECTION 2 ======================= -->
+        <section class="card reveal" id="three-defects">
+            <div class="section-meta">
+                <span class="badge badge-intermediate">⚡ Intermediate</span>
+                <span class="badge badge-time">⏱ ~3 min</span>
+            </div>
+            <h2>2. Three Defects the Grader Hides (One Blocker)</h2>
+
+            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                The grader in Part 7 is <code>grader.js</code>, a 120-line JSDOM script that scores dashboards against the four Anti-Drift Gates. Reproduced verbatim, it failed immediately — and then passed things it should have failed.
+            </p>
+
+            <!-- F1 -->
+            <div class="p-4 mt-4 rounded-xl border border-rose-200 bg-rose-50 text-xs md:text-sm">
+                <div class="font-bold text-rose-900 flex items-center mb-1"><i class="fas fa-ban mr-2 text-rose-600"></i> F1 — BLOCKER: The Grader Cannot Run As Published</div>
+                <p class="text-rose-800 leading-relaxed"><code>grader.js</code> calls <code>require('jsdom')</code>, but Part 7 never mentions installing anything. A fresh run crashes with <code>MODULE_NOT_FOUND: 'jsdom'</code> before a single gate executes. <strong>Fix:</strong> add <code>npm install jsdom</code> and a <code>package.json</code> to Section 5.</p>
+                <pre class="mt-2 bg-gray-900 text-rose-300 p-3 rounded-lg overflow-x-auto">Error: Cannot find module 'jsdom'
+Require stack: D:\grill_me_dashboard\grader\grader.js</pre>
+            </div>
+
+            <!-- F2 -->
+            <div class="p-4 mt-3 rounded-xl border border-amber-200 bg-amber-50 text-xs md:text-sm">
+                <div class="font-bold text-amber-900 flex items-center mb-1"><i class="fas fa-universal-access mr-2 text-amber-600"></i> F2 — MAJOR: Gate 2's OR-Logic Defeats CVD Compliance</div>
+                <p class="text-amber-800 leading-relaxed">Gate 2 checks for the three Okabe-Ito tokens with <code>||</code> — so a dashboard containing <strong>only blue</strong> is certified "colorblind-safe":</p>
+                <pre class="mt-2 bg-gray-900 text-amber-300 p-3 rounded-lg overflow-x-auto">// Original: ONE color suffices to pass
+const hasOkabeIto = html.includes('#0072B2') || html.includes('#E69F00') || html.includes('#CC79A7');</pre>
+                <p class="text-amber-800 leading-relaxed mt-2">We proved it: <code>adversarial-partial-palette.html</code> uses a single hue and scored <strong>4/4</strong>. The check is also case-sensitive, so lowercase <code>#0072b2</code> — valid CSS — <em>fails</em>. <strong>Fix:</strong> require all three hexes (case-insensitive) plus ≥ 2 distinct shape tokens ● ▲ 🛑.</p>
+            </div>
+
+            <!-- F3 -->
+            <div class="p-4 mt-3 rounded-xl border border-amber-200 bg-amber-50 text-xs md:text-sm">
+                <div class="font-bold text-amber-900 flex items-center mb-1"><i class="fas fa-bomb mr-2 text-amber-600"></i> F3 — MAJOR: Gate 3 Counts a DOM That Never Rendered</div>
+                <p class="text-amber-800 leading-relaxed">The JSDOM instance is created with <code>runScripts: "outside-only"</code> — page scripts never execute, so Gate 3 grades the <em>static</em> HTML. A "DOM bomb" whose script injects 3,000 nodes after load is counted as <strong>11 nodes</strong> and passes the 1,500-node budget. This is precisely the threat model the gate claims to stop.</p>
+                <pre class="mt-2 bg-gray-900 text-amber-300 p-3 rounded-lg overflow-x-auto">// Original: scripts never run — the bomb is invisible
+const dom = new JSDOM(htmlContent, { runScripts: "outside-only" });</pre>
+                <p class="text-amber-800 leading-relaxed mt-2"><strong>Fix:</strong> <code>runScripts: "dangerously"</code> + <code>pretendToBeVisual: true</code>, wait ~500 ms for first render, then count the <em>live</em> DOM.</p>
+            </div>
+
+            <!-- F4-F7 compact -->
+            <div class="p-4 mt-3 rounded-xl border border-gray-200 bg-gray-50 text-xs md:text-sm">
+                <div class="font-bold text-gray-900 flex items-center mb-1"><i class="fas fa-bug mr-2 text-[#3c9080]"></i> Also Logged: F4–F7 (Minor &amp; Doc)</div>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li><strong>F4:</strong> Gate 4 substring <code>'display: grid'</code> misses minified <code>display:grid</code>.</li>
+                    <li><strong>F5:</strong> Gate 1 is a string heuristic — the literal text <code>yMin: 0</code> in a comment passes. Declare it a lint, not a rendering check.</li>
+                    <li><strong>F6:</strong> The zero-baseline doctrine is stated too universally (correct for absolute quantities like mm/s; Tufte allows documented exceptions for level-insensitive change detection).</li>
+                    <li><strong>F7:</strong> Export artifacts like literal <code>$y\_{\text{min}}$</code> will confuse beginners copying from the page.</li>
+                </ul>
+            </div>
+
+            <div class="p-4 mt-3 rounded-xl border border-emerald-200 bg-emerald-50 text-xs md:text-sm text-emerald-900">
+                <div class="font-bold flex items-center mb-1"><i class="fas fa-check-double mr-2 text-emerald-600"></i> What Survived The Grilling</div>
+                <p class="leading-relaxed">Every <em>factual</em> claim in Part 7 checked out: the Okabe-Ito hex values, the Nielsen Norman Group F-pattern attribution, Matt Pocock's Grill Me framing, WCAG 2.2's 4.5:1 ratio, and the 100 Hz → 5 s tumbling-window defense (implemented and observed live). One nuance for v2: <code>#E69F00</code> on white is ~2.2:1 — fine for graphics, but warning <em>text</em> needs a darkened variant such as <code>#8A5A00</code>.</p>
+            </div>
+        </section>
+
+        <!-- ======================= SECTION 3 ======================= -->
+        <section class="card reveal" id="grader-simulator">
+            <div class="section-meta">
+                <span class="badge badge-advanced">🔥 Advanced</span>
+                <span class="badge badge-time">⏱ ~2 min</span>
+            </div>
+            <h2>3. Live Test Matrix: Run the Grader Yourself</h2>
+
+            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                Pick a fixture and a grader, then hit <strong>Run</strong>. Gate results animate in sequence using the <em>actual recorded output</em> from the validation runs — every score below is reproducible from the repo.
+            </p>
+
+            <!-- Simulator -->
+            <div class="my-5 p-5 rounded-xl border border-gray-200 bg-white shadow-sm">
+                <h4 class="text-sm font-bold text-gray-900 flex items-center mb-4">
+                    <i class="fas fa-flask mr-2 text-[#3c9080]"></i> Grader Simulator (Real Recorded Results)
+                </h4>
+
+                <!-- Fixture picker -->
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">1 · Choose fixture</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-4" id="fixture-picker">
+                    <button data-fixture="compliant" class="fixture-btn active px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-xs md:text-sm font-semibold text-left hover:border-[#183868] transition">
+                        <i class="fas fa-check-circle text-emerald-600 mr-1"></i> Compliant dashboard
+                    </button>
+                    <button data-fixture="palette" class="fixture-btn px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-xs md:text-sm font-semibold text-left hover:border-[#183868] transition">
+                        <i class="fas fa-palette text-amber-500 mr-1"></i> Blue-only palette trap
+                    </button>
+                    <button data-fixture="bomb" class="fixture-btn px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-xs md:text-sm font-semibold text-left hover:border-[#183868] transition">
+                        <i class="fas fa-bomb text-rose-500 mr-1"></i> 3,000-node DOM bomb
+                    </button>
+                </div>
+
+                <!-- Grader picker -->
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">2 · Choose grader</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4" id="grader-picker">
+                    <button data-grader="original" class="grader-btn active px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-xs md:text-sm font-semibold text-left hover:border-[#3c9080] transition">
+                        <i class="fas fa-file-code text-gray-500 mr-1"></i> Original grader.js (Part 7)
+                    </button>
+                    <button data-grader="v2" class="grader-btn px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-xs md:text-sm font-semibold text-left hover:border-[#3c9080] transition">
+                        <i class="fas fa-shield-alt text-[#3c9080] mr-1"></i> Hardened grader.v2.js
+                    </button>
+                </div>
+
+                <!-- Run -->
+                <button id="run-grader" class="px-5 py-2.5 bg-[#183868] hover:bg-[#28a8e8] transition text-white text-sm font-bold rounded-lg shadow">
+                    <i class="fas fa-play mr-2"></i> Run Grader
+                </button>
+
+                <!-- Output -->
+                <div class="mt-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">3 · Gate results</span>
+                        <span id="score-pill" class="score-pill bg-gray-100 text-gray-500">— / 4 Gates</span>
+                    </div>
+                    <div class="space-y-2" id="gate-rows">
+                        <div class="gate-row" data-gate="1"><div class="gate-icon"><i class="fas fa-minus"></i></div><div><span class="font-bold text-gray-900 block text-xs">GATE 1: Baseline Integrity ($y_{\text{min}} = 0$)</span><span class="text-gray-600 text-xs gate-msg">Awaiting run…</span></div></div>
+                        <div class="gate-row" data-gate="2"><div class="gate-icon"><i class="fas fa-minus"></i></div><div><span class="font-bold text-gray-900 block text-xs">GATE 2: CVD Palette + Shape Redundancy</span><span class="text-gray-600 text-xs gate-msg">Awaiting run…</span></div></div>
+                        <div class="gate-row" data-gate="3"><div class="gate-icon"><i class="fas fa-minus"></i></div><div><span class="font-bold text-gray-900 block text-xs">GATE 3: DOM Performance Budget ≤ 1,500</span><span class="text-gray-600 text-xs gate-msg">Awaiting run…</span></div></div>
+                        <div class="gate-row" data-gate="4"><div class="gate-icon"><i class="fas fa-minus"></i></div><div><span class="font-bold text-gray-900 block text-xs">GATE 4: F-Pattern Grid + Semantic Hierarchy</span><span class="text-gray-600 text-xs gate-msg">Awaiting run…</span></div></div>
+                    </div>
+                    <p id="verdict-line" class="text-xs md:text-sm font-semibold text-gray-500 mt-3"></p>
+                </div>
+
+                <!-- DOM node visualizer -->
+                <div class="mt-5 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between text-xs mb-2">
+                        <span class="font-bold text-gray-700"><i class="fas fa-sitemap mr-1 text-[#28a8e8]"></i> Live DOM nodes counted</span>
+                        <span id="node-count" class="font-mono font-bold text-gray-900">0</span>
+                    </div>
+                    <div class="node-bar" id="node-bar"></div>
+                    <p class="text-[11px] text-gray-500 mt-2" id="node-note">Budget: 1,500 nodes. Original grader counts static HTML only; v2 counts the rendered DOM.</p>
+                </div>
+            </div>
+
+            <p class="text-sm text-gray-700">
+                The two red results are the whole point: <strong>both adversarial fixtures score a perfect 4/4 under the published grader</strong>, and only the hardened gates catch them.
+            </p>
+        </section>
+
+        <!-- ======================= SECTION 4 ======================= -->
+        <section class="card reveal" id="hardened-grader">
+            <div class="section-meta">
+                <span class="badge badge-advanced">🔥 Advanced</span>
+                <span class="badge badge-time">⏱ ~2 min</span>
+            </div>
+            <h2>4. grader.v2: The Hardened Gates</h2>
+
+            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                <code>grader.v2.js</code> keeps the original's four-gate contract and scoring UX but fixes F2–F4. The diff that matters:
+            </p>
+
+            <div class="my-4 rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
+                    <span class="font-mono text-cyan-400"><i class="fas fa-terminal mr-2"></i>grader.v2.js — core fixes</span>
+                    <button data-copy="v2-diff" class="copy-btn px-2.5 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition">
+                        <i class="far fa-copy mr-1"></i> Copy Patch
+                    </button>
+                </div>
+                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="v2-diff">// F2 fix: ALL three Okabe-Ito tokens + >= 2 shape tokens (case-insensitive)
+const raw = htmlContent.toLowerCase();
+const required = ['#0072b2', '#e69f00', '#cc79a7'];
+const missing  = required.filter(hex => !raw.includes(hex));
+const shapes   = ['●', '▲', '🛑'].filter(sym => htmlContent.includes(sym));
+gate2Pass = missing.length === 0 &amp;&amp; shapes.length &gt;= 2;
+
+// F3 fix: execute page scripts, then count the LIVE DOM
+const dom = new JSDOM(htmlContent, {
+    runScripts: 'dangerously',      // was: "outside-only"
+    pretendToBeVisual: true
+});
+await new Promise(r =&gt; setTimeout(r, 500));   // let first render settle
+const liveNodes = dom.window.document.querySelectorAll('*').length;
+gate3Pass = liveNodes &lt;= 1500 &amp;&amp; canvasOrSvg &gt; 0;
+
+// F4 fix: whitespace-normalized CSS matching + mobile-breakpoint assertion
+const norm = htmlContent.toLowerCase().replace(/\s+/g, '');
+gate4Pass = ['display:grid', 'grid-template-columns', 'flex-direction']
+    .some(t =&gt; norm.includes(t))
+    &amp;&amp; headings &gt;= 2
+    &amp;&amp; norm.includes('@media(max-width:767px)');</pre>
+            </div>
+
+            <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 mt-4 text-xs text-emerald-900">
+                <div class="font-bold flex items-center mb-1"><i class="fas fa-info-circle mr-2 text-emerald-600"></i> Headless Environment Note</div>
+                <p class="leading-relaxed">With <code>runScripts: "dangerously"</code>, JSDOM warns <code>"Not implemented: getContext()"</code> unless the <code>canvas</code> package is installed. Dashboards should null-guard their renderer — our reference build does (<code>if (!ctx) return;</code>) — so page logic still runs and the DOM gates still grade accurately without a native canvas dependency.</p>
+            </div>
+
+            <h3 class="text-base font-bold text-gray-900 mt-6 mb-3">What A Grader Still Cannot See</h3>
+            <p class="text-sm text-gray-700">
+                Honest boundaries for the v2 tutorial: string and DOM heuristics cannot verify <em>rendered pixels</em> — an axis can be redrawn truncated after grading, a color can be overridden in a stylesheet the checker never computes, and real 100 Hz throughput cannot be measured in JSDOM. When those matter, promote the gate to a real browser (Playwright + pixel or computed-style assertions). The boolean gates are a cheap lint layer, and are strongest when labeled as exactly that.
+            </p>
+        </section>
+
+        <!-- ======================= SECTION 5 ======================= -->
+        <section class="card reveal" id="verdict">
+            <div class="section-meta">
+                <span class="badge badge-intermediate">⚡ Intermediate</span>
+                <span class="badge badge-time">⏱ ~1 min</span>
+            </div>
+            <h2>5. Verdict &amp; the Part 9 Roadmap</h2>
+
+            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                <strong>Methodology: validated.</strong> The Grill Me → Spec Doc → gated generation loop produced a compliant, live dashboard on the first pass, and every factual claim in Part 7 survived checking. <strong>Grader: needs the corrections below before it grades anyone.</strong>
+            </p>
+
+            <div class="overflow-x-auto mt-4">
+                <table class="op-table">
+                    <thead><tr><th>#</th><th>v2 Recommendation</th><th>Severity</th></tr></thead>
+                    <tbody>
+                        <tr><td class="font-semibold">1</td><td>Add <code>npm install jsdom</code> + <code>package.json</code> to Section 5</td><td class="text-rose-700 font-semibold">Blocker</td></tr>
+                        <tr class="bg-gray-50"><td class="font-semibold">2</td><td>Ship hardened gates (all-three-colors, live-DOM count, normalized CSS match)</td><td class="text-rose-700 font-semibold">Major</td></tr>
+                        <tr><td class="font-semibold">3</td><td>Add a "What this grader cannot verify" box (rendered pixels, real throughput)</td><td class="text-amber-700 font-semibold">Minor</td></tr>
+                        <tr class="bg-gray-50"><td class="font-semibold">4</td><td>Scope zero-baseline rule to absolute quantities, allow documented exceptions</td><td class="text-amber-700 font-semibold">Doc</td></tr>
+                        <tr><td class="font-semibold">5</td><td>Note Okabe-Ito graphics-vs-text contrast (darken amber to <code>#8A5A00</code> for text)</td><td class="text-amber-700 font-semibold">Doc</td></tr>
+                        <tr class="bg-gray-50"><td class="font-semibold">6</td><td>Fix KaTeX/escaping artifacts in the exported tutorial HTML</td><td>Cosmetic</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-sm text-gray-700 mt-3">
+                Everything in this article — the prompts, the Spec Doc, the reference dashboard, both graders, the adversarial fixtures, and the full findings log — lives in <code>ecologictribe/grill-me-dashboards</code>. Run <code>npm install</code>, then <code>npm run grade</code> and <code>npm run grade:v2</code> to reproduce every number on this page.
+            </p>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="takeaways reveal">
+            <h2>🔑 Key Takeaways</h2>
+            <ul>
+                <li><strong>Validate by building.</strong> Every stage of Part 7 executed end-to-end; the Spec Doc is genuinely executable and the reference dashboard passes 4/4.</li>
+                <li><strong>Then validate by attacking.</strong> Two adversarial fixtures exposed two false-positive gates — the published grader certifies non-CVD and DOM-bomb dashboards as compliant.</li>
+                <li><strong>OR-logic is not compliance.</strong> Gate 2 needed <code>&amp;&amp;</code> semantics: all three palette tokens, plus redundant shape encoding.</li>
+                <li><strong>Grade the rendered DOM, not the source.</strong> <code>runScripts: "outside-only"</code> hid a 3,000-node bomb behind an "11-node" count.</li>
+                <li><strong>Say what your gates cannot see.</strong> Cheap boolean lints are the right first layer — as long as the tutorial declares their limits and points to browser-based verification for the rest.</li>
+            </ul>
+        </section>
+
+        <!-- Citations -->
+        <section class="citations-box reveal">
+            <h2>📚 Citations &amp; Source Traceability Matrix</h2>
+            <table class="op-table">
+                <thead><tr><th>Claim / Artifact</th><th>Source</th><th>Verification</th></tr></thead>
+                <tbody>
+                    <tr><td>Part 7 tutorial under validation</td><td><a href="https://aplly.xyz/uploads/tutorials/6ae17d0187a7e_1793162497.html" class="text-[#28a8e8] underline">aplly.xyz — Grill Me &amp; Drift-Proof Frameworks</a></td><td>Primary source</td></tr>
+                    <tr class="bg-gray-50"><td>All test-matrix scores (4/4, 4/4, 2/4, 1/4)</td><td><a href="https://github.com/ecologictribe/grill-me-dashboards" class="text-[#28a8e8] underline">github.com/ecologictribe/grill-me-dashboards</a> — <code>VALIDATION.md</code></td><td>Reproducible run</td></tr>
+                    <tr><td>Okabe-Ito palette values &amp; CVD rationale</td><td>Okabe &amp; Ito, Color Universal Design — <a href="https://jfly.uni-koeln.de/color/" class="text-[#28a8e8] underline">jfly.uni-koeln.de/color</a></td><td>Verified accurate</td></tr>
+                    <tr class="bg-gray-50"><td>WCAG 2.2 AA 4.5:1 contrast (incl. amber-text nuance)</td><td>W3C — <a href="https://www.w3.org/TR/WCAG22/" class="text-[#28a8e8] underline">w3.org/TR/WCAG22</a></td><td>Verified accurate</td></tr>
+                    <tr><td>Zero-baseline doctrine &amp; its exceptions</td><td>Tufte, <em>The Visual Display of Quantitative Information</em></td><td>Qualified (F6)</td></tr>
+                    <tr class="bg-gray-50"><td>JSDOM script-execution semantics</td><td>jsdom docs — <code>runScripts</code> option</td><td>Observed (F3)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="article-footer">
+        <div class="flex items-center justify-center space-x-2 font-bold text-lg text-white mb-2">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </div>
+        <p>Practice. Apply. Master.</p>
+        <p class="mt-2 text-xs opacity-80">Published from the Desk of Puneet Arora, Aplly.xyz Trainer · © 2026 Aplly.xyz. All rights reserved.</p>
+    </footer>
+
+    <!-- ======================= SCRIPTS ======================= -->
+    <script>
+        // ---------- Reading progress bar ----------
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement;
+            const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+            document.getElementById('progress-bar').style.width = pct + '%';
+        });
+
+        // ---------- Scroll reveal + stat counters ----------
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    revealObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                const el = e.target;
+                const target = parseInt(el.dataset.target, 10);
+                const prefix = el.dataset.prefix || '';
+                const suffix = el.dataset.suffix || '';
+                let cur = 0;
+                const step = () => {
+                    cur += Math.max(1, Math.ceil(target / 20));
+                    if (cur >= target) { cur = target; el.textContent = prefix + cur + suffix; return; }
+                    el.textContent = prefix + cur + suffix;
+                    requestAnimationFrame(step);
+                };
+                step();
+                statObserver.unobserve(el);
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.stat-num[data-target]').forEach(el => statObserver.observe(el));
+
+        // ---------- Copy buttons ----------
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const src = document.getElementById(btn.dataset.copy);
+                navigator.clipboard.writeText(src.innerText).then(() => {
+                    const old = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!';
+                    setTimeout(() => { btn.innerHTML = old; }, 2000);
+                });
+            });
+        });
+
+        // ---------- Grader simulator (recorded results from VALIDATION.md) ----------
+        const RESULTS = {
+            compliant: {
+                label: 'dashboard/index.html',
+                original: {
+                    score: 4,
+                    gates: [
+                        [true,  'PASS — zero-baseline config detected in script text'],
+                        [true,  'PASS — palette + shape tokens detected'],
+                        [true,  'PASS — 58 static nodes, 1 canvas layer'],
+                        [true,  'PASS — grid layout + semantic headings']
+                    ],
+                    nodes: 58,
+                    nodeNote: 'Static HTML only — page scripts never executed (runScripts: "outside-only").'
+                },
+                v2: {
+                    score: 4,
+                    gates: [
+                        [true,  'PASS — yMin:0 detected in executed page source'],
+                        [true,  'PASS — all 3 Okabe-Ito tokens + 3 shape tokens (● ▲ 🛑)'],
+                        [true,  'PASS — 120 live nodes after render, 1 canvas layer'],
+                        [true,  'PASS — grid layout, 3 headings, mobile breakpoint']
+                    ],
+                    nodes: 120,
+                    nodeNote: 'Live DOM measured 500 ms after script execution — still far under the 1,500 budget.'
+                }
+            },
+            palette: {
+                label: 'adversarial-partial-palette.html (blue only, no amber, no magenta)',
+                original: {
+                    score: 4,
+                    gates: [
+                        [true,  'PASS — zero-baseline config detected'],
+                        [true,  'FALSE POSITIVE — one color (|| logic) certified as CVD-safe'],
+                        [true,  'PASS — 11 static nodes, 1 canvas'],
+                        [true,  'PASS — grid + headings']
+                    ],
+                    nodes: 11,
+                    nodeNote: 'A dashboard missing 2 of 3 accessibility colors just scored 4/4.'
+                },
+                v2: {
+                    score: 2,
+                    gates: [
+                        [true,  'PASS — yMin:0 detected'],
+                        [false, 'FAIL — missing #e69f00 (warning) and #cc79a7 (critical); only 1 shape token'],
+                        [true,  'PASS — 11 live nodes, 1 canvas'],
+                        [false, 'FAIL — no mobile (< 768px) breakpoint']
+                    ],
+                    nodes: 11,
+                    nodeNote: 'Hardened Gate 2 rejects the trap: dual encoding requires the full status palette.'
+                }
+            },
+            bomb: {
+                label: 'adversarial-dom-bomb.html (11 static nodes, injects 3,000 at runtime)',
+                original: {
+                    score: 4,
+                    gates: [
+                        [true,  'PASS — zero-baseline config detected'],
+                        [true,  'PASS — palette + shape tokens detected'],
+                        [true,  'FALSE POSITIVE — counted 11 static nodes; script never ran'],
+                        [true,  'PASS — flex layout + headings']
+                    ],
+                    nodes: 11,
+                    nodeNote: 'The real page renders 3,011 nodes — the grader never saw them.'
+                },
+                v2: {
+                    score: 1,
+                    gates: [
+                        [true,  'PASS — yMin:0 detected'],
+                        [false, 'FAIL — only 1 of 3 palette tokens; 1 shape token'],
+                        [false, 'FAIL — 3,011 live DOM nodes measured after render (budget: 1,500)'],
+                        [false, 'FAIL — no mobile breakpoint']
+                    ],
+                    nodes: 3011,
+                    nodeNote: 'Live count exploded past the budget — exactly the failure mode Gate 3 exists to stop.'
+                }
+            }
+        };
+
+        let selFixture = 'compliant', selGrader = 'original', running = false;
+
+        function pickButtons(containerId, attr, value) {
+            document.querySelectorAll('#' + containerId + ' button').forEach(b => {
+                b.classList.toggle('active', b.dataset[attr] === value);
+            });
+        }
+        document.querySelectorAll('#fixture-picker button').forEach(b => b.addEventListener('click', () => { selFixture = b.dataset.fixture; pickButtons('fixture-picker', 'fixture', selFixture); }));
+        document.querySelectorAll('#grader-picker button').forEach(b => b.addEventListener('click', () => { selGrader = b.dataset.grader; pickButtons('grader-picker', 'grader', selGrader); }));
+
+        function animateCount(el, target) {
+            const dur = 900, t0 = performance.now();
+            const tick = (now) => {
+                const p = Math.min((now - t0) / dur, 1);
+                el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString();
+                if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+        }
+
+        document.getElementById('run-grader').addEventListener('click', () => {
+            if (running) return;
+            running = true;
+            const result = RESULTS[selFixture][selGrader];
+            const rows = document.querySelectorAll('#gate-rows .gate-row');
+            const pill = document.getElementById('score-pill');
+            const verdict = document.getElementById('verdict-line');
+
+            // reset
+            rows.forEach(r => { r.className = 'gate-row'; r.querySelector('.gate-icon').innerHTML = '<i class="fas fa-minus"></i>'; r.querySelector('.gate-msg').textContent = 'Queued…'; });
+            pill.className = 'score-pill bg-gray-100 text-gray-500';
+            pill.textContent = '— / 4 Gates';
+            verdict.textContent = '';
+            document.getElementById('node-bar').style.width = '0%';
+            document.getElementById('node-count').textContent = '0';
+            document.getElementById('node-note').textContent = 'Budget: 1,500 nodes. Original grader counts static HTML only; v2 counts the rendered DOM.';
+
+            // staggered gate evaluation
+            let passed = 0;
+            rows.forEach((row, i) => {
+                setTimeout(() => {
+                    const [ok, msg] = result.gates[i];
+                    row.classList.add('done', ok ? 'pass' : 'fail');
+                    row.querySelector('.gate-icon').innerHTML = ok ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>';
+                    row.querySelector('.gate-msg').textContent = msg;
+                    if (ok) passed++;
+                    if (i === rows.length - 1) {
+                        pill.textContent = passed + ' / 4 Gates';
+                        pill.className = 'score-pill ' + (passed === 4 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800');
+                        const cheat = (selFixture !== 'compliant' && selGrader === 'original');
+                        const caught = (selFixture !== 'compliant' && selGrader === 'v2');
+                        if (cheat) verdict.innerHTML = '<span class="text-rose-600">⚠️ 4/4 — the adversarial fixture was certified compliant. False positive.</span>';
+                        else if (caught) verdict.innerHTML = '<span class="text-emerald-600">🛡️ Trap correctly rejected — hardened gates caught the defect.</span>';
+                        else verdict.innerHTML = '<span class="text-emerald-600">🌟 Compliant dashboard passes. Ready for deployment.</span>';
+                        animateCount(document.getElementById('node-count'), result.nodes);
+                        document.getElementById('node-bar').style.width = Math.min((result.nodes / 1500) * 100, 100) + '%';
+                        if (result.nodes > 1500) document.getElementById('node-bar').style.background = 'linear-gradient(90deg, #f43f5e, #ef4444)';
+                        else document.getElementById('node-bar').style.background = 'linear-gradient(90deg, #28a8e8, #3c9080)';
+                        document.getElementById('node-note').textContent = result.nodeNote;
+                        running = false;
+                    }
+                }, 450 * (i + 1));
+            });
+        });
+    </script>
+</body>
+</html>
