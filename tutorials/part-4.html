@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 4: Frontier Mediums — Spatial, Streaming &amp; Legacy Debt | Aplly.xyz</title>
+    <meta name="description" content="Decode 4 advanced data visualization challenges: AR/VR surgical misalignment, sarcasm-blind sentiment visuals, streaming jitter, and legacy D3 tech debt — with case studies and a self-grading gate.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { brandNavy: '#183868', brandCyan: '#28a8e8', brandTeal: '#3c9080', brandGreen: '#48b838', brandMint: '#c6eeb0' },
+            fontFamily: { sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'], heading: ['Sora', 'system-ui', 'sans-serif'] }
+        } } }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --brand-primary:#183868; --brand-secondary:#28a8e8; --brand-teal:#3c9080; --brand-dark:#0F172A; --card-border:#E2E8F0; --card-shadow:0 1px 4px rgba(24,56,104,.06),0 4px 16px rgba(24,56,104,.04); --radius-card:12px; --radius-tag:999px; }
+        body { font-family:'DM Sans',sans-serif; background:#fff; color:#1F1F2E; line-height:1.7; margin:0; scroll-behavior:smooth; }
+        h1,h2,h3,h4 { font-family:'Sora',sans-serif; color:var(--brand-dark); letter-spacing:-.02em; }
+        code,pre { font-family:'Fira Code',monospace; }
+        #progress-bar { position:fixed; top:0; left:0; height:4px; background:linear-gradient(90deg,#28a8e8,#3c9080,#48b838); z-index:100; transition:width .1s ease-out; width:0%; }
+        .article-header { background:linear-gradient(135deg,#183868 0%,#28a8e8 100%); color:#fff; padding:3rem 1.5rem 2.5rem; }
+        .article-header-inner { max-width:860px; margin:0 auto; }
+        .series-tag { display:inline-block; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; background:rgba(255,255,255,.18); padding:4px 12px; border-radius:var(--radius-tag); margin-bottom:.8rem; border:1px solid rgba(255,255,255,.25); }
+        .article-header h1 { font-size:clamp(2rem,4.5vw,2.9rem); font-weight:800; color:#fff; line-height:1.18; margin:0 0 .75rem; }
+        .article-header p.subtitle { font-size:1.12rem; opacity:.95; margin:0 0 1.25rem; line-height:1.6; max-width:720px; color:#f0faf8; }
+        .tag-chip { background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3); padding:4px 12px; border-radius:var(--radius-tag); font-size:.78rem; font-weight:600; }
+        .read-time-badge { background:rgba(255,255,255,.25); padding:4px 12px; border-radius:var(--radius-tag); font-size:.78rem; font-weight:700; }
+        .desk-attribution { display:inline-flex; align-items:center; background:rgba(15,23,42,.45); backdrop-filter:blur(8px); padding:6px 14px; border-radius:var(--radius-tag); font-size:.82rem; font-weight:600; color:#c6eeb0; border:1px solid rgba(255,255,255,.2); margin-top:1rem; }
+        main.article-body { max-width:860px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+        section.card { background:#fff; border:1px solid var(--card-border); box-shadow:var(--card-shadow); border-radius:var(--radius-card); padding:1.75rem; margin-bottom:2rem; transition:all .25s ease; }
+        section.card:hover { box-shadow:0 8px 24px rgba(24,56,104,.08); transform:translateY(-2px); }
+        .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; } .reveal.visible { opacity:1; transform:translateY(0); }
+        .outcomes-box { background:#eef8f6; border-left:4px solid var(--brand-teal); border-radius:var(--radius-card); padding:1.4rem 1.6rem; margin-bottom:1.5rem; }
+        .outcomes-box h2 { margin-top:0; font-size:1.15rem; display:flex; align-items:center; } .outcomes-box ul { margin:.6rem 0 0; padding-left:1.25rem; } .outcomes-box li { margin-bottom:.4rem; color:#1e293b; font-size:.95rem; }
+        .badge { display:inline-flex; align-items:center; gap:4px; font-size:.75rem; font-weight:700; padding:2px 10px; border-radius:var(--radius-tag); }
+        .badge-beginner { background:#D1FAE5; color:#065F46; } .badge-intermediate { background:#FEF3C7; color:#92400E; }
+        .badge-advanced { background:#FEE2E2; color:#991B1B; } .badge-time { background:#e8f6f6; color:#183868; }
+        .takeaways { background:#eef8f6; border-left:4px solid var(--brand-teal); border-radius:var(--radius-card); padding:1.5rem 1.75rem; margin-bottom:2rem; }
+        .takeaways h2 { margin-top:0; font-size:1.25rem; } .takeaways ul { padding-left:1.25rem; margin:.6rem 0 0; } .takeaways li { margin-bottom:.5rem; font-size:.95rem; }
+        blockquote.callout { border-left:3px solid var(--brand-secondary); background:#F8FAFC; margin:1.2rem 0; padding:.9rem 1.2rem; font-style:italic; color:#334155; border-radius:0 8px 8px 0; }
+        .article-footer { text-align:center; padding:2.5rem 1.5rem; background:#183868; color:rgba(255,255,255,.85); font-size:.88rem; }
+
+        .chal-card { border:1px solid var(--card-border); border-radius:10px; padding:1rem 1.1rem; margin-top:1rem; background:#FAFAFA; transition:all .2s ease; }
+        .chal-card:hover { background:#fff; box-shadow:0 4px 14px rgba(24,56,104,.07); }
+        .chal-head { display:flex; align-items:center; gap:.6rem; margin-bottom:.5rem; }
+        .chal-num { width:26px; height:26px; border-radius:50%; background:var(--brand-primary); color:#fff; font-family:'Sora',sans-serif; font-size:.75rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .chal-head h4 { margin:0; font-size:.98rem; }
+        .mini { font-size:.8rem; padding:.45rem .65rem; border-radius:8px; margin-top:.4rem; line-height:1.55; }
+        .mini-ex { background:#EFF6FF; border:1px solid #BFDBFE; color:#1E3A5F; }
+        .mini-case { background:#F5F3FF; border:1px solid #DDD6FE; color:#4C1D95; }
+        .mini-plain { background:#FFF7ED; border:1px solid #FED7AA; color:#7C2D12; }
+        .mini-fix { background:#ECFDF5; border:1px solid #A7F3D0; color:#065F46; }
+
+        .gate-row { display:flex; align-items:flex-start; gap:.75rem; padding:.7rem .9rem; border-radius:10px; border:1px solid var(--card-border); background:#F8FAFC; cursor:pointer; transition:all .25s ease; }
+        .gate-row:hover { background:#F1F5F9; }
+        .gate-row.checked { background:#ECFDF5; border-color:#A7F3D0; }
+        .gate-row input { margin-top:4px; accent-color:#3c9080; width:16px; height:16px; flex-shrink:0; }
+        .score-pill { padding:3px 12px; border-radius:999px; font-size:.78rem; font-weight:700; background:#FEF3C7; color:#92400E; transition:all .3s ease; }
+        .score-pill.certified { background:#D1FAE5; color:#065F46; }
+        .cert-banner { display:none; margin-top:.8rem; padding:.8rem 1rem; border-radius:10px; background:linear-gradient(135deg,#183868,#28a8e8); color:#fff; font-weight:700; font-size:.9rem; text-align:center; }
+        .cert-banner.show { display:block; animation:pop .4s ease; }
+        @keyframes pop { 0%{transform:scale(.9);opacity:0} 100%{transform:scale(1);opacity:1} }
+        .series-complete { display:none; margin-top:1rem; padding:1rem; border-radius:12px; background:linear-gradient(135deg,#183868,#3c9080); color:#c6eeb0; font-weight:700; text-align:center; }
+        .series-complete.show { display:block; animation:pop .5s ease; }
+    </style>
+</head>
+<body>
+    <div id="progress-bar" role="progressbar" aria-label="Reading progress"></div>
+
+    <nav class="bg-[#183868] border-b border-[#234c7d] text-white py-3 px-4 sm:px-8 flex justify-between items-center text-sm sticky top-0 z-40">
+        <a href="index.html" class="flex items-center space-x-2 font-bold text-lg text-white">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </a>
+        <div class="flex items-center space-x-5 text-xs sm:text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Series Home</a>
+            <a href="part-3.html" class="text-gray-300 hover:text-white transition">← Part 3</a>
+            <a href="index.html" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">Finish 🎓</a>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-inner">
+            <span class="series-tag">Data Visualization Challenges · Part 4 of 4</span>
+            <h1>Frontier Mediums: Spatial, Streaming &amp; Legacy Debt</h1>
+            <p class="subtitle">Four advanced frontiers where charts leave the screen, outpace perception, or run on code older than your degree.</p>
+            <div class="tag-row flex flex-wrap gap-2 items-center">
+                <span class="tag-chip">AR / VR</span><span class="tag-chip">Sentiment Analysis</span><span class="tag-chip">Streaming Jitter</span><span class="tag-chip">Legacy Tech Debt</span>
+                <span class="read-time-badge">⏱ ~3 min read</span>
+            </div>
+            <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
+        </div>
+    </header>
+
+    <main class="article-body">
+
+        <section class="outcomes-box reveal">
+            <h2>🎯 What You'll Learn</h2>
+            <ul>
+                <li>Why a 3D overlay on living tissue is harder than it looks.</li>
+                <li>How sentiment meters get played by sarcasm and slang.</li>
+                <li>Why data faster than your eyes makes charts flicker — and how windowing fixes it.</li>
+                <li>What happens when the visualization codebase outlives its framework.</li>
+            </ul>
+        </section>
+
+        <section class="card reveal">
+            <div class="section-meta flex gap-2 mb-2"><span class="badge badge-advanced">🔥 Advanced</span><span class="badge badge-time">⏱ ~2 min</span></div>
+            <h2>The 4 Challenges</h2>
+
+            <div class="chal-card">
+                <div class="chal-head"><span class="chal-num">19</span><h4>AR/VR &amp; Spatial Visualization Complexity</h4></div>
+                <div class="mini mini-ex"><strong>🌍 Example:</strong> Surgical planning in 3D environments.</div>
+                <div class="mini mini-case"><strong>📖 Case:</strong> Surgeons using head-mounted AR to overlay patient anatomy report spatial misalignment and depth errors when shifting focus between real tissue and virtual volumes.</div>
+                <div class="mini mini-plain"><strong>💡 Plain words:</strong> In 2D, the chart is <em>on</em> the screen; in AR, the chart is <em>in</em> the world — and the world moves, breathes, and has depth cues your overlay can contradict.</div>
+                <div class="mini mini-fix"><strong>✅ Fix:</strong> Anchor overlays to tracked anatomy (not screen space), add depth-consistent shading, and never rely on the overlay alone for precision — keep a calibrated reference view.</div>
+            </div>
+
+            <div class="chal-card">
+                <div class="chal-head"><span class="chal-num">20</span><h4>Unstructured Data Integration</h4></div>
+                <div class="mini mini-ex"><strong>🌍 Example:</strong> Social-media sentiment dashboards (tweet word clouds, mood meters).</div>
+                <div class="mini mini-case"><strong>📖 Case:</strong> Brand dashboards summarizing millions of tweets miss sarcasm, slang and irony — "great, another outage 😍" counts as positive while the account is furious.</div>
+                <div class="mini mini-plain"><strong>💡 Plain words:</strong> A sentiment meter compresses human language into one dial. Everything the model doesn't understand becomes noise in the dial — quietly.</div>
+                <div class="mini mini-fix"><strong>✅ Fix:</strong> Show an "uncertain/neutral" bucket with real share, sample quotes next to scores, and confidence intervals instead of a single confident percentage.</div>
+            </div>
+
+            <div class="chal-card">
+                <div class="chal-head"><span class="chal-num">21</span><h4>Streaming Data Latency &amp; Jitter</h4></div>
+                <div class="mini mini-ex"><strong>🌍 Example:</strong> High-frequency algorithmic trading monitors.</div>
+                <div class="mini mini-case"><strong>📖 Case:</strong> Order-book updates arriving faster than ~60 Hz render faster than human perception — the chart flickers and traders lose situational awareness instead of gaining it.</div>
+                <div class="mini mini-plain"><strong>💡 Plain words:</strong> More updates ≠ more information. A screen repainting 500 times a second just makes you tired.</div>
+                <div class="mini mini-fix"><strong>✅ Fix:</strong> Aggregate into fixed tumbling windows before render (our Grill Me spec: 5-second mean/min/max), decimate the draw queue, and cap repaints at the display rate.</div>
+            </div>
+
+            <div class="chal-card">
+                <div class="chal-head"><span class="chal-num">22</span><h4>Maintenance &amp; Legacy Tech Debt</h4></div>
+                <div class="mini mini-ex"><strong>🌍 Example:</strong> Migrating legacy D3.js (v3/v4) custom visualizations.</div>
+                <div class="mini mini-case"><strong>📖 Case:</strong> Banks running D3 v3 codebases watch their charts break as browsers evolve DOM standards — critical analytical views held together by a decade-old library.</div>
+                <div class="mini mini-plain"><strong>💡 Plain words:</strong> A visualization is software. Software ages, and an unmaintained chart is a silent outage waiting for a browser update.</div>
+                <div class="mini mini-fix"><strong>✅ Fix:</strong> Keep the Spec Doc (data + gates) separate from the rendering library, pin dependencies, and run the automated grader in CI so refactor regressions surface before users do.</div>
+            </div>
+        </section>
+
+        <blockquote class="callout reveal">
+            Challenges 19–22 are about <em>medium and time</em>: charts beyond the screen, data faster than the eye, and code older than the team. The defense in all three is the same — an explicit contract (your Spec Doc) plus automated verification.
+        </blockquote>
+
+        <!-- ================= SELF-GRADING ================= -->
+        <section class="card reveal" id="self-grade">
+            <div class="section-meta flex gap-2 mb-2"><span class="badge badge-advanced">🎓 Self-Grading — Final Gate</span><span class="badge badge-time">⏱ ~10 min build</span></div>
+            <h2>Grade Yourself: The Part 4 Gate</h2>
+            <p class="text-sm text-gray-700">Your mission: build (or adapt) a real-time-style visualization — a small live-updating chart is perfect — and audit it against the final four gates. This is the capstone: pass it and you've certified the whole series.</p>
+
+            <div class="mt-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h4 class="text-sm font-bold text-gray-900 flex items-center"><i class="fas fa-tasks mr-2 text-[#3c9080]"></i> Your Self-Rubric</h4>
+                    <span id="score-pill" class="score-pill">0 / 4 Gates Verified</span>
+                </div>
+                <div class="space-y-2 text-xs" id="gate-list">
+                    <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 1: Render-Rate Discipline</span><span class="text-gray-600">My live view aggregates into fixed windows and repaints at (or below) the display rate — no raw 100 Hz flood reaching the DOM/canvas.</span></div></label>
+                    <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 2: Budget Headroom</span><span class="text-gray-600">Rendered DOM stays ≤ 1,500 nodes with a dedicated canvas layer, and missing data is banded/flagged — never silently interpolated.</span></div></label>
+                    <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 3: Medium Independence</span><span class="text-gray-600">Screenshot / export / 375px mobile: the essential meaning (units, range, status) survives in every medium — nothing lives only in hover or 3D.</span></div></label>
+                    <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 4: Automated Regression Check</span><span class="text-gray-600">The hardened grader passes on my artifact: <code>node grader/grader.v2.js my-chart.html</code> → 4/4, and I've written down how I'd re-run it after any future change.</span></div></label>
+                </div>
+                <div class="cert-banner" id="cert-banner">🌟 CERTIFIED — Part 4 complete!</div>
+                <div class="series-complete" id="series-complete">🏆 SERIES COMPLETE — All 4 parts self-graded and certified. You now know the 22 challenges — and how to grade your own defenses against them. Go build something honest.</div>
+                <p class="text-[11px] text-gray-500 mt-3">Progress is saved in your browser on this site.</p>
+            </div>
+        </section>
+
+        <section class="takeaways reveal">
+            <h2>🔑 Series Recap</h2>
+            <ul>
+                <li>Part 1 — the data can lie before the chart: uncertainty, projections, pipelines, clocks.</li>
+                <li>Part 2 — the reader can be misled by design: scales, color, framing, noise.</li>
+                <li>Part 3 — the organization can undermine the dashboard: definitions, privacy, exports, AI.</li>
+                <li>Part 4 — the medium can outgrow the chart: spatial, streaming, legacy.</li>
+                <li><strong>The through-line:</strong> an explicit Spec Doc + boolean gates + honest self-grading — the validated Grill Me pipeline, now applied to you.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="article-footer">
+        <div class="flex items-center justify-center space-x-2 font-bold text-lg text-white mb-2">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </div>
+        <p>Practice. Apply. Master.</p>
+        <p class="mt-2 text-xs opacity-80">Published from the Desk of Puneet Arora, Aplly.xyz Trainer · © 2026 Aplly.xyz. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => { const h = document.documentElement; document.getElementById('progress-bar').style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%'; });
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: .12 });
+            document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+        } else {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
+
+        const KEY = 'apllyPart4';
+        const pill = document.getElementById('score-pill');
+        const banner = document.getElementById('cert-banner');
+        const series = document.getElementById('series-complete');
+        const boxes = Array.from(document.querySelectorAll('#gate-list input'));
+        function save() {
+            const n = boxes.filter(b => b.checked).length;
+            pill.textContent = n + ' / 4 Gates Verified';
+            pill.classList.toggle('certified', n === 4);
+            banner.classList.toggle('show', n === 4);
+            boxes.forEach(b => b.closest('.gate-row').classList.toggle('checked', b.checked));
+            if (n === 4) localStorage.setItem(KEY, 'certified'); else localStorage.removeItem(KEY);
+            // Full-series celebration
+            const all = [1, 2, 3, 4].every(i => localStorage.getItem('apllyPart' + i) === 'certified');
+            series.classList.toggle('show', all);
+        }
+        try { const saved = JSON.parse(localStorage.getItem(KEY + 'State') || '[]'); boxes.forEach((b, i) => b.checked = !!saved[i]); } catch (e) {}
+        boxes.forEach(b => b.addEventListener('change', () => { try { localStorage.setItem(KEY + 'State', JSON.stringify(boxes.map(x => x.checked))); } catch (e) {} save(); }));
+        save();
+    </script>
+</body>
+</html>

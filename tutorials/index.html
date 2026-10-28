@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Challenges, Decoded — Tutorial Series | Aplly.xyz</title>
+    <meta name="description" content="A 4-part tutorial series decoding 22 real-world data visualization challenges for undergraduate students — with case studies, plain-English explanations, and a self-grading certification gate in every part.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                colors: { brandNavy: '#183868', brandCyan: '#28a8e8', brandTeal: '#3c9080', brandGreen: '#48b838', brandMint: '#c6eeb0', slateBg: '#F8FAFC' },
+                fontFamily: { sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'], heading: ['Sora', 'system-ui', 'sans-serif'] }
+            } }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-primary: #183868; --brand-secondary: #28a8e8; --brand-teal: #3c9080;
+            --brand-dark: #0F172A; --card-border: #E2E8F0;
+            --card-shadow: 0 1px 4px rgba(24,56,104,0.06), 0 4px 16px rgba(24,56,104,0.04);
+            --radius-card: 12px; --radius-tag: 999px;
+        }
+        body { font-family: 'DM Sans', sans-serif; background: #FFFFFF; color: #1F1F2E; line-height: 1.7; margin: 0; scroll-behavior: smooth; }
+        h1, h2, h3, h4 { font-family: 'Sora', sans-serif; color: var(--brand-dark); letter-spacing: -0.02em; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        #progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, #28a8e8, #3c9080, #48b838); z-index: 100; transition: width 0.1s ease-out; width: 0%; }
+        .article-header { background: linear-gradient(135deg, #183868 0%, #28a8e8 100%); color: #fff; padding: 3rem 1.5rem 2.5rem; }
+        .article-header-inner { max-width: 860px; margin: 0 auto; }
+        .series-tag { display: inline-block; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; background: rgba(255,255,255,.18); padding: 4px 12px; border-radius: var(--radius-tag); margin-bottom: .8rem; border: 1px solid rgba(255,255,255,.25); }
+        .article-header h1 { font-size: clamp(2rem, 4.5vw, 2.9rem); font-weight: 800; color: #fff; line-height: 1.18; margin: 0 0 .75rem; }
+        .article-header p.subtitle { font-size: 1.12rem; opacity: .95; margin: 0 0 1.25rem; line-height: 1.6; max-width: 720px; color: #f0faf8; }
+        .tag-chip { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3); padding: 4px 12px; border-radius: var(--radius-tag); font-size: .78rem; font-weight: 600; }
+        .read-time-badge { background: rgba(255,255,255,.25); padding: 4px 12px; border-radius: var(--radius-tag); font-size: .78rem; font-weight: 700; }
+        .desk-attribution { display: inline-flex; align-items: center; background: rgba(15,23,42,.45); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: var(--radius-tag); font-size: .82rem; font-weight: 600; color: #c6eeb0; border: 1px solid rgba(255,255,255,.2); margin-top: 1rem; }
+        main.article-body { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+        section.card { background: #fff; border: 1px solid var(--card-border); box-shadow: var(--card-shadow); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 2rem; transition: all .25s ease; }
+        section.card:hover { box-shadow: 0 8px 24px rgba(24,56,104,.08); transform: translateY(-2px); }
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .outcomes-box { background: #eef8f6; border-left: 4px solid var(--brand-teal); border-radius: var(--radius-card); padding: 1.4rem 1.6rem; margin-bottom: 1.5rem; }
+        .outcomes-box h2 { margin-top: 0; font-size: 1.15rem; display: flex; align-items: center; }
+        .outcomes-box ul { margin: .6rem 0 0; padding-left: 1.25rem; } .outcomes-box li { margin-bottom: .4rem; color: #1e293b; font-size: .95rem; }
+        .prereq-box { background: #FFFBEB; border-left: 4px solid #D97706; border-radius: var(--radius-card); padding: 1.4rem 1.6rem; margin-bottom: 2rem; }
+        .prereq-box h2 { margin-top: 0; font-size: 1.15rem; color: #92400E; display: flex; align-items: center; }
+        .prereq-box ul { margin: .6rem 0 0; padding-left: 1.25rem; } .prereq-box li { margin-bottom: .4rem; color: #78350F; font-size: .95rem; }
+        .toc { background: #FAFAFA; border: 1px solid var(--card-border); border-radius: var(--radius-card); padding: 1.25rem 1.6rem; margin-bottom: 2.2rem; }
+        .toc h2 { margin: 0 0 .75rem; font-size: 1.05rem; } .toc ol { margin: 0; padding-left: 1.3rem; } .toc li { margin-bottom: .35rem; font-size: .92rem; }
+        .toc a { color: var(--brand-primary); text-decoration: none; font-weight: 500; } .toc a:hover { color: var(--brand-secondary); text-decoration: underline; }
+        .badge { display: inline-flex; align-items: center; gap: 4px; font-size: .75rem; font-weight: 700; padding: 2px 10px; border-radius: var(--radius-tag); }
+        .badge-beginner { background: #D1FAE5; color: #065F46; } .badge-intermediate { background: #FEF3C7; color: #92400E; }
+        .badge-advanced { background: #FEE2E2; color: #991B1B; } .badge-time { background: #e8f6f6; color: #183868; }
+        .takeaways { background: #eef8f6; border-left: 4px solid var(--brand-teal); border-radius: var(--radius-card); padding: 1.5rem 1.75rem; margin-bottom: 2rem; }
+        .takeaways h2 { margin-top: 0; font-size: 1.25rem; } .takeaways ul { padding-left: 1.25rem; margin: .6rem 0 0; } .takeaways li { margin-bottom: .5rem; font-size: .95rem; }
+        blockquote.callout { border-left: 3px solid var(--brand-secondary); background: #F8FAFC; margin: 1.2rem 0; padding: .9rem 1.2rem; font-style: italic; color: #334155; border-radius: 0 8px 8px 0; }
+        .article-footer { text-align: center; padding: 2.5rem 1.5rem; background: #183868; color: rgba(255,255,255,.85); font-size: .88rem; }
+        /* Series part cards */
+        .part-card { display: block; background: #fff; border: 1px solid var(--card-border); border-radius: var(--radius-card); box-shadow: var(--card-shadow); padding: 1.5rem; text-decoration: none; transition: all .25s ease; position: relative; overflow: hidden; }
+        .part-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(24,56,104,.12); border-color: var(--brand-secondary); }
+        .part-card .part-num { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--brand-secondary); line-height: 1; }
+        .done-flag { position: absolute; top: 12px; right: 12px; background: #D1FAE5; color: #065F46; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; display: none; }
+        .part-card.completed .done-flag { display: block; }
+        .series-complete { display: none; margin-top: 1rem; padding: 1rem; border-radius: 12px; background: linear-gradient(135deg, #183868, #3c9080); color: #c6eeb0; font-weight: 700; text-align: center; }
+        .series-complete.show { display: block; animation: pop .5s ease; }
+        @keyframes pop { 0% { transform: scale(.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div id="progress-bar" role="progressbar" aria-label="Reading progress"></div>
+
+    <nav class="bg-[#183868] border-b border-[#234c7d] text-white py-3 px-4 sm:px-8 flex justify-between items-center text-sm sticky top-0 z-40">
+        <a href="https://aplly.xyz/" class="flex items-center space-x-2 font-bold text-lg text-white">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </a>
+        <div class="flex items-center space-x-5 text-xs sm:text-sm">
+            <a href="https://aplly.xyz/case-studies" class="text-gray-300 hover:text-white transition">Case Studies</a>
+            <a href="https://aplly.xyz/tutorials-library" class="text-white font-bold transition">Tutorials</a>
+            <a href="https://aplly.xyz/powerbi" class="text-gray-300 hover:text-white transition hidden sm:inline">Power BI</a>
+            <a href="https://aplly.xyz/" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">Free Mocks</a>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-inner">
+            <span class="series-tag">Tutorial Series · Data Visualization Challenges</span>
+            <h1>Data Visualization Challenges, Decoded</h1>
+            <p class="subtitle">22 real-world failure modes — from hurricane cones to Strava heatmaps — explained simply for undergraduate students. Four short parts, one self-grading certification gate in each.</p>
+            <div class="tag-row flex flex-wrap gap-2 items-center">
+                <span class="tag-chip">22 Challenges</span><span class="tag-chip">Case Studies</span><span class="tag-chip">Plain-English Explanations</span><span class="tag-chip">Self-Grading Gates</span><span class="tag-chip">Anti-Drift Rubric</span>
+                <span class="read-time-badge">⏱ ~4 min per part</span>
+            </div>
+            <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
+        </div>
+    </header>
+
+    <main class="article-body">
+
+        <section class="outcomes-box reveal">
+            <h2>🎯 How This Series Works</h2>
+            <ul>
+                <li><strong>1 · Read short:</strong> each part decodes its challenges with a real case study and a plain-English "what's actually going on".</li>
+                <li><strong>2 · Build small:</strong> pick one challenge and prototype a fix in a single HTML file.</li>
+                <li><strong>3 · Grade yourself:</strong> every part ends with a 4-gate self-grading rubric — the same Anti-Drift Gates we validated in the Grill Me series (Part 7–8), run by <strong>you</strong>.</li>
+                <li><strong>4 · Certify:</strong> check all 4 gates to mark the part complete. Your progress is saved in this browser.</li>
+            </ul>
+        </section>
+
+        <section class="prereq-box reveal">
+            <h2>📋 Before You Begin</h2>
+            <ul>
+                <li>Basic HTML/CSS and any chart library (or plain canvas). No prior dashboard experience required.</li>
+                <li>Optional but recommended: read <a href="https://aplly.xyz/uploads/tutorials/6ae17d0187a7e_1793162497.html" class="underline font-semibold">Part 7 (Grill Me Method)</a> and its validation <a href="#" class="underline font-semibold">Part 8</a> — your self-grading rubric comes from there.</li>
+                <li>Self-grading kit: <code>node</code> + <code>npm install jsdom</code> in the <code>ecologictribe/grill-me-dashboards</code> repo gives you the hardened <code>grader.v2.js</code>.</li>
+            </ul>
+        </section>
+
+        <nav class="toc reveal">
+            <h2>The Four Parts</h2>
+            <ol>
+                <li><a href="part-1.html">1. When Data Lies: Pipeline Traps &amp; Distortions (Challenges 1–7)</a></li>
+                <li><a href="part-2.html">2. The Human in the Loop: Bias, Cognition &amp; Ethics (Challenges 8–12)</a></li>
+                <li><a href="part-3.html">3. AI &amp; Enterprise Dashboards: Governance, Privacy &amp; UX (Challenges 13–18)</a></li>
+                <li><a href="part-4.html">4. Frontier Mediums: Spatial, Streaming &amp; Legacy Debt (Challenges 19–22)</a></li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="part-1.html" class="part-card reveal" data-part="1">
+                <span class="done-flag"><i class="fas fa-check mr-1"></i>Certified</span>
+                <div class="part-num">01</div>
+                <h3 class="text-base font-bold mt-1 mb-1" style="color:#0F172A">When Data Lies: Pipeline Traps &amp; Distortions</h3>
+                <p class="text-xs text-gray-600 mb-2">Uncertainty cones, t-SNE illusions, hairball graphs, election-map distortion, mobile collapse, Excel-ingested COVID data, granularity clashes.</p>
+                <span class="badge badge-beginner">🌱 Beginner</span> <span class="badge badge-time">⏱ ~4 min</span> <span class="badge badge-intermediate">7 challenges</span>
+            </a>
+            <a href="part-2.html" class="part-card reveal" data-part="2">
+                <span class="done-flag"><i class="fas fa-check mr-1"></i>Certified</span>
+                <div class="part-num">02</div>
+                <h3 class="text-base font-bold mt-1 mb-1" style="color:#0F172A">The Human in the Loop: Bias, Cognition &amp; Ethics</h3>
+                <p class="text-xs text-gray-600 mb-2">Log-scale misreads, colorblind triage failures, cherry-picking, deceptive truncated axes, alarm fatigue.</p>
+                <span class="badge badge-beginner">🌱 Beginner</span> <span class="badge badge-time">⏱ ~4 min</span> <span class="badge badge-intermediate">5 challenges</span>
+            </a>
+            <a href="part-3.html" class="part-card reveal" data-part="3">
+                <span class="done-flag"><i class="fas fa-check mr-1"></i>Certified</span>
+                <div class="part-num">03</div>
+                <h3 class="text-base font-bold mt-1 mb-1" style="color:#0F172A">AI &amp; Enterprise Dashboards: Governance, Privacy &amp; UX</h3>
+                <p class="text-xs text-gray-600 mb-2">Conflicting metric definitions, black-box SHAP charts, Strava heatmap leaks, drill-down overload, PDF context loss, GPT-5's broken benchmark chart.</p>
+                <span class="badge badge-intermediate">⚡ Intermediate</span> <span class="badge badge-time">⏱ ~4 min</span> <span class="badge badge-intermediate">6 challenges</span>
+            </a>
+            <a href="part-4.html" class="part-card reveal" data-part="4">
+                <span class="done-flag"><i class="fas fa-check mr-1"></i>Certified</span>
+                <div class="part-num">04</div>
+                <h3 class="text-base font-bold mt-1 mb-1" style="color:#0F172A">Frontier Mediums: Spatial, Streaming &amp; Legacy Debt</h3>
+                <p class="text-xs text-gray-600 mb-2">AR/VR surgical misalignment, sarcasm-blind word clouds, microsecond jitter, and dying D3 v3 codebases.</p>
+                <span class="badge badge-advanced">🔥 Advanced</span> <span class="badge badge-time">⏱ ~4 min</span> <span class="badge badge-intermediate">4 challenges</span>
+            </a>
+        </div>
+
+        <div class="series-complete mt-6" id="series-complete">🏆 ALL 4 PARTS CERTIFIED — You decoded all 22 challenges and self-graded every gate. Outstanding.</div>
+
+        <section class="takeaways reveal mt-6">
+            <h2>🔑 Why Self-Grading?</h2>
+            <ul>
+                <li>Reading a case study is passive. Building a fix and passing your own boolean gates is how the lesson sticks.</li>
+                <li>Your rubric is the validated one: baseline integrity, CVD palette + shape redundancy, DOM budget, and metric/structure checks — the gates that survived adversarial testing in Part 8.</li>
+                <li>A part is only "Certified" when <strong>you</strong> checked every gate against <strong>your own</strong> artifact. No gate, no glory.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="article-footer">
+        <div class="flex items-center justify-center space-x-2 font-bold text-lg text-white mb-2">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </div>
+        <p>Practice. Apply. Master.</p>
+        <p class="mt-2 text-xs opacity-80">Published from the Desk of Puneet Arora, Aplly.xyz Trainer · © 2026 Aplly.xyz. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement;
+            document.getElementById('progress-bar').style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%';
+        });
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: 0.12 });
+            document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+        } else {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
+        // Restore certification flags
+        document.querySelectorAll('.part-card').forEach(card => {
+            if (localStorage.getItem('apllyPart' + card.dataset.part)) card.classList.add('completed');
+        });
+        // Full-series celebration
+        const all = [1, 2, 3, 4].every(i => localStorage.getItem('apllyPart' + i) === 'certified');
+        const banner = document.getElementById('series-complete');
+        if (all && banner) banner.classList.add('show');
+    </script>
+</body>
+</html>
