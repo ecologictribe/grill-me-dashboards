@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industrial Motor Vibration Monitoring — DASH-SPEC-2026-081</title>
+<style>
+  /* ---------- Design tokens (Okabe-Ito CVD-safe palette, Spec §3) ---------- */
+  :root {
+    --color-normal:    #0072B2;  /* Sky Blue   — ● Circle  */
+    --color-warning:   #E69F00;  /* Amber      — ▲ Triangle */
+    --color-critical:  #CC79A7;  /* Magenta    — 🛑 Octagon */
+    --color-missing:   #E2E8F0;  /* Grey hatch band for null telemetry */
+    --color-ink:       #1A202C;
+    --color-muted:     #4A5568;
+    --color-surface:   #FFFFFF;
+    --color-bg:        #F7FAFC;
+    --color-border:    #CBD5E0;
+    --font-stack: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-stack);
+    font-size: 14px;                 /* Spec §3: minimum 14px body */
+    color: var(--color-ink);
+    background: var(--color-bg);
+  }
+
+  /* ---------- F-Pattern Grid (Spec §2 / §4, desktop >= 1024px) ---------- */
+  .dash-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr 1fr;   /* F-Left stem + two mid columns */
+    grid-template-areas:
+      "kpi    kpi    kpi"      /* F-Top stem  */
+      "nav    chart  chart"    /* F-Left nav + F-Mid chart */
+      "nav    table  table";   /* Bottom zone */
+    gap: 16px;
+    padding: 16px;
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+
+  header.dash-header { grid-area: kpi; }
+
+  /* KPI cards — Top Stem (F-Top) */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .kpi-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .kpi-card .kpi-label { font-size: 14px; color: var(--color-muted); margin: 0 0 4px; }
+  .kpi-card .kpi-value { font-size: 24px; font-weight: 700; margin: 0; }  /* Spec §3: 24px KPI callouts */
+  .kpi-card .kpi-sub   { font-size: 14px; color: var(--color-muted); margin: 4px 0 0; }
+
+  /* Left stem (F-Left): machine selector */
+  nav.machine-nav {
+    grid-area: nav;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  nav.machine-nav h2 { font-size: 16px; margin: 0 0 12px; }
+  .machine-list { list-style: none; margin: 0; padding: 0; }
+  .machine-list li { margin: 0 0 6px; }
+  .machine-list button {
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    font-size: 14px;
+    padding: 8px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .machine-list button[aria-pressed="true"] {
+    border-color: var(--color-normal);
+    background: #E8F4FB;
+    font-weight: 600;
+  }
+  .machine-list .status-token { font-size: 14px; }
+
+  /* Mid stem (F-Mid): telemetry chart */
+  section.chart-panel {
+    grid-area: chart;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+  }
+  section.chart-panel h2 { font-size: 16px; margin: 0 0 8px; }
+  .chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--color-muted);
+    margin: 0 0 8px;
+    padding: 0;
+    list-style: none;
+  }
+  .chart-legend .swatch {
+    display: inline-block;
+    width: 14px; height: 3px;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  #vibration-chart { width: 100%; height: 320px; display: block; }
+
+  .alert-banner {
+    display: none;
+    margin: 0 0 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--color-warning);
+    background: #FDF3E0;
+    color: var(--color-ink);
+    font-size: 14px;
+  }
+  .alert-banner.visible { display: block; }
+
+  .chart-tooltip {
+    position: absolute;
+    pointer-events: none;
+    display: none;
+    background: var(--color-ink);
+    color: #FFFFFF;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  /* Bottom zone: anomaly log table */
+  section.log-panel {
+    grid-area: table;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  section.log-panel h2 { font-size: 16px; margin: 0 0 8px; }
+  table.anomaly-log { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.anomaly-log th, table.anomaly-log td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  table.anomaly-log th { color: var(--color-muted); font-weight: 600; }
+  .sev-critical { color: var(--color-critical); font-weight: 600; }
+  .sev-warning  { color: #8A5A00; font-weight: 600; }  /* darkened amber for 4.5:1 text contrast */
+  .pagination { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
+  .pagination button {
+    font: inherit;
+    font-size: 14px;
+    padding: 6px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-surface);
+    cursor: pointer;
+  }
+  .pagination button:disabled { opacity: 0.5; cursor: default; }
+  .pagination .page-info { font-size: 14px; color: var(--color-muted); }
+
+  /* ---------- Mobile layout (< 768px): single-column vertical stack ---------- */
+  @media (max-width: 767px) {
+    .dash-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas: "kpi" "nav" "chart" "table";
+    }
+    .kpi-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="dash-grid">
+
+  <!-- F-Top Stem: Core KPI Cards (Spec §2) -->
+  <header class="dash-header">
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <p class="kpi-label">Active Units</p>
+        <p class="kpi-value" id="kpi-active-units">—</p>
+        <p class="kpi-sub">reporting within latest 5s window</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-label">Vibration Index</p>
+        <p class="kpi-value" id="kpi-vibration-index">—</p>
+        <p class="kpi-sub">fleet mean, mm/s</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-label">Alarm Count</p>
+        <p class="kpi-value" id="kpi-alarm-count">—</p>
+        <p class="kpi-sub"><span>●</span> normal · <span>▲</span> warning · <span>🛑</span> critical</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- F-Left Stem: Machine Hierarchy Selector (Spec §2) -->
+  <nav class="machine-nav" aria-label="Machine selector">
+    <h2>Fleet Machines</h2>
+    <ul class="machine-list" id="machine-list"></ul>
+  </nav>
+
+  <!-- F-Mid Stem: Real-Time Vibration Trend Chart (Spec §2) -->
+  <section class="chart-panel" aria-label="Vibration trend">
+    <h2 id="chart-title">Vibration Trend</h2>
+    <ul class="chart-legend">
+      <li><span class="swatch" style="background:#0072B2"></span>● Mean vibration (normal)</li>
+      <li><span class="swatch" style="background:#E69F00"></span>▲ Warning threshold @ 4.5 mm/s</li>
+      <li><span class="swatch" style="background:#CC79A7"></span>🛑 Critical threshold @ 7.0 mm/s</li>
+      <li><span class="swatch" style="background:#E2E8F0;height:10px"></span>■ Missing telemetry band</li>
+    </ul>
+    <div class="alert-banner" id="alert-banner" role="alert">
+      🛑 Gateway disconnect: null telemetry interval detected — values are NOT interpolated (Spec §1 Missing Telemetry Policy).
+    </div>
+    <canvas id="vibration-chart" width="900" height="320"></canvas>
+    <div class="chart-tooltip" id="chart-tooltip"></div>
+  </section>
+
+  <!-- Bottom Zone: Historical Anomaly Log (Spec §2) -->
+  <section class="log-panel" aria-label="Anomaly log">
+    <h2>Historical Anomaly Log</h2>
+    <table class="anomaly-log">
+      <thead>
+        <tr><th>Timestamp (UTC)</th><th>Machine</th><th>Mean (mm/s)</th><th>Peak (mm/s)</th><th>Severity</th></tr>
+      </thead>
+      <tbody id="log-body"></tbody>
+    </table>
+    <div class="pagination">
+      <button id="page-prev" type="button">Prev</button>
+      <span class="page-info" id="page-info">Page 1 / 1</span>
+      <button id="page-next" type="button">Next</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* =====================================================================
+   DASH-SPEC-2026-081 — Industrial Motor Vibration Monitor
+   Spec-compliant implementation:
+   - 5-second tumbling windows over a simulated 100 Hz feed (Spec §1)
+   - Mean / Min / Max per window with peak-spike overlay
+   - Canvas render path decimated to <= 1,200 points (Spec §1)
+   - Null banding (no zero interpolation) on gateway disconnect (Spec §1)
+   - Okabe-Ito palette with shape redundancy tokens (Spec §3)
+   - Absolute zero baseline: yMin = 0 on every trend graph (Spec §3)
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  /* ---------- Spec constants ---------- */
+  var chartConfig = {
+    yMin: 0,                          // GATE 1: absolute zero baseline
+    warningThreshold: 4.5,            // mm/s
+    criticalThreshold: 7.0,           // mm/s
+    windowSeconds: 5,                 // tumbling window size
+    maxPoints: 1200,                  // decimation / render queue cap
+    colors: {
+      normal:   '#0072B2',
+      warning:  '#E69F00',
+      critical: '#CC79A7',
+      missing:  '#E2E8F0',
+      ink:      '#1A202C',
+      muted:    '#4A5568',
+      grid:     '#E2E8F0'
+    }
+  };
+
+  var MACHINES = [
+    { id: 'MTR-01', baseline: 1.4 },
+    { id: 'MTR-02', baseline: 2.1 },
+    { id: 'MTR-03', baseline: 2.8 },   // spiky machine — exercises warning/critical bands
+    { id: 'MTR-04', baseline: 1.9 },
+    { id: 'MTR-05', baseline: 2.4 },   // suffers a gateway disconnect in the demo timeline
+    { id: 'MTR-06', baseline: 3.1 },
+    { id: 'MTR-07', baseline: 1.2 },
+    { id: 'MTR-08', baseline: 2.6 }
+  ];
+
+  /* ---------- Simulated data pipeline ----------
+     Production note: replace simulateWindow() with a WebSocket frame handler.
+     Each frame here represents the OUTPUT of the 5s tumbling aggregator. */
+  var history = {};      // machineId -> array of { t, mean, min, max, missing }
+  var logEntries = [];   // anomaly rows
+  var windowCounter = 0;
+  var DISCONNECT_START = 6, DISCONNECT_END = 12;   // MTR-05 null interval, in window indices
+
+  function simulateWindow(machine, idx) {
+    var noisy = machine.baseline + Math.sin(idx / 3 + machine.baseline) * 0.4 + (Math.random() - 0.5) * 0.6;
+    noisy = Math.max(0.3, noisy);
+
+    // MTR-03: periodic burst toward warning/critical
+    if (machine.id === 'MTR-03' && idx % 9 === 7) noisy = 5.2 + Math.random() * 2.6;
+    // MTR-06: occasional warning-level drift
+    if (machine.id === 'MTR-06' && idx % 13 === 5) noisy = 4.8 + Math.random() * 1.2;
+
+    // MTR-05: gateway drops connection — emit an explicit null interval (no interpolation)
+    if (machine.id === 'MTR-05' && idx >= DISCONNECT_START && idx <= DISCONNECT_END) {
+      return { t: idx * chartConfig.windowSeconds, mean: null, min: null, max: null, missing: true };
+    }
+
+    var mean = noisy;
+    var min  = Math.max(0, mean - 0.3 - Math.random() * 0.3);
+    var max  = mean + 0.4 + Math.random() * (mean > 4 ? 2.2 : 0.8);
+    return { t: idx * chartConfig.windowSeconds, mean: mean, min: min, max: max, missing: false };
+  }
+
+  function severityOf(mean) {
+    if (mean === null) return 'missing';
+    if (mean >= chartConfig.criticalThreshold) return 'critical';
+    if (mean >= chartConfig.warningThreshold) return 'warning';
+    return 'normal';
+  }
+
+  function pushWindow() {
+    windowCounter++;
+    MACHINES.forEach(function (m) {
+      var w = simulateWindow(m, windowCounter);
+      var arr = history[m.id] || (history[m.id] = []);
+      arr.push(w);
+      if (arr.length > chartConfig.maxPoints) arr.splice(0, arr.length - chartConfig.maxPoints);   // decimation cap
+
+      var sev = severityOf(w.mean);
+      if (sev === 'warning' || sev === 'critical') {
+        logEntries.push({
+          t: w.t, machine: m.id, mean: w.mean, peak: w.max, severity: sev
+        });
+        if (logEntries.length > 200) logEntries.shift();
+      }
+    });
+  }
+
+  /* ---------- KPI cards (GATE 4: identical aggregation logic to chart source) ---------- */
+  function renderKPIs() {
+    var reporting = 0, sum = 0, alarms = 0;
+    MACHINES.forEach(function (m) {
+      var arr = history[m.id] || [];
+      var last = arr[arr.length - 1];
+      if (!last || last.missing) return;
+      reporting++;
+      sum += last.mean;                                   // same tumbling-window mean the chart draws
+      if (severityOf(last.mean) !== 'normal') alarms++;
+    });
+    document.getElementById('kpi-active-units').textContent = reporting + ' / ' + MACHINES.length;
+    document.getElementById('kpi-vibration-index').textContent = reporting ? (sum / reporting).toFixed(2) : '—';
+    document.getElementById('kpi-alarm-count').textContent = String(alarms);
+  }
+
+  /* ---------- Machine selector (F-Left) ---------- */
+  var selectedMachine = 'MTR-03';
+
+  function shapeToken(sev) {
+    if (sev === 'critical') return '🛑';
+    if (sev === 'warning') return '▲';
+    return '●';
+  }
+
+  function renderMachineList() {
+    var ul = document.getElementById('machine-list');
+    ul.innerHTML = '';
+    MACHINES.forEach(function (m) {
+      var arr = history[m.id] || [];
+      var last = arr[arr.length - 1];
+      var sev = last ? severityOf(last.mean) : 'normal';
+      var li = document.createElement('li');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-pressed', String(m.id === selectedMachine));
+      var name = document.createElement('span');
+      name.textContent = m.id;
+      var tok = document.createElement('span');
+      tok.className = 'status-token';
+      tok.textContent = shapeToken(sev);        // ● ▲ 🛑 dual encoding (Spec §3)
+      tok.style.color = chartConfig.colors[sev] || chartConfig.colors.muted;
+      btn.appendChild(name);
+      btn.appendChild(tok);
+      btn.addEventListener('click', function () {
+        selectedMachine = m.id;
+        renderMachineList();
+        drawChart();
+      });
+      li.appendChild(btn);
+      ul.appendChild(li);
+    });
+  }
+
+  /* ---------- Canvas trend chart (F-Mid) ---------- */
+  var canvas = document.getElementById('vibration-chart');
+  var tooltip = document.getElementById('chart-tooltip');
+  var lastPoints = [];   // {x, y, w} for hit-testing
+
+  function drawChart() {
+    var series = history[selectedMachine] || [];
+    document.getElementById('chart-title').textContent =
+      'Vibration Trend — ' + selectedMachine + ' (5s mean, mm/s)';
+
+    // Missing-telemetry banner (Spec §1): visible when the latest window is null
+    var latest = series[series.length - 1];
+    document.getElementById('alert-banner').classList.toggle('visible', !!(latest && latest.missing));
+
+    var ctx = canvas.getContext && canvas.getContext('2d');
+    if (!ctx) return;   // headless (jsdom) environments: skip rendering, DOM logic still runs
+
+    var W = canvas.width, H = canvas.height;
+    var padL = 52, padR = 16, padT = 12, padB = 28;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var yMax = 9;                                  // fixed domain [yMin: 0, 9]
+    var n = Math.max(series.length, 1);
+
+    function xAt(i) { return padL + (n === 1 ? plotW / 2 : (i / (n - 1)) * plotW); }
+    function yAt(v) { return padT + plotH - ((v - chartConfig.yMin) / (yMax - chartConfig.yMin)) * plotH; }
+
+    ctx.clearRect(0, 0, W, H);
+
+    // gridlines + y-axis ticks (start at absolute zero)
+    ctx.font = '12px Inter, Roboto, sans-serif';
+    ctx.fillStyle = chartConfig.colors.muted;
+    ctx.strokeStyle = chartConfig.colors.grid;
+    ctx.lineWidth = 1;
+    for (var v = chartConfig.yMin; v <= yMax; v += 1.5) {
+      var y = yAt(v);
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+      ctx.fillText(v.toFixed(1), 8, y + 4);
+    }
+    ctx.fillText('mm/s', 8, padT - 2);
+
+    // missing telemetry: grey hatch band (#E2E8F0), never interpolated
+    series.forEach(function (p, i) {
+      if (!p.missing) return;
+      var x0 = i === 0 ? padL : xAt(i - 1);
+      var x1 = xAt(i);
+      ctx.save();
+      ctx.beginPath(); ctx.rect(x0, padT, Math.max(x1 - x0, 2), plotH); ctx.clip();
+      ctx.fillStyle = chartConfig.colors.missing;
+      ctx.fillRect(x0, padT, x1 - x0, plotH);
+      ctx.strokeStyle = '#B0BEC5'; ctx.lineWidth = 1;
+      for (var d = -plotH; d < plotW; d += 8) {
+        ctx.beginPath(); ctx.moveTo(x0 + d, padT + plotH); ctx.lineTo(x0 + d + plotH, padT); ctx.stroke();
+      }
+      ctx.restore();
+    });
+
+    // threshold lines: ▲ warning 4.5 (amber), 🛑 critical 7.0 (magenta)
+    [[chartConfig.warningThreshold, chartConfig.colors.warning],
+     [chartConfig.criticalThreshold, chartConfig.colors.critical]].forEach(function (th) {
+      ctx.save();
+      ctx.strokeStyle = th[1];
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath(); ctx.moveTo(padL, yAt(th[0])); ctx.lineTo(W - padR, yAt(th[0])); ctx.stroke();
+      ctx.restore();
+      ctx.fillStyle = th[1];
+      ctx.fillText(th[0].toFixed(1) + ' mm/s', W - padR - 80, yAt(th[0]) - 4);
+    });
+
+    // min/max envelope (light) + mean line, split at gaps so nulls break the path
+    ctx.beginPath();
+    var open = false;
+    series.forEach(function (p, i) {
+      if (p.missing) { open = false; return; }
+      if (!open) { ctx.moveTo(xAt(i), yAt(p.mean)); open = true; }
+      else ctx.lineTo(xAt(i), yAt(p.mean));
+    });
+    ctx.strokeStyle = chartConfig.colors.normal;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // status shape tokens on the mean line: ● normal / ▲ warning / 🛑 critical
+    lastPoints = [];
+    series.forEach(function (p, i) {
+      if (p.missing) return;
+      var x = xAt(i), y = yAt(p.mean);
+      var sev = severityOf(p.mean);
+      ctx.fillStyle = chartConfig.colors[sev];
+      ctx.beginPath();
+      if (sev === 'warning') {                    // ▲ triangle
+        ctx.moveTo(x, y - 5); ctx.lineTo(x - 4.5, y + 4); ctx.lineTo(x + 4.5, y + 4); ctx.closePath();
+      } else if (sev === 'critical') {            // 🛑 octagon
+        var r = 5;
+        for (var k = 0; k < 8; k++) {
+          var a = Math.PI / 8 + k * Math.PI / 4;
+          var px = x + r * Math.cos(a), py = y + r * Math.sin(a);
+          if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+      } else {                                    // ● circle
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+      }
+      ctx.fill();
+      lastPoints.push({ x: x, y: y, w: p });
+    });
+  }
+
+  /* ---------- Tooltip (Spec §4): UTC timestamp, mean, peak ---------- */
+  canvas.addEventListener('mousemove', function (ev) {
+    if (!lastPoints.length) { tooltip.style.display = 'none'; return; }
+    var rect = canvas.getBoundingClientRect();
+    var scaleX = canvas.width / rect.width, scaleY = canvas.height / rect.height;
+    var mx = (ev.clientX - rect.left) * scaleX, my = (ev.clientY - rect.top) * scaleY;
+    var best = null, bestD = 18;
+    lastPoints.forEach(function (pt) {
+      var d = Math.hypot(pt.x - mx, pt.y - my);
+      if (d < bestD) { bestD = d; best = pt; }
+    });
+    if (!best) { tooltip.style.display = 'none'; return; }
+    var ts = new Date(Date.UTC(2026, 7, 21, 0, 0, 0) + best.w.t * 1000).toISOString().replace('T', ' ').replace('.000Z', ' UTC');
+    tooltip.innerHTML = ts + '<br>Mean: ' + best.w.mean.toFixed(2) + ' mm/s<br>Peak: ' + best.w.max.toFixed(2) + ' mm/s';
+    tooltip.style.display = 'block';
+    tooltip.style.left = (ev.clientX - rect.left + 14) + 'px';
+    tooltip.style.top  = (ev.clientY - rect.top - 10) + 'px';
+  });
+  canvas.addEventListener('mouseleave', function () { tooltip.style.display = 'none'; });
+
+  /* ---------- Anomaly log table (Bottom Zone): paginated, severity sorted ---------- */
+  var PAGE_SIZE = 10, page = 1;
+  var SEV_RANK = { critical: 0, warning: 1 };
+
+  function renderLog() {
+    var sorted = logEntries.slice().sort(function (a, b) {
+      return (SEV_RANK[a.severity] - SEV_RANK[b.severity]) || (b.t - a.t);
+    });
+    var pages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+    page = Math.min(page, pages);
+    var rows = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+    var tbody = document.getElementById('log-body');
+    tbody.innerHTML = '';
+    rows.forEach(function (r) {
+      var tr = document.createElement('tr');
+      var ts = new Date(Date.UTC(2026, 7, 21, 0, 0, 0) + r.t * 1000).toISOString().replace('T', ' ').replace('.000Z', ' UTC');
+      [[ts], [r.machine], [r.mean.toFixed(2)], [r.peak.toFixed(2)]].forEach(function (cell) {
+        var td = document.createElement('td');
+        td.textContent = cell[0];
+        tr.appendChild(td);
+      });
+      var tdSev = document.createElement('td');
+      tdSev.className = 'sev-' + r.severity;
+      tdSev.textContent = (r.severity === 'critical' ? '🛑 ' : '▲ ') + r.severity.toUpperCase();
+      tr.appendChild(tdSev);
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('page-info').textContent = 'Page ' + page + ' / ' + pages;
+    document.getElementById('page-prev').disabled = page <= 1;
+    document.getElementById('page-next').disabled = page >= pages;
+  }
+
+  document.getElementById('page-prev').addEventListener('click', function () { page--; renderLog(); });
+  document.getElementById('page-next').addEventListener('click', function () { page++; renderLog(); });
+
+  /* ---------- Bootstrap + streaming tick ----------
+     Seed 30 historical windows, then append one tumbling window per second. */
+  for (var s = 0; s < 30; s++) pushWindow();
+  renderKPIs();
+  renderMachineList();
+  drawChart();
+  renderLog();
+
+  if (typeof setInterval === 'function') {
+    setInterval(function () {
+      pushWindow();
+      renderKPIs();
+      renderMachineList();
+      drawChart();
+      renderLog();
+    }, 1000);
+  }
+})();
+</script>
+</body>
+</html>

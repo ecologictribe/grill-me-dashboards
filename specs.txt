@@ -1,0 +1,6 @@
+https://aplly.xyz/uploads/tutorials/6ae17d0187a7e_1793162497.html
+
+Task :  Validate this tutorial. Understand deeply all the steps in this tutorial and implement it, so that we can validate and improve this tutorial or write a next version of this tutorial. Initialize the git.
+
+
+GitHub :https://github.com/ecologictribe/grill-me-dashboards.git

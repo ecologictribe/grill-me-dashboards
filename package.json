@@ -1,0 +1,14 @@
+{
+  "name": "grill-me-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Validation implementation of the Aplly.xyz tutorial: Data Visualization Architecture — Matt Pocock's Grill Me Method & Drift-Proof Evaluation Frameworks (DASH-SPEC-2026-081)",
+  "scripts": {
+    "grade": "node grader/grader.js dashboard/index.html",
+    "grade:v2": "node grader/grader.v2.js dashboard/index.html"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "jsdom": "^30.1.3"
+  }
+}
