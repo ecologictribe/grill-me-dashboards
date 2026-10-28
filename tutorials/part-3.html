@@ -166,18 +166,60 @@
             Challenges 13–18 fail at the <em>organization</em> layer: definitions, incentives, privacy, and automation. The chart is only as governed as the company behind it.
         </blockquote>
 
+        <!-- ================= GRILL STEP ================= -->
+        <section class="card reveal" id="grill-step">
+            <div class="section-meta flex gap-2 mb-2"><span class="badge badge-intermediate">🤺 Step 1: Grill</span><span class="badge badge-time">⏱ ~10 min</span></div>
+            <h2>Grill Your Challenge <em>Before</em> You Build</h2>
+            <p class="text-sm text-gray-700">Pick one challenge from this part, then run the scoped prompt below — an adaptation of <a href="grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> on top of Part 7's Rules of Engagement. Two rounds later you hold numbered decisions: the Spec Doc your rubric will grade against.</p>
+            <p class="text-xs text-gray-500 mt-2">Flow: Challenge card → 🤺 Grill → 📄 Spec Doc → 🔨 Build → 🎓 Self-grade</p>
+
+            <div class="my-4 rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
+                    <span class="font-mono text-cyan-400"><i class="fas fa-terminal mr-2"></i>grill_prompt_part3.md</span>
+                    <button data-copy="grill-prompt-p3" class="copy-btn px-2.5 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition"><i class="far fa-copy mr-1"></i> Copy Prompt</button>
+                </div>
+                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="grill-prompt-p3">SYSTEM INSTRUCTION: Challenge Grill — Part 3 Edition (AI, Enterprise Governance &amp; UX)
+
+Keep Part 7's Rules of Engagement (decision tree, max 3-4 dependent
+questions per round, recommended defaults for single-token approval).
+
+CHALLENGE DECLARED: [my chosen Part 3 challenge, e.g. #13 — Lack of
+Standardised Semantic Layers, Sales vs. Finance "Gross Revenue"]
+
+FRONTIER A — FAILURE ANATOMY:
+- Who defines this metric differently in my organization, and with
+  what formula? Where do the two numbers first diverge?
+
+FRONTIER B — DESIGN DECISIONS:
+- What governance evidence appears ON the dashboard: displayed formula?
+  definition tooltip? owner + version? export-safe context?
+  Recommend a concrete default.
+
+FRONTIER C — GATE DERIVATION:
+- One boolean gate per approved decision — "yes/no, checkable on the
+  artifact" — that FAILS if the decision is drifted away from.
+
+Output: numbered Spec decisions (D1, D2...) + my challenge gates.
+Begin with Frontier A, Question 1.</pre>
+            </div>
+
+            <div class="mini mini-case"><strong>❓ Sample frontier question:</strong> "Who defines this metric differently than you — and what exact formula will your chart display so the conflict is visible?"</div>
+            <div class="mini mini-fix"><strong>➡️ Recommended default:</strong> "One governed definition, shown in the KPI tooltip (formula + inclusions)." → <strong>Student:</strong> "1 Agree" → <em>Spec decision D1 → Gate: definition visible on the artifact.</em></div>
+        </section>
+
         <!-- ================= SELF-GRADING ================= -->
         <section class="card reveal" id="self-grade">
             <div class="section-meta flex gap-2 mb-2"><span class="badge badge-advanced">🎓 Self-Grading</span><span class="badge badge-time">⏱ ~10 min build</span></div>
             <h2>Grade Yourself: The Part 3 Gate</h2>
-            <p class="text-sm text-gray-700">Your mission: take a dashboard-style project (class or work) and run this governance audit. You are the grader — mark a gate only with concrete evidence from your artifact.</p>
+            <p class="text-sm text-gray-700">Your mission: run the grill prompt above to produce your Spec Doc, then take a dashboard-style project (class or work) and run this governance audit. Gate 0 checks your <em>process</em>; Gates 1–4 check the <em>artifact</em>. You are the grader — mark a gate only with concrete evidence.</p>
 
             <div class="mt-4">
                 <div class="flex items-center justify-between mb-3">
                     <h4 class="text-sm font-bold text-gray-900 flex items-center"><i class="fas fa-tasks mr-2 text-[#3c9080]"></i> Your Self-Rubric</h4>
-                    <span id="score-pill" class="score-pill">0 / 4 Gates Verified</span>
+                    <span id="score-pill" class="score-pill">0 / 5 Gates Verified</span>
                 </div>
                 <div class="space-y-2 text-xs" id="gate-list">
+                    <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 0: Spec-First Process 🤺</span><span class="text-gray-600">I ran the Part 3 grill prompt on a declared challenge and have a Spec Doc excerpt with numbered decisions written <em>before</em> any code. Evidence: my grill transcript.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 1: Single Source of Definitions</span><span class="text-gray-600">Every KPI on the dashboard has one written definition (formula + inclusions), shown in a tooltip or notes panel. No metric exists twice with different math.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 2: Context Survives Export</span><span class="text-gray-600">Screenshot my dashboard: units, date range, and caveats are still visible without hovering anything. Nothing essential lives only in an interaction.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 3: Privacy by Default</span><span class="text-gray-600">Any person-level or fine-grained data is aggregated above a safe threshold (k ≥ 5) before display; I asked "could this view re-identify someone?" and the answer is no.</span></div></label>
@@ -217,15 +259,28 @@
             document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
         }
 
+        // Copy buttons
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const src = document.getElementById(btn.dataset.copy);
+                navigator.clipboard.writeText(src.innerText).then(() => {
+                    const old = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!';
+                    setTimeout(() => { btn.innerHTML = old; }, 2000);
+                });
+            });
+        });
+
         const KEY = 'apllyPart3';
         const pill = document.getElementById('score-pill');
         const banner = document.getElementById('cert-banner');
         const boxes = Array.from(document.querySelectorAll('#gate-list input'));
         function save() {
+            const total = boxes.length;
             const n = boxes.filter(b => b.checked).length;
-            pill.textContent = n + ' / 4 Gates Verified';
-            pill.classList.toggle('certified', n === 4);
-            banner.classList.toggle('show', n === 4);
+            pill.textContent = n + ' / ' + total + ' Gates Verified';
+            pill.classList.toggle('certified', n === total);
+            banner.classList.toggle('show', n === total);
             boxes.forEach(b => b.closest('.gate-row').classList.toggle('checked', b.checked));
             if (n === 4) localStorage.setItem(KEY, 'certified'); else localStorage.removeItem(KEY);
         }

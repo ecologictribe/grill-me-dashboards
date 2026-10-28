@@ -15,6 +15,10 @@ specs/DASH-SPEC-2026-081.md          §3  Master Spec Doc (verbatim)
 dashboard/index.html                     Reference implementation (built from the Spec Doc)
 grader/grader.js                         Tutorial grader (verbatim)
 grader/grader.v2.js                      Hardened grader (fixes F2–F4 in VALIDATION.md)
+tutorials/                               "Data Visualization Challenges, Decoded" series:
+    grill-method.html                        0 · The Challenge-Grill Method (start here)
+    part-1..4.html                           1–4 · All 22 challenges + grill step + self-grading
+article/index.html                       Part 8 interactive article (validation findings)
 VALIDATION.md                            Validation report & test evidence
 ```
 

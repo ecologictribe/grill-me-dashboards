@@ -106,10 +106,12 @@
         <section class="outcomes-box reveal">
             <h2>🎯 How This Series Works</h2>
             <ul>
-                <li><strong>1 · Read short:</strong> each part decodes its challenges with a real case study and a plain-English "what's actually going on".</li>
-                <li><strong>2 · Build small:</strong> pick one challenge and prototype a fix in a single HTML file.</li>
-                <li><strong>3 · Grade yourself:</strong> every part ends with a 4-gate self-grading rubric — the same Anti-Drift Gates we validated in the Grill Me series (Part 7–8), run by <strong>you</strong>.</li>
-                <li><strong>4 · Certify:</strong> check all 4 gates to mark the part complete. Your progress is saved in this browser.</li>
+                <li><strong>1 · Learn the method first:</strong> the <a href="grill-method.html" class="underline font-semibold">Challenge-Grill Method</a> teaches you to repoint Matt Pocock's Grill Me prompt at a challenge — the AI interrogates the failure mode and the answers write your Spec Doc.</li>
+                <li><strong>2 · Read short:</strong> each part decodes its challenges with a real case study and a plain-English "what's actually going on".</li>
+                <li><strong>3 · Grill your challenge:</strong> each part ships a scoped grill prompt — run it, capture your numbered decisions <em>before</em> writing any code.</li>
+                <li><strong>4 · Build small:</strong> prototype the fix your Spec Doc describes, in a single HTML file.</li>
+                <li><strong>5 · Grade yourself:</strong> every part ends with a rubric whose Gate 0 checks the <em>process</em> (did you grill?) and Gates 1–4 check the <em>artifact</em> — the validated Anti-Drift Gates, run by <strong>you</strong>.</li>
+                <li><strong>6 · Certify:</strong> pass every gate to mark the part complete. Progress is saved in this browser.</li>
             </ul>
         </section>
 
@@ -125,12 +127,27 @@
         <nav class="toc reveal">
             <h2>The Four Parts</h2>
             <ol>
+                <li><a href="grill-method.html">0. The Challenge-Grill Method — interview your way to the fix (start here!)</a></li>
                 <li><a href="part-1.html">1. When Data Lies: Pipeline Traps &amp; Distortions (Challenges 1–7)</a></li>
                 <li><a href="part-2.html">2. The Human in the Loop: Bias, Cognition &amp; Ethics (Challenges 8–12)</a></li>
                 <li><a href="part-3.html">3. AI &amp; Enterprise Dashboards: Governance, Privacy &amp; UX (Challenges 13–18)</a></li>
                 <li><a href="part-4.html">4. Frontier Mediums: Spatial, Streaming &amp; Legacy Debt (Challenges 19–22)</a></li>
             </ol>
         </nav>
+
+        <!-- Method card, visually first -->
+        <a href="grill-method.html" class="part-card reveal block mb-4" style="background:linear-gradient(135deg,#183868,#28a8e8); border:none;" id="method-card">
+            <span class="done-flag"><i class="fas fa-check mr-1"></i>Certified</span>
+            <div class="flex items-center gap-4 flex-wrap">
+                <div class="part-num" style="color:#c6eeb0">🤺</div>
+                <div>
+                    <h3 class="text-base font-bold mt-1 mb-1" style="color:#fff">The Challenge-Grill Method — Start Here</h3>
+                    <p class="text-xs mb-1" style="color:#e8f6f6">Repoint the Matt Pocock Grill Me prompt at any challenge: interrogate the failure mode, let the answers write your Spec Doc, derive a boolean gate per decision.</p>
+                    <span class="badge" style="background:rgba(255,255,255,.2); color:#fff;">⚡ The core skill</span>
+                    <span class="badge" style="background:rgba(255,255,255,.2); color:#fff;">⏱ ~5 min</span>
+                </div>
+            </div>
+        </a>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <a href="part-1.html" class="part-card reveal" data-part="1">
@@ -197,7 +214,8 @@
         }
         // Restore certification flags
         document.querySelectorAll('.part-card').forEach(card => {
-            if (localStorage.getItem('apllyPart' + card.dataset.part)) card.classList.add('completed');
+            const key = card.id === 'method-card' ? 'apllyMethod' : 'apllyPart' + card.dataset.part;
+            if (localStorage.getItem(key)) card.classList.add('completed');
         });
         // Full-series celebration
         const all = [1, 2, 3, 4].every(i => localStorage.getItem('apllyPart' + i) === 'certified');

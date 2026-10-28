@@ -177,24 +177,66 @@
             Notice the pattern: challenges 1–7 all fail <em>before</em> the chart is drawn. The visualization faithfully displays a number that was never true.
         </blockquote>
 
+        <!-- ================= GRILL STEP ================= -->
+        <section class="card reveal" id="grill-step">
+            <div class="section-meta flex gap-2 mb-2"><span class="badge badge-intermediate">🤺 Step 1: Grill</span><span class="badge badge-time">⏱ ~10 min</span></div>
+            <h2>Grill Your Challenge <em>Before</em> You Build</h2>
+            <p class="text-sm text-gray-700">Pick one challenge from this part, then run the scoped prompt below — an adaptation of <a href="grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> on top of Part 7's Rules of Engagement. Two rounds later you hold numbered decisions: the Spec Doc your rubric will grade against.</p>
+            <p class="text-xs text-gray-500 mt-2">Flow: Challenge card → 🤺 Grill → 📄 Spec Doc → 🔨 Build → 🎓 Self-grade</p>
+
+            <div class="my-4 rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
+                    <span class="font-mono text-cyan-400"><i class="fas fa-terminal mr-2"></i>grill_prompt_part1.md</span>
+                    <button data-copy="grill-prompt-p1" class="copy-btn px-2.5 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition"><i class="far fa-copy mr-1"></i> Copy Prompt</button>
+                </div>
+                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="grill-prompt-p1">SYSTEM INSTRUCTION: Challenge Grill — Part 1 Edition (Data Pipeline &amp; Distortion)
+
+Keep Part 7's Rules of Engagement (decision tree, max 3-4 dependent
+questions per round, recommended defaults for single-token approval).
+
+CHALLENGE DECLARED: [my chosen Part 1 challenge, e.g. #6 — Latent Data
+Pipeline Failure, Public Health England .xls truncation, 2020]
+
+FRONTIER A — FAILURE ANATOMY:
+- Where does it enter MY path: source -&gt; aggregate -&gt; render?
+- What would MY dashboard's version of this case study look like?
+
+FRONTIER B — DESIGN DECISIONS:
+- What on-chart element makes the failure visible or impossible
+  (annotation, row-count badge, cadence label, second panel)?
+  Recommend a concrete default.
+
+FRONTIER C — GATE DERIVATION:
+- One boolean gate per approved decision — "yes/no, checkable on the
+  artifact" — that FAILS if the decision is drifted away from.
+
+Output: numbered Spec decisions (D1, D2...) + my challenge gates.
+Begin with Frontier A, Question 1.</pre>
+            </div>
+
+            <div class="mini mini-case"><strong>❓ Sample frontier question:</strong> "At which hop does your row count change, and what check fires when it does?"</div>
+            <div class="mini mini-fix"><strong>➡️ Recommended default:</strong> "Assertion at every hop (ingest = store = render), alert on mismatch." → <strong>Student:</strong> "1 Agree" → <em>Spec decision D1 → Gate: row-count assertion passes everywhere.</em></div>
+        </section>
+
         <!-- ================= SELF-GRADING ================= -->
         <section class="card reveal" id="self-grade">
             <div class="section-meta flex gap-2 mb-2"><span class="badge badge-advanced">🎓 Self-Grading</span><span class="badge badge-time">⏱ ~10 min build</span></div>
             <h2>Grade Yourself: The Part 1 Gate</h2>
-            <p class="text-sm text-gray-700">Your mission: pick <strong>one</strong> challenge above and prototype a fix in a single HTML file (a small chart or annotated graphic is enough). Then grade <strong>your own</strong> artifact against the four validated Anti-Drift Gates from the Grill Me series — honestly, as if you were the grader.</p>
+            <p class="text-sm text-gray-700">Your mission: run the grill prompt above to produce your Spec Doc, pick <strong>one</strong> challenge, and prototype its fix in a single HTML file (a small chart or annotated graphic is enough). Then grade <strong>your own</strong> work — Gate 0 checks your <em>process</em>, Gates 1–4 check the <em>artifact</em> against the validated Anti-Drift Gates. Answer honestly, as if you were the grader.</p>
 
             <div class="mt-4">
                 <div class="flex items-center justify-between mb-3">
                     <h4 class="text-sm font-bold text-gray-900 flex items-center"><i class="fas fa-tasks mr-2 text-[#3c9080]"></i> Your Self-Rubric</h4>
-                    <span id="score-pill" class="score-pill">0 / 4 Gates Verified</span>
+                    <span id="score-pill" class="score-pill">0 / 5 Gates Verified</span>
                 </div>
                 <div class="space-y-2 text-xs" id="gate-list">
+                    <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 0: Spec-First Process 🤺</span><span class="text-gray-600">I ran the Part 1 grill prompt on a declared challenge and have a Spec Doc excerpt with numbered decisions written <em>before</em> any code. Evidence: my grill transcript.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 1: Baseline Integrity</span><span class="text-gray-600">My chart starts at absolute zero ($y_{min} = 0$) — or I documented why this metric is an exception (and said so on the chart).</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 2: Honesty Annotations</span><span class="text-gray-600">Uncertainty, probability, or granularity is <em>stated on the graphic itself</em> (cone probability %, units, time window) — not left to the reader's imagination.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 3: Data-Path Check</span><span class="text-gray-600">I traced my numbers from source → aggregation → render, and row counts / units match at every hop (no silent truncation, no mixed clocks).</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 4: Responsive + Automated Check</span><span class="text-gray-600">My artifact survives a 375px viewport, and I ran the hardened grader on it: <code>node grader/grader.v2.js my-artifact.html</code> → 4/4.</span></div></label>
                 </div>
-                <div class="cert-banner" id="cert-banner">🌟 CERTIFIED — Part 1 complete! Your self-graded artifact passed all four gates. Head to Part 2.</div>
+                <div class="cert-banner" id="cert-banner">🌟 CERTIFIED — Part 1 complete! Your grilled spec and self-graded artifact passed all five gates. Head to Part 2.</div>
                 <p class="text-[11px] text-gray-500 mt-3">Progress is saved in your browser on this site. Be honest — a self-grade is only worth something when no one is watching.</p>
             </div>
         </section>
@@ -205,7 +247,7 @@
                 <li>A cone is odds, a cluster is a hypothesis, a map is land — never let a shape impersonate a fact.</li>
                 <li>Pipeline bugs render beautiful, wrong dashboards. Count rows at every hop.</li>
                 <li>Match clocks before you match series, and label the cadence.</li>
-                <li>You are now the grader: build, self-check the 4 gates, certify.</li>
+                <li>Spec first, then build: grill your challenge, then "you are the grader — 5 checked gates = certified."</li>
             </ul>
         </section>
     </main>
@@ -229,16 +271,28 @@
         }
 
         // Self-grading rubric with persistence
+        // Copy buttons
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const src = document.getElementById(btn.dataset.copy);
+                navigator.clipboard.writeText(src.innerText).then(() => {
+                    const old = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!';
+                    setTimeout(() => { btn.innerHTML = old; }, 2000);
+                });
+            });
+        });
+
         const KEY = 'apllyPart1';
         const pill = document.getElementById('score-pill');
         const banner = document.getElementById('cert-banner');
         const boxes = Array.from(document.querySelectorAll('#gate-list input'));
         function save() {
-            const state = boxes.map(b => b.checked);
-            const n = state.filter(Boolean).length;
-            pill.textContent = n + ' / 4 Gates Verified';
-            pill.classList.toggle('certified', n === 4);
-            banner.classList.toggle('show', n === 4);
+            const total = boxes.length;
+            const n = boxes.filter(b => b.checked).length;
+            pill.textContent = n + ' / ' + total + ' Gates Verified';
+            pill.classList.toggle('certified', n === total);
+            banner.classList.toggle('show', n === total);
             boxes.forEach(b => b.closest('.gate-row').classList.toggle('checked', b.checked));
             if (n === 4) localStorage.setItem(KEY, 'certified'); else localStorage.removeItem(KEY);
         }

@@ -158,18 +158,60 @@
             Challenges 8–12 share one theme: the data can be perfect and the picture still misleads — through the reader's eyes, the reader's bias, or your design choices.
         </blockquote>
 
+        <!-- ================= GRILL STEP ================= -->
+        <section class="card reveal" id="grill-step">
+            <div class="section-meta flex gap-2 mb-2"><span class="badge badge-intermediate">🤺 Step 1: Grill</span><span class="badge badge-time">⏱ ~10 min</span></div>
+            <h2>Grill Your Challenge <em>Before</em> You Build</h2>
+            <p class="text-sm text-gray-700">Pick one challenge from this part, then run the scoped prompt below — an adaptation of <a href="grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> on top of Part 7's Rules of Engagement. Two rounds later you hold numbered decisions: the Spec Doc your rubric will grade against.</p>
+            <p class="text-xs text-gray-500 mt-2">Flow: Challenge card → 🤺 Grill → 📄 Spec Doc → 🔨 Build → 🎓 Self-grade</p>
+
+            <div class="my-4 rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
+                    <span class="font-mono text-cyan-400"><i class="fas fa-terminal mr-2"></i>grill_prompt_part2.md</span>
+                    <button data-copy="grill-prompt-p2" class="copy-btn px-2.5 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition"><i class="far fa-copy mr-1"></i> Copy Prompt</button>
+                </div>
+                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="grill-prompt-p2">SYSTEM INSTRUCTION: Challenge Grill — Part 2 Edition (Bias, Cognition &amp; Ethics)
+
+Keep Part 7's Rules of Engagement (decision tree, max 3-4 dependent
+questions per round, recommended defaults for single-token approval).
+
+CHALLENGE DECLARED: [my chosen Part 2 challenge, e.g. #11 — Dark Patterns
+& Deceptive Visuals, mismatched dual-axis Congressional chart, 2015]
+
+FRONTIER A — FAILURE ANATOMY:
+- What argument could my chart be used to make — honestly or dishonestly?
+- Which reader (audience persona) is most vulnerable to this failure?
+
+FRONTIER B — DESIGN DECISIONS:
+- What makes the manipulation IMPOSSIBLE: zero baseline? shared axis?
+  printed date range? CVD-safe palette + shape tokens?
+  Recommend a concrete default.
+
+FRONTIER C — GATE DERIVATION:
+- One boolean gate per approved decision — "yes/no, checkable on the
+  artifact" — that FAILS if the decision is drifted away from.
+
+Output: numbered Spec decisions (D1, D2...) + my challenge gates.
+Begin with Frontier A, Question 1.</pre>
+            </div>
+
+            <div class="mini mini-case"><strong>❓ Sample frontier question:</strong> "What would this chart be used to argue — and which axis choice makes that argument impossible to spin?"</div>
+            <div class="mini mini-fix"><strong>➡️ Recommended default:</strong> "Absolute-zero baseline + on-chart note for any documented exception." → <strong>Student:</strong> "1 Agree" → <em>Spec decision D1 → Gate: y_min = 0 or exception note present.</em></div>
+        </section>
+
         <!-- ================= SELF-GRADING ================= -->
         <section class="card reveal" id="self-grade">
             <div class="section-meta flex gap-2 mb-2"><span class="badge badge-advanced">🎓 Self-Grading</span><span class="badge badge-time">⏱ ~10 min build</span></div>
             <h2>Grade Yourself: The Part 2 Gate</h2>
-            <p class="text-sm text-gray-700">Your mission: take any chart you've made for class and audit it against these four gates — the validated accessibility &amp; integrity gates from the Grill Me series, applied by <strong>you</strong>.</p>
+            <p class="text-sm text-gray-700">Your mission: run the grill prompt above to produce your Spec Doc, then take any chart you've made for class and audit it. Gate 0 checks your <em>process</em>; Gates 1–4 check the <em>artifact</em> — the validated accessibility &amp; integrity gates, applied by <strong>you</strong>.</p>
 
             <div class="mt-4">
                 <div class="flex items-center justify-between mb-3">
                     <h4 class="text-sm font-bold text-gray-900 flex items-center"><i class="fas fa-tasks mr-2 text-[#3c9080]"></i> Your Self-Rubric</h4>
-                    <span id="score-pill" class="score-pill">0 / 4 Gates Verified</span>
+                    <span id="score-pill" class="score-pill">0 / 5 Gates Verified</span>
                 </div>
                 <div class="space-y-2 text-xs" id="gate-list">
+                    <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 0: Spec-First Process 🤺</span><span class="text-gray-600">I ran the Part 2 grill prompt on a declared challenge and have a Spec Doc excerpt with numbered decisions written <em>before</em> any code. Evidence: my grill transcript.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 1: Baseline Integrity</span><span class="text-gray-600">Bars and absolute quantities start at zero ($y_{min} = 0$); any axis truncation or dual axis is justified in an on-chart note.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 2: CVD Palette + Shape Redundancy</span><span class="text-gray-600">All status colors come from the Okabe-Ito set <strong>and</strong> each has a non-color partner (● ▲ 🛑 or a text label). No red/green-only distinctions anywhere.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 3: Frame Honesty</span><span class="text-gray-600">The chart states its full date range, scale type (linear/log), and units on the graphic. A skeptical reader cannot be tricked by my framing alone.</span></div></label>
@@ -186,7 +228,7 @@
                 <li>Log scales need translation; color needs a partner; axes need a zero.</li>
                 <li>True numbers + chosen frame = misinformation. Publish your framing.</li>
                 <li>Design for the emergency, not for the noise.</li>
-                <li>Self-grade honestly: 4 checked gates = Part 2 certified.</li>
+                <li>Self-grade honestly: spec first (Gate 0), then 4 artifact gates = Part 2 certified.</li>
             </ul>
         </section>
     </main>
@@ -209,15 +251,28 @@
             document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
         }
 
+        // Copy buttons
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const src = document.getElementById(btn.dataset.copy);
+                navigator.clipboard.writeText(src.innerText).then(() => {
+                    const old = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!';
+                    setTimeout(() => { btn.innerHTML = old; }, 2000);
+                });
+            });
+        });
+
         const KEY = 'apllyPart2';
         const pill = document.getElementById('score-pill');
         const banner = document.getElementById('cert-banner');
         const boxes = Array.from(document.querySelectorAll('#gate-list input'));
         function save() {
+            const total = boxes.length;
             const n = boxes.filter(b => b.checked).length;
-            pill.textContent = n + ' / 4 Gates Verified';
-            pill.classList.toggle('certified', n === 4);
-            banner.classList.toggle('show', n === 4);
+            pill.textContent = n + ' / ' + total + ' Gates Verified';
+            pill.classList.toggle('certified', n === total);
+            banner.classList.toggle('show', n === total);
             boxes.forEach(b => b.closest('.gate-row').classList.toggle('checked', b.checked));
             if (n === 4) localStorage.setItem(KEY, 'certified'); else localStorage.removeItem(KEY);
         }

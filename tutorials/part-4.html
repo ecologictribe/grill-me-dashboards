@@ -152,18 +152,60 @@
             Challenges 19–22 are about <em>medium and time</em>: charts beyond the screen, data faster than the eye, and code older than the team. The defense in all three is the same — an explicit contract (your Spec Doc) plus automated verification.
         </blockquote>
 
+        <!-- ================= GRILL STEP ================= -->
+        <section class="card reveal" id="grill-step">
+            <div class="section-meta flex gap-2 mb-2"><span class="badge badge-advanced">🤺 Step 1: Grill</span><span class="badge badge-time">⏱ ~10 min</span></div>
+            <h2>Grill Your Challenge <em>Before</em> You Build</h2>
+            <p class="text-sm text-gray-700">Pick one challenge from this part, then run the scoped prompt below — an adaptation of <a href="grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> on top of Part 7's Rules of Engagement. Two rounds later you hold numbered decisions: the Spec Doc your rubric will grade against.</p>
+            <p class="text-xs text-gray-500 mt-2">Flow: Challenge card → 🤺 Grill → 📄 Spec Doc → 🔨 Build → 🎓 Self-grade</p>
+
+            <div class="my-4 rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
+                    <span class="font-mono text-cyan-400"><i class="fas fa-terminal mr-2"></i>grill_prompt_part4.md</span>
+                    <button data-copy="grill-prompt-p4" class="copy-btn px-2.5 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition"><i class="far fa-copy mr-1"></i> Copy Prompt</button>
+                </div>
+                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="grill-prompt-p4">SYSTEM INSTRUCTION: Challenge Grill — Part 4 Edition (Spatial, Streaming &amp; Legacy)
+
+Keep Part 7's Rules of Engagement (decision tree, max 3-4 dependent
+questions per round, recommended defaults for single-token approval).
+
+CHALLENGE DECLARED: [my chosen Part 4 challenge, e.g. #21 — Streaming
+Data Latency &amp; Jitter, order-book flicker on trading monitors]
+
+FRONTIER A — FAILURE ANATOMY:
+- What is my raw input rate, my perceptual budget (60 Hz), and the gap
+  between them? Where does my rendering violate that budget?
+
+FRONTIER B — DESIGN DECISIONS:
+- What aggregation window, decimation cap, and repaint policy close
+  the gap? For legacy/medium challenges: what contract survives a
+  library swap or a static export? Recommend concrete defaults.
+
+FRONTIER C — GATE DERIVATION:
+- One boolean gate per approved decision — "yes/no, checkable on the
+  artifact" — that FAILS if the decision is drifted away from.
+
+Output: numbered Spec decisions (D1, D2...) + my challenge gates.
+Begin with Frontier A, Question 1.</pre>
+            </div>
+
+            <div class="mini mini-case"><strong>❓ Sample frontier question:</strong> "What windowing makes your stream perceptible at 60 Hz — and what is your decimation cap?"</div>
+            <div class="mini mini-fix"><strong>➡️ Recommended default:</strong> "5-second tumbling windows (mean/min/max), render queue ≤ 1,200 points." → <strong>Student:</strong> "1 Agree" → <em>Spec decision D1 → Gate: windowed aggregation + cap on the artifact.</em></div>
+        </section>
+
         <!-- ================= SELF-GRADING ================= -->
         <section class="card reveal" id="self-grade">
             <div class="section-meta flex gap-2 mb-2"><span class="badge badge-advanced">🎓 Self-Grading — Final Gate</span><span class="badge badge-time">⏱ ~10 min build</span></div>
             <h2>Grade Yourself: The Part 4 Gate</h2>
-            <p class="text-sm text-gray-700">Your mission: build (or adapt) a real-time-style visualization — a small live-updating chart is perfect — and audit it against the final four gates. This is the capstone: pass it and you've certified the whole series.</p>
+            <p class="text-sm text-gray-700">Your mission: run the grill prompt above to produce your Spec Doc, then build (or adapt) a real-time-style visualization — a small live-updating chart is perfect. Gate 0 checks your <em>process</em>; Gates 1–3 check the <em>artifact</em>; Gate 4 hands the last check to the machine. This is the capstone: pass it and you've certified the whole series.</p>
 
             <div class="mt-4">
                 <div class="flex items-center justify-between mb-3">
                     <h4 class="text-sm font-bold text-gray-900 flex items-center"><i class="fas fa-tasks mr-2 text-[#3c9080]"></i> Your Self-Rubric</h4>
-                    <span id="score-pill" class="score-pill">0 / 4 Gates Verified</span>
+                    <span id="score-pill" class="score-pill">0 / 5 Gates Verified</span>
                 </div>
                 <div class="space-y-2 text-xs" id="gate-list">
+                    <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 0: Spec-First Process 🤺</span><span class="text-gray-600">I ran the Part 4 grill prompt on a declared challenge and have a Spec Doc excerpt with numbered decisions written <em>before</em> any code. Evidence: my grill transcript.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 1: Render-Rate Discipline</span><span class="text-gray-600">My live view aggregates into fixed windows and repaints at (or below) the display rate — no raw 100 Hz flood reaching the DOM/canvas.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 2: Budget Headroom</span><span class="text-gray-600">Rendered DOM stays ≤ 1,500 nodes with a dedicated canvas layer, and missing data is banded/flagged — never silently interpolated.</span></div></label>
                     <label class="gate-row"><input type="checkbox"><div><span class="font-bold text-gray-900 block">GATE 3: Medium Independence</span><span class="text-gray-600">Screenshot / export / 375px mobile: the essential meaning (units, range, status) survives in every medium — nothing lives only in hover or 3D.</span></div></label>
@@ -182,7 +224,7 @@
                 <li>Part 2 — the reader can be misled by design: scales, color, framing, noise.</li>
                 <li>Part 3 — the organization can undermine the dashboard: definitions, privacy, exports, AI.</li>
                 <li>Part 4 — the medium can outgrow the chart: spatial, streaming, legacy.</li>
-                <li><strong>The through-line:</strong> an explicit Spec Doc + boolean gates + honest self-grading — the validated Grill Me pipeline, now applied to you.</li>
+                <li><strong>The through-line:</strong> declare a challenge → grill it into a Spec Doc → derive gates per decision → build → self-grade. The validated Grill Me pipeline, now applied to you.</li>
             </ul>
         </section>
     </main>
@@ -205,16 +247,29 @@
             document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
         }
 
+        // Copy buttons
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const src = document.getElementById(btn.dataset.copy);
+                navigator.clipboard.writeText(src.innerText).then(() => {
+                    const old = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!';
+                    setTimeout(() => { btn.innerHTML = old; }, 2000);
+                });
+            });
+        });
+
         const KEY = 'apllyPart4';
         const pill = document.getElementById('score-pill');
         const banner = document.getElementById('cert-banner');
         const series = document.getElementById('series-complete');
         const boxes = Array.from(document.querySelectorAll('#gate-list input'));
         function save() {
+            const total = boxes.length;
             const n = boxes.filter(b => b.checked).length;
-            pill.textContent = n + ' / 4 Gates Verified';
-            pill.classList.toggle('certified', n === 4);
-            banner.classList.toggle('show', n === 4);
+            pill.textContent = n + ' / ' + total + ' Gates Verified';
+            pill.classList.toggle('certified', n === total);
+            banner.classList.toggle('show', n === total);
             boxes.forEach(b => b.closest('.gate-row').classList.toggle('checked', b.checked));
             if (n === 4) localStorage.setItem(KEY, 'certified'); else localStorage.removeItem(KEY);
             // Full-series celebration
