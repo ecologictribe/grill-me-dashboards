@@ -14,6 +14,22 @@ real personal data, safe to share in a classroom.
 - **Power BI:** *Get Data → Text/CSV* and point at the file. **HTML path:**
   fetch/inline the CSV however your stack prefers.
 
+## Cross-references (where each dataset fits)
+
+- **File number = challenge case number:** `challenge-05-*.csv` belongs to
+  case **C5** in [challenges.txt](../challenges/challenges.txt) (Part B) and to
+  card **#5** on the [assignment page](../assignments/index.html#challenges).
+- **Case → failure mode:** challenges.txt Part A maps every case to the
+  foundational failure mode it teaches (tutorial Parts 1–4).
+- **Method to solve it:** the [Challenge-Grill Method](../tutorials/grill-method.html)
+  turns a dataset's trap into spec decisions; source prompt:
+  [system_prompt_grill_me.md](../prompts/system_prompt_grill_me.md).
+- **Series theory:** [tutorials/index.html](../tutorials/index.html) — each
+  part page links its own cases + datasets ("Put It Into Practice" box).
+- **Verification:** [grader/grader.v2.js](../grader/grader.v2.js) checks HTML
+  dashboards against the gates; self-evaluation steps live in the
+  [assignment](../assignments/index.html#self-eval).
+
 ## Regenerating (trainers only)
 
 ```bash

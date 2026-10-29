@@ -63,6 +63,8 @@
         .ds-link:hover { background:#28a8e8; color:#fff; border-color:#28a8e8; }
         .ds-link.alt { background:#D1FAE5; color:#065F46; border-color:#A7F3D0; }
         .ds-link.alt:hover { background:#3c9080; color:#fff; border-color:#3c9080; }
+        .m-link { display:inline-flex; align-items:center; margin-left:.35rem; font-size:.78rem; font-weight:700; text-decoration:none; padding:2px 8px; border-radius:999px; background:#eef8f6; color:#3c9080; border:1px solid #c6eeb0; transition:all .2s ease; }
+        .m-link:hover { background:#3c9080; color:#fff; }
         .mini { font-size:.8rem; padding:.4rem .65rem; border-radius:8px; margin-top:.35rem; line-height:1.5; }
         .mini-ex { background:#EFF6FF; border:1px solid #BFDBFE; color:#1E3A5F; }
         .mini-seed { background:#FFF7ED; border:1px solid #FED7AA; color:#7C2D12; }
@@ -181,6 +183,19 @@
                 <div class="font-bold flex items-center mb-1"><i class="fas fa-robot mr-2 text-emerald-600"></i> Power BI + Grader Note</div>
                 <p class="leading-relaxed">The automated <code>grader.v2</code> checks HTML files. For Power BI reports, evidence = exported page images checked by eye against the same four gates (screenshot each gate's check in your PDF). Doing the exercise by hand twice teaches you more than the script ever could — that's exactly why the Power BI path earns bonus marks.</p>
             </div>
+            <div class="overflow-x-auto">
+                <table class="op-table">
+                    <thead><tr><th>Stuck? Reach for the toolkit</th><th>Where</th></tr></thead>
+                    <tbody>
+                        <tr><td class="font-semibold">🤺 The method (how to solve a challenge)</td><td><a href="../tutorials/grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> — full lesson with worked example · every challenge card above has a 🤺 button</td></tr>
+                        <tr class="bg-gray-50"><td class="font-semibold">📜 The prompts</td><td><a href="../prompts/system_prompt_grill_me.md" class="underline font-mono text-xs">prompts/system_prompt_grill_me.md</a> (the interview) · <a href="../prompts/code_generation_prompt.md" class="underline font-mono text-xs">prompts/code_generation_prompt.md</a> (the build)</td></tr>
+                        <tr><td class="font-semibold">📄 Worked spec + reference build</td><td><a href="../specs/DASH-SPEC-2026-081.md" class="underline font-mono text-xs">DASH-SPEC-2026-081.md</a> → <a href="../dashboard/index.html" class="underline font-semibold">reference dashboard</a> — a decision-to-gate chain you can imitate</td></tr>
+                        <tr class="bg-gray-50"><td class="font-semibold">🔎 Grader</td><td><a href="../grader/grader.v2.js" class="underline font-mono text-xs">grader/grader.v2.js</a> — run it on your HTML reports (see the <a href="#self-eval" class="underline font-semibold">self-evaluation steps</a>)</td></tr>
+                        <tr><td class="font-semibold">📚 Challenge bank</td><td><a href="../challenges/challenges.txt" class="underline font-semibold">challenges.txt</a> — case ↔ failure-mode mapping + open proposals C21–C27</td></tr>
+                        <tr class="bg-gray-50"><td class="font-semibold">🎓 Theory first?</td><td><a href="../tutorials/index.html" class="underline font-semibold">The tutorial series</a> — Parts 1–4 teach each failure mode behind these cases</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- ============ CHALLENGES ============ -->
@@ -197,106 +212,106 @@
 
             <!-- EASY -->
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">1</span><h4>The Hero Axis</h4><a class="ds-link" href="../datasets/challenge-01-attendance-hero-axis.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">1</span><h4>The Hero Axis</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-01-attendance-hero-axis.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Your school's monthly attendance bar chart starts its y-axis at 85% so the improvement "looks dramatic".</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What does hiding the bottom 85 points of context let someone claim — and what does zero-baselining cost you instead?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">2</span><h4>Red Means Go?</h4><a class="ds-link" href="../datasets/challenge-02-lab-status.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">2</span><h4>Red Means Go?</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-02-lab-status.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The physics lab equipment board shows "in use" in green and "faulty" in red. Nothing else distinguishes them.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What does a color-blind student see on this board — and what two-token fix makes status unmissable?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">3</span><h4>The Missing Tuesday</h4><a class="ds-link" href="../datasets/challenge-03-missing-tuesday.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">3</span><h4>The Missing Tuesday</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-03-missing-tuesday.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A daily step-count line chart fills a sensor outage day with a dip to zero — readers think nobody walked on Tuesday.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Where did the data go, and what on-chart treatment shows 'unknown' instead of 'zero'?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">4</span><h4>Pie Overload</h4><a class="ds-link" href="../datasets/challenge-04-canteen-budget.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">4</span><h4>Pie Overload</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-04-canteen-budget.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The canteen budget pie has 14 slices. Nobody can compare two of them.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Which 3 slices does your actual audience care about — and what chart type lets them compare?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">5</span><h4>The Zoomed Breakout</h4><a class="ds-link" href="../datasets/challenge-05-chess-membership.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">5</span><h4>The Zoomed Breakout</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-05-chess-membership.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The chess club shows "explosive growth" zoomed to the last 3 weeks of a flat 3-year membership record.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is the full range, how do you show it, and what annotation makes the zoom honest?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">6</span><h4>Which Average?</h4><a class="ds-link" href="../datasets/challenge-06-class-marks.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">6</span><h4>Which Average?</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-06-class-marks.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A class-marks chart is badged "Class average: 68" — but the top four scores skewed the mean; the typical student scored 64.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Mean or median for this story, what does your tooltip say, and who is misled if you pick wrong?"</div>
             </div>
 
             <!-- MEDIUM -->
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">7</span><h4>Double-Ruler Drama</h4><a class="ds-link" href="../datasets/challenge-07-transport-dual-axis.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">7</span><h4>Double-Ruler Drama</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-07-transport-dual-axis.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The school transport dashboard plots bus on-time % (0–100) and diesel cost (₹ thousands) on dual axes — the lines cross "proving" spending causes delays.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What argument does the crossing invite, and what layout makes that argument impossible to fake?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">8</span><h4>Silent Row Loss</h4><a class="ds-link" href="../datasets/challenge-08-recycling-rows.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">8</span><h4>Silent Row Loss</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-08-recycling-rows.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The recycling-drive tally imports a CSV into a spreadsheet that stops at 1,000 rows. The dashboard shows a confident, wrong total.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "At which hop (capture → import → dashboard) can rows vanish, and what count assertion fires when they do?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">9</span><h4>Hue-Only Heat Map</h4><a class="ds-link" href="../datasets/challenge-09-room-usage.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">9</span><h4>Hue-Only Heat Map</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-09-room-usage.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A room-usage heat map encodes busy-ness by one blue's intensity only — printed in grayscale, it's unreadable.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What non-color redundancy (labels, hatch, numbers) carries the same message when hue is stripped?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">10</span><h4>The Flicker Feed</h4><a class="ds-link" href="../datasets/challenge-10-canteen-queue.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">10</span><h4>The Flicker Feed</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-10-canteen-queue.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A live canteen-queue counter repaints on every ping — the screen flickers and students stop reading it.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What aggregation window and repaint cap make this stream readable at a glance?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">11</span><h4>Mobile Mashup</h4><a class="ds-link" href="../datasets/challenge-11-exam-results.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">11</span><h4>Mobile Mashup</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-11-exam-results.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The 6-panel exam-results dashboard designed on a lab monitor gets opened on parents' phones at PTM night. Everything is mush.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is the ONE question a phone must answer, and what survives to the smallest screen?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">12</span><h4>Hover-Only Facts</h4><a class="ds-link" href="../datasets/challenge-12-energy-readings.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">12</span><h4>Hover-Only Facts</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-12-energy-readings.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Units and date ranges live only in tooltips. The moment the dashboard is screenshotted for the prospectus, the context evaporates.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What must be visible in a static screenshot for the chart to stay truthful?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">13</span><h4>Two Vote Counts</h4><a class="ds-link" href="../datasets/challenge-13-voting-sheet-a.csv" download title="Download voting sheet A"><i class="fas fa-download"></i> Sheet A</a><a class="ds-link alt ml-1" href="../datasets/challenge-13-voting-sheet-b.csv" download title="Download voting sheet B"><i class="fas fa-download"></i> Sheet B</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">13</span><h4>Two Vote Counts</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-13-voting-sheet-a.csv" download title="Download voting sheet A"><i class="fas fa-download"></i> Sheet A</a><a class="ds-link alt ml-1" href="../datasets/challenge-13-voting-sheet-b.csv" download title="Download voting sheet B"><i class="fas fa-download"></i> Sheet B</a><span class="diff diff-medium">Medium</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Science-fair voting: one sheet counts 3 votes per student, another counts 1. Both dashboards are "official".</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is the single governed definition of a vote, where is it displayed, and who owns it?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">14</span><h4>Names on the Big Screen</h4><a class="ds-link" href="../datasets/challenge-14-fitness-test.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">14</span><h4>Names on the Big Screen</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-14-fitness-test.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The fitness-test dashboard lists every student's name and score — projected in the hall during the event.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Who should see whose number? What aggregation or opt-in makes this display ethical and legal?"</div>
             </div>
 
             <!-- HARD -->
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">15</span><h4>Cluster Mirage</h4><a class="ds-link" href="../datasets/challenge-15-activity-map.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">15</span><h4>Cluster Mirage</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-15-activity-map.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A 2D "activity map" of students shows two pretty islands. The school wants to declare two personality types from it.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What evidence beyond the 2D projection would confirm these clusters — and how does the chart communicate doubt?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">16</span><h4>Alarm Storm</h4><a class="ds-link" href="../datasets/challenge-16-alarm-log.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">16</span><h4>Alarm Storm</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-16-alarm-log.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Sports-day operations dashboard flashes ~20 alerts per minute. Officials now ignore all of them — including the real one.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Which condition genuinely deserves an alert, what's the threshold, and where does the calm baseline live?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">17</span><h4>The Sarcasm Meter</h4><a class="ds-link" href="../datasets/challenge-17-feedback-sentiment.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">17</span><h4>The Sarcasm Meter</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-17-feedback-sentiment.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Event-feedback sentiment scores "Oh great, another drill 😍" as 100% positive. The organizers conclude the drill was a hit.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Where is the uncertainty in a sentiment score, and what sample quotes keep the meter honest?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">18</span><h4>Phantom Spike</h4><a class="ds-link" href="../datasets/challenge-18-bus-gps.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">18</span><h4>Phantom Spike</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-18-bus-gps.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The bus-GPS live view shows a speed "spike" — it's actually the per-second feed colliding with a daily-log average on the same chart.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Which clock wins, what shared window reconciles the feeds, and how is each series' cadence labelled?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">19</span><h4>Broken Inheritance</h4><a class="ds-link" href="../datasets/challenge-19-prize-data.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">19</span><h4>Broken Inheritance</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-19-prize-data.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Last year's prize-dashboard hardcodes "2024" in five places. This year it quietly shows wrong year-on-year comparisons.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is data-driven vs hardcoded, and what single-source-of-truth pattern makes next year safe?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">20</span><h4>Export Amnesia</h4><a class="ds-link" href="../datasets/challenge-20-admissions.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">20</span><h4>Export Amnesia</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-20-admissions.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The interactive admission dashboard is flattened to PDF for the board pack — every hover-card insight is gone; only pictures remain.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is essential when flattened, and how do you design every view to survive being an image?"</div>
             </div>
@@ -329,7 +344,7 @@
         <!-- ============ DECLARATION ============ -->
         <section class="card reveal">
             <h2>Your Declaration (fill ×3 → file early)</h2>
-            <p class="text-sm text-gray-700">Use the <a href="../tutorials/grill-method.html" class="underline font-semibold">Challenge-Grill Method</a> prompt with each declared challenge. File one declaration per challenge with the trainer in week one — first-come, first-served on challenge choice.</p>
+            <p class="text-sm text-gray-700">Use the <a href="../tutorials/grill-method.html" class="underline font-semibold">Challenge-Grill Method</a> prompt with each declared challenge — the verbatim source prompt lives at <a href="../prompts/system_prompt_grill_me.md" class="underline font-mono text-xs">prompts/system_prompt_grill_me.md</a>. File one declaration per challenge with the trainer in week one — first-come, first-served on challenge choice.</p>
             <div class="my-3 rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm">
                 <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
                     <span class="font-mono text-cyan-400"><i class="fas fa-file-signature mr-2"></i>declaration_report_[1|2|3].md (fill &amp; file early)</span>
@@ -412,7 +427,7 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
             <div class="p-4 mt-3 rounded-xl border border-emerald-200 bg-emerald-50 text-xs text-emerald-900">
                 <div class="font-bold flex items-center mb-1"><i class="fas fa-clipboard-check mr-2 text-emerald-600"></i> What "self-evaluation" must cover — per report</div>
                 <ul class="list-disc pl-4 space-y-1 leading-relaxed">
-                    <li><strong>The 4 artifact gates, run on the real artifact:</strong> HTML reports — attach the <code>grader.v2</code> console output showing the gates passing (screenshot it); Power BI reports — hand-check each gate on the exported page images and paste the checked image.</li>
+                    <li><strong>The 4 artifact gates, run on the real artifact:</strong> HTML reports — attach the <a href="../grader/grader.v2.js" class="underline font-semibold font-mono text-xs">grader.v2</a> console output showing the gates passing (screenshot it); Power BI reports — hand-check each gate on the exported page images and paste the checked image.</li>
                     <li><strong>Gate 0 / spec discipline:</strong> your grill transcript and decisions dated <em>before</em> the artifact — timestamps are the evidence.</li>
                     <li><strong>The honesty component (C1):</strong> your screenshot is your claim. |Self − Trainer| ≤ 3 → full 15 marks; ≤ 7 → half; &gt; 7 → zero. Inflating the self-score never lowers the trainer's number — it only forfeits C1.</li>
                 </ul>

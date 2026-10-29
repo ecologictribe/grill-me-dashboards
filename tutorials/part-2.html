@@ -162,7 +162,7 @@
         <section class="card reveal" id="grill-step">
             <div class="section-meta flex gap-2 mb-2"><span class="badge badge-intermediate">🤺 Step 1: Grill</span><span class="badge badge-time">⏱ ~10 min</span></div>
             <h2>Grill Your Challenge <em>Before</em> You Build</h2>
-            <p class="text-sm text-gray-700">Pick one challenge from this part, then run the scoped prompt below — an adaptation of <a href="grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> on top of Part 7's Rules of Engagement. Two rounds later you hold numbered decisions: the Spec Doc your rubric will grade against.</p>
+            <p class="text-sm text-gray-700">Pick one challenge from this part, then run the scoped prompt below — an adaptation of <a href="grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> on top of Part 7's Rules of Engagement (source prompt: <a href="../prompts/system_prompt_grill_me.md" class="underline font-mono text-xs">prompts/system_prompt_grill_me.md</a>). Two rounds later you hold numbered decisions: the Spec Doc your rubric will grade against.</p>
             <p class="text-xs text-gray-500 mt-2">Flow: Challenge card → 🤺 Grill → 📄 Spec Doc → 🔨 Build → 🎓 Self-grade</p>
 
             <div class="my-4 rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm">
@@ -197,6 +197,21 @@ Begin with Frontier A, Question 1.</pre>
 
             <div class="mini mini-case"><strong>❓ Sample frontier question:</strong> "What would this chart be used to argue — and which axis choice makes that argument impossible to spin?"</div>
             <div class="mini mini-fix"><strong>➡️ Recommended default:</strong> "Absolute-zero baseline + on-chart note for any documented exception." → <strong>Student:</strong> "1 Agree" → <em>Spec decision D1 → Gate: y_min = 0 or exception note present.</em></div>
+        </section>
+
+        <!-- ================= PRACTICE CROSS-REF ================= -->
+        <section class="card reveal" id="practice">
+            <h2>🎯 Put It Into Practice — Cases &amp; Datasets From This Part</h2>
+            <p class="text-sm text-gray-700">This part's failure modes became real, buildable cases in the <a href="../assignments/index.html#challenges" class="underline font-semibold">class assignment</a>, each with a synthetic dataset that contains the trap:</p>
+            <ul class="text-sm text-gray-700 list-disc pl-5 mt-2 space-y-1">
+                <li><strong>C4 · Pie Overload</strong> ← #8 Visual Literacy Deficit — <a href="../datasets/challenge-04-canteen-budget.csv" class="underline font-semibold" download>dataset</a></li>
+                <li><strong>C6 · Which Average?</strong> ← #8 Visual Literacy Deficit — <a href="../datasets/challenge-06-class-marks.csv" class="underline font-semibold" download>dataset</a></li>
+                <li><strong>C2 · Red Means Go?</strong> &amp; <strong>C9 · Hue-Only Heat Map</strong> ← #9 Accessibility &amp; CVD — <a href="../datasets/challenge-02-lab-status.csv" class="underline font-semibold" download>dataset</a> · <a href="../datasets/challenge-09-room-usage.csv" class="underline font-semibold" download>dataset</a></li>
+                <li><strong>C5 · The Zoomed Breakout</strong> ← #10 Confirmation Bias &amp; Cherry-Picking — <a href="../datasets/challenge-05-chess-membership.csv" class="underline font-semibold" download>dataset</a></li>
+                <li><strong>C1 · The Hero Axis</strong> &amp; <strong>C7 · Double-Ruler Drama</strong> ← #11 Dark Patterns &amp; Deceptive Visuals — <a href="../datasets/challenge-01-attendance-hero-axis.csv" class="underline font-semibold" download>dataset</a> · <a href="../datasets/challenge-07-transport-dual-axis.csv" class="underline font-semibold" download>dataset</a></li>
+                <li><strong>C16 · Alarm Storm</strong> ← #12 Cognitive Fatigue &amp; Over-saturation — <a href="../datasets/challenge-16-alarm-log.csv" class="underline font-semibold" download>dataset</a></li>
+            </ul>
+            <p class="text-xs text-gray-500 mt-2">All datasets: <a href="../datasets/index.html" class="underline font-semibold">datasets catalog</a> · assignment: <a href="../assignments/index.html#challenges" class="underline">pick 3, due 5 Nov</a> · method: <a href="grill-method.html" class="underline font-semibold">Challenge-Grill Method</a> · prompt source: <a href="../prompts/system_prompt_grill_me.md" class="underline font-mono">system_prompt_grill_me.md</a>.</p>
         </section>
 
         <!-- ================= SELF-GRADING ================= -->

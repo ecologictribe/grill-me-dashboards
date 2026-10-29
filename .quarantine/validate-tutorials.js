@@ -46,10 +46,27 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
             if (grill !== 1) fail(`${f} | missing grill-step section`);
             if (!gate0) fail(`${f} | missing GATE 0 process gate`);
             if (!html.includes('grill-method.html')) fail(`${f} | no link to method page`);
+            // cross-linking: every part links method, prompts, datasets, assignment
+            if (!html.includes('id="practice"')) fail(`${f} | missing practice cross-ref box`);
+            if (!html.includes('../prompts/system_prompt_grill_me.md')) fail(`${f} | no link to source prompt`);
+            if (!html.includes('../datasets/challenge-')) fail(`${f} | no per-part dataset links`);
+            if (!html.includes('../assignments/index.html')) fail(`${f} | no link to assignment`);
         }
         if (f === 'grill-method.html' && gates !== 4) fail(`grill-method | expected 4 method gates, got ${gates}`);
+        if (f === 'grill-method.html') {
+            if (!html.includes('id="toolkit"')) fail('grill-method | missing toolkit table');
+            for (const link of ['../prompts/system_prompt_grill_me.md', '../prompts/code_generation_prompt.md', '../specs/DASH-SPEC-2026-081.md', '../dashboard/index.html', '../grader/grader.v2.js', '../challenges/challenges.txt', '../datasets/index.html', '../assignments/index.html']) {
+                if (!html.includes(link)) fail(`grill-method | toolkit missing link: ${link}`);
+            }
+        }
         if (f === 'index.html' && !html.includes('grill-method.html')) fail('index.html | missing link to method page');
         if (f === 'index.html' && !html.includes('../assignments/index.html')) fail('index.html | missing link to assignment page');
+        if (f === 'index.html') {
+            if (!html.includes('id="working-files"')) fail('index.html | missing working-files strip');
+            for (const link of ['../prompts/system_prompt_grill_me.md', '../prompts/code_generation_prompt.md', '../challenges/challenges.txt', '../datasets/index.html']) {
+                if (!html.includes(link)) fail(`index.html | working-files missing link: ${link}`);
+            }
+        }
     }
 
     // Assignment page lives in assignments/ (own folder, not part of the tutorial series)
@@ -81,6 +98,11 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
         // per-card dataset download links (C13 has two sheets -> 21 links for 20 cards)
         const cardDsLinks = (html.match(/class="ds-link/g) || []).length;
         if (cardDsLinks < 21) fail(`assignment | expected >=21 per-card dataset links, got ${cardDsLinks}`);
+        const cardMLinks = (html.match(/class="m-link/g) || []).length;
+        if (cardMLinks !== 20) fail(`assignment | expected 20 per-card method links, got ${cardMLinks}`);
+        for (const link of ['../prompts/system_prompt_grill_me.md', '../prompts/code_generation_prompt.md', '../grader/grader.v2.js', '../specs/DASH-SPEC-2026-081.md', '../dashboard/index.html', '../challenges/challenges.txt', '../tutorials/index.html']) {
+            if (!html.includes(link)) fail(`assignment | toolkit missing link: ${link}`);
+        }
         const dsHrefs = [...html.matchAll(/class="ds-link[^"]*" href="\.\.\/datasets\/([^"]+\.csv)"/g)].map(m => m[1]);
         const missingCsv = dsHrefs.filter(c => !csvs.includes(c));
         if (missingCsv.length) fail(`assignment | dataset links point to missing files: ${missingCsv}`);
@@ -114,6 +136,11 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     if (broken.length) fail(`datasets/index.html | broken CSV links: ${broken}`);
     const unlinked = csvs.filter(c => !hrefs.includes(c));
     if (unlinked.length) fail(`datasets/index.html | CSVs not linked from catalog: ${unlinked}`);
+    const dsUse = (dsHtml.match(/class="ds-use/g) || []).length;
+    if (dsUse !== 20) fail(`datasets/index.html | expected 20 per-card method chips, got ${dsUse}`);
+    for (const link of ['../tutorials/grill-method.html', '../tutorials/index.html', '../assignments/index.html#challenges', '../challenges/challenges.txt', '../prompts/system_prompt_grill_me.md']) {
+        if (!dsHtml.includes(link)) fail(`datasets/index.html | missing cross-link: ${link}`);
+    }
     dsDom.window.close();
 
     const steps3 = fs.readFileSync(path.join(dsDir, 'challenge-03-missing-tuesday.csv'), 'utf8');

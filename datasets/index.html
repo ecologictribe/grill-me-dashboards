@@ -55,6 +55,8 @@
         .dl-btn:hover { background:#28a8e8; }
         .dl-btn.alt { background:#3c9080; }
         .dl-btn.alt:hover { background:#48b838; }
+        .ds-use { display:inline-flex; align-items:center; margin-left:.4rem; font-size:.8rem; font-weight:700; text-decoration:none; padding:2px 8px; border-radius:999px; background:#eef8f6; color:#3c9080; border:1px solid #c6eeb0; transition:all .2s ease; }
+        .ds-use:hover { background:#3c9080; color:#fff; }
         .sec-title { font-size:1.25rem; margin-top:2.2rem; padding-bottom:.4rem; border-bottom:2px solid #eef8f6; }
         .filter-btn { transition:all .2s ease; }
         .filter-btn.active { background:#183868 !important; color:#fff !important; border-color:#183868 !important; }
@@ -94,6 +96,8 @@
             <h2>📦 How to Use These Files</h2>
             <ul>
                 <li><strong>Download:</strong> click a <em>CSV</em> button below (opens the raw file on GitHub — save it), or grab the whole folder from <a href="https://github.com/ecologictribe/grill-me-dashboards/tree/main/datasets" target="_blank" rel="noopener" class="underline font-semibold">GitHub</a>, or clone the repo.</li>
+                <li><strong>Every card number = the assignment card number</strong> — dataset 5 belongs to assignment challenge #5. Cross-refs: <a href="../assignments/index.html#challenges" class="underline font-semibold">the 20 assignment challenges</a> · <a href="../challenges/challenges.txt" class="underline font-semibold">the master challenge bank</a> (case ↔ failure-mode mapping).</li>
+                <li><strong>Stuck on method?</strong> Each card's 🤺 button links to the <a href="../tutorials/grill-method.html" class="underline font-semibold">Challenge-Grill Method</a> — the interview that turns a dataset's trap into spec decisions. Series: <a href="../tutorials/index.html" class="underline font-semibold">tutorials home</a> · source prompt: <a href="../prompts/system_prompt_grill_me.md" class="underline font-mono text-xs">system_prompt_grill_me.md</a>.</li>
                 <li><strong>Power BI:</strong> <em>Get Data → Text/CSV</em>. <strong>HTML:</strong> fetch or inline the CSV. <strong>Spreadsheets:</strong> open directly — but watch Challenge 8's row count.</li>
                 <li><strong>Trap warning:</strong> each card shows the embedded trap. <em>Do not read it if you want to discover it yourself</em> — finding it during the grill is worth marks.</li>
                 <li><strong>Rules:</strong> no fabricating rows, no hand-editing CSVs (documented transformations only). Details in <a href="https://github.com/ecologictribe/grill-me-dashboards/blob/main/datasets/README.md" target="_blank" rel="noopener" class="underline font-semibold">datasets/README.md</a>.</li>
@@ -109,108 +113,108 @@
 
         <h2 class="sec-title">🌱 Easy Tier</h2>
         <div class="ds-card" data-diff="easy">
-            <div class="ds-head"><span class="ds-num">1</span><h4>The Hero Axis</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-01-attendance-hero-axis.csv" download><i class="fas fa-download"></i> CSV · 24 rows</a></div>
+            <div class="ds-head"><span class="ds-num">1</span><h4>The Hero Axis</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-01-attendance-hero-axis.csv" download><i class="fas fa-download"></i> CSV · 24 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>month, attendance_pct</code> — 24 months, all values 85–96%.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> no zero in range. Every y-axis start hides or exaggerates something.</div>
         </div>
         <div class="ds-card" data-diff="easy">
-            <div class="ds-head"><span class="ds-num">2</span><h4>Red Means Go?</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-02-lab-status.csv" download><i class="fas fa-download"></i> CSV · 16 rows</a></div>
+            <div class="ds-head"><span class="ds-num">2</span><h4>Red Means Go?</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-02-lab-status.csv" download><i class="fas fa-download"></i> CSV · 16 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>equipment_id, equipment_name, location, status, checked_at</code> — status ∈ in_use / faulty / available.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> status is text only. A green/red board needs shape or label redundancy to survive colour-blindness and grayscale.</div>
         </div>
         <div class="ds-card" data-diff="easy">
-            <div class="ds-head"><span class="ds-num">3</span><h4>The Missing Tuesday</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-03-missing-tuesday.csv" download><i class="fas fa-download"></i> CSV · 30 rows</a></div>
+            <div class="ds-head"><span class="ds-num">3</span><h4>The Missing Tuesday</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-03-missing-tuesday.csv" download><i class="fas fa-download"></i> CSV · 30 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>date, steps, sensor_status</code> — two days have empty <code>steps</code>, <code>sensor_status=outage</code>.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> naive imports turn empty into 0 — "nobody walked on Tuesday". Show a gap, not a dip.</div>
         </div>
         <div class="ds-card" data-diff="easy">
-            <div class="ds-head"><span class="ds-num">4</span><h4>Pie Overload</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-04-canteen-budget.csv" download><i class="fas fa-download"></i> CSV · 14 rows</a></div>
+            <div class="ds-head"><span class="ds-num">4</span><h4>Pie Overload</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-04-canteen-budget.csv" download><i class="fas fa-download"></i> CSV · 14 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>category, amount_inr</code> — 14 budget categories.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> 14 slices, no comparison. Grill your audience down to the 3 categories they actually decide on.</div>
         </div>
         <div class="ds-card" data-diff="easy">
-            <div class="ds-head"><span class="ds-num">5</span><h4>The Zoomed Breakout</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-05-chess-membership.csv" download><i class="fas fa-download"></i> CSV · 156 rows</a></div>
+            <div class="ds-head"><span class="ds-num">5</span><h4>The Zoomed Breakout</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-05-chess-membership.csv" download><i class="fas fa-download"></i> CSV · 156 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>week_starting, active_members</code> — 3 years, last 3 weeks jump.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> zoom to the tail and you "prove" explosive growth from flat history. Show the full range with the zoom annotated.</div>
         </div>
         <div class="ds-card" data-diff="easy">
-            <div class="ds-head"><span class="ds-num">6</span><h4>Which Average?</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-06-class-marks.csv" download><i class="fas fa-download"></i> CSV · 38 rows</a></div>
+            <div class="ds-head"><span class="ds-num">6</span><h4>Which Average?</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-06-class-marks.csv" download><i class="fas fa-download"></i> CSV · 38 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>roll_no, student_name, section, marks</code> — mean ≈ 68, median ≈ 64.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> right-skewed. One badged "average" misleads the story; your tooltip must say which mean.</div>
         </div>
 
         <h2 class="sec-title">⚡ Medium Tier</h2>
         <div class="ds-card" data-diff="medium">
-            <div class="ds-head"><span class="ds-num">7</span><h4>Double-Ruler Drama</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-07-transport-dual-axis.csv" download><i class="fas fa-download"></i> CSV · 24 rows</a></div>
+            <div class="ds-head"><span class="ds-num">7</span><h4>Double-Ruler Drama</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-07-transport-dual-axis.csv" download><i class="fas fa-download"></i> CSV · 24 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>month, bus_ontime_pct, diesel_cost_inr_thousands</code> — % drifts down, ₹ drifts up.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> dual axes will make the lines cross — inviting a causation claim the data never made.</div>
         </div>
         <div class="ds-card" data-diff="medium">
-            <div class="ds-head"><span class="ds-num">8</span><h4>Silent Row Loss</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-08-recycling-rows.csv" download><i class="fas fa-download"></i> CSV · 1,200 rows</a></div>
+            <div class="ds-head"><span class="ds-num">8</span><h4>Silent Row Loss</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-08-recycling-rows.csv" download><i class="fas fa-download"></i> CSV · 1,200 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>record_id, collection_date, block, weight_kg, students_involved</code></div>
             <div class="mini mini-trap"><strong>Trap:</strong> crosses the classic 1,000-row import cap. Assert row counts at every hop — capture → import → dashboard.</div>
         </div>
         <div class="ds-card" data-diff="medium">
-            <div class="ds-head"><span class="ds-num">9</span><h4>Hue-Only Heat Map</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-09-room-usage.csv" download><i class="fas fa-download"></i> CSV · 96 rows</a></div>
+            <div class="ds-head"><span class="ds-num">9</span><h4>Hue-Only Heat Map</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-09-room-usage.csv" download><i class="fas fa-download"></i> CSV · 96 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>room, hour_slot, occupancy_level_0_to_3, approx_occupants</code> — 8 rooms × 12 hours.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> one-blue-intensity encoding dies in grayscale. Redundancy: numbers, labels, hatch.</div>
         </div>
         <div class="ds-card" data-diff="medium">
-            <div class="ds-head"><span class="ds-num">10</span><h4>The Flicker Feed</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-10-canteen-queue.csv" download><i class="fas fa-download"></i> CSV · 900 rows</a></div>
+            <div class="ds-head"><span class="ds-num">10</span><h4>The Flicker Feed</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-10-canteen-queue.csv" download><i class="fas fa-download"></i> CSV · 900 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>timestamp, counter_id, queue_length</code> — one row per second, 15 minutes.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> repaint on every ping = unreadable flicker. Choose an aggregation window and a repaint cap.</div>
         </div>
         <div class="ds-card" data-diff="medium">
-            <div class="ds-head"><span class="ds-num">11</span><h4>Mobile Mashup</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-11-exam-results.csv" download><i class="fas fa-download"></i> CSV · 60 rows</a></div>
+            <div class="ds-head"><span class="ds-num">11</span><h4>Mobile Mashup</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-11-exam-results.csv" download><i class="fas fa-download"></i> CSV · 60 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>roll_no, student_name, section, gender</code> + six subject scores (maths…computer).</div>
             <div class="mini mini-trap"><strong>Trap:</strong> six "panels" of data designed for a lab monitor — decide the ONE question a phone must answer.</div>
         </div>
         <div class="ds-card" data-diff="medium">
-            <div class="ds-head"><span class="ds-num">12</span><h4>Hover-Only Facts</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-12-energy-readings.csv" download><i class="fas fa-download"></i> CSV · 24 rows</a></div>
+            <div class="ds-head"><span class="ds-num">12</span><h4>Hover-Only Facts</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-12-energy-readings.csv" download><i class="fas fa-download"></i> CSV · 24 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>month, consumption</code> — <strong>no unit column</strong> (values are kWh).</div>
             <div class="mini mini-trap"><strong>Trap:</strong> units and range that live only in tooltips vanish in a screenshot. Print them on the chart.</div>
         </div>
         <div class="ds-card" data-diff="medium">
-            <div class="ds-head"><span class="ds-num">13</span><h4>Two Vote Counts</h4><span class="diff diff-medium">Medium</span>
+            <div class="ds-head"><span class="ds-num">13</span><h4>Two Vote Counts</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-medium">Medium</span>
                 <a class="dl-btn ml-auto" href="challenge-13-voting-sheet-a.csv" download><i class="fas fa-download"></i> Sheet A · 75</a>
                 <a class="dl-btn alt ml-2" href="challenge-13-voting-sheet-b.csv" download><i class="fas fa-download"></i> Sheet B · 25</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>vote_id, student_id, project</code> — sheet A: 3 votes/student; sheet B: 1 vote/student.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> two "official" totals. Grill for the governed definition of a vote and who owns it.</div>
         </div>
         <div class="ds-card" data-diff="medium">
-            <div class="ds-head"><span class="ds-num">14</span><h4>Names on the Big Screen</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-14-fitness-test.csv" download><i class="fas fa-download"></i> CSV · 50 rows</a></div>
+            <div class="ds-head"><span class="ds-num">14</span><h4>Names on the Big Screen</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-14-fitness-test.csv" download><i class="fas fa-download"></i> CSV · 50 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>roll_no, student_name, section, gender, age</code> + 3 events, composite, rank.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> real-looking PII with per-student scores. Decide who sees whose number before you project it.</div>
         </div>
 
         <h2 class="sec-title">🔥 Hard Tier</h2>
         <div class="ds-card" data-diff="hard">
-            <div class="ds-head"><span class="ds-num">15</span><h4>Cluster Mirage</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-15-activity-map.csv" download><i class="fas fa-download"></i> CSV · 126 rows</a></div>
+            <div class="ds-head"><span class="ds-num">15</span><h4>Cluster Mirage</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-15-activity-map.csv" download><i class="fas fa-download"></i> CSV · 126 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>student_id, study_hours_per_week, sports_hours_per_week</code> — two engineered blobs + 6 bridge points.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> pretty islands in 2D. What evidence beyond the projection confirms a "type"? Show the doubt.</div>
         </div>
         <div class="ds-card" data-diff="hard">
-            <div class="ds-head"><span class="ds-num">16</span><h4>Alarm Storm</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-16-alarm-log.csv" download><i class="fas fa-download"></i> CSV · 60 rows</a></div>
+            <div class="ds-head"><span class="ds-num">16</span><h4>Alarm Storm</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-16-alarm-log.csv" download><i class="fas fa-download"></i> CSV · 60 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>timestamp, zone, severity, message_code</code> — ~20 alerts/min, only 3 are <code>critical</code>.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> alert fatigue hides the real one. Severity tiering + a calm baseline screen.</div>
         </div>
         <div class="ds-card" data-diff="hard">
-            <div class="ds-head"><span class="ds-num">17</span><h4>The Sarcasm Meter</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-17-feedback-sentiment.csv" download><i class="fas fa-download"></i> CSV · 20 rows</a></div>
+            <div class="ds-head"><span class="ds-num">17</span><h4>The Sarcasm Meter</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-17-feedback-sentiment.csv" download><i class="fas fa-download"></i> CSV · 20 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>feedback_id, comment, sentiment_score_0_to_1, label</code> — sarcastic comments score ~0.9 "positive".</div>
             <div class="mini mini-trap"><strong>Trap:</strong> the meter confidently wrong. Carry uncertainty and show sample quotes next to every score.</div>
         </div>
         <div class="ds-card" data-diff="hard">
-            <div class="ds-head"><span class="ds-num">18</span><h4>Phantom Spike</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-18-bus-gps.csv" download><i class="fas fa-download"></i> CSV · 302 rows</a></div>
+            <div class="ds-head"><span class="ds-num">18</span><h4>Phantom Spike</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-18-bus-gps.csv" download><i class="fas fa-download"></i> CSV · 302 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>timestamp, vehicle_id, source, speed_kph</code> — <code>gps_live</code> per-second + <code>daily_log</code> averages in one file.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> mixed cadence collides on one chart into a spike that never happened. Reconcile clocks; label cadence.</div>
         </div>
         <div class="ds-card" data-diff="hard">
-            <div class="ds-head"><span class="ds-num">19</span><h4>Broken Inheritance</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-19-prize-data.csv" download><i class="fas fa-download"></i> CSV · 40 rows</a></div>
+            <div class="ds-head"><span class="ds-num">19</span><h4>Broken Inheritance</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-19-prize-data.csv" download><i class="fas fa-download"></i> CSV · 40 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>year_label, event_date, event_name, category, recipient_first_name, position</code> — label says 2024, dates span 2023–2026.</div>
             <div class="mini mini-trap"><strong>Trap:</strong> the hardcoded year poisons year-on-year comparison. Derive the year from the date; one source of truth.</div>
         </div>
         <div class="ds-card" data-diff="hard">
-            <div class="ds-head"><span class="ds-num">20</span><h4>Export Amnesia</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-20-admissions.csv" download><i class="fas fa-download"></i> CSV · 80 rows</a></div>
+            <div class="ds-head"><span class="ds-num">20</span><h4>Export Amnesia</h4><a class="ds-use" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — interview your way to the fix">🤺</a><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-20-admissions.csv" download><i class="fas fa-download"></i> CSV · 80 rows</a></div>
             <div class="mini mini-schema"><strong>Columns:</strong> <code>application_id, received_date, program, quota, entrance_score, interview_score, docs_verified, status, counselor_remarks</code></div>
             <div class="mini mini-trap"><strong>Trap:</strong> the truth hides in free-text row detail. Design every view to survive being flattened to an image.</div>
         </div>

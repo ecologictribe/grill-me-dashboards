@@ -59,6 +59,30 @@ are never deleted — retired uncommitted artifacts go to `.quarantine/`.
 - `article/dashboard-skills.html` is the user's own untracked file — leave alone
   unless asked.
 
+## Cross-link map (student navigation)
+
+Every page links sideways, so students can cross-reference from any starting
+point. The web (all links relative):
+
+- **tutorials/index.html** — hub: parts, method, assignment, datasets chip,
+  "🗂 Working Files" (prompts, spec, dashboard, grader, challenges.txt).
+- **tutorials/grill-method.html** — "🗂 The Full Toolkit" table: prompts
+  (.md), spec, dashboard, graders, challenges.txt, datasets, assignment.
+- **tutorials/part-N.html** — grill step links method + source prompt; each
+  part has a "🎯 Put It Into Practice" box: its failure modes → assignment
+  cases C# → dataset CSVs (+ open-proposal pointers to challenges.txt Part C).
+- **datasets/index.html** — intro: card number = assignment card number,
+  method + challenge-bank links; every card has a 🤺 method chip.
+- **assignments/index.html** — workflow "toolkit" table (method, prompts,
+  spec, dashboard, grader, challenges.txt, tutorials); every challenge card
+  has 🤺 (method) + 📦 (dataset CSV) chips; declaration links the source
+  prompt; self-eval links grader.v2.
+- **datasets/README.md** — cross-reference section (file ↔ case ↔ failure
+  mode ↔ method ↔ series ↔ grader).
+
+Probe enforces the key edges (parts → prompts/datasets/assignment; method →
+toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
+
 ## State (as of 29 Oct 2026)
 
 - Everything above is committed & pushed; probe green (pages + datasets + assignment + challenges.txt structure).

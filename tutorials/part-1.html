@@ -181,7 +181,7 @@
         <section class="card reveal" id="grill-step">
             <div class="section-meta flex gap-2 mb-2"><span class="badge badge-intermediate">🤺 Step 1: Grill</span><span class="badge badge-time">⏱ ~10 min</span></div>
             <h2>Grill Your Challenge <em>Before</em> You Build</h2>
-            <p class="text-sm text-gray-700">Pick one challenge from this part, then run the scoped prompt below — an adaptation of <a href="grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> on top of Part 7's Rules of Engagement. Two rounds later you hold numbered decisions: the Spec Doc your rubric will grade against.</p>
+            <p class="text-sm text-gray-700">Pick one challenge from this part, then run the scoped prompt below — an adaptation of <a href="grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> on top of Part 7's Rules of Engagement (source prompt: <a href="../prompts/system_prompt_grill_me.md" class="underline font-mono text-xs">prompts/system_prompt_grill_me.md</a>). Two rounds later you hold numbered decisions: the Spec Doc your rubric will grade against.</p>
             <p class="text-xs text-gray-500 mt-2">Flow: Challenge card → 🤺 Grill → 📄 Spec Doc → 🔨 Build → 🎓 Self-grade</p>
 
             <div class="my-4 rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm">
@@ -216,6 +216,20 @@ Begin with Frontier A, Question 1.</pre>
 
             <div class="mini mini-case"><strong>❓ Sample frontier question:</strong> "At which hop does your row count change, and what check fires when it does?"</div>
             <div class="mini mini-fix"><strong>➡️ Recommended default:</strong> "Assertion at every hop (ingest = store = render), alert on mismatch." → <strong>Student:</strong> "1 Agree" → <em>Spec decision D1 → Gate: row-count assertion passes everywhere.</em></div>
+        </section>
+
+        <!-- ================= PRACTICE CROSS-REF ================= -->
+        <section class="card reveal" id="practice">
+            <h2>🎯 Put It Into Practice — Cases &amp; Datasets From This Part</h2>
+            <p class="text-sm text-gray-700">This part's failure modes became real, buildable cases in the <a href="../assignments/index.html#challenges" class="underline font-semibold">class assignment</a>, each with a synthetic dataset that contains the trap:</p>
+            <ul class="text-sm text-gray-700 list-disc pl-5 mt-2 space-y-1">
+                <li><strong>C3 · The Missing Tuesday</strong> ← #6 Latent Pipeline Failures — <a href="../datasets/challenge-03-missing-tuesday.csv" class="underline font-semibold" download>dataset</a></li>
+                <li><strong>C8 · Silent Row Loss</strong> ← #6 Latent Pipeline Failures — <a href="../datasets/challenge-08-recycling-rows.csv" class="underline font-semibold" download>dataset (1,200 rows)</a></li>
+                <li><strong>C11 · Mobile Mashup</strong> ← #5 Cross-Platform Responsiveness — <a href="../datasets/challenge-11-exam-results.csv" class="underline font-semibold" download>dataset</a></li>
+                <li><strong>C15 · Cluster Mirage</strong> ← #2 High-Dimensional Projection Loss — <a href="../datasets/challenge-15-activity-map.csv" class="underline font-semibold" download>dataset</a></li>
+                <li><strong>C18 · Phantom Spike</strong> ← #7 Temporal Granularity Conflicts — <a href="../datasets/challenge-18-bus-gps.csv" class="underline font-semibold" download>dataset</a></li>
+            </ul>
+            <p class="text-xs text-gray-500 mt-2">Failure modes #1, #3 and #4 have no dataset yet — see open proposals C21–C23 in <a href="../challenges/challenges.txt" class="underline">challenges.txt (Part C)</a>. All datasets: <a href="../datasets/index.html" class="underline font-semibold">datasets catalog</a>. Method: <a href="grill-method.html" class="underline font-semibold">Challenge-Grill Method</a> · prompt source: <a href="../prompts/system_prompt_grill_me.md" class="underline font-mono">system_prompt_grill_me.md</a>.</p>
         </section>
 
         <!-- ================= SELF-GRADING ================= -->
