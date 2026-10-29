@@ -16,6 +16,9 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     let failures = 0;
     const fail = msg => { failures++; console.log('FAIL ' + msg); };
 
+    const dsDir = path.join(__dirname, '..', 'datasets');
+    const csvs = fs.readdirSync(dsDir).filter(f => f.endsWith('.csv'));
+
     for (const f of files) {
         const errors = [];
         const environmental = m => m.includes('tailwind is not defined'); // external CDN not fetched in jsdom
@@ -46,16 +49,48 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
         }
         if (f === 'grill-method.html' && gates !== 4) fail(`grill-method | expected 4 method gates, got ${gates}`);
         if (f === 'index.html' && !html.includes('grill-method.html')) fail('index.html | missing link to method page');
-        if (f === 'index.html' && !html.includes('assignment.html')) fail('index.html | missing link to assignment page');
-        if (f === 'assignment.html') {
-            if (cards !== 20) fail(`assignment | expected 20 challenges, got ${cards}`);
-            if (selfInputs !== trainerInputs) fail(`assignment | self/trainer input mismatch (${selfInputs}/${trainerInputs})`);
-            if (pbi !== 3) fail(`assignment | expected 3 Power BI bonus checkboxes, got ${pbi}`);
-            if (!html.includes('datasets/index.html')) fail('assignment | missing link to datasets catalog');
-            if (!html.includes('tree/main/datasets')) fail('assignment | missing link to GitHub datasets folder');
-            for (const token of ['eflow', '5 Nov 2026', '29 Oct 2026', 'Power BI', 'presentation']) {
-                if (!html.includes(token)) fail(`assignment | missing key token: ${token}`);
-            }
+        if (f === 'index.html' && !html.includes('../assignments/index.html')) fail('index.html | missing link to assignment page');
+    }
+
+    // Assignment page lives in assignments/ (own folder, not part of the tutorial series)
+    {
+        const f = 'assignments/index.html';
+        const html = fs.readFileSync(path.join(__dirname, '..', 'assignments', 'index.html'), 'utf8');
+        const errors = [];
+        const environmental = m => m.includes('tailwind is not defined');
+        const vc = new VirtualConsole();
+        vc.on('jsdomError', e => { if (!environmental(e.message)) errors.push(e.message); });
+        vc.on('error', (...a) => { const m = a.join(' '); if (!environmental(m)) errors.push(m); });
+        const dom = new JSDOM(html, { runScripts: 'dangerously', pretendToBeVisual: true, virtualConsole: vc, url: 'https://aplly.xyz/assignments/index.html' });
+        await new Promise(r => setTimeout(r, 300));
+        const doc = dom.window.document;
+        const cards = doc.querySelectorAll('.chal-card').length;
+        const selfInputs = doc.querySelectorAll('.score-input.self').length;
+        const trainerInputs = doc.querySelectorAll('.score-input.trainer').length;
+        const pbi = doc.querySelectorAll('.pbi-chk').length;
+        dom.window.close();
+
+        if (errors.length) fail(`${f} | script errors: ${errors.join(' ; ')}`);
+        else console.log(`PASS ${f} | chal-cards: ${cards} | self/trainer: ${selfInputs}/${trainerInputs} | pbi-bonus: ${pbi}`);
+        if (cards !== 20) fail(`assignment | expected 20 challenges, got ${cards}`);
+        if (selfInputs !== trainerInputs) fail(`assignment | self/trainer input mismatch (${selfInputs}/${trainerInputs})`);
+        if (pbi !== 3) fail(`assignment | expected 3 Power BI bonus checkboxes, got ${pbi}`);
+        if (!html.includes('../datasets/index.html')) fail('assignment | missing link to datasets catalog');
+        if (!html.includes('../tutorials/grill-method.html')) fail('assignment | missing link to method page');
+        if (!html.includes('tree/main/datasets')) fail('assignment | missing link to GitHub datasets folder');
+        // per-card dataset download links (C13 has two sheets -> 21 links for 20 cards)
+        const cardDsLinks = (html.match(/class="ds-link/g) || []).length;
+        if (cardDsLinks < 21) fail(`assignment | expected >=21 per-card dataset links, got ${cardDsLinks}`);
+        const dsHrefs = [...html.matchAll(/class="ds-link[^"]*" href="\.\.\/datasets\/([^"]+\.csv)"/g)].map(m => m[1]);
+        const missingCsv = dsHrefs.filter(c => !csvs.includes(c));
+        if (missingCsv.length) fail(`assignment | dataset links point to missing files: ${missingCsv}`);
+        // self-evaluation section
+        if (!html.includes('id="self-eval"')) fail('assignment | missing self-evaluation section');
+        for (const token of ['screenshot', 'Self-Evaluation', 'Win + Shift + S', 'Trainer column blank']) {
+            if (!html.includes(token)) fail(`assignment | self-eval missing token: ${token}`);
+        }
+        for (const token of ['eflow', '5 Nov 2026', '29 Oct 2026', 'Power BI', 'presentation']) {
+            if (!html.includes(token)) fail(`assignment | missing key token: ${token}`);
         }
     }
 
@@ -66,8 +101,6 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     if (missing.length) fail(`challenge coverage, missing: ${missing}`); else console.log('PASS all 22 challenges covered across parts 1-4');
 
     // Datasets: 21 CSVs, themed catalog links every file, key traps intact
-    const dsDir = path.join(__dirname, '..', 'datasets');
-    const csvs = fs.readdirSync(dsDir).filter(f => f.endsWith('.csv'));
     if (csvs.length < 21) fail(`datasets | expected >=21 CSVs, got ${csvs.length}`);
     if (!fs.existsSync(path.join(dsDir, 'README.md'))) fail('datasets | missing README.md');
     if (!fs.existsSync(path.join(__dirname, '..', 'scripts', 'generate-datasets.js'))) fail('scripts | missing generate-datasets.js');
@@ -90,6 +123,16 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     const gps18 = fs.readFileSync(path.join(dsDir, 'challenge-18-bus-gps.csv'), 'utf8');
     if (!gps18.includes('gps_live') || !gps18.includes('daily_log')) fail('challenge-18 | missing mixed-cadence sources');
     if (!failures) console.log(`PASS datasets | ${csvs.length} CSVs | catalog: ${dsCards} cards, ${hrefs.length} links, 0 broken`);
+
+    // Master challenge dataset: challenges.txt structure (Part A/B/C/D)
+    const cdb = fs.readFileSync(path.join(__dirname, '..', 'challenges', 'challenges.txt'), 'utf8');
+    const coverage = (cdb.match(/\*\*COVERAGE:\*\*/g) || []).length;
+    if (coverage !== 22) fail(`challenges.txt | expected 22 COVERAGE lines, got ${coverage}`);
+    const openCases = (cdb.match(/case: OPEN/g) || []).length;
+    if (openCases !== 7) fail(`challenges.txt | expected 7 OPEN failure modes, got ${openCases}`);
+    for (let n = 1; n <= 20; n++) if (!new RegExp(`C${n}\\s*·`).test(cdb)) fail(`challenges.txt | missing case C${n}`);
+    if (!cdb.includes('PART D')) fail('challenges.txt | missing Part D contribution template');
+    if (!failures) console.log(`PASS challenges.txt | 22 coverage lines | C1-C20 present | ${openCases} open proposals (C21-C27) | template`);
 
     console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL CHECKS PASSED');
     process.exit(failures ? 1 : 0);

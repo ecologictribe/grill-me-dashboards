@@ -1,3 +1,34 @@
+================================================================================
+MASTER CHALLENGE DATASET
+challenges/challenges.txt — the canonical challenge bank for the
+"Data Visualization Challenges" series (Aplly.xyz, Puneet Arora)
+================================================================================
+
+This file is the single source of truth for every dashboard challenge used in
+the course. Structure:
+
+  PART A — 22 FAILURE-MODE CHALLENGES (original bank, verbatim)
+      The foundational failure modes, taught across tutorial Parts 1-4.
+      Each entry now carries a COVERAGE line:
+        - series ....... which tutorial part teaches it
+        - case ......... the school-flavoured case challenge derived from it
+        - dataset ...... the synthetic CSV (or "OPEN" if uncovered)
+  PART B — 20 CASE CHALLENGES (C1-C20)
+      The buildable cases offered in the class assignment. Each derives from
+      one Part A failure mode and ships with a synthetic dataset.
+  PART C — OPEN CHALLENGES (C21-C27, proposed)
+      Case proposals for the 7 Part A failure modes with no dataset yet.
+      Not part of the current assignment; ask the trainer to adopt one.
+  PART D — HOW TO ADD A CHALLENGE (template)
+
+Git: https://github.com/ecologictribe/grill-me-dashboards
+Datasets: datasets/ (catalog: datasets/index.html)
+Assignment: assignments/index.html (issued 29 Oct 2026, due 5 Nov 2026)
+
+================================================================================
+PART A — 22 FAILURE-MODE CHALLENGES
+================================================================================
+
 Real-world failures, public graphics blunders, and high-profile corporate/scientific case studies highlight the impact of each of the 22 data visualization challenges:
 
 ---
@@ -7,36 +38,43 @@ Real-world failures, public graphics blunders, and high-profile corporate/scient
 1. **Uncertainty & Risk Representation**
 * **Real-World Example:** *Hurricane Tracking Maps (The "Cone of Uncertainty")*.
 * **Case Study:** During major storms like Hurricane Dorian (2019), public displays of the National Hurricane Center’s cone of uncertainty led residents outside the visual boundary to assume they were completely safe, failing to convey that the boundary represents a 66% probability margin, not a hard line for storm impacts.
+* **COVERAGE:** series: Part 1, #1 | case: OPEN (see C21) | dataset: OPEN — uncovered; proposal C21 awaits adoption.
 
 
 2. **High-Dimensional Projection Loss**
 * **Real-World Example:** *Single-cell RNA sequencing diagnostics (t-SNE/UMAP clusters)*.
 * **Case Study:** In genomic research, compressing thousands of gene expression profiles down to 2D using t-SNE frequently creates artificial clusters or visually implies that distant clusters are unrelated, leading researchers to misidentify distinct cell populations during cancer cell sub-typing.
+* **COVERAGE:** series: Part 1, #2 | case: C15 Cluster Mirage | dataset: datasets/challenge-15-activity-map.csv
 
 
 3. **Graph & Network Layout Chaos**
 * **Real-World Example:** *Financial Intelligence & AML (Anti-Money Laundering) Tracing*.
 * **Case Study:** Compliance analysts investigating international shell company networks (such as in the Panama Papers leaks) routinely struggle with "hairball" node-link diagrams. When node connections scale past tens of thousands of entities, critical money-laundering paths become visually obscured by high graph density.
+* **COVERAGE:** series: Part 1, #3 | case: OPEN (see C22) | dataset: OPEN — uncovered; proposal C22 awaits adoption.
 
 
 4. **Geospatial & Proportional Distortion**
 * **Real-World Example:** *US Presidential Election Maps*.
 * **Case Study:** Standard geographic choropleth maps of US election results display land area rather than population density, visually exaggerating low-density rural counties (red) over high-density urban zones (blue). This creates a visual mismatch between electoral votes and geographic surface area.
+* **COVERAGE:** series: Part 1, #4 | case: OPEN (see C23) | dataset: OPEN — uncovered; proposal C23 awaits adoption.
 
 
 5. **Cross-Platform & Screen Responsiveness**
 * **Real-World Example:** *Financial Trading Terminals on Mobile Devices*.
 * **Case Study:** Complex desktop-first BI dashboards (e.g., Bloomberg Terminal view, custom Power BI views) rendered on mobile screens often collapse multi-axis line graphs into unreadable overlays, causing traders or field staff to miss axis context or tap incorrect data points.
+* **COVERAGE:** series: Part 1, #5 | case: C11 Mobile Mashup | dataset: datasets/challenge-11-exam-results.csv
 
 
 6. **Latent Data Pipeline Failures**
 * **Real-World Example:** *COVID-19 Dashboard Ingest (Public Health England, 2020)*.
 * **Case Study:** Public Health England’s contact tracing database truncated thousands of positive case records because data was routed through an outdated Excel file format (`.xls`) before feeding into public visual dashboards. The dashboards appeared fully functional, but silently hid thousands of active cases.
+* **COVERAGE:** series: Part 1, #6 | cases: C3 Missing Tuesday, C8 Silent Row Loss | datasets: challenge-03-missing-tuesday.csv, challenge-08-recycling-rows.csv
 
 
 7. **Temporal Granularity Conflicts**
 * **Real-World Example:** *Supply Chain IoT vs. Accounting Dashboards*.
 * **Case Study:** Integrating real-time IoT tracking (pinging every second) with ERP monthly accounting metrics on supply chain dashboards frequently leads to miscalculated moving averages, giving executives the impression that fulfillment delays are sudden spikes rather than gradual trends.
+* **COVERAGE:** series: Part 1, #7 | case: C18 Phantom Spike | dataset: datasets/challenge-18-bus-gps.csv
 
 
 
@@ -47,26 +85,31 @@ Real-world failures, public graphics blunders, and high-profile corporate/scient
 8. **Visual Literacy Deficit**
 * **Real-World Example:** *Logarithmic Charts During Epidemic Curves*.
 * **Case Study:** During early COVID-19 reporting, public health agencies plotted cumulative cases on logarithmic scales to manage exponential axes. However, non-technical readers interpreted flat logarithmic trajectories as a total stop in new infections, leading to widespread misinterpretation of public health advisories.
+* **COVERAGE:** series: Part 2, #8 | cases: C4 Pie Overload, C6 Which Average? | datasets: challenge-04-canteen-budget.csv, challenge-06-class-marks.csv
 
 
 9. **Accessibility & Color Vision Deficiency (CVD)**
 * **Real-World Example:** *Color-Coded Medical Triage & Clinical Dashboards*.
 * **Case Study:** Intensive care monitoring systems that rely exclusively on green/red severity indicators fail to convey critical telemetry to color-blind medical professionals (affecting ~8% of males), leading to potential delays in emergency responses unless shape/pattern redundancies are applied.
+* **COVERAGE:** series: Part 2, #9 | cases: C2 Red Means Go?, C9 Hue-Only Heat Map | datasets: challenge-02-lab-status.csv, challenge-09-room-usage.csv
 
 
 10. **Confirmation Bias & Cherry-Picking**
 * **Real-World Example:** *Climate Science Skepticism Graphics*.
 * **Case Study:** Media graphics have historically selected localized 5-year cooling windows out of 100-year warming trends to visually "prove" warming had paused. By setting custom date ranges, the visualization confirmed a specific narrative despite conflicting with broader historical data.
+* **COVERAGE:** series: Part 2, #10 | case: C5 The Zoomed Breakout | dataset: datasets/challenge-05-chess-membership.csv
 
 
 11. **Dark Patterns & Deceptive Visuals**
 * **Real-World Example:** *Fox Business Truncated Axes & Planned Parenthood Congressional Hearing*.
 * **Case Study:** Notable examples of truncated Y-axes include Fox Business graphics altering visual bar scales, and a 2015 US Congressional chart using mismatched dual Y-axes to make falling cancer screenings look visually lower than rising abortion figures, despite cancer screenings being exponentially higher in actual count.
+* **COVERAGE:** series: Part 2, #11 | cases: C1 The Hero Axis, C7 Double-Ruler Drama | datasets: challenge-01-attendance-hero-axis.csv, challenge-07-transport-dual-axis.csv
 
 
 12. **Cognitive Fatigue & Dashboard Over-saturation**
 * **Real-World Example:** *Hospital ICU Alarm & Telemetry Monitoring*.
 * **Case Study:** Clinical staff presented with over-cluttered dashboards tracking 30+ patient metrics simultaneously experience "alert fatigue." Studies show visual and auditory over-saturation leads nurses to miss critical outlier shifts on secondary charts.
+* **COVERAGE:** series: Part 2, #12 | case: C16 Alarm Storm | dataset: datasets/challenge-16-alarm-log.csv
 
 
 
@@ -77,31 +120,37 @@ Real-world failures, public graphics blunders, and high-profile corporate/scient
 13. **Lack of Standardised Semantic Layers**
 * **Real-World Example:** *E-commerce Revenue Metrics Conflict (Sales vs. Finance)*.
 * **Case Study:** At major retail operations, the marketing team’s Tableau dashboard defines "Gross Revenue" including non-settled orders, while the finance team’s dashboard subtracts returns and processing fees. Both visual dashboards display conflicting metrics, creating confusion during executive quarterly reviews.
+* **COVERAGE:** series: Part 3, #13 | case: C13 Two Vote Counts | datasets: challenge-13-voting-sheet-a.csv + challenge-13-voting-sheet-b.csv
 
 
 14. **Explainability of Machine Learning Embeddings**
 * **Real-World Example:** *Credit Scoring & Algorithmic Underwriting*.
 * **Case Study:** When automated credit-approval engines display black-box feature importance charts (e.g., SHAP values) to loan officers, non-expert staff struggle to explain to rejected applicants exactly *why* a multi-variable combination triggered a denial.
+* **COVERAGE:** series: Part 3, #14 | case: OPEN (see C24) | dataset: OPEN — uncovered; proposal C24 awaits adoption.
 
 
 15. **Data Privacy & Anonymisation Leakage**
 * **Real-World Example:** *Strava Heatmap Security Incident (2018)*.
 * **Case Study:** Fitness-tracking app Strava released a global aggregate heatmap of user runs. The high visual resolution allowed researchers to map the perimeter outlines and patrol routes of secretive military bases around the world by tracking isolated worker movement clusters.
+* **COVERAGE:** series: Part 3, #15 | case: C14 Names on the Big Screen | dataset: datasets/challenge-14-fitness-test.csv
 
 
 16. **Interactivity Overhead**
 * **Real-World Example:** *Over-Engineered Corporate BI Dashboards*.
 * **Case Study:** Enterprise dashboards loaded with multiple nested drop-downs, cross-filtering, and hover states can slow user workflows. Field managers often report abandoning dynamic drill-downs in favor of flat text exports because complex visual interactions add friction to routine reporting.
+* **COVERAGE:** series: Part 3, #16 | case: OPEN (see C25) | dataset: OPEN — uncovered; proposal C25 awaits adoption.
 
 
 17. **Static vs. Dynamic Design Traps**
 * **Real-World Example:** *Automated PDF Executive Reporting*.
 * **Case Study:** Interactive web dashboards containing rich multi-layered hover cards lose key contextual data when automatically converted to static PDF board decks, stripping out metrics embedded in interactive tooltips.
+* **COVERAGE:** series: Part 3, #17 | cases: C12 Hover-Only Facts, C20 Export Amnesia | datasets: challenge-12-energy-readings.csv, challenge-20-admissions.csv
 
 
 18. **Context Stripping in Automated Insights**
 * **Real-World Example:** *Generative BI AI Launch Failures*.
 * **Case Study:** In August 2025, during OpenAI's GPT-5 launch presentation, an automatically generated benchmark bar chart displayed contradictory visual heights—showing a segment labeled `52.8` taller than bars labeled `69.1` and `30.8`—highlighting how automated graphics generation can bypass visual validation sanity checks.
+* **COVERAGE:** series: Part 3, #18 | case: OPEN (see C26) | dataset: OPEN — uncovered; proposal C26 awaits adoption.
 
 
 
@@ -112,18 +161,130 @@ Real-world failures, public graphics blunders, and high-profile corporate/scient
 19. **AR/VR & Spatial Visualization Complexity**
 * **Real-World Example:** *Surgical Planning in 3D Environments*.
 * **Case Study:** Surgeons using head-mounted AR devices to view 3D patient anatomy overlays report spatial misalignment and depth perception issues when switching focal points between physical patient tissues and virtual 3D volumes.
+* **COVERAGE:** series: Part 4, #19 | case: OPEN (see C27) | dataset: OPEN — uncovered; proposal C27 awaits adoption.
 
 
 20. **Unstructured Data Integration**
 * **Real-World Example:** *Social Media Sentiment Analysis Dashboards*.
 * **Case Study:** Corporate brand dashboards attempting to visually summarize millions of unstructured tweets into simple "word clouds" or positive/negative sentiment meters often miss subtle context such as sarcasm, slang, or ironical phrasing, yielding misleading sentiment trends.
+* **COVERAGE:** series: Part 4, #20 | case: C17 The Sarcasm Meter | dataset: datasets/challenge-17-feedback-sentiment.csv
 
 
 21. **Streaming Data Latency & Jitter**
 * **Real-World Example:** *High-Frequency Algorithmic Trading Monitors*.
 * **Case Study:** Visualizing microsecond-level financial order book changes causes display flickering. Visual interfaces that update faster than human perception (~60 Hz threshold) degrade trader situational awareness, requiring smoothed windowing algorithms.
+* **COVERAGE:** series: Part 4, #21 | case: C10 The Flicker Feed | dataset: datasets/challenge-10-canteen-queue.csv
 
 
 22. **Maintenance & Legacy Tech Debt**
 * **Real-World Example:** *Migration of Legacy D3.js Custom Visualizations*.
 * **Case Study:** Banks and research institutions with custom-built D3.js (v3/v4) codebases encounter high engineering debt when modern browsers update DOM rendering standards, rendering legacy analytical codebases fragile and difficult to update.
+* **COVERAGE:** series: Part 4, #22 | case: C19 Broken Inheritance | dataset: datasets/challenge-19-prize-data.csv
+
+
+================================================================================
+PART B — 20 CASE CHALLENGES (C1-C20)
+================================================================================
+
+The buildable cases offered in the class assignment (assignments/index.html).
+Each derives from one Part A failure mode and ships with a synthetic dataset
+that CONTAINS the trap. Same numbering as the assignment page and the
+datasets catalog.
+
+C1  · The Hero Axis ............... easy   ← #11 Dark Patterns
+     School attendance chart, values 85-96%. Hiding or exaggerating the
+     baseline.              dataset: challenge-01-attendance-hero-axis.csv
+C2  · Red Means Go? ............... easy   ← #9 CVD
+     Lab status board, colour-only status.    dataset: challenge-02-lab-status.csv
+C3  · The Missing Tuesday ......... easy   ← #6 Latent Pipeline Failures
+     Sensor outage rendered as zero. dataset: challenge-03-missing-tuesday.csv
+C4  · Pie Overload ................ easy   ← #8 Visual Literacy Deficit
+     14-slice canteen budget.      dataset: challenge-04-canteen-budget.csv
+C5  · The Zoomed Breakout ......... easy   ← #10 Confirmation Bias
+     Flat history, zoomed "growth". dataset: challenge-05-chess-membership.csv
+C6  · Which Average? .............. easy   ← #8 Visual Literacy Deficit
+     Mean 68 vs median 64 skew.    dataset: challenge-06-class-marks.csv
+C7  · Double-Ruler Drama .......... medium ← #11 Dark Patterns
+     Dual axes invite false causation. dataset: challenge-07-transport-dual-axis.csv
+C8  · Silent Row Loss ............. medium ← #6 Latent Pipeline Failures
+     1,200 rows vs 1,000-row cap.  dataset: challenge-08-recycling-rows.csv
+C9  · Hue-Only Heat Map ........... medium ← #9 CVD
+     One-blue-intensity grid.      dataset: challenge-09-room-usage.csv
+C10 · The Flicker Feed ............ medium ← #21 Streaming Latency & Jitter
+     Per-second queue repaint.     dataset: challenge-10-canteen-queue.csv
+C11 · Mobile Mashup ............... medium ← #5 Cross-Platform
+     Six-panel exam results on a phone. dataset: challenge-11-exam-results.csv
+C12 · Hover-Only Facts ............ medium ← #17 Static vs Dynamic Traps
+     Units nowhere on the chart.   dataset: challenge-12-energy-readings.csv
+C13 · Two Vote Counts ............. medium ← #13 Semantic Layers
+     3-votes vs 1-vote sheets.     dataset: challenge-13-voting-sheet-{a,b}.csv
+C14 · Names on the Big Screen ..... medium ← #15 Privacy Leakage
+     PII fitness scores projected. dataset: challenge-14-fitness-test.csv
+C15 · Cluster Mirage .............. hard   ← #2 High-Dimensional Projection Loss
+     Two pretty 2D islands.        dataset: challenge-15-activity-map.csv
+C16 · Alarm Storm ................. hard   ← #12 Cognitive Fatigue
+     20 alerts/min, 3 real ones.   dataset: challenge-16-alarm-log.csv
+C17 · The Sarcasm Meter ........... hard   ← #20 Unstructured Data Integration
+     Sarcastic praise scored 0.9.  dataset: challenge-17-feedback-sentiment.csv
+C18 · Phantom Spike ............... hard   ← #7 Temporal Granularity Conflicts
+     Per-second + daily cadence collision. dataset: challenge-18-bus-gps.csv
+C19 · Broken Inheritance .......... hard   ← #22 Legacy Tech Debt
+     Hardcoded year poisons YoY.   dataset: challenge-19-prize-data.csv
+C20 · Export Amnesia .............. hard   ← #17 Static vs Dynamic Traps
+     Flattening kills hover truth. dataset: challenge-20-admissions.csv
+
+
+================================================================================
+PART C — OPEN CHALLENGES (C21-C27, PROPOSED)
+================================================================================
+
+Case proposals for the 7 uncovered Part A failure modes. NOT part of the
+current assignment (which offers C1-C20). To adopt one: trainer approves,
+a synthetic dataset is added to scripts/generate-datasets.js + datasets/,
+and the case moves to Part B with a dataset line.
+
+C21 · The Safety Cone ............. proposed ← #1 Uncertainty & Risk Representation
+     Sports-day weather app shows a "safe window" band; families outside the
+     band plan picnic anyway. Grill: what does the band's edge promise, and
+     how do you draw doubt into a band?            dataset: (to build)
+C22 · The Friend-Web Tangle ....... proposed ← #3 Graph & Network Layout Chaos
+     School club collaboration map: 400 students, 2,000 links — a hairball
+     where the actual project teams vanish.        dataset: (to build)
+C23 · The Area-Lies Map ........... proposed ← #4 Geospatial & Proportional Distortion
+     Zonal election-style choropleth of house-college votes: big rural blocks
+     drown dense hostel populations.                dataset: (to build)
+C24 · The Marks Oracle ............ proposed ← #14 ML Explainability
+     An ML "risk-of-failing" predictor shows feature-importance bars to
+     teachers who must explain the flag to parents. dataset: (to build)
+C25 · The Filter Maze ............. proposed ← #16 Interactivity Overhead
+     Six nested slicers on the PTM dashboard; parents give up and ask the
+     class teacher instead.                          dataset: (to build)
+C26 · The Auto-Chart Fumble ....... proposed ← #18 Context Stripping in Automated Insights
+     A generative-BI summary of sports-day results draws bars whose heights
+     contradict their own labels.                   dataset: (to build)
+C27 · The 3D Model Maze ........... proposed ← #19 AR/VR Spatial Complexity
+     AR anatomy lab: students lose orientation switching between the 3D
+     heart overlay and the physical lab bench.      dataset: (to build)
+
+
+================================================================================
+PART D — HOW TO ADD A CHALLENGE (TEMPLATE)
+================================================================================
+
+1. Pick the Part A failure mode it derives from (or add a new one with a
+   real-world case study in the same style).
+2. Append the case to Part B as C(next) with: title, difficulty
+   (easy/medium/hard), one-line scenario, dataset line.
+3. Add a seeded generator function to scripts/generate-datasets.js — the trap
+   MUST live in the data (empty values, mixed cadence, cap crossings, skew,
+   PII, hardcoded columns...). Run it; commit the CSV.
+4. Add a card to datasets/index.html (schema + trap warning) and, if it joins
+   the assignment, a chal-card to assignments/index.html (update the
+   assignment's "20 challenges" copy and the probe's expected count).
+5. Teach it: add a challenge card to the matching tutorials/part-N.html —
+   the probe asserts every Part A number appears somewhere in Parts 1-4.
+6. Update the COVERAGE line here. "OPEN" entries are visible debt; never
+   leave a case undocumented.
+
+Rules: fictional data only · seeded & reproducible · no hand-editing CSVs ·
+never delete an entry — mark it OPEN or superseded instead.
