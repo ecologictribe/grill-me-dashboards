@@ -20,6 +20,13 @@ specs/DASH-SPEC-2026-081.md          §3  Master Spec Doc (verbatim)
 dashboard/index.html                 Reference implementation (from the Spec Doc)
 grader/grader.js                     Tutorial grader (verbatim)
 grader/grader.v2.js                  Hardened grader (fixes F2–F4 in VALIDATION.md)
+self-grade.bat / self-grade.sh       Zero-setup wrappers: double-click (or
+                                     `bash self-grade.sh`) → auto-installs
+                                     jsdom → drag your report onto the .bat
+eval-tool/index.html                 BROWSER EVAL TOOL — drop your dashboard
+                                     HTML here: sandboxed iframe, same 4 gates
+                                     as grader.v2.js, copy-ready report +
+                                     shareable result link. No install.
 
 challenges/challenges.txt            MASTER CHALLENGE DATASET — 22 failure modes
                                     (Part A, annotated with coverage) + 20 case
@@ -76,7 +83,9 @@ and a paginated severity-sorted anomaly log (bottom).
 2. Pick 3 of the 20 challenges from `assignments/index.html`.
 3. Download their CSVs from `datasets/` (GitHub folder or the catalog page).
 4. Grill → spec → build in HTML (default) or optionally Power BI (+bonus) →
-   self-grade → submit one PDF to eflow by 5 Nov 2026 → present.
+   self-grade (**easiest: drop your file on `eval-tool/index.html` in the
+   browser**, or double-click `self-grade.bat`) → submit one PDF to
+   eflow by 5 Nov 2026 → present.
 
 ## Hosting — GitHub Pages (static)
 

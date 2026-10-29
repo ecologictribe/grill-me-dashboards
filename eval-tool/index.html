@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplly Eval Tool: Grade Your Dashboard in the Browser | Aplly.xyz</title>
+    <meta name="description" content="No install, no download. Drop your dashboard HTML into the browser-based eval tool — it runs your file in a sandbox and checks all 4 spec gates, with a copy-ready report for your assignment PDF.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+    <meta name="last-updated" content="2026-10-29T23:45:00+05:30">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { brandNavy: '#183868', brandCyan: '#28a8e8', brandTeal: '#3c9080', brandGreen: '#48b838', brandMint: '#c6eeb0' },
+            fontFamily: { sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'], heading: ['Sora', 'system-ui', 'sans-serif'] }
+        } } }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --brand-primary:#183868; --brand-secondary:#28a8e8; --brand-teal:#3c9080; --brand-dark:#0F172A; --card-border:#E2E8F0; --card-shadow:0 1px 4px rgba(24,56,104,.06),0 4px 16px rgba(24,56,104,.04); --radius-card:12px; --radius-tag:999px; }
+        body { font-family:'DM Sans',sans-serif; background:#fff; color:#1F1F2E; line-height:1.7; margin:0; }
+        h1,h2,h3,h4 { font-family:'Sora',sans-serif; color:var(--brand-dark); letter-spacing:-.02em; }
+        code,pre,kbd { font-family:'Fira Code',monospace; }
+        .article-header { background:linear-gradient(135deg,#183868 0%,#28a8e8 100%); color:#fff; padding:2.6rem 1.5rem 2.2rem; }
+        .article-header-inner { max-width:860px; margin:0 auto; }
+        .series-tag { display:inline-block; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; background:rgba(255,255,255,.18); padding:4px 12px; border-radius:var(--radius-tag); margin-bottom:.8rem; border:1px solid rgba(255,255,255,.25); }
+        .article-header h1 { font-size:clamp(1.8rem,4.2vw,2.6rem); font-weight:800; color:#fff; line-height:1.18; margin:0 0 .75rem; }
+        .article-header p.subtitle { font-size:1.08rem; opacity:.95; margin:0 0 1rem; line-height:1.6; max-width:720px; color:#f0faf8; }
+        .tag-chip { background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3); padding:4px 12px; border-radius:var(--radius-tag); font-size:.78rem; font-weight:600; }
+        .desk-attribution { display:inline-flex; align-items:center; background:rgba(15,23,42,.45); padding:6px 14px; border-radius:var(--radius-tag); font-size:.82rem; font-weight:600; color:#c6eeb0; border:1px solid rgba(255,255,255,.2); margin-top:.9rem; }
+        main.tool-body { max-width:860px; margin:0 auto; padding:2rem 1.5rem 3.5rem; }
+        section.card { background:#fff; border:1px solid var(--card-border); box-shadow:var(--card-shadow); border-radius:var(--radius-card); padding:1.6rem; margin-bottom:1.6rem; }
+        .article-footer { text-align:center; padding:2.5rem 1.5rem; background:#183868; color:rgba(255,255,255,.85); font-size:.88rem; }
+
+        /* Dropzone */
+        #dropzone { border:2.5px dashed #94A3B8; border-radius:14px; padding:2.6rem 1.4rem; text-align:center; cursor:pointer; transition:all .2s ease; background:#F8FAFC; }
+        #dropzone:hover, #dropzone:focus-visible { border-color:var(--brand-secondary); background:#F0F9FF; outline:none; }
+        #dropzone.dragover { border-color:var(--brand-teal); background:#ECFDF5; transform:scale(1.01); }
+        #dropzone .dz-ico { font-size:2.6rem; }
+        #dropzone h3 { margin:.6rem 0 .25rem; font-size:1.15rem; }
+        #dropzone p { margin:.15rem 0; font-size:.88rem; color:#475569; }
+
+        /* Terminal-style report */
+        .term { background:#0F172A; border-radius:12px; overflow:hidden; box-shadow:0 6px 20px rgba(15,23,42,.28); }
+        .term-bar { display:flex; align-items:center; justify-content:space-between; gap:.6rem; flex-wrap:wrap; padding:.55rem 1rem; background:#1E293B; border-bottom:1px solid #334155; }
+        .term-bar span { font-family:'Fira Code',monospace; font-size:.72rem; color:#94A3B8; }
+        .term pre { margin:0; padding:1.1rem; font-size:.77rem; line-height:1.6; color:#E2E8F0; overflow-x:auto; white-space:pre-wrap; word-break:break-word; }
+        .term .ok { color:#4ade80; } .term .bad { color:#f87171; } .term .hi { color:#7dd3fc; font-weight:600; } .term .warnline { color:#fbbf24; }
+        .btn { display:inline-flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:700; padding:.45rem 1rem; border-radius:8px; border:1px solid var(--card-border); background:#fff; color:#183868; cursor:pointer; transition:all .2s ease; }
+        .btn:hover { background:#183868; color:#fff; border-color:#183868; }
+        .btn-primary { background:linear-gradient(135deg,#183868,#28a8e8); color:#fff; border:none; }
+        .btn-primary:hover { filter:brightness(1.1); background:linear-gradient(135deg,#183868,#28a8e8); }
+        .verdict-banner { border-radius:10px; padding:.9rem 1.2rem; font-family:'Sora',sans-serif; font-weight:800; font-size:1.05rem; text-align:center; margin-bottom:1rem; }
+        .verdict-banner.pass { background:#D1FAE5; color:#065F46; border:1px solid #6EE7B7; }
+        .verdict-banner.fail { background:#FEE2E2; color:#991B1B; border:1px solid #FCA5A5; }
+
+        /* Gate legend */
+        .gate-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.8rem; margin-top:.9rem; }
+        .gate-card { border:1px solid var(--card-border); border-radius:10px; padding:.9rem 1rem; background:#FAFAFA; }
+        .gate-card h4 { margin:0 0 .3rem; font-size:.9rem; display:flex; align-items:center; gap:.4rem; }
+        .gate-card p { margin:0; font-size:.8rem; color:#475569; line-height:1.5; }
+
+        #report-card { display:none; }
+        #report-card.show { display:block; }
+        .mini-note { font-size:.8rem; color:#64748B; }
+        .mini-note code { background:#EEF2FF; color:#1E40AF; padding:1px 5px; border-radius:4px; font-size:.85em; }
+    </style>
+</head>
+<body>
+    <nav class="bg-[#183868] border-b border-[#234c7d] text-white py-3 px-4 sm:px-8 flex justify-between items-center text-sm sticky top-0 z-40">
+        <a href="../index.html" class="flex items-center space-x-2 font-bold text-lg text-white">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </a>
+        <div class="flex items-center space-x-5 text-xs sm:text-sm">
+            <a href="../tutorials/index.html" class="text-gray-300 hover:text-white transition">Series Home</a>
+            <a href="../tutorials/self-grading-kit.html" class="text-gray-300 hover:text-white transition hidden sm:inline">Offline Kit</a>
+            <a href="../assignments/index.html" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">The Assignment →</a>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-inner">
+            <span class="series-tag">Tools · Eval Tool (Browser)</span>
+            <h1>Grade Your Dashboard — Right Here, No Install</h1>
+            <p class="subtitle">Drop your dashboard HTML file onto this page. It runs <strong>inside your browser, in a sandbox</strong>, gets checked against the same 4 spec gates as the offline kit — and you get a copy-ready report. Your file never leaves your computer.</p>
+            <div class="tag-row flex flex-wrap gap-2 items-center">
+                <span class="tag-chip">No Download</span><span class="tag-chip">Runs Locally</span><span class="tag-chip">4 Boolean Gates</span><span class="tag-chip">Same Gates as grader.v2</span>
+            </div>
+            <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
+        </div>
+    </header>
+
+    <main class="tool-body">
+
+        <!-- DROPZONE -->
+        <section class="card">
+            <h2 style="font-size:1.2rem; margin-top:0;">📄 Drop Your Report Here</h2>
+            <div id="dropzone" role="button" tabindex="0" aria-label="Drop your dashboard HTML file here, or press Enter to choose a file">
+                <div class="dz-ico">📥</div>
+                <h3>Drop your <code>dashboard.html</code> onto this box</h3>
+                <p>— or <span style="color:#28a8e8; font-weight:700; text-decoration:underline;">click to choose the file</span> —</p>
+                <p class="mini-note" style="margin-top:.5rem;">Works on phones too: tap and pick the file.</p>
+            </div>
+            <input type="file" id="file-input" accept=".html,.htm,text/html" style="display:none;">
+            <div class="flex gap-2 mt-3 flex-wrap items-center">
+                <button id="demo-btn" class="btn"><i class="fas fa-flask"></i> Try it: grade the reference dashboard</button>
+                <span class="mini-note">First run? The demo shows you a real 4/4 before you risk your own file.</span>
+            </div>
+        </section>
+
+        <!-- REPORT -->
+        <section class="card" id="report-card" aria-live="polite">
+            <h2 style="font-size:1.2rem; margin-top:0;">🧾 Your Grading Report</h2>
+            <div id="verdict" class="verdict-banner"></div>
+            <div class="term">
+                <div class="term-bar">
+                    <span id="term-title">self-grade-report.txt</span>
+                    <div class="flex gap-2">
+                        <button id="copy-btn" class="btn" style="background:#334155; color:#E2E8F0; border-color:#475569; font-size:.72rem; padding:.3rem .8rem;"><i class="far fa-copy"></i> Copy report</button>
+                        <button id="dl-btn" class="btn" style="background:#334155; color:#E2E8F0; border-color:#475569; font-size:.72rem; padding:.3rem .8rem;"><i class="fas fa-download"></i> Download .txt</button>
+                    </div>
+                </div>
+                <pre id="report-out"></pre>
+            </div>
+            <div class="flex gap-2 mt-3 flex-wrap">
+                <button id="share-btn" class="btn btn-primary"><i class="fas fa-link"></i> Copy shareable result link</button>
+                <button id="again-btn" class="btn"><i class="fas fa-rotate-left"></i> Grade another file</button>
+            </div>
+            <p class="mini-note mt-2">The report text is formatted exactly like the offline <code>self-grade.bat</code> output — paste it into the Gates block of your <a href="../assignments/index.html#self-eval" class="underline font-semibold">assignment PDF</a>, or screenshot this card. The share link carries a <em>self-reported</em> result: the trainer re-runs your file to verify.</p>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="card">
+            <h2 style="font-size:1.2rem; margin-top:0;">🛡️ What's Happening — and What's Safe</h2>
+            <ul style="padding-left:1.2rem; margin:.4rem 0 0; font-size:.92rem; color:#334155;">
+                <li><strong>Your file stays yours.</strong> It is read into this page and executed inside a <em>sandboxed</em> browser frame — it is never uploaded anywhere. No server sees your dashboard.</li>
+                <li><strong>The sandbox is one-way glass.</strong> Your page's scripts run (so the gates measure the <em>real</em> rendered dashboard — live DOM, canvas and all), but they cannot touch this tool, its buttons, or your other browser tabs.</li>
+                <li><strong>Same gates as the offline kit.</strong> Baseline · CVD palette · DOM budget · F-pattern grid — identical checks to <a href="../tutorials/self-grading-kit.html" class="underline font-semibold"><code>self-grade.bat</code></a> and <a href="../grader/grader.v2.js" class="underline font-mono text-xs">grader.v2.js</a>, so a 4/4 here means a 4/4 there. No internet after this page loads.</li>
+                <li><strong>Honesty model unchanged.</strong> The verdict describes <em>the file you loaded</em>. It's self-reported evidence — you defend it live, and the trainer can re-run any file. Fooling the gate ≠ passing the viva.</li>
+            </ul>
+        </section>
+
+        <!-- GATE LEGEND -->
+        <section class="card">
+            <h2 style="font-size:1.2rem; margin-top:0;">🔍 The 4 Gates in Plain English</h2>
+            <div class="gate-grid">
+                <div class="gate-card">
+                    <h4>📏 Gate 1 — Baseline</h4>
+                    <p>Does every chart start its measuring axis at zero? Truncated axes exaggerate differences — the classic way charts lie. <em>Fix:</em> set your y-axis minimum to 0 (or state why not).</p>
+                </div>
+                <div class="gate-card">
+                    <h4>🎨 Gate 2 — Colour &amp; Shapes</h4>
+                    <p>Can a colourblind colleague still read your series? Your source must carry all 3 colourblind-safe palette tokens <em>and</em> at least 2 distinct shape markers (● ▲ 🛑) so colour isn't the only signal.</p>
+                </div>
+                <div class="gate-card">
+                    <h4>⚡ Gate 3 — Speed</h4>
+                    <p>How heavy is the live page after your scripts run? Under 1,500 nodes keeps it snappy on a lab PC or phone — plus at least one canvas/SVG layer doing the real drawing.</p>
+                </div>
+                <div class="gate-card">
+                    <h4>📐 Gate 4 — Layout</h4>
+                    <p>Is there a real grid or flex layout, 2+ semantic headings (so it reads top-left → down, like people scan), and a mobile breakpoint below 768px?</p>
+                </div>
+            </div>
+            <p class="mini-note mt-3">Each ✗ maps to a spec decision that drifted — not to you being "bad at this". Fix the decision, drop the file again. Gate theory lives in <a href="../tutorials/grill-method.html" class="underline font-semibold">the Challenge-Grill Method</a>; why these exact gates exist: <a href="../article/index.html" class="underline font-semibold">Part 8 — Validation</a> · <a href="../VALIDATION.md" class="underline font-mono text-xs">VALIDATION.md</a>.</p>
+        </section>
+
+    </main>
+
+    <footer class="article-footer">
+        <div class="flex items-center justify-center space-x-2 font-bold text-lg text-white mb-2">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </div>
+        <p>Practice. Apply. Master.</p>
+        <p class="mt-2 text-xs opacity-80">Published from the Desk of Puneet Arora, Aplly.xyz Trainer · ⏱ Last updated: 29 Oct 2026 · © 2026 Aplly.xyz. All rights reserved.</p>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var GATE_NAMES = {
+            1: 'Baseline Integrity Check',
+            2: 'CVD Accessibility & Palette Check',
+            3: 'DOM Performance Budget Check',
+            4: 'F-Pattern Grid Hierarchy Check'
+        };
+
+        // The probe that runs INSIDE the sandboxed iframe, after the student's
+        // own scripts have executed. Ported gate-for-gate from grader/grader.v2.js.
+        function apllyProbe() {
+            function norm(s) { return s.toLowerCase().replace(/\s+/g, ''); }
+            var doc = document;
+            var gates = [];
+
+            // Gate 1 — zero baseline declared in executed script source
+            var scriptText = norm(Array.prototype.map.call(doc.querySelectorAll('script'), function (s) { return s.textContent; }).join(' '));
+            var g1 = scriptText.indexOf('beginatzero:true') > -1 || scriptText.indexOf('ymin:0') > -1 ||
+                     scriptText.indexOf('domain([0') > -1 || scriptText.indexOf('min:0') > -1;
+            gates.push({ id: 1, pass: g1, detail: g1
+                ? 'Explicit zero-baseline configuration detected in executed page source.'
+                : 'No explicit zero-baseline scale configuration found. Truncated axis risk.' });
+
+            // Gate 2 — ALL three Okabe-Ito tokens + >= 2 shape tokens
+            var raw = doc.documentElement.outerHTML.toLowerCase();
+            var req = [['#0072b2', 'normal (blue)'], ['#e69f00', 'warning (amber)'], ['#cc79a7', 'critical (magenta)']];
+            var missing = req.filter(function (r) { return raw.indexOf(r[0]) === -1; });
+            var shapes = ['●', '▲', '🛑'].filter(function (sym) { return raw.indexOf(sym) > -1; });
+            var g2 = missing.length === 0 && shapes.length >= 2;
+            var d2 = g2 ? 'All 3 Okabe-Ito tokens present + ' + shapes.length + ' shape redundancy tokens (' + shapes.join(' ') + ').'
+                        : (missing.length ? 'Missing palette tokens: ' + missing.map(function (r) { return r[0] + ' (' + r[1] + ')'; }).join(', ') + '. ' : '') +
+                          (shapes.length < 2 ? 'Only ' + shapes.length + ' shape token(s) found — dual encoding needs >= 2.' : '');
+            gates.push({ id: 2, pass: g2, detail: d2 });
+
+            // Gate 3 — live DOM budget after render
+            var total = doc.querySelectorAll('*').length;
+            var canvas = doc.querySelectorAll('canvas, svg').length;
+            var g3 = total <= 1500 && canvas > 0;
+            gates.push({ id: 3, pass: g3, detail: 'Live DOM nodes after render: ' + total + ' · Active Canvas/SVG layers: ' + canvas +
+                (g3 ? ' — within budget (<= 1,500) with dedicated canvas layer.' : ' — ' + (total > 1500 ? 'excessive DOM nodes. ' : '') + (canvas === 0 ? 'missing canvas layer.' : '')) });
+
+            // Gate 4 — grid/flex + headings + mobile breakpoint
+            var n = norm(doc.documentElement.outerHTML);
+            var grid = ['display:grid', 'display:flex', 'grid-template-columns', 'grid-template-areas', 'flex-direction']
+                .some(function (t) { return n.indexOf(t) > -1; });
+            var headings = doc.querySelectorAll('h1, h2, h3').length;
+            var resp = n.indexOf('@media(max-width:767px)') > -1 || n.indexOf('@media(max-width:768px)') > -1;
+            var g4 = grid && headings >= 2 && resp;
+            var d4 = g4 ? 'Grid/flex layout, ' + headings + ' semantic headings, and a mobile breakpoint verified.'
+                        : (!grid ? 'No grid/flex layout tokens found. ' : '') +
+                          (headings < 2 ? 'Only ' + headings + ' h1/h2/h3 headings (need >= 2). ' : '') +
+                          (!resp ? 'No mobile breakpoint (< 768px) media query found.' : '');
+            gates.push({ id: 4, pass: g4, detail: d4 });
+
+            var score = gates.filter(function (g) { return g.pass; }).length;
+            parent.postMessage({
+                source: 'aplly-eval',
+                gates: gates,
+                score: score,
+                total: gates.length,
+                title: doc.title || '(untitled page)',
+                ts: new Date().toISOString()
+            }, '*');
+        }
+
+        // ---- Parent-side orchestration -------------------------------------
+        var dropzone = document.getElementById('dropzone');
+        var fileInput = document.getElementById('file-input');
+        var reportCard = document.getElementById('report-card');
+        var reportOut = document.getElementById('report-out');
+        var verdictEl = document.getElementById('verdict');
+        var termTitle = document.getElementById('term-title');
+        var pending = null;   // { iframe, timer, meta }
+        var lastReport = null;
+
+        function evaluate(htmlText, fileName, bytes) {
+            if (pending) { try { pending.iframe.remove(); } catch (e) {} clearTimeout(pending.timer); }
+            reportCard.classList.add('show');
+            verdictEl.className = 'verdict-banner';
+            verdictEl.textContent = '⏳ Running your dashboard and measuring the gates…';
+            reportOut.textContent = 'Loading file into sandbox…';
+            termTitle.textContent = fileName;
+
+            var iframe = document.createElement('iframe');
+            // One-way glass: allow-scripts WITHOUT allow-same-origin = opaque
+            // origin. Scripts run; they cannot reach this page or its storage.
+            iframe.setAttribute('sandbox', 'allow-scripts');
+            iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden;';
+            iframe.addEventListener('load', function () { /* probe fires on its own timer */ });
+
+            var probeSrc = '(' + apllyProbe.toString() + ')();';
+            iframe.srcdoc = htmlText + '\n<script>' + probeSrc + '<\/script>';
+            document.body.appendChild(iframe);
+
+            var meta = { fileName: fileName, bytes: bytes, iframe: iframe };
+            meta.timer = setTimeout(function () {
+                finish({
+                    source: 'aplly-eval', error: true, score: 0, total: 4, gates: [],
+                    detail: 'The dashboard did not report back within 5 seconds. Its scripts may have crashed or blocked rendering — fix errors, or use the offline kit.',
+                    title: fileName, ts: new Date().toISOString()
+                }, meta);
+            }, 5000);
+            pending = meta;
+        }
+
+        window.addEventListener('message', function (ev) {
+            if (!pending || ev.source !== pending.iframe.contentWindow) return;
+            if (!ev.data || ev.data.source !== 'aplly-eval') return;
+            clearTimeout(pending.timer);
+            finish(ev.data, pending);
+        });
+
+        function pad(s) { return (s + '').length >= 2 ? s : '0' + s; }
+
+        function buildReport(data, meta) {
+            var d = new Date(data.ts);
+            var stamp = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' +
+                        pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+            var L = [];
+            L.push('=======================================================');
+            L.push('APLLY EVAL TOOL (browser) REPORT: ' + meta.fileName + ' (' + meta.bytes.toLocaleString() + ' bytes)');
+            L.push('Graded: ' + stamp + ' · Page title: "' + (data.title || '—') + '"');
+            L.push('=======================================================');
+            L.push('');
+            if (data.error) {
+                L.push('⚠️ ' + data.detail);
+            } else {
+                data.gates.forEach(function (g) {
+                    L.push('[Gate ' + g.id + ': ' + GATE_NAMES[g.id] + ']');
+                    L.push('  ' + (g.pass ? '✅ PASS' : '❌ FAIL') + ': ' + g.detail);
+                    L.push('');
+                });
+            }
+            L.push('=======================================================');
+            L.push('FINAL SCORE: ' + data.score + ' / ' + data.total + ' GATES PASSED');
+            L.push('=======================================================');
+            L.push(data.score === data.total
+                ? '🌟 Dashboard passes specification gates. Ready for deployment.'
+                : '⚠️ Verification failed. Remediate flagged gates before shipping.');
+            return L.join('\n');
+        }
+
+        function finish(data, meta) {
+            pending = null;
+            var text = buildReport(data, meta);
+            lastReport = { data: data, meta: meta, text: text };
+            // Render with colour spans
+            reportOut.innerHTML = text.split('\n').map(function (line) {
+                var esc = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                if (/^\s*✅ PASS/.test(line)) return '<span class="ok">' + esc + '</span>';
+                if (/^\s*❌ FAIL/.test(line)) return '<span class="bad">' + esc + '</span>';
+                if (/^FINAL SCORE/.test(line)) return '<span class="hi">' + esc + '</span>';
+                if (/^⚠️/.test(line)) return '<span class="warnline">' + esc + '</span>';
+                if (/^(=====|APLLY EVAL)/.test(line)) return '<span class="hi">' + esc + '</span>';
+                return esc;
+            }).join('\n');
+            var pass = !data.error && data.score === data.total;
+            verdictEl.className = 'verdict-banner ' + (pass ? 'pass' : 'fail');
+            verdictEl.textContent = pass
+                ? '🌟 ' + data.score + '/' + data.total + ' — all gates passed'
+                : (data.error ? '⚠️ Could not grade this file' : '⚠️ ' + (data.total - data.score) + ' gate(s) failed — read the report below');
+            reportCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ---- Input wiring --------------------------------------------------
+        dropzone.addEventListener('click', function () { fileInput.click(); });
+        dropzone.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+        ['dragenter', 'dragover'].forEach(function (t) {
+            dropzone.addEventListener(t, function (e) { e.preventDefault(); dropzone.classList.add('dragover'); });
+        });
+        ['dragleave', 'drop'].forEach(function (t) {
+            dropzone.addEventListener(t, function (e) { e.preventDefault(); dropzone.classList.remove('dragover'); });
+        });
+        dropzone.addEventListener('drop', function (e) {
+            var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+            if (f) readFile(f);
+        });
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files && fileInput.files[0]) readFile(fileInput.files[0]);
+        });
+
+        function readFile(file) {
+            if (!/\.html?$/i.test(file.name) && file.type !== 'text/html') {
+                alert('Please drop an HTML file (.html) — your dashboard report. Power BI .pbix files cannot be graded here (binary format); see the hand-check path in the assignment.');
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function () { evaluate(String(reader.result), file.name, file.size); };
+            reader.readAsText(file);
+        }
+
+        // Demo: grade the reference dashboard straight from this site
+        document.getElementById('demo-btn').addEventListener('click', function () {
+            fetch('../dashboard/index.html')
+                .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+                .then(function (t) { evaluate(t, 'dashboard/index.html (reference)', t.length); })
+                .catch(function () {
+                    alert('Could not fetch the reference dashboard from this site. If you opened this page directly from a file (file://), serve the repo over GitHub Pages or use the offline kit instead — otherwise drop your own file above.');
+                });
+        });
+
+        // Report actions
+        function legacyCopy(text) {
+            var ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            var ok = false;
+            try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+            document.body.removeChild(ta);
+            return ok;
+        }
+        function copyText(text, done) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done).catch(function () { if (legacyCopy(text)) done(); });
+            } else if (legacyCopy(text)) { done(); }
+        }
+
+        document.getElementById('copy-btn').addEventListener('click', function () {
+            if (!lastReport) return;
+            var btn = this, old = btn.innerHTML;
+            copyText(lastReport.text, function () {
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(function () { btn.innerHTML = old; }, 2000);
+            });
+        });
+
+        document.getElementById('dl-btn').addEventListener('click', function () {
+            if (!lastReport) return;
+            var blob = new Blob([lastReport.text], { type: 'text/plain' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'self-grade-report.txt';
+            a.click();
+            setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+        });
+
+        document.getElementById('share-btn').addEventListener('click', function () {
+            if (!lastReport) return;
+            var d = lastReport.data;
+            var compact = {
+                f: lastReport.meta.fileName,
+                s: d.score, t: d.total,
+                g: (d.gates || []).map(function (x) { return x.pass ? 1 : 0; }),
+                ts: d.ts
+            };
+            var url = location.origin + location.pathname + '#r=' + btoa(unescape(encodeURIComponent(JSON.stringify(compact))));
+            var btn = this, old = btn.innerHTML;
+            copyText(url, function () {
+                btn.innerHTML = '<i class="fas fa-check"></i> Link copied!';
+                history.replaceState(null, '', url);
+                setTimeout(function () { btn.innerHTML = old; }, 2500);
+            });
+        });
+
+        document.getElementById('again-btn').addEventListener('click', function () {
+            reportCard.classList.remove('show');
+            lastReport = null;
+            dropzone.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        // Shared-result mode: #r=<base64 compact result>
+        (function () {
+            var m = location.hash.match(/^#r=(.+)$/);
+            if (!m) return;
+            try {
+                var c = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+                var gateNames = GATE_NAMES;
+                var fake = {
+                    source: 'aplly-eval', score: c.s, total: c.t, ts: c.ts,
+                    title: '(shared result — self-reported)',
+                    gates: (c.g || []).map(function (p, i) {
+                        return { id: i + 1, pass: !!p, detail: p ? 'Reported as passed.' : 'Reported as failed.' };
+                    })
+                };
+                finish(fake, { fileName: c.f + '  [SHARED — trainer re-runs to verify]', bytes: 0 });
+                verdictEl.textContent += ' · self-reported, not verified';
+            } catch (e) { /* corrupt hash — ignore */ }
+        })();
+    })();
+    </script>
+</body>
+</html>

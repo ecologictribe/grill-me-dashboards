@@ -122,6 +122,17 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
 - `article/dashboard-skills.html` (user's file) was swept into commit
   `3a72e4e` via `git add -A` — disclosed; offer stands to untrack
   (`git rm --cached`) if desired.
+- **Browser Eval Tool** (`eval-tool/index.html`, part of the new Tools
+  section): drop-your-file grader running in a **sandboxed iframe**
+  (`sandbox="allow-scripts"`, opaque origin — student scripts execute but
+  cannot touch the tool/storage; verified by probe). Embedded `apllyProbe`
+  is a gate-for-gate port of grader.v2.js → **parity proven: reference
+  dashboard scores 4/4 with identical gate details** (see
+  `.quarantine/validate-eval-tool.js` — a second probe; run it before
+  releases). Features: copy-ready report (same format as the .bat output),
+  download .txt, `#r=` base64 share links (self-reported, trainer re-runs
+  to verify), demo button (fetches reference dashboard), .pbix files
+  rejected with a pointer to the hand-check path.
 - **Tool policy (user decision, 29 Oct):** HTML is the DEFAULT build path
   (auto-graded via self-grading kit); Power BI is strictly OPTIONAL
   (+bonus, hand-checked gates). Rationale: no script can grade a .pbix
