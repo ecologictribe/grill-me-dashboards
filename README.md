@@ -86,9 +86,10 @@ and a paginated severity-sorted anomaly log (bottom).
 2. Pick 3 of the 20 challenges from `assignments/index.html`.
 3. Download their CSVs from `datasets/` (GitHub folder or the catalog page).
 4. Grill → spec → build in HTML (default) or optionally Power BI (+bonus) →
-   self-grade (**easiest: drop your file on `eval-tool/index.html` in the
-   browser**, or double-click `self-grade.bat`) → submit one PDF to
-   eflow by 5 Nov 2026 → present.
+   **self-grade**:
+   - **Path 1 (Recommended for non-technical students — zero install):** Open `eval-tool/index.html` in your browser, drag and drop your `dashboard.html`, get instant 4-gate verification, and generate your Section B scorecard. No Node.js or terminal required!
+   - **Path 2 (Offline Kit):** Download repo ZIP, double-click `self-grade.bat` (Windows) or `bash self-grade.sh` (Mac/Linux), and drag your file on top of the `.bat`.
+5. Submit one PDF to eflow by 5 Nov 2026 → present with the `presentation-tool/index.html`.
 
 ## Hosting — GitHub Pages (static)
 

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Self-Grading Kit: Grade Your Dashboard in One Double-Click | Aplly.xyz</title>
-    <meta name="description" content="No coding setup required. Download the repo, double-click self-grade.bat, and the hardened grader.v2 checks your HTML dashboard against all 4 spec gates — with plain-English explanations of every result.">
+    <meta name="description" content="No coding setup required. Built for non-technical students: upload your HTML dashboard to the In-Browser Eval Tool for instant 4-gate verification and PDF scorecard — or use the offline double-click kit.">
     <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
-    <meta name="last-updated" content="2026-10-30T00:15:00+05:30">
+    <meta name="last-updated" content="2026-10-30T00:30:00+05:30">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -101,10 +101,10 @@
     <header class="article-header">
         <div class="article-header-inner">
             <span class="series-tag">Data Visualization Challenges · Tooling (No Coding Needed)</span>
-            <h1>The Self-Grading Kit: Grade Your Dashboard in One Double-Click</h1>
-            <p class="subtitle">You built the dashboard. Now let the machine grade it against all 4 spec gates — no coding, no installation wizardry. Download the repo, double-click one file, screenshot the result. That's the whole skill.</p>
+            <h1>The Self-Grading Guide: Instant Browser Tool &amp; Offline Kit</h1>
+            <p class="subtitle">Built for non-technical students: upload your HTML dashboard directly to your browser for an instant 4-gate verification and assignment-ready PDF scorecard — or run the offline double-click kit. Zero code, zero command line.</p>
             <div class="tag-row flex flex-wrap gap-2 items-center">
-                <span class="tag-chip">Zero Setup</span><span class="tag-chip">grader.v2</span><span class="tag-chip">4 Boolean Gates</span><span class="tag-chip">Assignment-Ready Output</span>
+                <span class="tag-chip">In-Browser Eval Tool</span><span class="tag-chip">Zero Setup</span><span class="tag-chip">grader.v2</span><span class="tag-chip">4 Boolean Gates</span><span class="tag-chip">Scorecard Generator</span>
                 <span class="read-time-badge">⏱ ~4 min read</span>
             </div>
             <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
@@ -116,15 +116,76 @@
         <section class="outcomes-box reveal">
             <h2>🎯 What You'll Get</h2>
             <ul>
-                <li>A <strong>one-file setup</strong> that installs everything the grader needs — you double-click, it handles the rest.</li>
-                <li>The ability to grade <strong>any HTML dashboard</strong> (yours or the reference) against the same 4 gates the trainer uses.</li>
-                <li>A <strong>screenshot-ready report</strong> to paste into your assignment PDF — the exact evidence Section B asks for.</li>
+                <li><strong>Path 1 (Recommended / Zero Install):</strong> The <a href="../eval-tool/index.html" class="underline font-bold text-emerald-800">In-Browser Eval Tool</a> — drag and drop your HTML dashboard, see live gate results instantly, and auto-generate your Section B scorecard.</li>
+                <li><strong>Path 2 (Offline Kit):</strong> A double-click script (<code>self-grade.bat</code> / <code>self-grade.sh</code>) for lab computers and offline grading.</li>
+                <li>The ability to grade <strong>any HTML dashboard</strong> (yours or the reference) against the exact same 4 gates the trainer uses.</li>
+                <li>A <strong>screenshot-ready report</strong> or printed scorecard to paste into your assignment PDF — the exact evidence Section B asks for.</li>
                 <li>Plain-English knowledge of what each gate actually checks, so a red ✗ never confuses you again.</li>
             </ul>
         </section>
 
+        <!-- ================= PATH 1: IN-BROWSER EVAL TOOL ================= -->
+        <section class="card reveal" id="browser-eval" style="border: 2px solid #3c9080; background: linear-gradient(to bottom, #f0fdf9, #ffffff);">
+            <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <span class="badge" style="background:#059669; color:#fff; font-size:.78rem;"><i class="fas fa-star mr-1"></i> PATH 1 · RECOMMENDED (ZERO INSTALL)</span>
+                <span class="text-xs font-semibold text-emerald-800"><i class="fas fa-bolt mr-1 text-emerald-600"></i> No Node.js · No Terminal · No ZIP</span>
+            </div>
+            <h2 style="color:#064e3b; margin-top:.4rem;">⚡ The In-Browser Self-Grader: Drag, Drop, Score</h2>
+            <p class="text-sm text-gray-700 leading-relaxed">
+                If you don't want to install Node.js or run scripts in a black command window, this is the tool for you. We built the <a href="../eval-tool/index.html" class="underline font-bold text-emerald-800">In-Browser Eval Tool</a> specifically so <strong>non-technical students only need to upload their HTML dashboard file</strong>. It runs the hardened <a href="../grader/grader.v2.js" class="underline font-mono text-xs">grader.v2.js</a> engine entirely inside your browser's sandboxed environment, calculates your score, and formats your scorecard for the submission PDF.
+            </p>
+
+            <div class="step-row mt-3">
+                <div class="step-num" style="background:linear-gradient(135deg,#059669,#10b981);">1</div>
+                <div class="step-body">
+                    <h3>Open the Browser Tool</h3>
+                    <p>Go directly to the <a href="../eval-tool/index.html" class="underline font-bold text-emerald-700">In-Browser Eval Tool page</a>. It works in Chrome, Edge, Safari, Firefox — even on tablets or Chromebooks.</p>
+                </div>
+            </div>
+
+            <div class="step-row">
+                <div class="step-num" style="background:linear-gradient(135deg,#059669,#10b981);">2</div>
+                <div class="step-body">
+                    <h3>Upload Your Dashboard</h3>
+                    <p>Drag and drop your <code>dashboard.html</code> file onto the dotted upload box, or click <em>Choose file</em> to select it. The tool immediately mounts it inside an isolated, secure sandbox.</p>
+                </div>
+            </div>
+
+            <div class="step-row">
+                <div class="step-num" style="background:linear-gradient(135deg,#059669,#10b981);">3</div>
+                <div class="step-body">
+                    <h3>Inspect the 4 Gates &amp; Generate Your Scorecard</h3>
+                    <p>Within seconds, all 4 gates light up green or red with plain-English reasons. Then click the <a href="../eval-tool/index.html#scorecard" class="underline font-semibold text-emerald-800">Scorecard tab</a>: assign your challenge to <strong>Report 1, 2, or 3</strong>, and watch it auto-fill your gate verdicts and compute your running total out of 40 marks.</p>
+                </div>
+            </div>
+
+            <div class="step-row">
+                <div class="step-num" style="background:linear-gradient(135deg,#059669,#10b981);">4</div>
+                <div class="step-body">
+                    <h3>Copy or Print Your Submission Evidence</h3>
+                    <p>Click <strong>Copy Report</strong> to paste the text verdict into your notes, or click <strong>Print / Save PDF</strong> from the Scorecard tab to print a clean scorecard table ready for your final PDF submission.</p>
+                </div>
+            </div>
+
+            <div class="mt-4 p-3 rounded-xl bg-white border border-emerald-300 flex items-center justify-between flex-wrap gap-3">
+                <div class="text-xs text-gray-700">
+                    <span class="font-bold text-emerald-900"><i class="fas fa-check-circle mr-1 text-emerald-600"></i> Ready to grade right now?</span>
+                    Open the tool in a new tab — it requires zero preparation.
+                </div>
+                <a href="../eval-tool/index.html" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition flex items-center gap-1.5">
+                    <span>Open In-Browser Eval Tool</span>
+                    <i class="fas fa-arrow-right text-[10px]"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- ================= PATH 2: OFFLINE KIT ================= -->
         <section class="prereq-box reveal">
-            <h2>🧰 What You Need (3 things)</h2>
+            <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <span class="badge" style="background:#D97706; color:#fff; font-size:.78rem;"><i class="fas fa-laptop-code mr-1"></i> PATH 2 · THE OFFLINE KIT</span>
+                <span class="text-xs font-semibold text-amber-900"><i class="fas fa-wifi mr-1"></i> Ideal for Lab PCs without internet access</span>
+            </div>
+            <h2>🧰 What You Need for Path 2 (3 things)</h2>
             <ul>
                 <li><strong>A Windows, Mac, or Linux computer</strong> — the kit has a script for each.</li>
                 <li><strong>Internet, once</strong> — the first double-click downloads the grader engine (~2 minutes). After that it works offline.</li>
@@ -134,7 +195,7 @@
         </section>
 
         <section class="card reveal" id="how-to">
-            <h2>🚀 The 30-Second Path</h2>
+            <h2>🚀 The Double-Click Path (Offline)</h2>
 
             <div class="step-row">
                 <div class="step-num">1</div>
@@ -161,15 +222,10 @@
             </div>
 
             <blockquote class="callout">By default the kit grades the <strong>reference dashboard</strong> (a demo run so you can see a real 4/4). To grade <strong>your own</strong> report, see the next section — it's the same double-click.</blockquote>
-
-            <div class="p-4 mt-3 rounded-xl border border-emerald-200 bg-emerald-50 text-xs text-emerald-900">
-                <div class="font-bold flex items-center mb-1"><i class="fas fa-wand-magic-sparkles mr-2 text-emerald-600"></i> Don't want to install anything at all?</div>
-                There's a second grader that runs <strong>entirely in your browser</strong> — drop your HTML file onto the <a href="../eval-tool/index.html" class="underline font-semibold">Eval Tool page</a> and get the same 4-gate report, with a copy-ready text and a shareable result link. Same gates, same verdicts, zero setup. This .bat version stays useful offline and shows exactly what the browser tool runs under the hood.
-            </div>
         </section>
 
         <section class="card reveal" id="own-report">
-            <h2>📄 Grade YOUR Own Report</h2>
+            <h2>📄 Grade YOUR Own Report with the Kit</h2>
             <p class="text-sm text-gray-700">This is the part that matters for the <a href="../assignments/index.html" class="underline font-semibold">assignment</a>. You don't type anything — you <strong>drag and drop</strong>.</p>
 
             <div class="term">
@@ -298,10 +354,10 @@ HARDENED DATA VIS SPEC GRADER v2: dashboard\index.html
         <section class="takeaways reveal">
             <h2>✅ Takeaways</h2>
             <ul>
-                <li>One double-click replaces "configure your environment" — the kit installs its own engine on first run.</li>
-                <li>Drag your .html file onto the .bat to grade your own report; no typing involved.</li>
+                <li><strong>Easiest path for non-technical students:</strong> open the <a href="../eval-tool/index.html" class="underline font-semibold">In-Browser Eval Tool</a>, drop your HTML dashboard, and get your 4-gate score + PDF scorecard with zero install.</li>
+                <li><strong>Offline fallback:</strong> one double-click of <code>self-grade.bat</code> replaces "configure your environment" — drag your .html file onto the .bat to grade your own report with no typing involved.</li>
                 <li>Each ✗ maps to a spec decision that drifted — fix the decision, not the score.</li>
-                <li>The screenshot of <code>FINAL SCORE</code> is your Section B gate evidence for HTML reports.</li>
+                <li>The screenshot of <code>FINAL SCORE</code> (or printed scorecard from the browser tool) is your Section B gate evidence for HTML reports.</li>
                 <li>Curious what's inside? The whole engine is one readable file: <a href="../grader/grader.v2.js" class="underline font-mono text-xs">grader/grader.v2.js</a> — and why it was hardened is told in <a href="../article/index.html" class="underline">Part 8: Validation</a>.</li>
             </ul>
         </section>

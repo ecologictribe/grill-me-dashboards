@@ -129,6 +129,7 @@
             <h2>The Four Parts</h2>
             <ol>
                 <li><a href="grill-method.html">0. The Challenge-Grill Method — interview your way to the fix (start here!)</a></li>
+                <li><a href="../eval-tool/index.html">0.4. In-Browser Self-Grader — drag &amp; drop HTML, instant score + scorecard (zero install!)</a></li>
                 <li><a href="self-grading-kit.html">0.5. The Self-Grading Kit — grade any dashboard in one double-click (no coding!)</a></li>
                 <li><a href="part-1.html">1. When Data Lies: Pipeline Traps &amp; Distortions (Challenges 1–7)</a></li>
                 <li><a href="part-2.html">2. The Human in the Loop: Bias, Cognition &amp; Ethics (Challenges 8–12)</a></li>
@@ -144,7 +145,7 @@
             <ul>
                 <li>📜 <a href="../prompts/system_prompt_grill_me.md">Grill Me system prompt</a> + <a href="../prompts/code_generation_prompt.md">code-generation prompt</a> — the verbatim source prompts the method adapts</li>
                 <li>📄 <a href="../specs/DASH-SPEC-2026-081.md">DASH-SPEC-2026-081.md</a> — a worked Spec Doc (numbered decisions + boolean gates)</li>
-                <li>🎯 <a href="../dashboard/index.html">Reference dashboard</a> — the artifact that spec produced · 🔎 <a href="../grader/grader.v2.js">grader.v2.js</a> — the hardened gate checker</li>
+                <li>🎯 <a href="../dashboard/index.html">Reference dashboard</a> — the artifact that spec produced · ⚡ <a href="../eval-tool/index.html">In-Browser Eval Tool</a> · 🔎 <a href="../grader/grader.v2.js">grader.v2.js</a> — the hardened gate checker</li>
                 <li>📚 <a href="../challenges/challenges.txt">challenges.txt</a> — the master challenge bank (22 failure modes, C1–C20 cases, open proposals)</li>
                 <li>📦 <a href="../datasets/index.html">Datasets catalog</a> — one trap-laden CSV per case challenge · 📌 <a href="../assignments/index.html">the Assignment</a></li>
             </ul>
@@ -179,12 +180,26 @@
             </div>
         </a>
 
+        <!-- In-Browser Eval Tool (Primary / Recommended) -->
+        <a href="../eval-tool/index.html" class="part-card reveal block mb-4" style="background:linear-gradient(135deg,#059669,#10b981); border:none;" id="eval-tool-card">
+            <div class="flex items-center gap-4 flex-wrap">
+                <div class="part-num" style="color:#d1fae5">⚡</div>
+                <div>
+                    <h3 class="text-base font-bold mt-1 mb-1" style="color:#fff">In-Browser Self-Grader — Zero-Install (Recommended)</h3>
+                    <p class="text-xs mb-1" style="color:#f0fdf4">Built for non-technical students: drag and drop your <code style="background:rgba(255,255,255,.25); padding:1px 6px; border-radius:4px;">dashboard.html</code> directly into your browser. Get instant 4-gate verification, score, and auto-generate your PDF scorecard with one click. No Node.js or terminal required.</p>
+                    <span class="badge" style="background:rgba(255,255,255,.25); color:#fff;">✨ Instant in browser</span>
+                    <span class="badge" style="background:rgba(255,255,255,.25); color:#fff;">📋 Scorecard generator</span>
+                    <span class="badge" style="background:rgba(255,255,255,.25); color:#fff;">🔒 Sandboxed</span>
+                </div>
+            </div>
+        </a>
+
         <a href="self-grading-kit.html" class="part-card reveal block mb-4" style="background:linear-gradient(135deg,#3c9080,#48b838); border:none;" id="kit-card">
             <div class="flex items-center gap-4 flex-wrap">
                 <div class="part-num" style="color:#eef8f6">🩺</div>
                 <div>
-                    <h3 class="text-base font-bold mt-1 mb-1" style="color:#fff">The Self-Grading Kit — One Double-Click</h3>
-                    <p class="text-xs mb-1" style="color:#f0fdf4">Download the repo, double-click <code style="background:rgba(255,255,255,.25); padding:1px 6px; border-radius:4px;">self-grade.bat</code>, drag your HTML report onto it — the hardened grader checks all 4 gates and saves a screenshot-ready verdict. No coding, no setup.</p>
+                    <h3 class="text-base font-bold mt-1 mb-1" style="color:#fff">The Self-Grading Kit — One Double-Click (Offline)</h3>
+                    <p class="text-xs mb-1" style="color:#f0fdf4">Download the repo, double-click <code style="background:rgba(255,255,255,.25); padding:1px 6px; border-radius:4px;">self-grade.bat</code>, drag your HTML report onto it — the hardened grader checks all 4 gates and saves a screenshot-ready verdict. Ideal for offline work.</p>
                     <span class="badge" style="background:rgba(255,255,255,.2); color:#fff;">🖱️ Zero setup</span>
                     <span class="badge" style="background:rgba(255,255,255,.2); color:#fff;">⏱ ~2 min first run</span>
                 </div>
