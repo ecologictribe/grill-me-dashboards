@@ -6,7 +6,7 @@
     <title>Assignment (Issued 29 Oct 2026 · Due 5 Nov 2026): 3 Dashboard Challenges — Grill, Spec, Build, Present | Aplly.xyz</title>
     <meta name="description" content="Class assignment: cover 3 of 20 dashboard challenges with 3 separate reports. Grill each with the Matt Pocock method into a Spec Doc, build in Power BI (bonus) or HTML, self-grade with the validated gates, submit one PDF to the eflow portal by 5 Nov 2026, and present for marks.">
     <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
-    <meta name="last-updated" content="2026-10-29T19:00:00+05:30">
+    <meta name="last-updated" content="2026-10-29T21:45:00+05:30">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -91,6 +91,44 @@
 
         .sign-box { border:2px dashed var(--card-border); border-radius:10px; padding:1rem; margin-top:1rem; background:#FAFAFA; }
         .pbi-chk { accent-color:#3c9080; width:16px; height:16px; }
+
+        /* ---- UX additions (see assignments/UX-REVIEW.md) ---- */
+        #toc-bar { position:sticky; top:49px; z-index:30; background:#0F2A52; border-bottom:1px solid #234c7d; padding:.4rem 1rem; display:flex; gap:.4rem; overflow-x:auto; }
+        #toc-bar a { flex:0 0 auto; font-size:.72rem; font-weight:700; color:#bcd3ee; padding:.25rem .7rem; border-radius:999px; text-decoration:none; transition:all .2s ease; }
+        #toc-bar a:hover { background:#234c7d; color:#fff; }
+        #toc-bar a.active { background:#28a8e8; color:#fff; }
+        #countdown-chip { display:inline-block; padding:4px 12px; border-radius:999px; font-size:.78rem; font-weight:800; background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.35); }
+        #countdown-chip.urgent { background:#DC2626; border-color:#FCA5A5; animation:pulse 1.6s infinite; }
+        #countdown-chip.warn { background:#D97706; border-color:#FCD34D; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.72} }
+        .trio-btn { margin-left:auto; border:1px solid var(--card-border); background:#fff; border-radius:999px; width:28px; height:28px; font-weight:800; color:#64748B; cursor:pointer; transition:all .2s ease; line-height:1; flex-shrink:0; }
+        .trio-btn:hover { border-color:#3c9080; color:#3c9080; }
+        .trio-btn.picked { background:#3c9080; border-color:#3c9080; color:#fff; }
+        #trio-status { font-size:.8rem; font-weight:700; padding:.45rem .9rem; border-radius:999px; background:#F1F5F9; color:#475569; display:inline-block; margin:.3rem 0 .6rem; transition:all .3s ease; }
+        #trio-status.good { background:#D1FAE5; color:#065F46; }
+        #trio-status.warn { background:#FEF3C7; color:#92400E; }
+        .chip-row { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; margin-top:.6rem; }
+        .mini-btn { font-size:.75rem; font-weight:700; padding:.35rem .8rem; border-radius:8px; border:1px solid var(--card-border); background:#fff; color:#183868; cursor:pointer; transition:all .2s ease; }
+        .mini-btn:hover { background:#183868; color:#fff; }
+        #restored-chip { display:none; font-size:.72rem; font-weight:700; color:#065F46; background:#D1FAE5; padding:.25rem .7rem; border-radius:999px; }
+        #restored-chip.show { display:inline-block; }
+        .sub-score { font-size:.7rem; font-weight:800; color:#3c9080; margin-left:.5rem; }
+        .decl-details { border:1px solid var(--card-border); border-radius:10px; margin-top:.6rem; background:#FAFAFA; }
+        .decl-details summary { cursor:pointer; font-weight:700; font-size:.85rem; padding:.6rem .9rem; color:#183868; }
+        .decl-details[open] summary { border-bottom:1px solid var(--card-border); }
+        @media (max-width:640px) {
+            .score-input { padding:.55rem .4rem; font-size:.95rem; min-width:74px; }
+            table.op-table th, table.op-table td { padding:.6rem .6rem; }
+            #toc-bar { top:45px; }
+        }
+        @media print {
+            .reveal { opacity:1 !important; transform:none !important; }
+            #progress-bar, nav, #toc-bar, .article-footer, .no-print { display:none !important; }
+            body { background:#fff; }
+            section.card { box-shadow:none; border-color:#cbd5e1; break-inside:avoid; }
+            body.print-scorecard main > *:not(#scorecard) { display:none !important; }
+            body.print-scorecard #scorecard { border:none; padding:0; }
+        }
     </style>
 </head>
 <body>
@@ -108,6 +146,18 @@
         </div>
     </nav>
 
+    <nav id="toc-bar" aria-label="Section navigation">
+        <a href="#overview">🎯 Overview</a>
+        <a href="#timeline">📅 Timeline</a>
+        <a href="#workflow">🔁 Workflow</a>
+        <a href="#challenges">🧩 Pick 3</a>
+        <a href="#datasets">📦 Datasets</a>
+        <a href="#declaration">✍️ Declare</a>
+        <a href="#scorecard">📊 Scorecard</a>
+        <a href="#self-eval">📸 Self-Eval</a>
+        <a href="#presentation">🎤 Present</a>
+    </nav>
+
     <header class="article-header">
         <div class="article-header-inner">
             <span class="series-tag">Data Visualization Challenges · Assignment (Class of 50)</span>
@@ -116,6 +166,7 @@
             <div class="tag-row flex flex-wrap gap-2 items-center">
                 <span class="tag-chip">3 Challenges</span><span class="tag-chip">3 Separate Reports</span><span class="tag-chip">Power BI or HTML</span><span class="tag-chip">Self-Grading</span><span class="tag-chip">Presentation Marks</span>
                 <span class="deadline-badge">📅 Issued 29 Oct 2026 · Due 5 Nov 2026 (eflow)</span>
+                <span id="countdown-chip" aria-live="polite">⏳ Calculating…</span>
             </div>
             <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
         </div>
@@ -123,7 +174,7 @@
 
     <main class="article-body">
 
-        <section class="outcomes-box reveal">
+        <section class="outcomes-box reveal" id="overview">
             <h2>🎯 The Assignment in One Screen</h2>
             <ul>
                 <li><strong>Scope:</strong> choose exactly <strong>3 challenges</strong> from the 20 below → <strong>3 separate reports</strong> (one grill, one spec, one dashboard per challenge). Recommended spread: 1 🟢 Easy + 1 🟡 Medium + 1 🔴 Hard.</li>
@@ -147,20 +198,20 @@
         </section>
 
         <!-- ============ TIMELINE ============ -->
-        <section class="card reveal">
+        <section class="card reveal" id="timeline">
             <h2>📅 Timeline</h2>
             <table class="op-table">
                 <thead><tr><th>When</th><th>What happens</th></tr></thead>
                 <tbody>
                     <tr><td class="font-semibold">Thu 29 Oct 2026</td><td>Assignment issued. File your declaration (3 challenges + audiences) on eflow the same week.</td></tr>
-                    <tr class="bg-gray-50"><td class="font-semibold">29 Oct – 4 Nov</td><td>Build week: grill ×3 → spec ×3 → dashboard ×3 → self-grade ×3. Trainer doubts sessions as scheduled in class.</td></tr>
+                    <tr class="bg-gray-50"><td class="font-semibold">29 Oct – 4 Nov</td><td>Build week: grill ×3 → spec ×3 → dashboard ×3 → self-grade ×3. Trainer doubt sessions: watch eflow + class announcements for the slot.</td></tr>
                     <tr><td class="font-semibold">Thu 5 Nov 2026</td><td><strong>Morning:</strong> submit the single PDF on eflow. <strong>Same day:</strong> presentation slot (5–7 min per student/pair — slots confirmed by trainer) + viva.</td></tr>
                 </tbody>
             </table>
         </section>
 
         <!-- ============ WORKFLOW ============ -->
-        <section class="card reveal">
+        <section class="card reveal" id="workflow">
             <h2>The Workflow: Spec Before Pixel — ×3</h2>
             <div class="loop mt-2">
                 <span class="step warn">🤺 Grill</span><span class="arrow">→</span>
@@ -210,109 +261,110 @@
                 <button class="filter-btn px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs font-bold" data-diff="medium">⚡ Medium (8)</button>
                 <button class="filter-btn px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs font-bold" data-diff="hard">🔥 Hard (6)</button>
             </div>
+            <div id="trio-status" role="status">My trio: 0/3 picked — tap ➕ on your cards to track your spread</div>
 
             <!-- EASY -->
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">1</span><h4>The Hero Axis</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-01-attendance-hero-axis.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">1</span><h4>The Hero Axis</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-01-attendance-hero-axis.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Your school's monthly attendance bar chart starts its y-axis at 85% so the improvement "looks dramatic".</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What does hiding the bottom 85 points of context let someone claim — and what does zero-baselining cost you instead?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">2</span><h4>Red Means Go?</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-02-lab-status.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">2</span><h4>Red Means Go?</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-02-lab-status.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The physics lab equipment board shows "in use" in green and "faulty" in red. Nothing else distinguishes them.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What does a color-blind student see on this board — and what two-token fix makes status unmissable?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">3</span><h4>The Missing Tuesday</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-03-missing-tuesday.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">3</span><h4>The Missing Tuesday</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-03-missing-tuesday.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A daily step-count line chart fills a sensor outage day with a dip to zero — readers think nobody walked on Tuesday.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Where did the data go, and what on-chart treatment shows 'unknown' instead of 'zero'?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">4</span><h4>Pie Overload</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-04-canteen-budget.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">4</span><h4>Pie Overload</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-04-canteen-budget.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The canteen budget pie has 14 slices. Nobody can compare two of them.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Which 3 slices does your actual audience care about — and what chart type lets them compare?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">5</span><h4>The Zoomed Breakout</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-05-chess-membership.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">5</span><h4>The Zoomed Breakout</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-05-chess-membership.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The chess club shows "explosive growth" zoomed to the last 3 weeks of a flat 3-year membership record.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is the full range, how do you show it, and what annotation makes the zoom honest?"</div>
             </div>
             <div class="chal-card" data-diff="easy">
-                <div class="chal-head"><span class="chal-num">6</span><h4>Which Average?</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-06-class-marks.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span></div>
+                <div class="chal-head"><span class="chal-num">6</span><h4>Which Average?</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-06-class-marks.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-easy">Easy</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A class-marks chart is badged "Class average: 68" — but the top four scores skewed the mean; the typical student scored 64.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Mean or median for this story, what does your tooltip say, and who is misled if you pick wrong?"</div>
             </div>
 
             <!-- MEDIUM -->
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">7</span><h4>Double-Ruler Drama</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-07-transport-dual-axis.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">7</span><h4>Double-Ruler Drama</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-07-transport-dual-axis.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The school transport dashboard plots bus on-time % (0–100) and diesel cost (₹ thousands) on dual axes — the lines cross "proving" spending causes delays.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What argument does the crossing invite, and what layout makes that argument impossible to fake?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">8</span><h4>Silent Row Loss</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-08-recycling-rows.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">8</span><h4>Silent Row Loss</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-08-recycling-rows.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The recycling-drive tally imports a CSV into a spreadsheet that stops at 1,000 rows. The dashboard shows a confident, wrong total.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "At which hop (capture → import → dashboard) can rows vanish, and what count assertion fires when they do?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">9</span><h4>Hue-Only Heat Map</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-09-room-usage.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">9</span><h4>Hue-Only Heat Map</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-09-room-usage.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A room-usage heat map encodes busy-ness by one blue's intensity only — printed in grayscale, it's unreadable.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What non-color redundancy (labels, hatch, numbers) carries the same message when hue is stripped?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">10</span><h4>The Flicker Feed</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-10-canteen-queue.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">10</span><h4>The Flicker Feed</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-10-canteen-queue.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A live canteen-queue counter repaints on every ping — the screen flickers and students stop reading it.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What aggregation window and repaint cap make this stream readable at a glance?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">11</span><h4>Mobile Mashup</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-11-exam-results.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">11</span><h4>Mobile Mashup</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-11-exam-results.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The 6-panel exam-results dashboard designed on a lab monitor gets opened on parents' phones at PTM night. Everything is mush.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is the ONE question a phone must answer, and what survives to the smallest screen?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">12</span><h4>Hover-Only Facts</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-12-energy-readings.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">12</span><h4>Hover-Only Facts</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-12-energy-readings.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Units and date ranges live only in tooltips. The moment the dashboard is screenshotted for the prospectus, the context evaporates.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What must be visible in a static screenshot for the chart to stay truthful?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">13</span><h4>Two Vote Counts</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-13-voting-sheet-a.csv" download title="Download voting sheet A"><i class="fas fa-download"></i> Sheet A</a><a class="ds-link alt ml-1" href="../datasets/challenge-13-voting-sheet-b.csv" download title="Download voting sheet B"><i class="fas fa-download"></i> Sheet B</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">13</span><h4>Two Vote Counts</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-13-voting-sheet-a.csv" download title="Download voting sheet A"><i class="fas fa-download"></i> Sheet A</a><a class="ds-link alt ml-1" href="../datasets/challenge-13-voting-sheet-b.csv" download title="Download voting sheet B"><i class="fas fa-download"></i> Sheet B</a><span class="diff diff-medium">Medium</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Science-fair voting: one sheet counts 3 votes per student, another counts 1. Both dashboards are "official".</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is the single governed definition of a vote, where is it displayed, and who owns it?"</div>
             </div>
             <div class="chal-card" data-diff="medium">
-                <div class="chal-head"><span class="chal-num">14</span><h4>Names on the Big Screen</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-14-fitness-test.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span></div>
+                <div class="chal-head"><span class="chal-num">14</span><h4>Names on the Big Screen</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-14-fitness-test.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-medium">Medium</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The fitness-test dashboard lists every student's name and score — projected in the hall during the event.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Who should see whose number? What aggregation or opt-in makes this display ethical and legal?"</div>
             </div>
 
             <!-- HARD -->
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">15</span><h4>Cluster Mirage</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-15-activity-map.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">15</span><h4>Cluster Mirage</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-15-activity-map.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> A 2D "activity map" of students shows two pretty islands. The school wants to declare two personality types from it.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What evidence beyond the 2D projection would confirm these clusters — and how does the chart communicate doubt?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">16</span><h4>Alarm Storm</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-16-alarm-log.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">16</span><h4>Alarm Storm</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-16-alarm-log.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Sports-day operations dashboard flashes ~20 alerts per minute. Officials now ignore all of them — including the real one.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Which condition genuinely deserves an alert, what's the threshold, and where does the calm baseline live?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">17</span><h4>The Sarcasm Meter</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-17-feedback-sentiment.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">17</span><h4>The Sarcasm Meter</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-17-feedback-sentiment.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Event-feedback sentiment scores "Oh great, another drill 😍" as 100% positive. The organizers conclude the drill was a hit.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Where is the uncertainty in a sentiment score, and what sample quotes keep the meter honest?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">18</span><h4>Phantom Spike</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-18-bus-gps.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">18</span><h4>Phantom Spike</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-18-bus-gps.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The bus-GPS live view shows a speed "spike" — it's actually the per-second feed colliding with a daily-log average on the same chart.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Which clock wins, what shared window reconciles the feeds, and how is each series' cadence labelled?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">19</span><h4>Broken Inheritance</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-19-prize-data.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">19</span><h4>Broken Inheritance</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-19-prize-data.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> Last year's prize-dashboard hardcodes "2024" in five places. This year it quietly shows wrong year-on-year comparisons.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is data-driven vs hardcoded, and what single-source-of-truth pattern makes next year safe?"</div>
             </div>
             <div class="chal-card" data-diff="hard">
-                <div class="chal-head"><span class="chal-num">20</span><h4>Export Amnesia</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-20-admissions.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span></div>
+                <div class="chal-head"><span class="chal-num">20</span><h4>Export Amnesia</h4><a class="m-link" href="../tutorials/grill-method.html" title="The Challenge-Grill Method — how to grill this challenge">🤺</a><a class="ds-link" href="../datasets/challenge-20-admissions.csv" download title="Download the synthetic dataset"><i class="fas fa-download"></i> Dataset</a><span class="diff diff-hard">Hard</span><button class="trio-btn" aria-pressed="false" title="Add to my trio">➕</button></div>
                 <div class="mini mini-ex"><strong>📖 Scenario:</strong> The interactive admission dashboard is flattened to PDF for the board pack — every hover-card insight is gone; only pictures remain.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "What is essential when flattened, and how do you design every view to survive being an image?"</div>
             </div>
@@ -343,40 +395,80 @@
         </section>
 
         <!-- ============ DECLARATION ============ -->
-        <section class="card reveal">
+        <section class="card reveal" id="declaration">
             <h2>Your Declaration (fill ×3 → file early)</h2>
             <p class="text-sm text-gray-700">Use the <a href="../tutorials/grill-method.html" class="underline font-semibold">Challenge-Grill Method</a> prompt with each declared challenge — the verbatim source prompt lives at <a href="../prompts/system_prompt_grill_me.md" class="underline font-mono text-xs">prompts/system_prompt_grill_me.md</a>. File one declaration per challenge with the trainer in week one — first-come, first-served on challenge choice.</p>
-            <div class="my-3 rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm">
-                <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
-                    <span class="font-mono text-cyan-400"><i class="fas fa-file-signature mr-2"></i>declaration_report_[1|2|3].md (fill &amp; file early)</span>
-                    <button data-copy="assign-decl" class="copy-btn px-2.5 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition"><i class="far fa-copy mr-1"></i> Copy</button>
-                </div>
-                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="assign-decl">ASSIGNMENT DECLARATION — Report [1 / 2 / 3]
+            <details class="decl-details" open>
+                <summary>📝 Report 1 — declaration template</summary>
+                <div class="rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm m-3">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
+                        <span class="font-mono text-cyan-400"><i class="fas fa-file-signature mr-2"></i>declaration_report_1.md</span>
+                        <button data-copy="decl-r1" class="copy-btn px-2.5 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition"><i class="far fa-copy mr-1"></i> Copy</button>
+                    </div>
+                    <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="decl-r1">ASSIGNMENT DECLARATION — Report 1
 Student(s): [name(s)] · Class: [ ] · Roll No: [ ]
 Challenge: #[ ] — [title]   (parent series challenge: [Part _, #_])
 Difficulty tier: [easy / medium / hard]
 Build tool: [Power BI / HTML]
 Declared audience: [who reads this dashboard and what they decide]
 Variant note (optional): [what I changed about the scenario and why]</pre>
-            </div>
+                </div>
+            </details>
+            <details class="decl-details">
+                <summary>📝 Report 2 — declaration template</summary>
+                <div class="rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm m-3">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
+                        <span class="font-mono text-cyan-400"><i class="fas fa-file-signature mr-2"></i>declaration_report_2.md</span>
+                        <button data-copy="decl-r2" class="copy-btn px-2.5 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition"><i class="far fa-copy mr-1"></i> Copy</button>
+                    </div>
+                    <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="decl-r2">ASSIGNMENT DECLARATION — Report 2
+Student(s): [name(s)] · Class: [ ] · Roll No: [ ]
+Challenge: #[ ] — [title]   (parent series challenge: [Part _, #_])
+Difficulty tier: [easy / medium / hard]
+Build tool: [Power BI / HTML]
+Declared audience: [who reads this dashboard and what they decide]
+Variant note (optional): [what I changed about the scenario and why]</pre>
+                </div>
+            </details>
+            <details class="decl-details">
+                <summary>📝 Report 3 — declaration template</summary>
+                <div class="rounded-xl border border-gray-200 bg-gray-900 text-gray-100 overflow-hidden shadow-sm m-3">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700 text-xs">
+                        <span class="font-mono text-cyan-400"><i class="fas fa-file-signature mr-2"></i>declaration_report_3.md</span>
+                        <button data-copy="decl-r3" class="copy-btn px-2.5 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition"><i class="far fa-copy mr-1"></i> Copy</button>
+                    </div>
+                    <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="decl-r3">ASSIGNMENT DECLARATION — Report 3
+Student(s): [name(s)] · Class: [ ] · Roll No: [ ]
+Challenge: #[ ] — [title]   (parent series challenge: [Part _, #_])
+Difficulty tier: [easy / medium / hard]
+Build tool: [Power BI / HTML]
+Declared audience: [who reads this dashboard and what they decide]
+Variant note (optional): [what I changed about the scenario and why]</pre>
+                </div>
+            </details>
         </section>
 
         <!-- ============ SCORECARD ============ -->
         <section class="card reveal" id="scorecard">
             <h2>The Scorecard: Self-Score, Then Trainer Score</h2>
             <p class="text-sm text-gray-700">Fill the <strong>Self</strong> column honestly before submitting. Puneet Arora fills the <strong>Trainer</strong> column on the same rubric. The gap between the two is <em>the viva</em> — and part of your grade.</p>
+            <div class="chip-row no-print">
+                <button id="print-scorecard" class="mini-btn"><i class="fas fa-print mr-1"></i> Print scorecard only (PDF)</button>
+                <button id="reset-scores" class="mini-btn" title="Clear all scores saved in this browser"><i class="fas fa-rotate-left mr-1"></i> Reset scores</button>
+                <span id="restored-chip" role="status"><i class="fas fa-check mr-1"></i>Scores restored from this browser</span>
+            </div>
 
             <div class="overflow-x-auto">
                 <table class="op-table" id="score-table">
-                    <thead><tr><th>Component</th><th>What earns it</th><th>Max</th><th>Self</th><th>Trainer</th></tr></thead>
+                    <thead><tr><th>Component</th><th>What earns it</th><th>Max</th><th>Self</th><th title="Trainer fills this column during the viva — leave it blank">Trainer</th></tr></thead>
                     <tbody>
-                        <tr><td class="font-semibold" colspan="5" style="background:#eef8f6; color:#183868;">A · Spec Discipline across 3 reports (30)</td></tr>
+                        <tr><td class="font-semibold" colspan="5" style="background:#eef8f6; color:#183868;">A · Spec Discipline across 3 reports (30)<span class="sub-score" id="sub-A"></span></td></tr>
                         <tr><td>A1</td><td>3 declarations filed in week 1 (challenge + tier + audience + build tool)</td><td>3</td><td><input type="number" min="0" max="3" class="score-input self" data-max="3"></td><td><input type="number" min="0" max="3" class="score-input trainer" data-max="3"></td></tr>
                         <tr class="bg-gray-50"><td>A2</td><td>Grill rounds per report (≥2 dependent rounds each; Hard reports ≥3)</td><td>9</td><td><input type="number" min="0" max="9" class="score-input self" data-max="9"></td><td><input type="number" min="0" max="9" class="score-input trainer" data-max="9"></td></tr>
                         <tr><td>A3</td><td>Numbered decisions D1…Dn per report, written before the artifact (timestamps + transcript)</td><td>9</td><td><input type="number" min="0" max="9" class="score-input self" data-max="9"></td><td><input type="number" min="0" max="9" class="score-input trainer" data-max="9"></td></tr>
                         <tr class="bg-gray-50"><td>A4</td><td>One boolean gate per decision — each checkable on the artifact</td><td>9</td><td><input type="number" min="0" max="9" class="score-input self" data-max="9"></td><td><input type="number" min="0" max="9" class="score-input trainer" data-max="9"></td></tr>
 
-                        <tr><td class="font-semibold" colspan="5" style="background:#eef8f6; color:#183868;">B · Artifact vs Gates — 10 per report (30)</td></tr>
+                        <tr><td class="font-semibold" colspan="5" style="background:#eef8f6; color:#183868;">B · Artifact vs Gates — 10 per report (30)<span class="sub-score" id="sub-B"></span></td></tr>
                         <tr><td>B1</td><td><strong>Report 1</strong> passes its 4 derived gates: baseline, CVD + shapes, performance/honesty, structure/parity</td><td>10</td><td><input type="number" min="0" max="10" class="score-input self" data-max="10"></td><td><input type="number" min="0" max="10" class="score-input trainer" data-max="10"></td></tr>
                         <tr class="bg-gray-50"><td>B2</td><td><strong>Report 2</strong> passes its 4 derived gates</td><td>10</td><td><input type="number" min="0" max="10" class="score-input self" data-max="10"></td><td><input type="number" min="0" max="10" class="score-input trainer" data-max="10"></td></tr>
                         <tr><td>B3</td><td><strong>Report 3</strong> passes its 4 derived gates</td><td>10</td><td><input type="number" min="0" max="10" class="score-input self" data-max="10"></td><td><input type="number" min="0" max="10" class="score-input trainer" data-max="10"></td></tr>
@@ -384,13 +476,13 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
                         <tr><td class="font-semibold" colspan="5" style="background:#eef8f6; color:#183868;">C · Integrity (15)</td></tr>
                         <tr><td>C1</td><td>Self-grading honesty: |Self total − Trainer total| ≤ 3 → full marks; ≤ 7 → half; &gt; 7 → zero</td><td>15</td><td colspan="2" class="text-xs text-gray-500">computed automatically ↓</td></tr>
 
-                        <tr><td class="font-semibold" colspan="5" style="background:#eef8f6; color:#183868;">D · Delivery &amp; Presentation (25)</td></tr>
+                        <tr><td class="font-semibold" colspan="5" style="background:#eef8f6; color:#183868;">D · Delivery &amp; Presentation (25)<span class="sub-score" id="sub-D"></span></td></tr>
                         <tr><td>D1</td><td>Single PDF on eflow by 5 Nov, correct filename, 3 complete report sections, standalone (no external links)</td><td>6</td><td><input type="number" min="0" max="6" class="score-input self" data-max="6"></td><td><input type="number" min="0" max="6" class="score-input trainer" data-max="6"></td></tr>
                         <tr class="bg-gray-50"><td>D2</td><td><strong>Presentation (5 Nov):</strong> spec-before-pixel evidence shown (3) · live demo + gate walkthrough (4) · viva answers (3)</td><td>10</td><td><input type="number" min="0" max="10" class="score-input self" data-max="10"></td><td><input type="number" min="0" max="10" class="score-input trainer" data-max="10"></td></tr>
                         <tr><td>D3</td><td>Write-ups cite parent challenges; screenshots/exports crisp and labelled R1–R3</td><td>4</td><td><input type="number" min="0" max="4" class="score-input self" data-max="4"></td><td><input type="number" min="0" max="4" class="score-input trainer" data-max="4"></td></tr>
                         <tr class="bg-gray-50"><td>D4</td><td>Artifacts run as delivered: HTML opens offline with no console errors / PBIX opens with embedded-or-linked data</td><td>5</td><td><input type="number" min="0" max="5" class="score-input self" data-max="5"></td><td><input type="number" min="0" max="5" class="score-input trainer" data-max="5"></td></tr>
 
-                        <tr><td class="font-semibold" colspan="5" style="background:#FFF7ED; color:#92400E;">E · Bonus — Power BI (+2 per Power BI report, capped at +5)</td></tr>
+                        <tr><td class="font-semibold" colspan="5" style="background:#FFF7ED; color:#92400E;">E · Bonus — Power BI (+2 per Power BI report, capped at +5)<span class="sub-score" id="sub-E"></span></td></tr>
                         <tr><td>E1</td><td>Report 1 in Power BI <input type="checkbox" class="pbi-chk" data-pbi="0"></td><td>+2</td><td colspan="2"></td></tr>
                         <tr class="bg-gray-50"><td>E2</td><td>Report 2 in Power BI <input type="checkbox" class="pbi-chk" data-pbi="1"></td><td>+2</td><td colspan="2"></td></tr>
                         <tr><td>E3</td><td>Report 3 in Power BI <input type="checkbox" class="pbi-chk" data-pbi="2"></td><td>+2</td><td colspan="2"></td></tr>
@@ -439,12 +531,13 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
                     <li>☐ Scorecard screenshot on the PDF's last page (TOTAL row + verdict visible)</li>
                     <li>☐ Grader output screenshot per HTML report · gate hand-check per Power BI report</li>
                     <li>☐ Trainer column left blank · Student name + date filled</li>
+                    <li class="text-amber-700">📱 On a phone: long-press a card's <strong>Dataset</strong> chip → "Download link" to save the CSV (raw files open in a new tab by design).</li>
                 </ul>
             </div>
         </section>
 
         <!-- ============ PRESENTATION ============ -->
-        <section class="card reveal">
+        <section class="card reveal" id="presentation">
             <h2>🎤 Presentation Day — 5 Nov 2026</h2>
             <p class="text-sm text-gray-700">Every student (or pair) presents their three reports. <strong>5–7 minutes each</strong> — slots confirmed by the trainer. Suggested running order:</p>
             <ol class="text-sm text-gray-700 list-decimal pl-5 mt-2 space-y-1">
@@ -484,16 +577,69 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
             document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
         }
 
-        // Copy buttons
+        // Copy buttons (with fallback for file:// / non-HTTPS contexts)
+        function legacyCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            let ok = false;
+            try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+            document.body.removeChild(ta);
+            return ok;
+        }
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const src = document.getElementById(btn.dataset.copy);
-                navigator.clipboard.writeText(src.innerText).then(() => {
-                    const old = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!';
-                    setTimeout(() => { btn.innerHTML = old; }, 2000);
-                });
+                const old = btn.innerHTML;
+                const done = () => { btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!'; setTimeout(() => { btn.innerHTML = old; }, 2000); };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(src.innerText).then(done).catch(() => { legacyCopy(src.innerText) ? done() : (btn.innerHTML = '<i class="fas fa-hand-pointer mr-1"></i> Select &amp; copy manually'); });
+                } else {
+                    legacyCopy(src.innerText) ? done() : (btn.innerHTML = '<i class="fas fa-hand-pointer mr-1"></i> Select &amp; copy manually');
+                }
             });
+        });
+
+        // Countdown to the eflow deadline (day granularity, IST)
+        {
+            const chip = document.getElementById('countdown-chip');
+            const due = new Date('2026-11-05T23:59:00+05:30');
+            const days = Math.ceil((due - Date.now()) / 86400000);
+            if (days > 2) { chip.textContent = '⏳ ' + days + ' days left'; }
+            else if (days === 2 || days === 1) { chip.textContent = '⚠ Only ' + days + ' day' + (days === 1 ? '' : 's') + ' left'; chip.classList.add('warn'); }
+            else if (days === 0) { chip.textContent = '🚨 TODAY — submit + present'; chip.classList.add('urgent'); }
+            else { chip.textContent = '⏰ Deadline passed (' + Math.abs(days) + ' days ago)'; chip.classList.add('urgent'); }
+        }
+
+        // Sticky TOC scroll-spy
+        {
+            const links = Array.from(document.querySelectorAll('#toc-bar a'));
+            const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+            if ('IntersectionObserver' in window && secs.length) {
+                const spy = new IntersectionObserver(es => {
+                    es.forEach(e => {
+                        if (e.isIntersecting) {
+                            links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+                        }
+                    });
+                }, { rootMargin: '-30% 0px -60% 0px' });
+                secs.forEach(s => spy.observe(s));
+            }
+        }
+
+        // Mobile: wrap any bare op-tables so they scroll instead of breaking layout
+        document.querySelectorAll('section.card > table.op-table, section > div > table.op-table').forEach(t => {
+            if (t.parentElement.classList.contains('overflow-x-auto')) return;
+            const w = document.createElement('div'); w.className = 'overflow-x-auto';
+            t.parentNode.insertBefore(w, t); w.appendChild(t);
+        });
+
+        // Accessibility: name every score input from its row + column
+        Array.from(document.querySelectorAll('.score-input')).forEach(i => {
+            const row = i.closest('tr');
+            const id = row && row.cells[0] ? row.cells[0].textContent.trim().split(' ')[0] : 'score';
+            const col = i.classList.contains('self') ? 'self' : 'trainer';
+            i.setAttribute('aria-label', id + ' ' + col + ' score, max ' + i.dataset.max);
         });
 
         // Difficulty filter
@@ -515,6 +661,7 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
         const selfTotalEl = document.getElementById('self-total');
         const trainerTotalEl = document.getElementById('trainer-total');
         const verdict = document.getElementById('verdict');
+        let verdictRevealed = false;
 
         function sum(cls) {
             return inputs.filter(i => i.classList.contains(cls)).reduce((acc, i) => acc + (parseInt(i.value, 10) || 0), 0);
@@ -531,6 +678,13 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
             const self = sum('self');          // A(30) + B(30) + D(25) = 85 max before honesty
             const trainer = sum('trainer');
             const b = bonus();
+
+            // Live section subtotals (self column)
+            const secSum = L => inputs.filter(i => i.classList.contains('self') && (i.closest('tr').cells[0].textContent.trim() || '').startsWith(L)).reduce((a, i) => a + (parseInt(i.value, 10) || 0), 0);
+            document.getElementById('sub-A').textContent = '· Self: ' + secSum('A') + '/30';
+            document.getElementById('sub-B').textContent = '· Self: ' + secSum('B') + '/30';
+            document.getElementById('sub-D').textContent = '· Self: ' + secSum('D') + '/25';
+            document.getElementById('sub-E').textContent = b ? '· Bonus: +' + b : '';
 
             let c1 = null;
             if (trainer > 0) {
@@ -561,6 +715,12 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
                     verdict.textContent = '🔁 REVISE — Trainer score ' + trainerFinal + '/100. Fix the flagged gates; resubmission policy set by trainer.';
                 }
             }
+            // Bring the verdict into view the first time it appears (if off-screen)
+            if (!verdictRevealed && !verdict.classList.contains('pending')) {
+                verdictRevealed = true;
+                const r = verdict.getBoundingClientRect();
+                if (r.top < 0 || r.bottom > window.innerHeight) verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
             try {
                 localStorage.setItem(KEY, JSON.stringify({
                     v: inputs.map(i => i.value),
@@ -580,8 +740,67 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
                 pbiChks.forEach((c, k) => c.checked = !!(saved.p || [])[k]);
                 document.getElementById('sign-student').value = saved.s || '';
                 if (saved.d) document.getElementById('sign-date').value = saved.d;
+                document.getElementById('restored-chip').classList.add('show');
             }
         } catch (e) {}
+
+        // Print scorecard only + reset
+        document.getElementById('print-scorecard').addEventListener('click', () => {
+            document.body.classList.add('print-scorecard');
+            window.print();
+        });
+        window.addEventListener('afterprint', () => document.body.classList.remove('print-scorecard'));
+        document.getElementById('reset-scores').addEventListener('click', () => {
+            if (!confirm('Clear all scores saved in this browser? Any screenshot you already took is unaffected.')) return;
+            try { localStorage.removeItem(KEY); localStorage.removeItem('apllyAssignmentTrio'); } catch (e) {}
+            location.reload();
+        });
+
+        // "My trio" tracker (persisted) — tap ➕ on up to 3 challenge cards
+        {
+            const TKEY = 'apllyAssignmentTrio';
+            const status = document.getElementById('trio-status');
+            const trioBtns = Array.from(document.querySelectorAll('.trio-btn'));
+            trioBtns.forEach(btn => {
+                const card = btn.closest('.chal-card');
+                btn.dataset.diff = card.dataset.diff;
+                btn.dataset.num = card.querySelector('.chal-num').textContent.trim();
+            });
+            let picked = [];
+            try { picked = JSON.parse(localStorage.getItem(TKEY) || '[]'); } catch (e) {}
+            function renderTrio() {
+                trioBtns.forEach(btn => {
+                    const on = picked.includes(btn.dataset.num);
+                    btn.classList.toggle('picked', on);
+                    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+                    btn.textContent = on ? '✓' : '➕';
+                    btn.title = (on ? 'Remove challenge #' + btn.dataset.num : 'Add challenge #' + btn.dataset.num) + ' from my trio';
+                });
+                const mix = { easy: 0, medium: 0, hard: 0 };
+                picked.forEach(n => { const src = trioBtns.find(x => x.dataset.num === n); if (src) mix[src.dataset.diff]++; });
+                status.classList.remove('good', 'warn');
+                if (picked.length === 0) {
+                    status.textContent = 'My trio: 0/3 picked — tap ➕ on your cards to track your spread';
+                } else if (picked.length < 3) {
+                    status.textContent = 'My trio: ' + picked.length + '/3 — #' + picked.join(', #') + ' · easy ' + mix.easy + ' · medium ' + mix.medium + ' · hard ' + mix.hard;
+                    if (mix.easy <= 1 && mix.medium <= 1 && mix.hard <= 1) status.classList.add('good');
+                } else if (mix.easy === 1 && mix.medium === 1 && mix.hard === 1) {
+                    status.classList.add('good');
+                    status.textContent = '✅ My trio: perfect spread — #' + picked.join(', #') + ' (1 easy + 1 medium + 1 hard). File those declarations!';
+                } else {
+                    status.classList.add('warn');
+                    status.textContent = '⚠ My trio: #' + picked.join(', #') + ' — easy ' + mix.easy + ' · medium ' + mix.medium + ' · hard ' + mix.hard + '. Recommended: 1 of each (tap ➕ on another to swap the oldest).';
+                }
+                try { localStorage.setItem(TKEY, JSON.stringify(picked)); } catch (e) {}
+            }
+            trioBtns.forEach(btn => btn.addEventListener('click', () => {
+                const n = btn.dataset.num;
+                if (picked.includes(n)) picked = picked.filter(x => x !== n);
+                else picked = picked.slice(2).concat(n); // cap at 3, drop the oldest
+                renderTrio();
+            }));
+            renderTrio();
+        }
         recalc();
     </script>
 </body>

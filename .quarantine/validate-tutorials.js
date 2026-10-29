@@ -115,6 +115,21 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
         for (const token of ['screenshot', 'Self-Evaluation', 'Win + Shift + S', 'Trainer column blank']) {
             if (!html.includes(token)) fail(`assignment | self-eval missing token: ${token}`);
         }
+        // UX-REVIEW implementations (see assignments/UX-REVIEW.md)
+        for (const id of ['toc-bar', 'countdown-chip', 'trio-status', 'print-scorecard', 'reset-scores', 'restored-chip', 'sub-A', 'sub-B', 'sub-D', 'sub-E', 'overview', 'timeline', 'workflow', 'declaration', 'presentation']) {
+            if (!html.includes(`id="${id}"`)) fail(`assignment | missing UX element id="${id}"`);
+        }
+        const trioBtns = doc.querySelectorAll('.trio-btn').length;
+        if (trioBtns !== 20) fail(`assignment | expected 20 trio buttons, got ${trioBtns}`);
+        const declBlocks = doc.querySelectorAll('.decl-details').length;
+        if (declBlocks !== 3) fail(`assignment | expected 3 declaration report blocks, got ${declBlocks}`);
+        const labelled = doc.querySelectorAll('.score-input[aria-label]').length;
+        if (labelled !== selfInputs + trainerInputs) fail(`assignment | aria-labels ${labelled}/${selfInputs + trainerInputs} score inputs`);
+        if (!/@media print/.test(html)) fail('assignment | missing print stylesheet');
+        if (!html.includes('body.print-scorecard')) fail('assignment | missing print-scorecard mode');
+        for (const token of ['legacyCopy', 'scrollIntoView', 'apllyAssignmentTrio']) {
+            if (!html.includes(token)) fail(`assignment | missing UX JS feature: ${token}`);
+        }
         for (const token of ['eflow', '5 Nov 2026', '29 Oct 2026', 'Power BI', 'presentation']) {
             if (!html.includes(token)) fail(`assignment | missing key token: ${token}`);
         }
