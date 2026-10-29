@@ -196,9 +196,9 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     const rootHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
     const rootDom = new JSDOM(rootHtml);
     const hubCards = rootDom.window.document.querySelectorAll('.hub-card').length;
-    if (hubCards !== 9) fail(`root index.html | expected 9 hub cards, got ${hubCards}`);
+    if (hubCards !== 10) fail(`root index.html | expected 10 hub cards, got ${hubCards}`);
     if (!rootHtml.includes('name="last-updated"')) fail('root index.html | missing last-updated meta tag');
-    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/index.html', 'eval-tool/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
+    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/index.html', 'eval-tool/index.html', 'presentation-tool/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
         if (!rootHtml.includes(link)) fail(`root index.html | missing hub link: ${link}`);
     }
     rootDom.window.close();
@@ -235,14 +235,41 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     for (const token of ['aplly-eval', "setAttribute('sandbox', 'allow-scripts')", 'srcdoc', 'postMessage', 'beginatzero:true', '#0072b2', '#e69f00', '#cc79a7', 'self-grade-report.txt', 'FINAL SCORE']) {
         if (!etHtml.includes(token)) fail(`eval-tool/index.html | missing token: ${token}`);
     }
-    for (const link of ['../assignments/index.html', '../tutorials/self-grading-kit.html', '../grader/grader.v2.js', '../dashboard/index.html', '../VALIDATION.md']) {
+    for (const link of ['../assignments/index.html', '../tutorials/self-grading-kit.html', '../grader/grader.v2.js', '../dashboard/index.html', '../VALIDATION.md', '../presentation-tool/index.html']) {
         if (!etHtml.includes(link)) fail(`eval-tool/index.html | missing cross-link: ${link}`);
+    }
+    // Scorecard tab: markup + sync-with-assignment rubric + B1 pre-fill + print CSS
+    for (const token of ['tabbtn-score', 'tab-scorecard', 'sc-table', 'sc-self-total', 'sc-verdict', 'apllyEvalScorecard', 'apllyEvalRuns', 'slot-btn', 'sc-print', 'print-scorecard']) {
+        if (!etHtml.includes(token)) fail(`eval-tool/index.html | scorecard tab missing token: ${token}`);
+    }
+    if (!fs.readFileSync(path.join(__dirname, '..', 'assignments', 'index.html'), 'utf8').includes('eval-tool/index.html#scorecard') &&
+        !fs.readFileSync(path.join(__dirname, '..', 'assignments', 'index.html'), 'utf8').includes('Eval Tool\'s Scorecard tab')) {
+        fail('assignments/index.html | missing pointer to eval-tool scorecard tab');
     }
     if (/setAttribute\('sandbox',[^)]*allow-same-origin/.test(etHtml)) fail('eval-tool/index.html | sandbox grants allow-same-origin — isolation broken');
     if (!fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8').includes('eval-tool/index.html')) fail('root index.html | missing eval-tool link');
     if (!fs.readFileSync(path.join(dir, '..', 'assignments', 'index.html'), 'utf8').includes('eval-tool/index.html')) fail('assignments/index.html | missing eval-tool link');
     if (!fs.readFileSync(path.join(dir, 'self-grading-kit.html'), 'utf8').includes('eval-tool/index.html')) fail('self-grading-kit.html | missing eval-tool link');
-    if (!failures) console.log('PASS eval-tool/index.html | sandboxed browser grader wired + cross-linked');
+    if (!failures) console.log('PASS eval-tool/index.html | sandboxed browser grader + scorecard tab wired + cross-linked');
+
+    // Presentation scorecard tool (peer evaluation, 5 Nov)
+    const ptHtml = fs.readFileSync(path.join(__dirname, '..', 'presentation-tool', 'index.html'), 'utf8');
+    if (!ptHtml.includes('name="last-updated"')) fail('presentation-tool/index.html | missing last-updated meta tag');
+    for (const token of ['aria-label="Breadcrumb"', 'apllyPeerScores', 'scd-rows', 'scd-total', 'gen-btn', 'scd-print', 'scd-copy', 'scd-share', '28']) {
+        if (!ptHtml.includes(token)) fail(`presentation-tool/index.html | missing token: ${token}`);
+    }
+    // The seven dimensions the trainer specified must be present as rubric rows
+    for (const dim of ['data-dim="understanding"', 'data-dim="design"', 'data-dim="grill"', 'data-dim="inference"', 'data-dim="detection"', 'data-dim="generalization"', 'data-dim="conclusion"']) {
+        if (!ptHtml.includes(dim)) fail(`presentation-tool/index.html | missing rubric row: ${dim}`);
+    }
+    for (const link of ['../index.html', '../eval-tool/index.html', '../assignments/index.html', '../tutorials/grill-method.html']) {
+        if (!ptHtml.includes(link)) fail(`presentation-tool/index.html | missing cross-link: ${link}`);
+    }
+    const ptRoot = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+    if (!ptRoot.includes('presentation-tool/index.html')) fail('root index.html | missing presentation-tool hub link');
+    const ptAssign = fs.readFileSync(path.join(__dirname, '..', 'assignments', 'index.html'), 'utf8');
+    if ((ptAssign.match(/presentation-tool\/index\.html/g) || []).length < 3) fail('assignments/index.html | presentation-tool should be linked from ≥3 places (overview, D2, timeline)');
+    if (!failures) console.log('PASS presentation-tool/index.html | 7-dimension peer rubric wired + cross-linked');
 
     console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL CHECKS PASSED');
     process.exit(failures ? 1 : 0);

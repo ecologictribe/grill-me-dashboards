@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplly Presentation Scorecard: Grade a Presenting Pair | Aplly.xyz</title>
+    <meta name="description" content="Peer-evaluation tool for the 5 Nov presentations. Score a presenting pair on problem understanding, dashboard design, grill depth, inferences, detections, generalizations and conclusions — generate a scorecard to share with the trainer.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+    <meta name="last-updated" content="2026-10-30T01:30:00+05:30">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { brandNavy: '#183868', brandCyan: '#28a8e8', brandTeal: '#3c9080', brandGreen: '#48b838', brandMint: '#c6eeb0' },
+            fontFamily: { sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'], heading: ['Sora', 'system-ui', 'sans-serif'] }
+        } } }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --brand-primary:#183868; --brand-secondary:#28a8e8; --brand-teal:#3c9080; --brand-dark:#0F172A; --card-border:#E2E8F0; --card-shadow:0 1px 4px rgba(24,56,104,.06),0 4px 16px rgba(24,56,104,.04); --radius-card:12px; --radius-tag:999px; }
+        body { font-family:'DM Sans',sans-serif; background:#fff; color:#1F1F2E; line-height:1.7; margin:0; }
+        h1,h2,h3,h4 { font-family:'Sora',sans-serif; color:var(--brand-dark); letter-spacing:-.02em; }
+        code,pre,kbd { font-family:'Fira Code',monospace; }
+        .article-header { background:linear-gradient(135deg,#183868 0%,#28a8e8 100%); color:#fff; padding:2.6rem 1.5rem 2.2rem; }
+        .article-header-inner { max-width:860px; margin:0 auto; }
+        .series-tag { display:inline-block; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; background:rgba(255,255,255,.18); padding:4px 12px; border-radius:var(--radius-tag); margin-bottom:.8rem; border:1px solid rgba(255,255,255,.25); }
+        .article-header h1 { font-size:clamp(1.8rem,4.2vw,2.6rem); font-weight:800; color:#fff; line-height:1.18; margin:0 0 .75rem; }
+        .article-header p.subtitle { font-size:1.08rem; opacity:.95; margin:0 0 1rem; line-height:1.6; max-width:720px; color:#f0faf8; }
+        .tag-chip { background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3); padding:4px 12px; border-radius:var(--radius-tag); font-size:.78rem; font-weight:600; }
+        .desk-attribution { display:inline-flex; align-items:center; background:rgba(15,23,42,.45); padding:6px 14px; border-radius:var(--radius-tag); font-size:.82rem; font-weight:600; color:#c6eeb0; border:1px solid rgba(255,255,255,.2); margin-top:.9rem; }
+        main.tool-body { max-width:860px; margin:0 auto; padding:2rem 1.5rem 3.5rem; }
+        section.card { background:#fff; border:1px solid var(--card-border); box-shadow:var(--card-shadow); border-radius:var(--radius-card); padding:1.6rem; margin-bottom:1.6rem; }
+        .article-footer { text-align:center; padding:2.5rem 1.5rem; background:#183868; color:rgba(255,255,255,.85); font-size:.88rem; }
+
+        .btn { display:inline-flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:700; padding:.45rem 1rem; border-radius:8px; border:1px solid var(--card-border); background:#fff; color:#183868; cursor:pointer; transition:all .2s ease; }
+        .btn:hover { background:#183868; color:#fff; border-color:#183868; }
+        .btn-primary { background:linear-gradient(135deg,#183868,#28a8e8); color:#fff; border:none; }
+        .btn-primary:hover { filter:brightness(1.1); }
+        .mini-note { font-size:.8rem; color:#64748B; }
+        .mini-note code { background:#EEF2FF; color:#1E40AF; padding:1px 5px; border-radius:4px; font-size:.85em; }
+
+        /* Rubric */
+        .rubric-row { border:1px solid var(--card-border); border-radius:10px; padding:.9rem 1rem; margin-bottom:.8rem; background:#fff; }
+        .rubric-row h4 { margin:0 0 .15rem; font-size:.95rem; display:flex; align-items:center; gap:.45rem; }
+        .rubric-row .why { margin:0 0 .55rem; font-size:.8rem; color:#64748B; line-height:1.5; }
+        .lvl-group { display:flex; gap:.35rem; flex-wrap:wrap; }
+        .lvl-btn { font-size:.75rem; font-weight:700; padding:.3rem .65rem; border-radius:6px; border:1px solid #CBD5E1; background:#F8FAFC; color:#334155; cursor:pointer; transition:all .15s ease; }
+        .lvl-btn:hover { border-color:var(--brand-secondary); }
+        .lvl-btn.sel { background:#183868; color:#fff; border-color:#183868; }
+        .lvl-btn.sel[data-lvl="4"] { background:#065F46; border-color:#065F46; }
+        .lvl-btn.sel[data-lvl="3"] { background:#3c9080; border-color:#3c9080; }
+        .lvl-btn.sel[data-lvl="1"], .lvl-btn.sel[data-lvl="0"] { background:#991B1B; border-color:#991B1B; }
+        .lvl-desc { font-size:.72rem; color:#94A3B8; margin-top:.35rem; min-height:1em; font-style:italic; }
+
+        .field-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:.7rem; margin-bottom:1rem; }
+        .field-grid label { font-size:.78rem; font-weight:600; color:#334155; display:flex; flex-direction:column; gap:.2rem; }
+        .field-grid input, .field-grid select, .field-grid textarea { padding:.4rem .6rem; border:1px solid #CBD5E1; border-radius:7px; font-size:.85rem; font-family:'DM Sans',sans-serif; }
+        .field-grid input:focus, .field-grid select:focus, .field-grid textarea:focus { outline:2px solid var(--brand-secondary); border-color:var(--brand-secondary); }
+
+        .score-summary { position:sticky; bottom:0; background:linear-gradient(135deg,#183868,#234c7d); color:#fff; border-radius:12px; padding:.9rem 1.2rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; box-shadow:0 8px 24px rgba(24,56,104,.3); margin-top:1rem; }
+        .score-summary .big { font-family:'Sora',sans-serif; font-weight:800; font-size:1.6rem; }
+        .score-summary .verdict { font-size:.85rem; font-weight:600; opacity:.95; }
+
+        /* Generated scorecard (screenshot target) */
+        #scorecard-out { display:none; }
+        #scorecard-out.show { display:block; }
+        .scorecard-doc { border:2px solid #183868; border-radius:12px; overflow:hidden; }
+        .scorecard-doc .sc-head { background:#183868; color:#fff; padding:.8rem 1.1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
+        .scorecard-doc .sc-head h3 { color:#fff; margin:0; font-size:1rem; }
+        .scorecard-doc table { width:100%; border-collapse:collapse; font-size:.82rem; }
+        .scorecard-doc th, .scorecard-doc td { border:1px solid #E2E8F0; padding:.4rem .6rem; text-align:left; }
+        .scorecard-doc th { background:#eef8f6; color:#183868; font-size:.75rem; }
+        .scorecard-doc td.lvl { text-align:center; font-weight:800; font-family:'Fira Code',monospace; }
+        .scorecard-doc .sc-foot { padding:.7rem 1.1rem; background:#F8FAFC; font-size:.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:.5rem; }
+        .scorecard-doc .sc-total { font-family:'Sora',sans-serif; font-weight:800; font-size:1.1rem; color:#183868; }
+
+        /* History */
+        .hist-item { display:flex; justify-content:space-between; align-items:center; gap:.6rem; padding:.5rem .7rem; border:1px solid var(--card-border); border-radius:8px; margin-bottom:.45rem; font-size:.82rem; background:#FAFAFA; flex-wrap:wrap; }
+        .hist-item .who { font-weight:600; }
+        .hist-item .pts { font-family:'Fira Code',monospace; font-weight:700; color:#183868; }
+
+        @media print {
+            body nav, body .article-header, body footer.article-footer, body #hist-card, body #rubric-card, body #form-card, body .score-summary { display:none !important; }
+            body main.tool-body { padding:0; max-width:100%; }
+            body #scorecard-out .btn { display:none !important; }
+            body .scorecard-doc { border-color:#000; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="bg-[#183868] border-b border-[#234c7d] text-white py-3 px-4 sm:px-8 flex justify-between items-center text-sm sticky top-0 z-40">
+        <a href="../index.html" class="flex items-center space-x-2 font-bold text-lg text-white">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </a>
+        <div class="flex items-center space-x-5 text-xs sm:text-sm">
+            <a href="../eval-tool/index.html" class="text-gray-300 hover:text-white transition">Eval Tool</a>
+            <a href="../tutorials/grill-method.html" class="text-gray-300 hover:text-white transition hidden sm:inline">Grill Method</a>
+            <a href="../assignments/index.html" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">The Assignment →</a>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-inner">
+            <nav aria-label="Breadcrumb" class="text-xs mb-2" style="opacity:.85;">
+                <a href="../index.html" class="underline hover:text-white">Home</a>
+                <span class="mx-1.5 opacity-60">›</span>
+                <span>Tools</span>
+                <span class="mx-1.5 opacity-60">›</span>
+                <span class="font-semibold">Presentation Scorecard</span>
+            </nav>
+            <span class="series-tag">Tools · Presentation Scorecard (Peer Evaluation)</span>
+            <h1>Grade a Presentation — While You're Watching It</h1>
+            <p class="subtitle">On <strong>5 Nov</strong>, every pair presents. You're in the audience — use this page to score the presenting pair on the seven things that matter, generate a clean scorecard, and hand it to the trainer. It takes 3 minutes per pair.</p>
+            <div class="tag-row flex flex-wrap gap-2 items-center">
+                <span class="tag-chip">Peer Evaluation</span><span class="tag-chip">7-Dimension Rubric</span><span class="tag-chip">5 Nov Presentations</span><span class="tag-chip">Screenshot-Ready</span>
+            </div>
+            <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
+        </div>
+    </header>
+
+    <main class="tool-body">
+
+        <!-- FORM -->
+        <section class="card" id="form-card">
+            <h2 style="font-size:1.2rem; margin-top:0;">🧑‍⚖️ Who are you scoring?</h2>
+            <div class="field-grid">
+                <label>Presenting pair / group
+                    <input type="text" id="pf-pair" placeholder="e.g. Ananya & Rohit">
+                </label>
+                <label>Their challenge (number + tier)
+                    <select id="pf-chal">
+                        <option value="">— pick —</option>
+                        <option>C1 · Easy</option><option>C2 · Easy</option><option>C3 · Easy</option>
+                        <option>C4 · Easy</option><option>C5 · Easy</option><option>C6 · Easy</option>
+                        <option>C7 · Easy</option><option>C8 · Easy</option>
+                        <option>C9 · Medium</option><option>C10 · Medium</option><option>C11 · Medium</option>
+                        <option>C12 · Medium</option><option>C13 · Medium</option><option>C14 · Medium</option>
+                        <option>C15 · Medium</option>
+                        <option>C16 · Hard</option><option>C17 · Hard</option><option>C18 · Hard</option>
+                        <option>C19 · Hard</option><option>C20 · Hard</option>
+                        <option value="other">Other (write in notes)</option>
+                    </select>
+                </label>
+                <label>Your name (the evaluator)
+                    <input type="text" id="pf-you" placeholder="your name">
+                </label>
+                <label>Notes (optional — one thing they nailed, one question they dodged)
+                    <textarea id="pf-notes" rows="2" placeholder="e.g. Nail: named the trap unprompted. Dodged: why zero baseline?"></textarea>
+                </label>
+            </div>
+
+            <h2 style="font-size:1.2rem;">🎚️ The Seven Dimensions — tap a level per row</h2>
+            <p class="mini-note" style="margin-top:-.3rem;">Score what you <em>saw and heard</em>, not who they are. 0 = not shown · 2 = solid · 4 = trainer-impressed. Hover a level to see what it means.</p>
+
+            <div id="rubric-card">
+                <div class="rubric-row" data-dim="understanding">
+                    <h4>🧠 1 · Problem Understanding</h4>
+                    <p class="why">Can they restate the challenge, the audience, and <em>why the trap exists</em> — in their own words, before showing any pixels?</p>
+                    <div class="lvl-group" role="group" aria-label="Problem understanding level"></div>
+                    <p class="lvl-desc"></p>
+                </div>
+                <div class="rubric-row" data-dim="design">
+                    <h4>🎨 2 · Design &amp; Form of the Dashboard</h4>
+                    <p class="why">Does the form fit the question? F-pattern layout, chart types chosen for the data shape, CVD-safe palette visibly applied, not a wall of gauges.</p>
+                    <div class="lvl-group" role="group" aria-label="Design level"></div>
+                    <p class="lvl-desc"></p>
+                </div>
+                <div class="rubric-row" data-dim="grill">
+                    <h4>🔥 3 · Depth of the Grill</h4>
+                    <p class="why">Do they show real grill rounds — dependent follow-ups that changed the spec? Numbered decisions D1…Dn? Can they quote a decision they <em>revised</em> after grilling?</p>
+                    <div class="lvl-group" role="group" aria-label="Grill depth level"></div>
+                    <p class="lvl-desc"></p>
+                </div>
+                <div class="rubric-row" data-dim="inference">
+                    <h4>💡 4 · Inferences</h4>
+                    <p class="why">Beyond reading numbers off the screen: what does the data <em>imply</em>? Do they connect series to causes with appropriate caution?</p>
+                    <div class="lvl-group" role="group" aria-label="Inferences level"></div>
+                    <p class="lvl-desc"></p>
+                </div>
+                <div class="rubric-row" data-dim="detection">
+                    <h4>🕵️ 5 · Detections</h4>
+                    <p class="why">Did they find the trap(s) planted in the dataset — and name them precisely (truncated axis? missing baseline? colour-only encoding?)?</p>
+                    <div class="lvl-group" role="group" aria-label="Detections level"></div>
+                    <p class="lvl-desc"></p>
+                </div>
+                <div class="rubric-row" data-dim="generalization">
+                    <h4>🌐 6 · Generalizations</h4>
+                    <p class="why">What travels beyond this dataset? Do they say where their finding holds and where it breaks — sample limits, context boundaries?</p>
+                    <div class="lvl-group" role="group" aria-label="Generalizations level"></div>
+                    <p class="lvl-desc"></p>
+                </div>
+                <div class="rubric-row" data-dim="conclusion">
+                    <h4>✅ 7 · Conclusions</h4>
+                    <p class="why">Do they land it: a clear recommendation to the audience they chose, tied to the evidence shown — or just "looks nice"?</p>
+                    <div class="lvl-group" role="group" aria-label="Conclusions level"></div>
+                    <p class="lvl-desc"></p>
+                </div>
+            </div>
+
+            <div class="score-summary" aria-live="polite">
+                <div>
+                    <span class="big" id="sum-score">0</span><span class="big" style="opacity:.6;"> / 28</span>
+                    <div class="verdict" id="sum-verdict">Tap levels above to score.</div>
+                </div>
+                <button id="gen-btn" class="btn btn-primary" style="font-size:.85rem; padding:.6rem 1.2rem;"><i class="fas fa-id-card"></i> Generate Scorecard</button>
+            </div>
+        </section>
+
+        <!-- GENERATED SCORECARD -->
+        <section id="scorecard-out" aria-live="polite">
+            <div class="scorecard-doc" id="sc-doc">
+                <div class="sc-head">
+                    <h3><i class="fas fa-award mr-1"></i> Aplly Presentation Scorecard — 5 Nov 2026</h3>
+                    <span style="font-size:.78rem; opacity:.9;" id="scd-stamp"></span>
+                </div>
+                <table>
+                    <thead><tr><th>#</th><th>Dimension</th><th style="text-align:center;">0–4</th><th>Evaluator's note</th></tr></thead>
+                    <tbody id="scd-rows"></tbody>
+                </table>
+                <div class="sc-foot">
+                    <div>
+                        <strong id="scd-pair">—</strong> · <span id="scd-chal">—</span><br>
+                        Evaluator: <span id="scd-you">—</span><span id="scd-notesline"></span>
+                    </div>
+                    <div style="text-align:right;">
+                        <span class="sc-total" id="scd-total">0 / 28</span><br>
+                        <span style="font-size:.75rem; color:#64748B;" id="scd-verdict"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-2 mt-3 flex-wrap">
+                <button id="scd-print" class="btn btn-primary"><i class="fas fa-print"></i> Print / Save as PDF</button>
+                <button id="scd-copy" class="btn"><i class="far fa-copy"></i> Copy as text</button>
+                <button id="scd-share" class="btn"><i class="fas fa-link"></i> Copy share link</button>
+                <button id="scd-again" class="btn"><i class="fas fa-user-plus"></i> Score another pair</button>
+            </div>
+            <p class="mini-note mt-2">Screenshot or print this card and give it to the trainer (or the presenting pair reads it back to you in the viva). Peer scores are <strong>advisory evidence</strong> — Puneet Arora's Trainer column on the <a href="../assignments/index.html#scorecard" class="underline font-semibold">assignment scorecard</a> is the grade. Sharing a link encodes the result in the URL — nothing is uploaded.</p>
+        </section>
+
+        <!-- HISTORY -->
+        <section class="card" id="hist-card">
+            <h2 style="font-size:1.05rem; margin-top:0;">🗂️ Pairs you've scored today <span class="mini-note" style="font-weight:400;">(saved in this browser only)</span></h2>
+            <div id="hist-list"><p class="mini-note">Nothing yet — score a pair above.</p></div>
+        </section>
+
+        <!-- WHY THIS RUBRIC -->
+        <section class="card">
+            <h2 style="font-size:1.05rem; margin-top:0;">🧭 Why these seven? (and how to use them honestly)</h2>
+            <ul style="padding-left:1.2rem; margin:.2rem 0 0; font-size:.88rem; color:#334155;">
+                <li><strong>They mirror the method.</strong> Understanding → the grill's starting point. Design &amp; Form → spec-before-pixel made visible. Grill depth → rounds + numbered decisions. Inferences · Detections · Generalizations · Conclusions → the four sensemaking moves the <a href="../tutorials/grill-method.html" class="underline font-semibold">Challenge-Grill Method</a> trains, and the exact things the trainer asks in the viva.</li>
+                <li><strong>Audit trail, not a popularity contest.</strong> The per-dimension levels force you to notice <em>what</em> earned the score. A 2 with a written note beats a 4 you can't justify — same rule the presenters live by.</li>
+                <li><strong>Peer scores inform, the trainer decides.</strong> Your scorecard lands next to their self-score and the trainer's — deltas between all three are the most honest picture of a presentation. Grade the performance you saw, not the friendship.</li>
+                <li><strong>Use it on yourself too.</strong> Watching three pairs and scoring them will change how you rehearse your own 5–7 minutes. That's not a side effect — that's the point.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="article-footer">
+        <div class="flex items-center justify-center space-x-2 font-bold text-lg text-white mb-2">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </div>
+        <p>Practice. Apply. Master.</p>
+        <p class="mt-2 text-xs opacity-80">Published from the Desk of Puneet Arora, Aplly.xyz Trainer · ⏱ Last updated: 30 Oct 2026 · © 2026 Aplly.xyz. All rights reserved.</p>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var DIMS = [
+            { key: 'understanding', name: 'Problem Understanding', descs: ['Cannot restate the challenge or the trap', 'Restates the challenge; trap named only after prompting', 'States challenge, audience, and trap unprompted', 'Adds why the trap exists and who it harms', 'All of it, and connects the trap to a real decision it would corrupt'] },
+            { key: 'design', name: 'Design & Form', descs: ['Form contradicts the question (gauges for trends, etc.)', 'Charts fit, but layout ignores scan order', 'F-pattern layout + right chart forms', 'Adds visible CVD palette + shape redundancy', 'All of it, and can justify every form choice against the spec'] },
+            { key: 'grill', name: 'Depth of the Grill', descs: ['No grill evidence shown', 'Mentions grilling; no artifacts', 'Shows rounds + numbered decisions', 'Shows a decision REVISED because of a follow-up', 'Full trace: rounds → decisions → gates, timestamps visible'] },
+            { key: 'inference', name: 'Inferences', descs: ['Reads numbers only; no meaning', 'One safe inference stated', 'Multiple inferences with causal caution', 'Names which inferences are weakest and why', 'Distinguishes signal, noise, and confounds explicitly'] },
+            { key: 'detection', name: 'Detections', descs: ['Missed the planted trap(s)', 'Suspected the trap; couldn\'t pinpoint it', 'Names the trap(s) precisely', 'Names trap + shows the evidence that revealed it', 'Names all traps + explains the mechanism that plants them'] },
+            { key: 'generalization', name: 'Generalizations', descs: ['No generalization attempted', '"This probably applies elsewhere" — no bounds', 'States one boundary where the finding holds', 'States where it holds AND where it breaks', 'Population, context, and time limits all addressed'] },
+            { key: 'conclusion', name: 'Conclusions', descs: ['No conclusion or just "nice dashboard"', 'Vague takeaway, not tied to audience', 'Clear recommendation tied to shown evidence', 'Recommendation + its strongest counter-argument', 'Actionable next step + what would change their mind'] }
+        ];
+        var HKEY = 'apllyPeerScores';
+
+        var scores = {};
+        var scoreRowRefs = {};
+
+        // Build level buttons per rubric row
+        document.querySelectorAll('.rubric-row').forEach(function (row) {
+            var dimKey = row.dataset.dim;
+            var dim = DIMS.filter(function (d) { return d.key === dimKey; })[0];
+            var group = row.querySelector('.lvl-group');
+            var desc = row.querySelector('.lvl-desc');
+            for (var lvl = 0; lvl <= 4; lvl++) {
+                var b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'lvl-btn';
+                b.dataset.lvl = lvl;
+                b.textContent = lvl;
+                b.setAttribute('aria-label', dim.name + ': level ' + lvl);
+                b.addEventListener('mouseenter', function () { desc.textContent = dim.descs[parseInt(this.dataset.lvl, 10)]; });
+                b.addEventListener('focus', function () { desc.textContent = dim.descs[parseInt(this.dataset.lvl, 10)]; });
+                b.addEventListener('click', function () {
+                    var l = parseInt(this.dataset.lvl, 10);
+                    scores[dimKey] = l;
+                    group.querySelectorAll('.lvl-btn').forEach(function (x) { x.classList.toggle('sel', parseInt(x.dataset.lvl, 10) === l); });
+                    desc.textContent = dim.descs[l];
+                    updateSummary();
+                });
+                group.appendChild(b);
+            }
+        });
+
+        function total() {
+            var t = 0, done = 0;
+            DIMS.forEach(function (d) { if (scores[d.key] !== undefined) { t += scores[d.key]; done++; } });
+            return { t: t, done: done };
+        }
+
+        function verdictText(t) {
+            if (t >= 24) return '🏆 Exceptional — the trainer should steal moves from this one.';
+            if (t >= 19) return '✅ Strong presentation — most dimensions earned trust.';
+            if (t >= 13) return '⚠️ Solid but uneven — name the weak rows above and ask about them in the viva.';
+            if (t >= 7) return '🔁 Shaky — the method was there in the PDF but didn\'t survive the stage.';
+            return '❌ The dashboard got built but not understood — worth a re-grill.';
+        }
+
+        function updateSummary() {
+            var s = total();
+            document.getElementById('sum-score').textContent = s.t;
+            document.getElementById('sum-verdict').textContent = s.done === 7 ? verdictText(s.t) : (s.done + ' of 7 dimensions scored.');
+        }
+
+        // Generate the screenshot-ready scorecard
+        document.getElementById('gen-btn').addEventListener('click', function () {
+            var s = total();
+            if (s.done < 7) {
+                alert('Score all 7 dimensions first — a half-rubric isn\'t evidence (' + s.done + '/7 done).');
+                return;
+            }
+            var pair = document.getElementById('pf-pair').value.trim();
+            var you = document.getElementById('pf-you').value.trim();
+            if (!pair || !you) {
+                alert('Add the presenting pair\'s name and your name — an anonymous scorecard can\'t go into the trainer\'s evidence pile.');
+                return;
+            }
+            var chal = document.getElementById('pf-chal').value || '—';
+            var notes = document.getElementById('pf-notes').value.trim();
+
+            var tbody = document.getElementById('scd-rows');
+            tbody.innerHTML = '';
+            DIMS.forEach(function (d, i) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + d.name + '</td><td class="lvl">' + scores[d.key] + '</td><td style="font-size:.78rem; color:#475569;">' + d.descs[scores[d.key]].replace(/</g, '&lt;') + '</td>';
+                tbody.appendChild(tr);
+            });
+            document.getElementById('scd-pair').textContent = pair;
+            document.getElementById('scd-chal').textContent = chal;
+            document.getElementById('scd-you').textContent = you;
+            document.getElementById('scd-notesline').innerHTML = notes ? ' · <em>' + notes.replace(/</g, '&lt;') + '</em>' : '';
+            document.getElementById('scd-total').textContent = s.t + ' / 28';
+            document.getElementById('scd-verdict').textContent = verdictText(s.t);
+            document.getElementById('scd-stamp').textContent = new Date().toLocaleString();
+
+            var out = document.getElementById('scorecard-out');
+            out.classList.add('show');
+            if (typeof out.scrollIntoView === 'function') out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Save to history
+            try {
+                var hist = JSON.parse(localStorage.getItem(HKEY) || '[]');
+                hist.push({ pair: pair, chal: chal, you: you, t: s.t, ts: new Date().toISOString() });
+                localStorage.setItem(HKEY, JSON.stringify(hist));
+                renderHistory();
+            } catch (e) {}
+        });
+
+        function renderHistory() {
+            var list = document.getElementById('hist-list');
+            var hist = [];
+            try { hist = JSON.parse(localStorage.getItem(HKEY) || '[]'); } catch (e) {}
+            if (!hist.length) { list.innerHTML = '<p class="mini-note">Nothing yet — score a pair above.</p>'; return; }
+            list.innerHTML = '';
+            hist.slice().reverse().forEach(function (h) {
+                var div = document.createElement('div');
+                div.className = 'hist-item';
+                div.innerHTML = '<span class="who">' + h.pair.replace(/</g, '&lt;') + '</span><span style="color:#64748B; font-size:.78rem;">' + (h.chal || '').replace(/</g, '&lt;') + ' · graded by ' + h.you.replace(/</g, '&lt;') + '</span><span class="pts">' + h.t + '/28</span>';
+                list.appendChild(div);
+            });
+            var clear = document.createElement('button');
+            clear.className = 'btn';
+            clear.style.marginTop = '.5rem';
+            clear.innerHTML = '<i class="fas fa-rotate-left"></i> Clear today\'s history';
+            clear.addEventListener('click', function () {
+                if (!confirm('Clear all peer scorecards saved in this browser?')) return;
+                try { localStorage.removeItem(HKEY); } catch (e) {}
+                renderHistory();
+            });
+            list.appendChild(clear);
+        }
+        renderHistory();
+
+        // Scorecard actions
+        document.getElementById('scd-print').addEventListener('click', function () { window.print(); });
+
+        function legacyCopy(text) {
+            var ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            var ok = false;
+            try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+            document.body.removeChild(ta);
+            return ok;
+        }
+        function copyText(text, done) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done).catch(function () { if (legacyCopy(text)) done(); });
+            } else if (legacyCopy(text)) { done(); }
+        }
+
+        function scorecardText() {
+            var L = [];
+            L.push('APLLY PRESENTATION SCORECARD — 5 Nov 2026');
+            L.push('Pair: ' + document.getElementById('scd-pair').textContent + ' · Challenge: ' + document.getElementById('scd-chal').textContent);
+            L.push('Evaluator: ' + document.getElementById('scd-you').textContent);
+            L.push('----------------------------------------');
+            DIMS.forEach(function (d, i) {
+                L.push((i + 1) + '. ' + d.name + ': ' + scores[d.key] + '/4 — ' + d.descs[scores[d.key]]);
+            });
+            L.push('----------------------------------------');
+            L.push('TOTAL: ' + document.getElementById('scd-total').textContent);
+            L.push(document.getElementById('scd-verdict').textContent);
+            var nl = document.getElementById('scd-notesline').textContent;
+            if (nl) L.push('Notes:' + nl);
+            L.push('(Peer score — advisory evidence. Trainer column is the grade.)');
+            return L.join('\n');
+        }
+
+        document.getElementById('scd-copy').addEventListener('click', function () {
+            var btn = this, old = btn.innerHTML;
+            copyText(scorecardText(), function () {
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(function () { btn.innerHTML = old; }, 2000);
+            });
+        });
+
+        document.getElementById('scd-share').addEventListener('click', function () {
+            var compact = {
+                p: document.getElementById('scd-pair').textContent,
+                c: document.getElementById('scd-chal').textContent,
+                y: document.getElementById('scd-you').textContent,
+                g: DIMS.map(function (d) { return scores[d.key]; }),
+                t: total().t
+            };
+            var url = location.origin + location.pathname + '#p=' + btoa(unescape(encodeURIComponent(JSON.stringify(compact))));
+            var btn = this, old = btn.innerHTML;
+            copyText(url, function () {
+                btn.innerHTML = '<i class="fas fa-check"></i> Link copied!';
+                history.replaceState(null, '', url);
+                setTimeout(function () { btn.innerHTML = old; }, 2500);
+            });
+        });
+
+        document.getElementById('scd-again').addEventListener('click', function () {
+            document.getElementById('scorecard-out').classList.remove('show');
+            scores = {};
+            document.querySelectorAll('.rubric-row').forEach(function (row) {
+                row.querySelectorAll('.lvl-btn').forEach(function (x) { x.classList.remove('sel'); });
+                row.querySelector('.lvl-desc').textContent = '';
+            });
+            document.getElementById('pf-pair').value = '';
+            document.getElementById('pf-notes').value = '';
+            updateSummary();
+            var fc = document.getElementById('form-card');
+            if (fc && typeof fc.scrollIntoView === 'function') fc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // Shared scorecard mode: #p=<base64 compact result> (self-reported)
+        (function () {
+            var m = location.hash.match(/^#p=(.+)$/);
+            if (!m) return;
+            try {
+                var c = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+                document.getElementById('pf-pair').value = c.p || '';
+                document.getElementById('pf-you').value = c.y || '';
+                (c.g || []).forEach(function (l, i) {
+                    var dimKey = DIMS[i].key;
+                    scores[dimKey] = l;
+                    var row = document.querySelector('.rubric-row[data-dim="' + dimKey + '"]');
+                    row.querySelectorAll('.lvl-btn').forEach(function (x) { x.classList.toggle('sel', parseInt(x.dataset.lvl, 10) === l); });
+                    row.querySelector('.lvl-desc').textContent = DIMS[i].descs[l];
+                });
+                updateSummary();
+                document.getElementById('gen-btn').click();
+                document.getElementById('scd-stamp').textContent += ' · shared link (self-reported)';
+            } catch (e) { /* corrupt hash — ignore */ }
+        })();
+    })();
+    </script>
+</body>
+</html>

@@ -54,6 +54,16 @@ async function runProbeParity() {
     for (const id of ['dropzone', 'file-input', 'report-card', 'report-out', 'verdict', 'term-title', 'copy-btn', 'dl-btn', 'share-btn', 'again-btn', 'demo-btn']) {
         if (!toolHtml.includes(`id="${id}"`)) fail(`eval-tool | missing element id="${id}"`);
     }
+    // 3b. Scorecard tab: element IDs + the two storage keys + print path
+    for (const id of ['tabbtn-gates', 'tabbtn-score', 'tab-gates', 'tab-scorecard', 'sc-table', 'sc-b1', 'sc-self-total', 'sc-trainer-total', 'sc-verdict', 'sc-student', 'sc-challenge', 'sc-date', 'sc-print', 'sc-copy', 'sc-reset', 'slot-status']) {
+        if (!toolHtml.includes(`id="${id}"`)) fail(`eval-tool | scorecard tab missing element id="${id}"`);
+    }
+    for (const key of ['apllyEvalScorecard', 'apllyEvalRuns']) {
+        if (!toolHtml.includes(key)) fail(`eval-tool | missing storage key: ${key}`);
+    }
+    // The scorecard script must parse (syntax check of main script already covers it —
+    // additionally verify B1 pre-fill map matches the 4-gate scale)
+    if (!toolHtml.includes('var map = { 4: 10, 3: 7, 2: 5, 1: 2, 0: 0 };')) fail('eval-tool | B1 pre-fill map missing or altered (4/4 must = 10 marks)');
     // 4. Safety + parity tokens
     for (const token of ["setAttribute('sandbox', 'allow-scripts')", 'srcdoc', 'postMessage', 'last-updated', '../assignments/index.html', '../tutorials/self-grading-kit.html', '../dashboard/index.html', '../VALIDATION.md', 'aria-label="Breadcrumb"', '../index.html', '#0072b2', '#e69f00', '#cc79a7', 'beginatzero:true', '1500', '@media(max-width:767px)', 'self-grade-report.txt']) {
         if (!toolHtml.includes(token)) fail(`eval-tool | missing token: ${token}`);

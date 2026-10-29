@@ -122,7 +122,7 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
 - `article/dashboard-skills.html` (user's file) was swept into commit
   `3a72e4e` via `git add -A` — disclosed; offer stands to untrack
   (`git rm --cached`) if desired.
-- **Browser Eval Tool** (`eval-tool/index.html`, part of the new Tools
+- **Browser Eval Tool** (`eval-tool/index.html`, part of the Tools
   section): drop-your-file grader running in a **sandboxed iframe**
   (`sandbox="allow-scripts"`, opaque origin — student scripts execute but
   cannot touch the tool/storage; verified by probe). Embedded `apllyProbe`
@@ -130,9 +130,17 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
   dashboard scores 4/4 with identical gate details** (see
   `.quarantine/validate-eval-tool.js` — a second probe; run it before
   releases). Features: copy-ready report (same format as the .bat output),
-  download .txt, `#r=` base64 share links (self-reported, trainer re-runs
-  to verify), demo button (fetches reference dashboard), .pbix files
-  rejected with a pointer to the hand-check path.
+  download .txt, `#r=` base64 share links, demo button, .pbix rejection with
+  pointer. **Scorecard tab added:** per-report self-score generator, auto-prefilling
+  B1 from tagged R1/R2/R3 gate runs, print-scorecard-only mode, text copy,
+  and direct `#scorecard` hash navigation.
+- **Presentation Scorecard Tool** (`presentation-tool/index.html`): live
+  peer-evaluation rubric for 5 Nov presentations across the 7 dimensions
+  (problem understanding, design & form, grill depth, inferences, detections,
+  generalizations, conclusions) generating shareable scorecards as advisory
+  evidence for viva.
+- **Landing Hub (`index.html`)**: updated to 10 cards (9 cards + Presentation
+  Scorecard).
 - **Tool policy (user decision, 29 Oct):** HTML is the DEFAULT build path
   (auto-graded via self-grading kit); Power BI is strictly OPTIONAL
   (+bonus, hand-checked gates). Rationale: no script can grade a .pbix

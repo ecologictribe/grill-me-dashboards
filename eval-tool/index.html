@@ -6,7 +6,7 @@
     <title>Aplly Eval Tool: Grade Your Dashboard in the Browser | Aplly.xyz</title>
     <meta name="description" content="No install, no download. Drop your dashboard HTML into the browser-based eval tool — it runs your file in a sandbox and checks all 4 spec gates, with a copy-ready report for your assignment PDF.">
     <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
-    <meta name="last-updated" content="2026-10-30T00:45:00+05:30">
+    <meta name="last-updated" content="2026-10-30T01:30:00+05:30">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -66,8 +66,45 @@
 
         #report-card { display:none; }
         #report-card.show { display:block; }
+
+        /* Tabs: Gate Check | Scorecard */
+        .tabbar { display:flex; gap:.5rem; margin:0 0 1.2rem; border-bottom:2px solid #E2E8F0; }
+        .tab-btn { font-family:'Sora',sans-serif; font-weight:700; font-size:.88rem; padding:.6rem 1.1rem; background:none; border:none; border-bottom:3px solid transparent; margin-bottom:-2px; color:#64748B; cursor:pointer; display:flex; align-items:center; gap:.45rem; }
+        .tab-btn:hover { color:#183868; }
+        .tab-btn.active { color:#183868; border-bottom-color:#28a8e8; }
+        .tab-pane { display:none; }
+        .tab-pane.active { display:block; }
+        .slot-row { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; margin-top:.7rem; padding:.6rem .8rem; background:#F0F9FF; border:1px solid #BAE6FD; border-radius:10px; font-size:.82rem; color:#0C4A6E; }
+        .slot-btn { font-size:.75rem; font-weight:700; padding:.25rem .7rem; border-radius:6px; border:1px solid #7dd3fc; background:#fff; color:#0369A1; cursor:pointer; }
+        .slot-btn:hover, .slot-btn.filled { background:#0369A1; color:#fff; border-color:#0369A1; }
+
+        /* Scorecard (mirrors assignments/index.html #scorecard) */
+        .sc-table { width:100%; border-collapse:collapse; font-size:.82rem; }
+        .sc-table th, .sc-table td { border:1px solid #E2E8F0; padding:.45rem .55rem; text-align:left; }
+        .sc-table th { background:#183868; color:#fff; font-family:'Sora',sans-serif; font-size:.75rem; }
+        .sc-table td.sec { background:#eef8f6; color:#183868; font-weight:700; }
+        .sc-table td.sec-bonus { background:#FFF7ED; color:#92400E; font-weight:700; }
+        .sc-input { width:3.4rem; padding:.2rem .35rem; border:1px solid #CBD5E1; border-radius:5px; font-size:.82rem; text-align:center; }
+        .sc-verdict { border-radius:10px; padding:.8rem 1rem; font-family:'Sora',sans-serif; font-weight:800; font-size:.95rem; text-align:center; margin-top:1rem; }
+        .sc-verdict.pending { background:#F1F5F9; color:#475569; }
+        .sc-verdict.claim { background:#DBEAFE; color:#1E40AF; }
+        .sc-verdict.pass { background:#D1FAE5; color:#065F46; }
+        .sc-verdict.fail { background:#FEE2E2; color:#991B1B; }
+        .sc-verdict.honor { background:#FEF3C7; color:#92400E; }
+
         .mini-note { font-size:.8rem; color:#64748B; }
         .mini-note code { background:#EEF2FF; color:#1E40AF; padding:1px 5px; border-radius:4px; font-size:.85em; }
+
+        /* Print only the scorecard */
+        @media print {
+            body.print-scorecard nav, body.print-scorecard .article-header, body.print-scorecard .tabbar,
+            body.print-scorecard #tab-gates, body.print-scorecard footer.article-footer,
+            body.print-scorecard #tab-scorecard > section:not(#scorecard-shot),
+            body.print-scorecard #scorecard-shot .flex, body.print-scorecard .slot-row { display:none !important; }
+            body.print-scorecard main.tool-body { padding:0; max-width:100%; }
+            body.print-scorecard #scorecard-shot { border:none; box-shadow:none; padding:0; }
+            body.print-scorecard #tab-scorecard { display:block !important; }
+        }
     </style>
 </head>
 <body>
@@ -79,6 +116,7 @@
         <div class="flex items-center space-x-5 text-xs sm:text-sm">
             <a href="../tutorials/index.html" class="text-gray-300 hover:text-white transition">Series Home</a>
             <a href="../tutorials/self-grading-kit.html" class="text-gray-300 hover:text-white transition hidden sm:inline">Offline Kit</a>
+            <a href="../presentation-tool/index.html" class="text-gray-300 hover:text-white transition hidden sm:inline">Presentation Tool</a>
             <a href="../assignments/index.html" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">The Assignment →</a>
         </div>
     </nav>
@@ -94,15 +132,24 @@
             </nav>
             <span class="series-tag">Tools · Eval Tool (Browser)</span>
             <h1>Grade Your Dashboard — Right Here, No Install</h1>
-            <p class="subtitle">Drop your dashboard HTML file onto this page. It runs <strong>inside your browser, in a sandbox</strong>, gets checked against the same 4 spec gates as the offline kit — and you get a copy-ready report. Your file never leaves your computer.</p>
+            <p class="subtitle">Drop your dashboard HTML file onto this page. It runs <strong>inside your browser, in a sandbox</strong>, gets checked against the same 4 spec gates as the offline kit — and you get a copy-ready report. Then switch to the <strong>Scorecard tab</strong> and generate the self-score page for your PDF. Your file never leaves your computer.</p>
             <div class="tag-row flex flex-wrap gap-2 items-center">
-                <span class="tag-chip">No Download</span><span class="tag-chip">Runs Locally</span><span class="tag-chip">4 Boolean Gates</span><span class="tag-chip">Same Gates as grader.v2</span>
+                <span class="tag-chip">No Download</span><span class="tag-chip">Runs Locally</span><span class="tag-chip">4 Boolean Gates</span><span class="tag-chip">+ Scorecard Generator</span><span class="tag-chip">Same Gates as grader.v2</span>
             </div>
             <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
         </div>
     </header>
 
     <main class="tool-body">
+
+        <!-- TABS -->
+        <div class="tabbar" role="tablist" aria-label="Eval tool sections">
+            <button class="tab-btn active" id="tabbtn-gates" role="tab" aria-selected="true" aria-controls="tab-gates"><i class="fas fa-list-check"></i> 1 · Gate Check</button>
+            <button class="tab-btn" id="tabbtn-score" role="tab" aria-selected="false" aria-controls="tab-scorecard"><i class="fas fa-chart-simple"></i> 2 · Scorecard <span style="font-weight:400; font-size:.72rem;">(for your PDF)</span></button>
+        </div>
+
+        <!-- ================= TAB 1: GATE CHECK ================= -->
+        <div class="tab-pane active" id="tab-gates" role="tabpanel" aria-labelledby="tabbtn-gates">
 
         <!-- DROPZONE -->
         <section class="card">
@@ -137,6 +184,14 @@
             <div class="flex gap-2 mt-3 flex-wrap">
                 <button id="share-btn" class="btn btn-primary"><i class="fas fa-link"></i> Copy shareable result link</button>
                 <button id="again-btn" class="btn"><i class="fas fa-rotate-left"></i> Grade another file</button>
+            </div>
+            <div class="slot-row">
+                <strong><i class="fas fa-tag"></i> Which report is this?</strong>
+                <span>Tag it so the Scorecard tab can fill your B rows automatically:</span>
+                <button class="slot-btn" data-slot="0">R1</button>
+                <button class="slot-btn" data-slot="1">R2</button>
+                <button class="slot-btn" data-slot="2">R3</button>
+                <span id="slot-status" style="font-size:.75rem;"></span>
             </div>
             <p class="mini-note mt-2">The report text is formatted exactly like the offline <code>self-grade.bat</code> output — paste it into the Gates block of your <a href="../assignments/index.html#self-eval" class="underline font-semibold">assignment PDF</a>, or screenshot this card. The share link carries a <em>self-reported</em> result: the trainer re-runs your file to verify.</p>
         </section>
@@ -175,6 +230,81 @@
             </div>
             <p class="mini-note mt-3">Each ✗ maps to a spec decision that drifted — not to you being "bad at this". Fix the decision, drop the file again. Gate theory lives in <a href="../tutorials/grill-method.html" class="underline font-semibold">the Challenge-Grill Method</a>; why these exact gates exist: <a href="../article/index.html" class="underline font-semibold">Part 8 — Validation</a> · <a href="../VALIDATION.md" class="underline font-mono text-xs">VALIDATION.md</a>.</p>
         </section>
+
+        </div><!-- /tab-gates -->
+
+        <!-- ================= TAB 2: SCORECARD ================= -->
+        <div class="tab-pane" id="tab-scorecard" role="tabpanel" aria-labelledby="tabbtn-score">
+            <section class="card" id="scorecard-shot">
+                <h2 style="font-size:1.2rem; margin-top:0;">📊 Your Assignment Scorecard — Self-Score Here</h2>
+                <p class="mini-note" style="margin-top:0;">The same rubric as <a href="../assignments/index.html#scorecard" class="underline font-semibold">the assignment's Scorecard section</a>, shaped as a <strong>per-report card</strong> — fill one per report (R1, R2, R3), screenshot each, and the ×3 grand total lives on the assignment page. It saves in this browser as you type. Fill the <strong>Self</strong> column, leave <strong>Trainer</strong> blank (that column is Puneet Arora's), then screenshot the whole card for the last page of your PDF.</p>
+
+                <div class="slot-row no-print" style="margin-top:0; margin-bottom:1rem;">
+                    <strong><i class="fas fa-tag"></i> Active Report:</strong>
+                    <span>Select which tagged report to fill:</span>
+                    <button type="button" class="slot-btn sc-slot-btn" data-slot="0">R1</button>
+                    <button type="button" class="slot-btn sc-slot-btn" data-slot="1">R2</button>
+                    <button type="button" class="slot-btn sc-slot-btn" data-slot="2">R3</button>
+                    <span id="sc-slot-status" style="font-size:.75rem;"></span>
+                </div>
+
+                <div class="grid gap-3 mb-3" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+                    <label class="mini-note">Student(s): <input type="text" id="sc-student" class="sc-input" style="width:100%; text-align:left;" placeholder="name(s) / roll no."></label>
+                    <label class="mini-note">Challenge (with tier): <input type="text" id="sc-challenge" class="sc-input" style="width:100%; text-align:left;" placeholder="e.g. C7 — Medium"></label>
+                    <label class="mini-note">Date: <input type="date" id="sc-date" class="sc-input" style="width:100%; text-align:left;" value="2026-11-05"></label>
+                </div>
+
+                <div style="overflow-x:auto;">
+                <table class="sc-table" id="sc-table">
+                    <thead><tr><th>Component</th><th>What earns it</th><th>Max</th><th>Self</th><th>Trainer</th></tr></thead>
+                    <tbody>
+                        <tr><td class="sec" colspan="5">A · Spec Discipline (30)</td></tr>
+                        <tr><td>A1</td><td>Declaration filed in week 1 (challenge + tier + audience + build tool)</td><td>3</td><td><input type="number" min="0" max="3" class="sc-input sc-self" data-max="3"></td><td><input type="number" min="0" max="3" class="sc-input sc-trainer" data-max="3"></td></tr>
+                        <tr><td>A2</td><td>Grill rounds (≥2 dependent rounds; Hard ≥3)</td><td>9</td><td><input type="number" min="0" max="9" class="sc-input sc-self" data-max="9"></td><td><input type="number" min="0" max="9" class="sc-input sc-trainer" data-max="9"></td></tr>
+                        <tr><td>A3</td><td>Numbered decisions D1…Dn written before the artifact (timestamps + transcript)</td><td>9</td><td><input type="number" min="0" max="9" class="sc-input sc-self" data-max="9"></td><td><input type="number" min="0" max="9" class="sc-input sc-trainer" data-max="9"></td></tr>
+                        <tr><td>A4</td><td>One boolean gate per decision, checkable on the artifact</td><td>9</td><td><input type="number" min="0" max="9" class="sc-input sc-self" data-max="9"></td><td><input type="number" min="0" max="9" class="sc-input sc-trainer" data-max="9"></td></tr>
+
+                        <tr><td class="sec" colspan="5">B · Artifact vs Gates (10 per report — this report)</td></tr>
+                        <tr><td>B1</td><td>This report passes its 4 derived gates (baseline, CVD + shapes, performance/honesty, structure/parity)<span id="sc-gatehint" class="mini-note"></span></td><td>10</td><td><input type="number" min="0" max="10" class="sc-input sc-self" data-max="10" id="sc-b1"></td><td><input type="number" min="0" max="10" class="sc-input sc-trainer" data-max="10"></td></tr>
+
+                        <tr><td class="sec" colspan="5">C · Integrity</td></tr>
+                        <tr><td>C1</td><td>Self-grading honesty: |Self − Trainer| ≤ 3 → full; ≤ 7 → half; &gt; 7 → zero</td><td>15</td><td colspan="2" class="mini-note">computed when the Trainer column is filled</td></tr>
+
+                        <tr><td class="sec" colspan="5">D · Delivery &amp; Presentation (25)</td></tr>
+                        <tr><td>D1</td><td>Single PDF on eflow by 5 Nov, correct filename, standalone (no external links)</td><td>6</td><td><input type="number" min="0" max="6" class="sc-input sc-self" data-max="6"></td><td><input type="number" min="0" max="6" class="sc-input sc-trainer" data-max="6"></td></tr>
+                        <tr><td>D2</td><td>Presentation: spec-before-pixel evidence (3) · live demo + gate walkthrough (4) · viva answers (3)</td><td>10</td><td><input type="number" min="0" max="10" class="sc-input sc-self" data-max="10"></td><td><input type="number" min="0" max="10" class="sc-input sc-trainer" data-max="10"></td></tr>
+                        <tr><td>D3</td><td>Write-ups cite parent challenge; screenshots crisp and labelled R1–R3</td><td>4</td><td><input type="number" min="0" max="4" class="sc-input sc-self" data-max="4"></td><td><input type="number" min="0" max="4" class="sc-input sc-trainer" data-max="4"></td></tr>
+                        <tr><td>D4</td><td>Artifact runs as delivered (HTML opens offline, no console errors)</td><td>5</td><td><input type="number" min="0" max="5" class="sc-input sc-self" data-max="5"></td><td><input type="number" min="0" max="5" class="sc-input sc-trainer" data-max="5"></td></tr>
+
+                        <tr><td class="sec-bonus" colspan="5">E · Bonus — Power BI (optional path: +2 per Power BI report, capped +5)</td></tr>
+                        <tr><td>E1</td><td>This report in Power BI <input type="checkbox" class="sc-pbi"></td><td>+2</td><td colspan="2"></td></tr>
+
+                        <tr><td class="sec" colspan="5" style="background:#183868; color:#fff;">TOTAL (this report's share)</td></tr>
+                        <tr><td colspan="2" style="font-weight:700;">Self / Trainer claim</td><td class="mini-note">see assignment for the ×3 grand total</td><td id="sc-self-total" style="font-weight:800;">—</td><td id="sc-trainer-total" style="font-weight:800;">—</td></tr>
+                    </tbody>
+                </table>
+                </div>
+
+                <div id="sc-verdict" class="sc-verdict pending">Fill your Self column to see your claim.</div>
+
+                <div class="flex gap-2 mt-3 flex-wrap">
+                    <button id="sc-print" class="btn btn-primary"><i class="fas fa-camera"></i> Print / Save scorecard as PDF</button>
+                    <button id="sc-copy" class="btn"><i class="far fa-copy"></i> Copy scorecard as text</button>
+                    <button id="sc-reset" class="btn"><i class="fas fa-rotate-left"></i> Reset</button>
+                </div>
+                <p class="mini-note mt-2"><strong>How this becomes your PDF page:</strong> fill Student + Challenge + date → fill Self → <em>Print / Save as PDF</em> (or <code>Win + Shift + S</code> a screenshot of this whole card, TOTAL row and verdict included) → paste it as the last page of your report. Full steps: <a href="../assignments/index.html#self-eval" class="underline font-semibold">How to Self-Evaluate</a>. The <a href="../assignments/index.html#scorecard" class="underline font-semibold">assignment page</a> holds the ×3 grand total — this tab is the per-report card.</p>
+            </section>
+
+            <section class="card">
+                <h2 style="font-size:1.05rem; margin-top:0;">⚖️ What the numbers mean</h2>
+                <ul style="padding-left:1.2rem; margin:.2rem 0 0; font-size:.88rem; color:#334155;">
+                    <li><strong>B1 pre-filled from your gate run?</strong> That's the tool connecting your live 4-gate result to the rubric — you still claim the marks, and the trainer re-runs the file.</li>
+                    <li><strong>Pass mark 60/100</strong> (per assignment). <strong>Seal of Honour:</strong> ≥ 85 with |Self − Trainer| ≤ 3.</li>
+                    <li><strong>The gap between Self and Trainer is the viva</strong> — over-claiming is a conversation, not a trap. Grade yourself the way you'd grade a colleague: on evidence.</li>
+                    <li><strong>Presentation day (5 Nov)?</strong> Your classmates will score your D2 row live with the <a href="../presentation-tool/index.html" class="underline font-semibold">Presentation Scorecard Tool</a> — watch how they grade three pairs first, and you'll know exactly what a "4" looks like.</li>
+                </ul>
+            </section>
+        </div><!-- /tab-scorecard -->
 
     </main>
 
@@ -351,7 +481,7 @@
             verdictEl.textContent = pass
                 ? '🌟 ' + data.score + '/' + data.total + ' — all gates passed'
                 : (data.error ? '⚠️ Could not grade this file' : '⚠️ ' + (data.total - data.score) + ' gate(s) failed — read the report below');
-            reportCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (typeof reportCard.scrollIntoView === 'function') reportCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // ---- Input wiring --------------------------------------------------
@@ -447,8 +577,250 @@
         document.getElementById('again-btn').addEventListener('click', function () {
             reportCard.classList.remove('show');
             lastReport = null;
-            dropzone.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (typeof dropzone.scrollIntoView === 'function') dropzone.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
+
+        // ================= TABS =================
+        function showTab(idx) {
+            var btns = [document.getElementById('tabbtn-gates'), document.getElementById('tabbtn-score')];
+            var panes = [document.getElementById('tab-gates'), document.getElementById('tab-scorecard')];
+            btns.forEach(function (x, j) {
+                x.classList.toggle('active', idx === j);
+                x.setAttribute('aria-selected', idx === j ? 'true' : 'false');
+                panes[j].classList.toggle('active', idx === j);
+            });
+            if (idx === 1) {
+                var el = document.getElementById('scorecard-shot');
+                if (el && typeof el.scrollIntoView === 'function') el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        (function () {
+            var btns = [document.getElementById('tabbtn-gates'), document.getElementById('tabbtn-score')];
+            btns.forEach(function (b, i) {
+                b.addEventListener('click', function () { showTab(i); });
+            });
+            if (location.hash === '#scorecard' || location.hash === '#tab-scorecard') {
+                showTab(1);
+            }
+            window.addEventListener('hashchange', function () {
+                if (location.hash === '#scorecard' || location.hash === '#tab-scorecard') showTab(1);
+                else if (location.hash === '#gates' || location.hash === '#tab-gates') showTab(0);
+            });
+        })();
+
+        // ================= R1/R2/R3 TAGGING =================
+        // Each graded run can be tagged as report 1/2/3. The tag persists with
+        // the run in localStorage so the Scorecard tab can pre-fill B1 (and show
+        // what each report actually scored at the gates).
+        var SKEY = 'apllyEvalRuns';
+        var slotBtns = Array.prototype.slice.call(document.querySelectorAll('#tab-gates .slot-btn'));
+        var scSlotBtns = Array.prototype.slice.call(document.querySelectorAll('.sc-slot-btn'));
+        var slotStatus = document.getElementById('slot-status');
+        var scSlotStatus = document.getElementById('sc-slot-status');
+
+        function loadRuns() { try { return JSON.parse(localStorage.getItem(SKEY) || '[]'); } catch (e) { return []; } }
+        function saveRuns(r) { try { localStorage.setItem(SKEY, JSON.stringify(r)); } catch (e) {} }
+
+        function refreshSlotButtons() {
+            var runs = loadRuns();
+            slotBtns.forEach(function (b) {
+                var k = parseInt(b.dataset.slot, 10);
+                var run = runs[k];
+                b.classList.toggle('filled', !!run);
+                b.textContent = run ? ('R' + (k + 1) + ' · ' + run.score + '/' + run.total) : ('R' + (k + 1));
+            });
+            scSlotBtns.forEach(function (b) {
+                var k = parseInt(b.dataset.slot, 10);
+                var run = runs[k];
+                b.classList.toggle('filled', !!run);
+                b.textContent = run ? ('R' + (k + 1) + ' · ' + run.score + '/' + run.total) : ('R' + (k + 1));
+            });
+        }
+
+        slotBtns.forEach(function (b) {
+            b.addEventListener('click', function () {
+                if (!lastReport || lastReport.data.error) { slotStatus.textContent = 'Grade a file first — then tag it.'; return; }
+                var k = parseInt(b.dataset.slot, 10);
+                var runs = loadRuns();
+                runs[k] = {
+                    file: lastReport.meta.fileName,
+                    score: lastReport.data.score,
+                    total: lastReport.data.total,
+                    ts: lastReport.data.ts
+                };
+                saveRuns(runs);
+                refreshSlotButtons();
+                slotStatus.textContent = 'Tagged as R' + (k + 1) + ' — Scorecard tab updated.';
+            });
+        });
+        refreshSlotButtons();
+
+        // ================= SCORECARD TAB =================
+        (function () {
+            var CKEY = 'apllyEvalScorecard';
+            var inputs = Array.prototype.slice.call(document.querySelectorAll('.sc-input.sc-self, .sc-input.sc-trainer'));
+            var pbi = document.querySelector('.sc-pbi');
+            var verdict = document.getElementById('sc-verdict');
+            var gateHint = document.getElementById('sc-gatehint');
+
+            function sum(cls) {
+                return inputs.filter(function (i) { return i.classList.contains(cls); })
+                    .reduce(function (a, i) { return a + (parseInt(i.value, 10) || 0); }, 0);
+            }
+
+            function recalc() {
+                inputs.forEach(function (i) {
+                    var max = parseInt(i.dataset.max, 10);
+                    var v = parseInt(i.value, 10);
+                    if (!isNaN(v)) i.value = Math.max(0, Math.min(max, v));
+                });
+                var self = sum('sc-self');       // A(30) + B(10) + D(25) = 65 max on this card
+                var trainer = sum('sc-trainer');
+                var bonus = pbi.checked ? 2 : 0;
+                document.getElementById('sc-self-total').textContent = self + (bonus ? ' + ' + bonus + ' bonus' : '');
+                document.getElementById('sc-trainer-total').textContent = trainer ? trainer + (bonus ? ' + ' + bonus + ' bonus' : '') : '—';
+
+                if (self === 0 && trainer === 0) {
+                    verdict.className = 'sc-verdict pending';
+                    verdict.textContent = 'Fill your Self column to see your claim.';
+                } else if (trainer === 0) {
+                    verdict.className = 'sc-verdict claim';
+                    verdict.textContent = 'Self-claim: ' + self + '/65 on this report' + (bonus ? ' (+2 Power BI bonus)' : '') + '. Be ready to defend every point.';
+                } else {
+                    var delta = Math.abs(self - trainer);
+                    if (delta <= 3) { verdict.className = 'sc-verdict pass'; verdict.textContent = '✅ Aligned with trainer (delta ' + delta + ') — honest self-grading.'; }
+                    else if (delta <= 7) { verdict.className = 'sc-verdict claim'; verdict.textContent = '⚠️ Delta ' + delta + ' — half honesty marks. What evidence did each side weigh?'; }
+                    else { verdict.className = 'sc-verdict fail'; verdict.textContent = '❌ Delta ' + delta + ' — that gap is the viva. Re-read the rubric rows you over/under-claimed.'; }
+                }
+                try {
+                    localStorage.setItem(CKEY, JSON.stringify({
+                        v: inputs.map(function (i) { return i.value; }),
+                        p: pbi.checked,
+                        s: document.getElementById('sc-student').value,
+                        c: document.getElementById('sc-challenge').value,
+                        d: document.getElementById('sc-date').value
+                    }));
+                } catch (e) {}
+            }
+
+            inputs.forEach(function (i) { i.addEventListener('input', recalc); });
+            pbi.addEventListener('change', recalc);
+            ['sc-student', 'sc-challenge', 'sc-date'].forEach(function (id) {
+                document.getElementById(id).addEventListener('input', recalc);
+            });
+
+            // Restore
+            try {
+                var saved = JSON.parse(localStorage.getItem(CKEY) || 'null');
+                if (saved) {
+                    inputs.forEach(function (i, k) { i.value = saved.v[k] || ''; });
+                    pbi.checked = !!saved.p;
+                    document.getElementById('sc-student').value = saved.s || '';
+                    document.getElementById('sc-challenge').value = saved.c || '';
+                    if (saved.d) document.getElementById('sc-date').value = saved.d;
+                    recalc();
+                }
+            } catch (e) {}
+
+            // Pre-fill B1 from the tagged gate runs (latest tagged run wins by default, or specific slot)
+            function prefillB1(forceSlot) {
+                var runs = loadRuns();
+                var run = null;
+                var slotIndex = -1;
+                if (typeof forceSlot === 'number' && runs[forceSlot]) {
+                    run = runs[forceSlot];
+                    slotIndex = forceSlot;
+                } else {
+                    for (var j = runs.length - 1; j >= 0; j--) {
+                        if (runs[j]) { run = runs[j]; slotIndex = j; break; }
+                    }
+                }
+                if (!run) { gateHint.textContent = ''; return; }
+                // 4 gates → up to 10 marks, proportional: 4/4=10, 3/4=7, 2/4=5, 1/4=2, 0/4=0
+                var map = { 4: 10, 3: 7, 2: 5, 1: 2, 0: 0 };
+                var suggested = map[run.score] !== undefined ? map[run.score] : Math.round(run.score / run.total * 10);
+                var b1 = document.getElementById('sc-b1');
+                if (!b1.value || forceSlot !== undefined) {
+                    b1.value = suggested;
+                    recalc();
+                }
+                gateHint.innerHTML = ' · Auto-filled from your R' + (slotIndex + 1) + ' gate run on <strong>' + run.file.replace(/</g, '&lt;') + '</strong> (' + run.score + '/' + run.total + '). Adjust only with evidence.';
+                if (scSlotStatus && slotIndex >= 0) {
+                    scSlotStatus.textContent = 'Loaded R' + (slotIndex + 1) + ' (' + run.file + ')';
+                }
+            }
+            prefillB1();
+
+            // Re-run prefill whenever a new run is tagged
+            slotBtns.forEach(function (b) {
+                b.addEventListener('click', function () {
+                    var k = parseInt(b.dataset.slot, 10);
+                    setTimeout(function () { prefillB1(k); }, 0);
+                });
+            });
+
+            // Allow switching report slot directly in Scorecard tab
+            scSlotBtns.forEach(function (b) {
+                b.addEventListener('click', function () {
+                    var k = parseInt(b.dataset.slot, 10);
+                    var runs = loadRuns();
+                    if (!runs[k]) {
+                        if (scSlotStatus) scSlotStatus.textContent = 'No gate run tagged for R' + (k + 1) + ' yet. Grade a file in Tab 1 and tag it.';
+                        return;
+                    }
+                    prefillB1(k);
+                    var cInput = document.getElementById('sc-challenge');
+                    if (!cInput.value || /^Report [123]/i.test(cInput.value)) {
+                        cInput.value = 'Report ' + (k + 1);
+                        recalc();
+                    }
+                });
+            });
+
+            document.getElementById('sc-print').addEventListener('click', function () {
+                document.body.classList.add('print-scorecard');
+                window.print();
+            });
+            window.addEventListener('afterprint', function () { document.body.classList.remove('print-scorecard'); });
+
+            document.getElementById('sc-copy').addEventListener('click', function () {
+                var L = [];
+                L.push('APLLY ASSIGNMENT SCORECARD — REPORT ' + (document.getElementById('sc-challenge').value || '(challenge)'));
+                L.push('Student(s): ' + (document.getElementById('sc-student').value || '—') + ' · Date: ' + (document.getElementById('sc-date').value || '—'));
+                L.push('---');
+                var rows = document.querySelectorAll('#sc-table tbody tr');
+                rows.forEach(function (r) {
+                    var cells = r.querySelectorAll('td');
+                    if (cells.length === 5 && cells[0].textContent.trim()) {
+                        var max = cells[2].textContent.trim();
+                        var selfV = cells[3].querySelector('input') ? (cells[3].querySelector('input').value || '—') : cells[3].textContent.trim();
+                        var trV = cells[4].querySelector('input') ? (cells[4].querySelector('input').value || '—') : cells[4].textContent.trim();
+                        L.push(cells[0].textContent.trim() + ' (max ' + max + '): Self ' + selfV + ' · Trainer ' + trV);
+                    } else if (cells.length === 4 && cells[0].textContent.trim()) {
+                        var code = cells[0].textContent.trim();
+                        if (code === 'C1') {
+                            L.push('C1 (max ' + cells[2].textContent.trim() + '): Self computed during viva');
+                        } else if (code === 'E1') {
+                            L.push('E1 (max ' + cells[2].textContent.trim() + '): Self ' + (pbi.checked ? '+2 claimed (Power BI)' : '0'));
+                        }
+                    }
+                });
+                L.push('---');
+                L.push('Self claim: ' + document.getElementById('sc-self-total').textContent + (pbi.checked ? ' incl. +2 Power BI bonus' : ''));
+                L.push('Trainer: ______________________ (Puneet Arora fills during viva)');
+                var btn = this, old = btn.innerHTML;
+                var text = L.join('\n');
+                var done = function () { btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; setTimeout(function () { btn.innerHTML = old; }, 2000); };
+                if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(done);
+                else { legacyCopy(text); done(); }
+            });
+
+            document.getElementById('sc-reset').addEventListener('click', function () {
+                if (!confirm('Clear this scorecard and the tagged gate runs (R1/R2/R3) saved in this browser?')) return;
+                try { localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); } catch (e) {}
+                location.reload();
+            });
+        })();
 
         // Shared-result mode: #r=<base64 compact result>
         (function () {

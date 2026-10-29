@@ -6,7 +6,7 @@
     <title>Assignment (Issued 29 Oct 2026 · Due 5 Nov 2026): 3 Dashboard Challenges — Grill, Spec, Build, Present | Aplly.xyz</title>
     <meta name="description" content="Class assignment: cover 3 of 20 dashboard challenges with 3 separate reports. Grill each with the Matt Pocock method into a Spec Doc, build in HTML (default — auto-graded by the self-grading kit) or optionally Power BI (+bonus), self-grade with the validated gates, submit one PDF to the eflow portal by 5 Nov 2026, and present for marks.">
     <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
-    <meta name="last-updated" content="2026-10-30T00:15:00+05:30">
+    <meta name="last-updated" content="2026-10-30T01:30:00+05:30">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -182,7 +182,7 @@
                 <li><strong>Build:</strong> each dashboard as a self-contained <code>dashboard.html</code> — the default path, because you can grade it yourself in two clicks: drop it on the <a href="../eval-tool/index.html" class="underline font-semibold">browser Eval Tool</a> or run the <a href="../tutorials/self-grading-kit.html" class="underline font-semibold">offline Self-Grading Kit</a>. <strong>Power BI is optional</strong> (🎯 +bonus per report) for students who prefer it — its visuals get exported to images for the PDF, and its gates are hand-checked since no script can read a .pbix file.</li>
                 <li><strong>Self-grade:</strong> fill the scorecard below — your claim travels with your submission.</li>
                 <li><strong>Submit:</strong> ONE combined PDF to the <strong>eflow portal</strong> by <strong>5 Nov 2026</strong>.</li>
-                <li><strong>Present:</strong> on <strong>5 Nov 2026</strong>, present your three reports — presentation carries its own marks, and the score gap becomes your viva.</li>
+                <li><strong>Present:</strong> on <strong>5 Nov 2026</strong>, present your three reports — presentation carries its own marks (D2), your peers score you live with the <a href="../presentation-tool/index.html" class="underline font-semibold">Presentation Scorecard Tool</a>, and the score gap becomes your viva.</li>
             </ul>
         </section>
 
@@ -204,8 +204,8 @@
                 <thead><tr><th>When</th><th>What happens</th></tr></thead>
                 <tbody>
                     <tr><td class="font-semibold">Thu 29 Oct 2026</td><td>Assignment issued. File your declaration (3 challenges + audiences) on eflow the same week.</td></tr>
-                    <tr class="bg-gray-50"><td class="font-semibold">29 Oct – 4 Nov</td><td>Build week: grill ×3 → spec ×3 → dashboard ×3 → self-grade ×3. Trainer doubt sessions: watch eflow + class announcements for the slot.</td></tr>
-                    <tr><td class="font-semibold">Thu 5 Nov 2026</td><td><strong>Morning:</strong> submit the single PDF on eflow. <strong>Same day:</strong> presentation slot (5–7 min per student/pair — slots confirmed by trainer) + viva.</td></tr>
+                    <tr class="bg-gray-50"><td class="font-semibold">29 Oct – 4 Nov</td><td>Build week: grill ×3 → spec ×3 → dashboard ×3 → self-grade ×3 (drop each report on the <a href="../eval-tool/index.html" class="underline font-semibold">Eval Tool</a>, tag it R1/R2/R3, and its Scorecard tab builds your per-report self-score card). Trainer doubt sessions: watch eflow + class announcements for the slot.</td></tr>
+                    <tr><td class="font-semibold">Thu 5 Nov 2026</td><td><strong>Morning:</strong> submit the single PDF on eflow. <strong>Same day:</strong> presentation slot (5–7 min per student/pair — slots confirmed by trainer) + viva. <strong>Audience:</strong> score each presenting pair with the <a href="../presentation-tool/index.html" class="underline font-semibold">Presentation Scorecard Tool</a> — 7 dimensions, 3 minutes, your card becomes their advisory evidence.</td></tr>
                 </tbody>
             </table>
         </section>
@@ -451,7 +451,7 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
         <!-- ============ SCORECARD ============ -->
         <section class="card reveal" id="scorecard">
             <h2>The Scorecard: Self-Score, Then Trainer Score</h2>
-            <p class="text-sm text-gray-700">Fill the <strong>Self</strong> column honestly before submitting. Puneet Arora fills the <strong>Trainer</strong> column on the same rubric. The gap between the two is <em>the viva</em> — and part of your grade.</p>
+            <p class="text-sm text-gray-700">Fill the <strong>Self</strong> column honestly before submitting. Puneet Arora fills the <strong>Trainer</strong> column on the same rubric. The gap between the two is <em>the viva</em> — and part of your grade. Building the card? Use the <a href="../eval-tool/index.html" class="underline font-semibold">Eval Tool's Scorecard tab</a> — it pre-fills B rows from your actual gate runs and prints as your PDF's last page.</p>
             <div class="chip-row no-print">
                 <button id="print-scorecard" class="mini-btn"><i class="fas fa-print mr-1"></i> Print scorecard only (PDF)</button>
                 <button id="reset-scores" class="mini-btn" title="Clear all scores saved in this browser"><i class="fas fa-rotate-left mr-1"></i> Reset scores</button>
@@ -478,7 +478,7 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
 
                         <tr><td class="font-semibold" colspan="5" style="background:#eef8f6; color:#183868;">D · Delivery &amp; Presentation (25)<span class="sub-score" id="sub-D"></span></td></tr>
                         <tr><td>D1</td><td>Single PDF on eflow by 5 Nov, correct filename, 3 complete report sections, standalone (no external links)</td><td>6</td><td><input type="number" min="0" max="6" class="score-input self" data-max="6"></td><td><input type="number" min="0" max="6" class="score-input trainer" data-max="6"></td></tr>
-                        <tr class="bg-gray-50"><td>D2</td><td><strong>Presentation (5 Nov):</strong> spec-before-pixel evidence shown (3) · live demo + gate walkthrough (4) · viva answers (3)</td><td>10</td><td><input type="number" min="0" max="10" class="score-input self" data-max="10"></td><td><input type="number" min="0" max="10" class="score-input trainer" data-max="10"></td></tr>
+                        <tr class="bg-gray-50"><td>D2</td><td><strong>Presentation (5 Nov):</strong> spec-before-pixel evidence shown (3) · live demo + gate walkthrough (4) · viva answers (3). <em>Your peers score you live with the <a href="../presentation-tool/index.html" class="underline">Presentation Scorecard Tool</a> — their 7-dimension cards are advisory evidence in your file.</em></td><td>10</td><td><input type="number" min="0" max="10" class="score-input self" data-max="10"></td><td><input type="number" min="0" max="10" class="score-input trainer" data-max="10"></td></tr>
                         <tr><td>D3</td><td>Write-ups cite parent challenges; screenshots/exports crisp and labelled R1–R3</td><td>4</td><td><input type="number" min="0" max="4" class="score-input self" data-max="4"></td><td><input type="number" min="0" max="4" class="score-input trainer" data-max="4"></td></tr>
                         <tr class="bg-gray-50"><td>D4</td><td>Artifacts run as delivered: HTML opens offline with no console errors / PBIX opens with embedded-or-linked data</td><td>5</td><td><input type="number" min="0" max="5" class="score-input self" data-max="5"></td><td><input type="number" min="0" max="5" class="score-input trainer" data-max="5"></td></tr>
 

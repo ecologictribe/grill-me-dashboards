@@ -26,7 +26,10 @@ self-grade.bat / self-grade.sh       Zero-setup wrappers: double-click (or
 eval-tool/index.html                 BROWSER EVAL TOOL — drop your dashboard
                                      HTML here: sandboxed iframe, same 4 gates
                                      as grader.v2.js, copy-ready report +
-                                     shareable result link. No install.
+                                     Scorecard tab for PDF self-score page.
+presentation-tool/index.html         PRESENTATION SCORECARD — peer evaluation
+                                     rubric for 5 Nov: 7 dimensions, live
+                                     scoring, shareable scorecard for viva.
 
 challenges/challenges.txt            MASTER CHALLENGE DATASET — 22 failure modes
                                     (Part A, annotated with coverage) + 20 case
