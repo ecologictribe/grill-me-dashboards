@@ -192,6 +192,18 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     if (!cdb.includes('PART D')) fail('challenges.txt | missing Part D contribution template');
     if (!failures) console.log(`PASS challenges.txt | 22 coverage lines | C1-C20 present | ${openCases} open proposals (C21-C27) | template`);
 
+    // Root landing hub (GitHub Pages entry point)
+    const rootHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+    const rootDom = new JSDOM(rootHtml);
+    const hubCards = rootDom.window.document.querySelectorAll('.hub-card').length;
+    if (hubCards !== 8) fail(`root index.html | expected 8 hub cards, got ${hubCards}`);
+    if (!rootHtml.includes('name="last-updated"')) fail('root index.html | missing last-updated meta tag');
+    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'assignments/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
+        if (!rootHtml.includes(link)) fail(`root index.html | missing hub link: ${link}`);
+    }
+    rootDom.window.close();
+    if (!failures) console.log(`PASS root index.html | ${hubCards} hub cards, all entry points linked`);
+
     console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL CHECKS PASSED');
     process.exit(failures ? 1 : 0);
 })();

@@ -62,8 +62,8 @@ are never deleted — retired uncommitted artifacts go to `.quarantine/`.
   Power BI / presentation), datasets (21 CSVs, catalog links resolve, key traps
   intact). `.quarantine/` is gitignored — the probe is force-added (`git add -f`).
 - **Git:** branch `main`, remote `https://github.com/ecologictribe/grill-me-dashboards.git`.
-- `article/dashboard-skills.html` is the user's own untracked file — leave alone
-  unless asked.
+- `article/dashboard-skills.html` is the user's own file (currently tracked —
+  accidentally committed in `3a72e4e`); leave alone unless asked.
 
 ## Cross-link map (student navigation)
 
@@ -91,21 +91,25 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
 
 ## State (as of 29 Oct 2026)
 
-- Everything above is committed & pushed; probe green (pages + datasets + assignment + challenges.txt structure).
-- Assignment lives in `assignments/index.html` (own folder, requested by user);
-  links updated from tutorials hub + datasets catalog.
-- Every assignment challenge card (C1–C20) has a 📦 Dataset download button
-  linking its CSV (C13 links both sheets) — 21 links, probe-verified against
-  the files on disk.
-- Assignment has a "📸 How to Self-Evaluate — and Share Your Score Screenshot"
-  section (id `#self-eval`): fill Self column evidence-first, capture the whole
-  scorecard incl. TOTAL + verdict via Win+Shift+S (Trainer column blank), paste
-  as PDF's last page; includes per-report evaluation checklist + submission
-  checklist; sign-box links to it.
+- Everything above is committed & pushed; probe green (pages + datasets +
+  assignment + challenges.txt + UX elements).
+- **GitHub Pages hosting ready:** root `index.html` landing hub +
+  `.github/workflows/pages.yml` (deploys main → Pages on push; probe runs
+  pre-deploy). **Pending: owner flips Settings → Pages → Source: GitHub
+  Actions** (no gh CLI on this machine). Live URL will be
+  `https://ecologictribe.github.io/grill-me-dashboards/`.
+- Remote gained `a8a3261` (greetings workflow, GitHub UI) — local
+  fast-forwarded cleanly. `.github/workflows/` = greetings.yml + pages.yml.
+- **ALL UX-REVIEW P1–P3 recommendations implemented** (commit `29b9d72`):
+  sticky TOC + scroll-spy, countdown chip (vs 5 Nov IST, day granularity),
+  trio tracker (persisted, cap-3 drop-oldest), print-scorecard-only mode +
+  print CSS (fixes invisible-.reveal print bug), aria-labels on all 22 score
+  inputs, live section subtotals, restored-scores chip + Reset button, 3
+  declaration report tabs, clipboard fallback, mobile touch targets + table
+  scroll wrappers, verdict scroll-into-view once, trainer-column tooltip,
+  eflow anchor in timeline. Probe enforces the key elements.
+- `article/dashboard-skills.html` (user's file) was swept into commit
+  `3a72e4e` via `git add -A` — disclosed; offer stands to untrack
+  (`git rm --cached`) if desired.
 - Open invitations from the user: expand challenge bank via Part C proposals;
   datasets for C21–C27 when adopted.
-- `assignments/UX-REVIEW.md` — completed UI/UX audit of the assignment page
-  (P1: print stylesheet, aria-labels, print-scorecard, restore/reset chip;
-  P2: sticky TOC, countdown, section subtotals, declaration tabs, trio
-  tracker; P3 polish). **Recommendations not yet implemented** — awaiting
-  user go-ahead.

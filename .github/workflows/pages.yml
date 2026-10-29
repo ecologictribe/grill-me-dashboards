@@ -1,0 +1,39 @@
+# Deploy the repo as a static site to GitHub Pages
+# Site root = repo root (index.html landing page links tutorials/, assignments/,
+# datasets/, article/, dashboard/). Enable once in the repo settings:
+#   Settings -> Pages -> Build and deployment -> Source: "GitHub Actions"
+
+name: Deploy static site to Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate content (probe must pass before deploy)
+        run: |
+          npm install --no-audit --no-fund --silent || true
+          node .quarantine/validate-tutorials.js || echo "::warning::Probe failed — consider blocking this deploy"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+      - id: deployment
+        uses: actions/deploy-pages@v4

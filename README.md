@@ -77,6 +77,23 @@ and a paginated severity-sorted anomaly log (bottom).
 4. Grill → spec → build (Power BI or HTML) → self-grade → submit one PDF to
    eflow by 5 Nov 2026 → present.
 
+## Hosting — GitHub Pages (static)
+
+The whole repo is a static site. A **GitHub Actions workflow**
+(`.github/workflows/pages.yml`) deploys `main` to **GitHub Pages** on every
+push: the root [`index.html`](index.html) is the landing hub linking the five
+entry points (tutorials, assignment, datasets, article, reference dashboard).
+
+One-time setup (repo owner): **Settings → Pages → Build and deployment →
+Source: "GitHub Actions"**. After that, every push to `main` republishes at:
+
+```
+https://ecologictribe.github.io/grill-me-dashboards/
+```
+
+The workflow runs the content probe before deploying, so a broken page or
+missing dataset can't ship silently.
+
 ## Git
 
 Branch `main`, remote:

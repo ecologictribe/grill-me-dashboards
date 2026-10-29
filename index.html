@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grill Me Dashboards — Aplly.xyz Teaching Hub</title>
+    <meta name="description" content="Hub for the Data Visualization Challenges course: tutorial series, class assignment (due 5 Nov 2026), synthetic datasets, validation article, and the reference dashboard.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+    <meta name="last-updated" content="2026-10-29T21:45:00+05:30">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { brandNavy: '#183868', brandCyan: '#28a8e8', brandTeal: '#3c9080', brandGreen: '#48b838', brandMint: '#c6eeb0' },
+            fontFamily: { sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'], heading: ['Sora', 'system-ui', 'sans-serif'] }
+        } } }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family:'DM Sans',sans-serif; background:#fff; color:#1F1F2E; line-height:1.7; margin:0; }
+        h1,h2,h3 { font-family:'Sora',sans-serif; letter-spacing:-.02em; }
+        .hub-header { background:linear-gradient(135deg,#183868 0%,#28a8e8 100%); color:#fff; padding:3.5rem 1.5rem 3rem; text-align:center; }
+        .hub-header h1 { font-size:clamp(2rem,5vw,3rem); font-weight:800; color:#fff; margin:0 0 .6rem; }
+        .hub-header p { font-size:1.1rem; color:#eaf6fb; max-width:680px; margin:0 auto 1.2rem; }
+        .desk { display:inline-flex; align-items:center; background:rgba(15,23,42,.45); padding:6px 14px; border-radius:999px; font-size:.82rem; font-weight:600; color:#c6eeb0; border:1px solid rgba(255,255,255,.2); }
+        .hub-card { display:block; background:#fff; border:1px solid #E2E8F0; border-radius:12px; padding:1.2rem 1.3rem; text-decoration:none; color:inherit; box-shadow:0 1px 4px rgba(24,56,104,.06),0 4px 16px rgba(24,56,104,.04); transition:all .22s ease; }
+        .hub-card:hover { transform:translateY(-3px); box-shadow:0 10px 26px rgba(24,56,104,.1); border-color:#28a8e8; }
+        .hub-card h3 { margin:.4rem 0 .3rem; font-size:1.05rem; color:#0F172A; }
+        .hub-card p { margin:0; font-size:.85rem; color:#475569; }
+        .hub-ico { font-size:1.4rem; }
+        .chip { display:inline-block; font-size:.7rem; font-weight:700; padding:2px 10px; border-radius:999px; }
+        .quick-row { display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; margin-top:1.3rem; }
+        .quick-link { display:inline-block; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); color:#fff; font-size:.82rem; font-weight:700; padding:.4rem 1rem; border-radius:999px; text-decoration:none; transition:background .2s ease; }
+        .quick-link:hover { background:rgba(255,255,255,.28); }
+        footer { text-align:center; padding:2.2rem 1rem; background:#183868; color:rgba(255,255,255,.85); font-size:.85rem; }
+    </style>
+</head>
+<body>
+    <header class="hub-header">
+        <h1>Grill Me Dashboards</h1>
+        <p>Spec before pixel. One course, everything in one repo: learn the Challenge-Grill Method, cover 20 dashboard challenges with real datasets, and grade yourself with the gates.</p>
+        <div class="desk"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i>From the Desk of Puneet Arora, Aplly.xyz Trainer</div>
+        <div class="quick-row">
+            <a class="quick-link" href="tutorials/grill-method.html">🥋 The Challenge-Grill Method</a>
+            <a class="quick-link" href="assignments/index.html">📌 This term's assignment — due 5 Nov 2026</a>
+            <a class="quick-link" href="prompts/code_generation_prompt.md">🤖 The Build Prompt</a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 grid gap-4 sm:grid-cols-2">
+        <a class="hub-card" href="tutorials/index.html">
+            <span class="hub-ico">🎓</span>
+            <h3>Tutorial Series — Data Visualization Challenges, Decoded</h3>
+            <p>Start with the <strong>Challenge-Grill Method</strong>, then Parts 1–4: all 22 failure modes, each with a grill step, Gate 0 and self-grading. <span class="chip" style="background:#D1FAE5;color:#065F46;">Start here</span></p>
+        </a>
+        <a class="hub-card" href="assignments/index.html" style="border:2px dashed #D97706; background:#FFFBEB;">
+            <span class="hub-ico">📌</span>
+            <h3>The Assignment — due 5 Nov 2026 (eflow)</h3>
+            <p>Pick 3 of 20 challenges → grill ×3, build ×3 (Power BI bonus), self-grade, one PDF, then present for marks. <span class="chip" style="background:#FEE2E2;color:#991B1B;">⏰ Deadline</span></p>
+        </a>
+        <a class="hub-card" href="datasets/index.html">
+            <span class="hub-ico">📦</span>
+            <h3>Datasets — 21 CSVs, 20 Traps</h3>
+            <p>One seeded, fictional, trap-laden dataset per challenge. Download buttons, schemas, and per-file timestamps. <span class="chip" style="background:#DBEAFE;color:#1E40AF;">Fictional data only</span></p>
+        </a>
+        <a class="hub-card" href="article/index.html">
+            <span class="hub-ico">📰</span>
+            <h3>Part 8 — Validation Article</h3>
+            <p>The interactive article behind the series: how the tutorial's grader was validated, defects F1–F7, and the hardened grader simulator.</p>
+        </a>
+        <a class="hub-card" href="dashboard/index.html">
+            <span class="hub-ico">🎯</span>
+            <h3>Reference Dashboard</h3>
+            <p>The spec-obedient IoT dashboard built from DASH-SPEC-2026-081 — the artifact every gate was derived from.</p>
+        </a>
+        <a class="hub-card" href="challenges/challenges.txt">
+            <span class="hub-ico">📚</span>
+            <h3>Master Challenge Bank</h3>
+            <p>22 failure modes (annotated with coverage) + cases C1–C20 + open proposals C21–C27 + the contribution template.</p>
+        </a>
+        <a class="hub-card" href="prompts/system_prompt_grill_me.md">
+            <span class="hub-ico">📜</span>
+            <h3>The Grill Me Prompt</h3>
+            <p>The verbatim system prompt the whole method adapts — pair it with the build prompt (see quick links above).</p>
+        </a>
+        <a class="hub-card" href="VALIDATION.md">
+            <span class="hub-ico">🔎</span>
+            <h3>Validation Report</h3>
+            <p>Findings F1–F7 from validating the Aplly.xyz tutorial end-to-end, with test evidence for both graders.</p>
+        </a>
+    </main>
+
+    <footer>
+        <p>Practice. Apply. Master.</p>
+        <p class="mt-1 text-xs opacity-80">Published from the Desk of Puneet Arora, Aplly.xyz Trainer · ⏱ Last updated: 29 Oct 2026 · © 2026 Aplly.xyz. All rights reserved.</p>
+    </footer>
+</body>
+</html>
