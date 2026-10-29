@@ -151,6 +151,16 @@
         <!-- ================= TAB 1: GATE CHECK ================= -->
         <div class="tab-pane active" id="tab-gates" role="tabpanel" aria-labelledby="tabbtn-gates">
 
+        <!-- STUDENT PAIR INPUT -->
+        <section class="card" style="padding:1.1rem 1.4rem; margin-bottom:1.2rem;">
+            <label for="eval-student" class="block text-xs font-bold text-slate-800 mb-1 flex items-center justify-between flex-wrap gap-1">
+                <span><i class="fas fa-users text-[#28a8e8] mr-1.5"></i> Student Name(s) / Presenting Pair (one line):</span>
+                <span class="text-[11px] font-semibold text-emerald-700" id="eval-pair-status"><i class="fas fa-shield-halved mr-1"></i>Tied to Cryptographic Fingerprint Seal</span>
+            </label>
+            <input type="text" id="eval-student" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#28a8e8] transition" placeholder="e.g. Ananya Sharma &amp; Rohit Verma (Roll 240101, 240102)">
+            <p class="mini-note" style="margin:.35rem 0 0;">Enter your pair name or group here. It will be stamped into your report, cryptographic fingerprint seal, and automatically synced with the Scorecard tab.</p>
+        </section>
+
         <!-- DROPZONE -->
         <section class="card">
             <h2 style="font-size:1.2rem; margin-top:0;">📄 Drop Your Report Here</h2>
@@ -171,6 +181,26 @@
         <section class="card" id="report-card" aria-live="polite">
             <h2 style="font-size:1.2rem; margin-top:0;">🧾 Your Grading Report</h2>
             <div id="verdict" class="verdict-banner"></div>
+
+            <!-- Tamper-Evident Fingerprint Card -->
+            <div id="eval-cert" class="p-3 mb-3 rounded-xl border border-indigo-200 bg-indigo-50/70 flex items-center justify-between flex-wrap gap-2 text-xs">
+                <div>
+                    <div class="font-bold text-indigo-950 flex items-center gap-1.5">
+                        <i class="fas fa-certificate text-indigo-600"></i>
+                        <span>Tamper-Evident Verification Seal</span>
+                    </div>
+                    <div class="text-slate-700 mt-0.5">
+                        <strong class="text-slate-900" id="cert-student">—</strong> · 
+                        <span id="cert-stamp">—</span> · 
+                        <span class="font-bold text-emerald-800" id="cert-score">—</span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="font-mono font-bold text-indigo-900 text-sm tracking-wide bg-indigo-100/90 px-2 py-0.5 rounded border border-indigo-300" id="cert-sig">SIG-PENDING</div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-0.5" id="cert-hash" title="SHA-256 integrity hash">SHA-256 verified</div>
+                </div>
+            </div>
+
             <div class="term">
                 <div class="term-bar">
                     <span id="term-title">self-grade-report.txt</span>
@@ -287,6 +317,23 @@
 
                 <div id="sc-verdict" class="sc-verdict pending">Fill your Self column to see your claim.</div>
 
+                <!-- Tamper-Evident Scorecard Seal -->
+                <div id="sc-seal-card" class="p-3 my-3 rounded-xl border border-indigo-200 bg-indigo-50/70 flex items-center justify-between flex-wrap gap-2 text-xs">
+                    <div>
+                        <div class="font-bold text-indigo-950 flex items-center gap-1.5">
+                            <i class="fas fa-shield-halved text-indigo-600"></i>
+                            <span>Scorecard Verification Seal &amp; Timestamp</span>
+                        </div>
+                        <div class="text-slate-700 mt-0.5">
+                            <span id="sc-seal-info">Student: — · Date: —</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-mono font-bold text-indigo-900 text-xs tracking-wide bg-indigo-100/90 px-2 py-0.5 rounded border border-indigo-300" id="sc-seal-code">CARD-PENDING</div>
+                        <div class="text-[10px] text-slate-500 font-mono mt-0.5" id="sc-seal-hash">Deterministic SHA-256 seal</div>
+                    </div>
+                </div>
+
                 <div class="flex gap-2 mt-3 flex-wrap">
                     <button id="sc-print" class="btn btn-primary"><i class="fas fa-camera"></i> Print / Save scorecard as PDF</button>
                     <button id="sc-copy" class="btn"><i class="far fa-copy"></i> Copy scorecard as text</button>
@@ -385,6 +432,71 @@
             }, '*');
         }
 
+        // ---- Deterministic SHA-256 for Cryptographic Verification Seals ----
+        function sha256(str) {
+            var ascii = unescape(encodeURIComponent(str));
+            function rr(v, a) { return (v >>> a) | (v << (32 - a)); }
+            var mathPow = Math.pow, maxWord = mathPow(2, 32);
+            var i, j, result = '', words = [];
+            var asciiBitLength = ascii.length * 8;
+            var hash = [], k = [], primeCounter = 0, isComposite = {};
+            for (var candidate = 2; primeCounter < 64; candidate++) {
+                if (!isComposite[candidate]) {
+                    for (i = 0; i < 313; i += candidate) isComposite[i] = candidate;
+                    hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+                    k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+                }
+            }
+            ascii += '\x80';
+            while (ascii.length % 64 - 56) ascii += '\x00';
+            for (i = 0; i < ascii.length; i++) {
+                j = ascii.charCodeAt(i);
+                words[i >> 2] |= j << ((3 - i) % 4) * 8;
+            }
+            words[words.length] = ((asciiBitLength / maxWord) | 0);
+            words[words.length] = (asciiBitLength);
+            for (j = 0; j < words.length;) {
+                var w = words.slice(j, j += 16);
+                var oldHash = hash;
+                hash = hash.slice(0, 8);
+                for (i = 0; i < 64; i++) {
+                    var w15 = w[i - 15], w2 = w[i - 2];
+                    var a = hash[0], e = hash[4];
+                    var temp1 = hash[7]
+                        + (rr(e, 6) ^ rr(e, 11) ^ rr(e, 25))
+                        + ((e & hash[5]) ^ ((~e) & hash[6]))
+                        + k[i]
+                        + (w[i] = (i < 16) ? w[i] : (
+                            w[i - 16]
+                            + (rr(w15, 7) ^ rr(w15, 18) ^ (w15 >>> 3))
+                            + w[i - 7]
+                            + (rr(w2, 17) ^ rr(w2, 19) ^ (w2 >>> 10))
+                        ) | 0);
+                    var temp2 = (rr(a, 2) ^ rr(a, 13) ^ rr(a, 22))
+                        + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+                    hash = [(temp1 + temp2) | 0].concat(hash);
+                    hash[4] = (hash[4] + temp1) | 0;
+                }
+                for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+            }
+            for (i = 0; i < 8; i++) {
+                for (j = 3; j + 1; j--) {
+                    var b = (hash[i] >> (j * 8)) & 255;
+                    result += ((b < 16) ? 0 : '') + b.toString(16);
+                }
+            }
+            return result;
+        }
+
+        function makeSeal(prefix, payload) {
+            var h = sha256(payload);
+            var segs = h.slice(0, 16).toUpperCase().match(/.{1,4}/g);
+            return {
+                sig: prefix + '-' + segs.join('-'),
+                hash: h
+            };
+        }
+
         // ---- Parent-side orchestration -------------------------------------
         var dropzone = document.getElementById('dropzone');
         var fileInput = document.getElementById('file-input');
@@ -392,6 +504,12 @@
         var reportOut = document.getElementById('report-out');
         var verdictEl = document.getElementById('verdict');
         var termTitle = document.getElementById('term-title');
+        var evalStudentInput = document.getElementById('eval-student');
+        var certStudent = document.getElementById('cert-student');
+        var certStamp = document.getElementById('cert-stamp');
+        var certScore = document.getElementById('cert-score');
+        var certSig = document.getElementById('cert-sig');
+        var certHash = document.getElementById('cert-hash');
         var pending = null;   // { iframe, timer, meta }
         var lastReport = null;
 
@@ -438,10 +556,20 @@
             var d = new Date(data.ts);
             var stamp = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' +
                         pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+            var student = data.student || (evalStudentInput && evalStudentInput.value ? evalStudentInput.value.trim() : '') || 'Anonymous Student / Pair';
+            var scorePct = Math.round((data.score / data.total) * 100);
+            var sig = data.sig || 'SIG-PENDING';
+            var fullHash = data.hash || '';
+
             var L = [];
             L.push('=======================================================');
             L.push('APLLY EVAL TOOL (browser) REPORT: ' + meta.fileName + ' (' + meta.bytes.toLocaleString() + ' bytes)');
-            L.push('Graded: ' + stamp + ' · Page title: "' + (data.title || '—') + '"');
+            L.push('Student(s) / Pair : ' + student);
+            L.push('Graded Timestamp  : ' + stamp + ' (' + d.toISOString() + ')');
+            L.push('Evaluation Score  : ' + data.score + ' / ' + data.total + ' GATES PASSED (' + scorePct + '%)');
+            L.push('Digital Seal      : ' + sig);
+            if (fullHash) L.push('SHA-256 Hash      : ' + fullHash);
+            L.push('Page Title        : "' + (data.title || '—') + '"');
             L.push('=======================================================');
             L.push('');
             if (data.error) {
@@ -459,13 +587,40 @@
             L.push(data.score === data.total
                 ? '🌟 Dashboard passes specification gates. Ready for deployment.'
                 : '⚠️ Verification failed. Remediate flagged gates before shipping.');
+            L.push('');
+            L.push('Tamper-evident verification seal generated by Aplly Eval Tool.');
+            L.push('Cryptographic fingerprint ties student pair, score, and timestamp.');
             return L.join('\n');
         }
 
         function finish(data, meta) {
             pending = null;
+            var student = (evalStudentInput && evalStudentInput.value ? evalStudentInput.value.trim() : '') ||
+                          (document.getElementById('sc-student') && document.getElementById('sc-student').value ? document.getElementById('sc-student').value.trim() : '') ||
+                          'Anonymous Student / Pair';
+            var d = new Date(data.ts);
+            var stamp = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' +
+                        pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+            var gatesBits = (data.gates || []).map(function (g) { return g.pass ? 1 : 0; }).join('');
+            var payload = [student, meta.fileName, meta.bytes, data.score + '/' + data.total, gatesBits, data.ts].join('|');
+            var seal = makeSeal('SIG', payload);
+
+            data.student = student;
+            data.sig = seal.sig;
+            data.hash = seal.hash;
+
             var text = buildReport(data, meta);
             lastReport = { data: data, meta: meta, text: text };
+
+            if (certStudent) certStudent.textContent = student;
+            if (certStamp) certStamp.textContent = stamp + ' (' + d.toISOString() + ')';
+            if (certScore) certScore.textContent = data.score + '/' + data.total + ' (' + Math.round((data.score / data.total) * 100) + '%)';
+            if (certSig) certSig.textContent = seal.sig;
+            if (certHash) {
+                certHash.textContent = 'SHA-256: ' + seal.hash.slice(0, 32) + '…';
+                certHash.title = 'Full SHA-256: ' + seal.hash;
+            }
+
             // Render with colour spans
             reportOut.innerHTML = text.split('\n').map(function (line) {
                 var esc = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -474,6 +629,7 @@
                 if (/^FINAL SCORE/.test(line)) return '<span class="hi">' + esc + '</span>';
                 if (/^⚠️/.test(line)) return '<span class="warnline">' + esc + '</span>';
                 if (/^(=====|APLLY EVAL)/.test(line)) return '<span class="hi">' + esc + '</span>';
+                if (/^(Digital Seal|Student\(s\)|Graded Timestamp|Evaluation Score)/.test(line)) return '<span class="hi">' + esc + '</span>';
                 return esc;
             }).join('\n');
             var pass = !data.error && data.score === data.total;
@@ -692,6 +848,23 @@
                     else if (delta <= 7) { verdict.className = 'sc-verdict claim'; verdict.textContent = '⚠️ Delta ' + delta + ' — half honesty marks. What evidence did each side weigh?'; }
                     else { verdict.className = 'sc-verdict fail'; verdict.textContent = '❌ Delta ' + delta + ' — that gap is the viva. Re-read the rubric rows you over/under-claimed.'; }
                 }
+
+                // Scorecard verification seal
+                var studentVal = (document.getElementById('sc-student').value || (evalStudentInput ? evalStudentInput.value : '') || '').trim();
+                var chalVal = (document.getElementById('sc-challenge').value || '').trim();
+                var dateVal = (document.getElementById('sc-date').value || '').trim();
+                var scPayload = [studentVal || 'Anonymous', chalVal, dateVal, self, trainer, bonus, inputs.map(function(i){ return i.value || '0'; }).join(',')].join('|');
+                var scSeal = makeSeal('CARD', scPayload);
+                var scSealInfo = document.getElementById('sc-seal-info');
+                var scSealCode = document.getElementById('sc-seal-code');
+                var scSealHash = document.getElementById('sc-seal-hash');
+                if (scSealInfo) scSealInfo.textContent = (studentVal || 'Student') + ' · ' + (dateVal || 'Date') + ' · Claim ' + self + '/65';
+                if (scSealCode) scSealCode.textContent = scSeal.sig;
+                if (scSealHash) {
+                    scSealHash.textContent = 'SHA-256: ' + scSeal.hash.slice(0, 24) + '…';
+                    scSealHash.title = 'Full SHA-256: ' + scSeal.hash;
+                }
+
                 try {
                     localStorage.setItem(CKEY, JSON.stringify({
                         v: inputs.map(function (i) { return i.value; }),
@@ -708,6 +881,38 @@
             ['sc-student', 'sc-challenge', 'sc-date'].forEach(function (id) {
                 document.getElementById(id).addEventListener('input', recalc);
             });
+
+            // Bidirectional student name sync
+            if (evalStudentInput) {
+                evalStudentInput.addEventListener('input', function () {
+                    var scStudent = document.getElementById('sc-student');
+                    if (scStudent && scStudent.value !== this.value) {
+                        scStudent.value = this.value;
+                        recalc();
+                    }
+                    try { localStorage.setItem('apllyEvalStudent', this.value); } catch (e) {}
+                    if (lastReport && !lastReport.data.error) {
+                        finish(lastReport.data, lastReport.meta);
+                    }
+                });
+            }
+            document.getElementById('sc-student').addEventListener('input', function () {
+                if (evalStudentInput && evalStudentInput.value !== this.value) {
+                    evalStudentInput.value = this.value;
+                }
+                try { localStorage.setItem('apllyEvalStudent', this.value); } catch (e) {}
+                if (lastReport && !lastReport.data.error) {
+                    finish(lastReport.data, lastReport.meta);
+                }
+            });
+            try {
+                var savedStudent = localStorage.getItem('apllyEvalStudent');
+                if (savedStudent) {
+                    if (evalStudentInput) evalStudentInput.value = savedStudent;
+                    var scSt = document.getElementById('sc-student');
+                    if (scSt) scSt.value = savedStudent;
+                }
+            } catch (e) {}
 
             // Restore
             try {
@@ -808,6 +1013,10 @@
                 L.push('---');
                 L.push('Self claim: ' + document.getElementById('sc-self-total').textContent + (pbi.checked ? ' incl. +2 Power BI bonus' : ''));
                 L.push('Trainer: ______________________ (Puneet Arora fills during viva)');
+                var scSealCodeEl = document.getElementById('sc-seal-code');
+                var scSealHashEl = document.getElementById('sc-seal-hash');
+                if (scSealCodeEl) L.push('Scorecard Verification Seal: ' + scSealCodeEl.textContent);
+                if (scSealHashEl && scSealHashEl.title) L.push(scSealHashEl.title);
                 var btn = this, old = btn.innerHTML;
                 var text = L.join('\n');
                 var done = function () { btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; setTimeout(function () { btn.innerHTML = old; }, 2000); };

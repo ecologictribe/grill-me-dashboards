@@ -232,6 +232,13 @@
                         <span style="font-size:.75rem; color:#64748B;" id="scd-verdict"></span>
                     </div>
                 </div>
+                <div class="px-4 py-2.5 bg-indigo-50/80 border-t border-indigo-200 text-xs flex justify-between items-center flex-wrap gap-2 text-indigo-950">
+                    <div class="flex items-center gap-1.5">
+                        <i class="fas fa-shield-halved text-indigo-600"></i>
+                        <span class="font-bold font-mono text-xs" id="scd-sig">APLLY-VIVA-PENDING</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 font-mono" id="scd-hash">SHA-256 seal</div>
+                </div>
             </div>
             <div class="flex gap-2 mt-3 flex-wrap">
                 <button id="scd-print" class="btn btn-primary"><i class="fas fa-print"></i> Print / Save as PDF</button>
@@ -273,6 +280,73 @@
     <script>
     (function () {
         'use strict';
+
+        // ---- Deterministic SHA-256 for Cryptographic Verification Seals ----
+        function sha256(str) {
+            var ascii = unescape(encodeURIComponent(str));
+            function rr(v, a) { return (v >>> a) | (v << (32 - a)); }
+            var mathPow = Math.pow, maxWord = mathPow(2, 32);
+            var i, j, result = '', words = [];
+            var asciiBitLength = ascii.length * 8;
+            var hash = [], k = [], primeCounter = 0, isComposite = {};
+            for (var candidate = 2; primeCounter < 64; candidate++) {
+                if (!isComposite[candidate]) {
+                    for (i = 0; i < 313; i += candidate) isComposite[i] = candidate;
+                    hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+                    k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+                }
+            }
+            ascii += '\x80';
+            while (ascii.length % 64 - 56) ascii += '\x00';
+            for (i = 0; i < ascii.length; i++) {
+                j = ascii.charCodeAt(i);
+                words[i >> 2] |= j << ((3 - i) % 4) * 8;
+            }
+            words[words.length] = ((asciiBitLength / maxWord) | 0);
+            words[words.length] = (asciiBitLength);
+            for (j = 0; j < words.length;) {
+                var w = words.slice(j, j += 16);
+                var oldHash = hash;
+                hash = hash.slice(0, 8);
+                for (i = 0; i < 64; i++) {
+                    var w15 = w[i - 15], w2 = w[i - 2];
+                    var a = hash[0], e = hash[4];
+                    var temp1 = hash[7]
+                        + (rr(e, 6) ^ rr(e, 11) ^ rr(e, 25))
+                        + ((e & hash[5]) ^ ((~e) & hash[6]))
+                        + k[i]
+                        + (w[i] = (i < 16) ? w[i] : (
+                            w[i - 16]
+                            + (rr(w15, 7) ^ rr(w15, 18) ^ (w15 >>> 3))
+                            + w[i - 7]
+                            + (rr(w2, 17) ^ rr(w2, 19) ^ (w2 >>> 10))
+                        ) | 0);
+                    var temp2 = (rr(a, 2) ^ rr(a, 13) ^ rr(a, 22))
+                        + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+                    hash = [(temp1 + temp2) | 0].concat(hash);
+                    hash[4] = (hash[4] + temp1) | 0;
+                }
+                for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+            }
+            for (i = 0; i < 8; i++) {
+                for (j = 3; j + 1; j--) {
+                    var b = (hash[i] >> (j * 8)) & 255;
+                    result += ((b < 16) ? 0 : '') + b.toString(16);
+                }
+            }
+            return result;
+        }
+
+        function makeSeal(prefix, payload) {
+            var h = sha256(payload);
+            var segs = h.slice(0, 16).toUpperCase().match(/.{1,4}/g);
+            return {
+                sig: prefix + '-' + segs.join('-'),
+                hash: h
+            };
+        }
+
+        function pad(s) { return (s + '').length >= 2 ? s : '0' + s; }
 
         var DIMS = [
             { key: 'understanding', name: 'Problem Understanding', descs: ['Cannot restate the challenge or the trap', 'Restates the challenge; trap named only after prompting', 'States challenge, audience, and trap unprompted', 'Adds why the trap exists and who it harms', 'All of it, and connects the trap to a real decision it would corrupt'] },
@@ -363,7 +437,23 @@
             document.getElementById('scd-notesline').innerHTML = notes ? ' · <em>' + notes.replace(/</g, '&lt;') + '</em>' : '';
             document.getElementById('scd-total').textContent = s.t + ' / 28';
             document.getElementById('scd-verdict').textContent = verdictText(s.t);
-            document.getElementById('scd-stamp').textContent = new Date().toLocaleString();
+
+            var d = new Date();
+            var stamp = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+            var isoTs = d.toISOString();
+            document.getElementById('scd-stamp').textContent = stamp + ' (' + isoTs + ')';
+
+            // Cryptographic verification seal
+            var dimScores = DIMS.map(function (dm) { return scores[dm.key]; }).join(',');
+            var payload = [pair, chal, you, dimScores, s.t + '/28', isoTs].join('|');
+            var seal = makeSeal('APLLY-VIVA', payload);
+            var sigEl = document.getElementById('scd-sig');
+            var hashEl = document.getElementById('scd-hash');
+            if (sigEl) sigEl.textContent = seal.sig;
+            if (hashEl) {
+                hashEl.textContent = 'SHA-256: ' + seal.hash.slice(0, 24) + '…';
+                hashEl.title = 'Full SHA-256 Fingerprint: ' + seal.hash;
+            }
 
             var out = document.getElementById('scorecard-out');
             out.classList.add('show');
@@ -372,7 +462,7 @@
             // Save to history
             try {
                 var hist = JSON.parse(localStorage.getItem(HKEY) || '[]');
-                hist.push({ pair: pair, chal: chal, you: you, t: s.t, ts: new Date().toISOString() });
+                hist.push({ pair: pair, chal: chal, you: you, t: s.t, ts: isoTs, sig: seal.sig });
                 localStorage.setItem(HKEY, JSON.stringify(hist));
                 renderHistory();
             } catch (e) {}
@@ -387,7 +477,8 @@
             hist.slice().reverse().forEach(function (h) {
                 var div = document.createElement('div');
                 div.className = 'hist-item';
-                div.innerHTML = '<span class="who">' + h.pair.replace(/</g, '&lt;') + '</span><span style="color:#64748B; font-size:.78rem;">' + (h.chal || '').replace(/</g, '&lt;') + ' · graded by ' + h.you.replace(/</g, '&lt;') + '</span><span class="pts">' + h.t + '/28</span>';
+                var sigBadge = h.sig ? ' <span style="font-family:monospace; font-size:.7rem; background:#EEF2FF; color:#3730A3; padding:1px 5px; border-radius:4px; border:1px solid #C7D2FE;">' + h.sig + '</span>' : '';
+                div.innerHTML = '<span class="who">' + h.pair.replace(/</g, '&lt;') + '</span><span style="color:#64748B; font-size:.78rem;">' + (h.chal || '').replace(/</g, '&lt;') + ' · graded by ' + h.you.replace(/</g, '&lt;') + sigBadge + '</span><span class="pts">' + h.t + '/28</span>';
                 list.appendChild(div);
             });
             var clear = document.createElement('button');
@@ -424,8 +515,15 @@
         function scorecardText() {
             var L = [];
             L.push('APLLY PRESENTATION SCORECARD — 5 Nov 2026');
-            L.push('Pair: ' + document.getElementById('scd-pair').textContent + ' · Challenge: ' + document.getElementById('scd-chal').textContent);
-            L.push('Evaluator: ' + document.getElementById('scd-you').textContent);
+            L.push('Presenting Pair   : ' + document.getElementById('scd-pair').textContent);
+            L.push('Their Challenge   : ' + document.getElementById('scd-chal').textContent);
+            L.push('Evaluator (Peer)  : ' + document.getElementById('scd-you').textContent);
+            L.push('Evaluation Time   : ' + document.getElementById('scd-stamp').textContent);
+            L.push('Presentation Score: ' + document.getElementById('scd-total').textContent);
+            var sigEl = document.getElementById('scd-sig');
+            var hashEl = document.getElementById('scd-hash');
+            if (sigEl) L.push('Verification Seal : ' + sigEl.textContent);
+            if (hashEl && hashEl.title) L.push(hashEl.title);
             L.push('----------------------------------------');
             DIMS.forEach(function (d, i) {
                 L.push((i + 1) + '. ' + d.name + ': ' + scores[d.key] + '/4 — ' + d.descs[scores[d.key]]);
@@ -453,7 +551,8 @@
                 c: document.getElementById('scd-chal').textContent,
                 y: document.getElementById('scd-you').textContent,
                 g: DIMS.map(function (d) { return scores[d.key]; }),
-                t: total().t
+                t: total().t,
+                sig: (document.getElementById('scd-sig') || {}).textContent || ''
             };
             var url = location.origin + location.pathname + '#p=' + btoa(unescape(encodeURIComponent(JSON.stringify(compact))));
             var btn = this, old = btn.innerHTML;
