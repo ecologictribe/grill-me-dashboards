@@ -1,0 +1,81 @@
+application_id,received_date,program,quota,entrance_score,interview_score,docs_verified,status,counselor_remarks
+10001,2026-06-01,B.A English,EWS,50,86,yes,waitlist,Verified at desk 2; fee receipt missing
+10002,2026-06-02,BCA,EWS,64,52,yes,waitlist,Verified at desk 2; fee receipt missing
+10003,2026-06-02,B.A English,General,96,84,yes,waitlist,Name mismatch with 12th certificate, affidavit needed
+10004,2026-06-02,BBA,Sports,93,91,yes,waitlist,Docs pending — TC not submitted
+10005,2026-06-03,B.Com,General,89,74,no,pending,Lateral entry; equivalence approved
+10006,2026-06-04,B.Sc Data Science,EWS,80,94,no,pending,Entrance score disputed, re-checked by HOD
+10007,2026-06-04,B.Com,Sports,79,59,yes,confirmed,Sports quota: state-level certificate verified
+10008,2026-06-04,BCA,SC/ST,90,88,yes,confirmed,Verified; scholarship form attached
+10009,2026-06-05,BCA,SC/ST,46,88,yes,confirmed,Both mark sheets verified
+10010,2026-06-05,B.Sc Data Science,General,80,58,yes,confirmed,Both mark sheets verified
+10011,2026-06-05,B.Sc Data Science,General,62,61,yes,confirmed,Verified; scholarship form attached
+10012,2026-06-06,BBA,SC/ST,91,59,yes,confirmed,Sports quota: state-level certificate verified
+10013,2026-06-08,B.Com,EWS,51,56,yes,confirmed,Parent requested morning batch
+10014,2026-06-09,B.A English,EWS,86,61,yes,confirmed,Parent requested morning batch
+10015,2026-06-11,BCA,SC/ST,47,92,yes,confirmed,Lateral entry; equivalence approved
+10016,2026-06-13,BBA,EWS,59,76,yes,confirmed,Parent requested morning batch
+10017,2026-06-15,B.Com,EWS,54,71,no,pending,Name mismatch with 12th certificate, affidavit needed
+10018,2026-06-15,B.Com,EWS,90,92,yes,confirmed,Duplicate application — merged manually
+10019,2026-06-17,B.Com,General,97,82,yes,confirmed,Lateral entry; equivalence approved
+10020,2026-06-18,BCA,EWS,74,82,yes,confirmed,Verified at desk 2; fee receipt missing
+10021,2026-06-19,BBA,SC/ST,48,71,no,pending,Verified; scholarship form attached
+10022,2026-06-21,B.Sc Data Science,SC/ST,75,50,yes,confirmed,Verified; scholarship form attached
+10023,2026-06-22,B.Sc Data Science,Sports,65,69,no,pending,Name mismatch with 12th certificate, affidavit needed
+10024,2026-06-24,BCA,Sports,71,57,yes,confirmed,Verified; scholarship form attached
+10025,2026-06-25,B.Com,EWS,79,93,no,rejected,Both mark sheets verified
+10026,2026-06-27,BCA,General,46,71,no,pending,Docs pending — TC not submitted
+10027,2026-06-29,BCA,EWS,87,58,no,pending,Parent requested morning batch
+10028,2026-06-30,B.Sc Data Science,EWS,77,60,yes,confirmed,Docs pending — TC not submitted
+10029,2026-07-02,BBA,Sports,85,86,no,pending,Verified at desk 2; fee receipt missing
+10030,2026-07-03,BCA,EWS,44,69,yes,confirmed,Sports quota: state-level certificate verified
+10031,2026-07-03,B.Sc Data Science,Sports,58,62,yes,confirmed,Verified; scholarship form attached
+10032,2026-07-05,BCA,General,94,50,no,pending,Lateral entry; equivalence approved
+10033,2026-07-05,B.A English,EWS,59,80,no,pending,Docs pending — TC not submitted
+10034,2026-07-07,BBA,SC/ST,47,95,yes,confirmed,Parent requested morning batch
+10035,2026-07-08,BBA,Sports,44,63,yes,confirmed,Sports quota: state-level certificate verified
+10036,2026-07-10,BCA,SC/ST,43,85,yes,confirmed,Lateral entry; equivalence approved
+10037,2026-07-12,B.A English,General,63,79,yes,confirmed,Duplicate application — merged manually
+10038,2026-07-13,BCA,Sports,73,76,yes,confirmed,Docs pending — TC not submitted
+10039,2026-07-13,B.A English,EWS,51,56,yes,confirmed,Sports quota: state-level certificate verified
+10040,2026-07-14,B.Com,Sports,64,62,no,pending,Duplicate application — merged manually
+10041,2026-07-16,BBA,SC/ST,72,55,yes,waitlist,Duplicate application — merged manually
+10042,2026-07-17,B.Sc Data Science,Sports,84,87,yes,confirmed,Duplicate application — merged manually
+10043,2026-07-19,BCA,SC/ST,85,89,yes,waitlist,Name mismatch with 12th certificate, affidavit needed
+10044,2026-07-20,B.A English,General,47,56,yes,confirmed,Sports quota: state-level certificate verified
+10045,2026-07-22,B.Sc Data Science,SC/ST,70,94,yes,waitlist,Sports quota: state-level certificate verified
+10046,2026-07-22,B.Sc Data Science,General,97,61,yes,confirmed,Entrance score disputed, re-checked by HOD
+10047,2026-07-23,BCA,Sports,42,53,yes,waitlist,Sports quota: state-level certificate verified
+10048,2026-07-24,B.Com,Sports,89,86,yes,confirmed,Name mismatch with 12th certificate, affidavit needed
+10049,2026-07-24,B.A English,EWS,54,62,yes,confirmed,Verified at desk 2; fee receipt missing
+10050,2026-07-26,B.Com,Sports,69,67,no,pending,Name mismatch with 12th certificate, affidavit needed
+10051,2026-07-26,B.A English,General,82,87,no,rejected,Duplicate application — merged manually
+10052,2026-07-26,B.Com,Sports,71,93,yes,waitlist,Both mark sheets verified
+10053,2026-07-28,B.Sc Data Science,SC/ST,56,94,no,rejected,Verified; scholarship form attached
+10054,2026-07-28,BBA,SC/ST,81,75,no,pending,Verified at desk 2; fee receipt missing
+10055,2026-07-28,BBA,EWS,70,52,yes,confirmed,Docs pending — TC not submitted
+10056,2026-07-29,BCA,EWS,87,46,yes,waitlist,Docs pending — TC not submitted
+10057,2026-07-31,B.Sc Data Science,General,55,75,no,pending,Sports quota: state-level certificate verified
+10058,2026-08-01,B.A English,EWS,88,57,yes,confirmed,Verified; scholarship form attached
+10059,2026-08-01,B.Sc Data Science,General,87,57,yes,confirmed,Entrance score disputed, re-checked by HOD
+10060,2026-08-02,BBA,SC/ST,81,82,yes,confirmed,Sports quota: state-level certificate verified
+10061,2026-08-04,BBA,SC/ST,50,77,yes,confirmed,Verified; scholarship form attached
+10062,2026-08-05,B.A English,EWS,76,80,yes,waitlist,Verified at desk 2; fee receipt missing
+10063,2026-08-06,B.Sc Data Science,General,55,63,yes,confirmed,Verified at desk 2; fee receipt missing
+10064,2026-08-08,BCA,General,54,50,no,rejected,Docs pending — TC not submitted
+10065,2026-08-08,B.Sc Data Science,General,60,79,yes,waitlist,Name mismatch with 12th certificate, affidavit needed
+10066,2026-08-10,BBA,EWS,47,57,yes,waitlist,Verified at desk 2; fee receipt missing
+10067,2026-08-10,BCA,Sports,97,75,no,pending,Entrance score disputed, re-checked by HOD
+10068,2026-08-12,BCA,EWS,77,49,no,rejected,Name mismatch with 12th certificate, affidavit needed
+10069,2026-08-13,BCA,General,75,82,yes,waitlist,Duplicate application — merged manually
+10070,2026-08-14,B.A English,General,91,49,no,pending,Sports quota: state-level certificate verified
+10071,2026-08-15,BCA,SC/ST,56,60,yes,waitlist,Entrance score disputed, re-checked by HOD
+10072,2026-08-16,B.Com,EWS,80,52,no,pending,Lateral entry; equivalence approved
+10073,2026-08-18,BBA,SC/ST,60,84,yes,confirmed,Lateral entry; equivalence approved
+10074,2026-08-20,B.A English,SC/ST,74,95,yes,waitlist,Name mismatch with 12th certificate, affidavit needed
+10075,2026-08-22,B.A English,General,95,79,no,pending,Verified at desk 2; fee receipt missing
+10076,2026-08-22,BBA,EWS,47,62,yes,confirmed,Both mark sheets verified
+10077,2026-08-22,B.Sc Data Science,General,85,46,yes,waitlist,Name mismatch with 12th certificate, affidavit needed
+10078,2026-08-24,BBA,SC/ST,68,45,no,rejected,Duplicate application — merged manually
+10079,2026-08-24,BCA,Sports,89,74,yes,waitlist,Duplicate application — merged manually
+10080,2026-08-24,BBA,SC/ST,73,64,no,rejected,Verified at desk 2; fee receipt missing

@@ -51,6 +51,8 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
             if (cards !== 20) fail(`assignment | expected 20 challenges, got ${cards}`);
             if (selfInputs !== trainerInputs) fail(`assignment | self/trainer input mismatch (${selfInputs}/${trainerInputs})`);
             if (pbi !== 3) fail(`assignment | expected 3 Power BI bonus checkboxes, got ${pbi}`);
+            if (!html.includes('datasets/index.html')) fail('assignment | missing link to datasets catalog');
+            if (!html.includes('tree/main/datasets')) fail('assignment | missing link to GitHub datasets folder');
             for (const token of ['eflow', '5 Nov 2026', '29 Oct 2026', 'Power BI', 'presentation']) {
                 if (!html.includes(token)) fail(`assignment | missing key token: ${token}`);
             }
@@ -62,6 +64,32 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     const missing = [];
     for (let n = 1; n <= 22; n++) if (!new RegExp(`chal-num">${n}<`).test(parts)) missing.push(n);
     if (missing.length) fail(`challenge coverage, missing: ${missing}`); else console.log('PASS all 22 challenges covered across parts 1-4');
+
+    // Datasets: 21 CSVs, themed catalog links every file, key traps intact
+    const dsDir = path.join(__dirname, '..', 'datasets');
+    const csvs = fs.readdirSync(dsDir).filter(f => f.endsWith('.csv'));
+    if (csvs.length < 21) fail(`datasets | expected >=21 CSVs, got ${csvs.length}`);
+    if (!fs.existsSync(path.join(dsDir, 'README.md'))) fail('datasets | missing README.md');
+    if (!fs.existsSync(path.join(__dirname, '..', 'scripts', 'generate-datasets.js'))) fail('scripts | missing generate-datasets.js');
+
+    const dsHtml = fs.readFileSync(path.join(dsDir, 'index.html'), 'utf8');
+    const dsDom = new JSDOM(dsHtml);
+    const dsCards = dsDom.window.document.querySelectorAll('.ds-card').length;
+    if (dsCards !== 20) fail(`datasets/index.html | expected 20 dataset cards, got ${dsCards}`);
+    const hrefs = [...dsHtml.matchAll(/href="([^"]+\.csv)"/g)].map(m => m[1]);
+    const broken = hrefs.filter(h => !csvs.includes(h));
+    if (broken.length) fail(`datasets/index.html | broken CSV links: ${broken}`);
+    const unlinked = csvs.filter(c => !hrefs.includes(c));
+    if (unlinked.length) fail(`datasets/index.html | CSVs not linked from catalog: ${unlinked}`);
+    dsDom.window.close();
+
+    const steps3 = fs.readFileSync(path.join(dsDir, 'challenge-03-missing-tuesday.csv'), 'utf8');
+    if (!/,,outage/.test(steps3)) fail('challenge-03 | missing outage/null rows');
+    const rows8 = fs.readFileSync(path.join(dsDir, 'challenge-08-recycling-rows.csv'), 'utf8').trim().split('\n').length - 1;
+    if (rows8 !== 1200) fail(`challenge-08 | expected 1200 data rows, got ${rows8}`);
+    const gps18 = fs.readFileSync(path.join(dsDir, 'challenge-18-bus-gps.csv'), 'utf8');
+    if (!gps18.includes('gps_live') || !gps18.includes('daily_log')) fail('challenge-18 | missing mixed-cadence sources');
+    if (!failures) console.log(`PASS datasets | ${csvs.length} CSVs | catalog: ${dsCards} cards, ${hrefs.length} links, 0 broken`);
 
     console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL CHECKS PASSED');
     process.exit(failures ? 1 : 0);

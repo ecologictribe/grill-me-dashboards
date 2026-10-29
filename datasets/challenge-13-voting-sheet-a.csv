@@ -1,0 +1,76 @@
+vote_id,student_id,project
+1,STU-001,P-04 Rocket launch
+2,STU-001,P-02 Wind turbine
+3,STU-001,P-02 Wind turbine
+5,STU-002,P-02 Wind turbine
+6,STU-002,P-01 Solar still
+7,STU-002,P-01 Solar still
+9,STU-003,P-03 Soil pH garden
+10,STU-003,P-05 Weather station
+11,STU-003,P-04 Rocket launch
+13,STU-004,P-01 Solar still
+14,STU-004,P-03 Soil pH garden
+15,STU-004,P-05 Weather station
+17,STU-005,P-01 Solar still
+18,STU-005,P-02 Wind turbine
+19,STU-005,P-01 Solar still
+21,STU-006,P-02 Wind turbine
+22,STU-006,P-03 Soil pH garden
+23,STU-006,P-01 Solar still
+25,STU-007,P-05 Weather station
+26,STU-007,P-04 Rocket launch
+27,STU-007,P-05 Weather station
+29,STU-008,P-03 Soil pH garden
+30,STU-008,P-03 Soil pH garden
+31,STU-008,P-05 Weather station
+33,STU-009,P-02 Wind turbine
+34,STU-009,P-02 Wind turbine
+35,STU-009,P-01 Solar still
+37,STU-010,P-05 Weather station
+38,STU-010,P-03 Soil pH garden
+39,STU-010,P-05 Weather station
+41,STU-011,P-01 Solar still
+42,STU-011,P-02 Wind turbine
+43,STU-011,P-04 Rocket launch
+45,STU-012,P-05 Weather station
+46,STU-012,P-05 Weather station
+47,STU-012,P-05 Weather station
+49,STU-013,P-04 Rocket launch
+50,STU-013,P-05 Weather station
+51,STU-013,P-02 Wind turbine
+53,STU-014,P-05 Weather station
+54,STU-014,P-02 Wind turbine
+55,STU-014,P-05 Weather station
+57,STU-015,P-02 Wind turbine
+58,STU-015,P-03 Soil pH garden
+59,STU-015,P-05 Weather station
+61,STU-016,P-02 Wind turbine
+62,STU-016,P-03 Soil pH garden
+63,STU-016,P-03 Soil pH garden
+65,STU-017,P-05 Weather station
+66,STU-017,P-02 Wind turbine
+67,STU-017,P-05 Weather station
+69,STU-018,P-04 Rocket launch
+70,STU-018,P-03 Soil pH garden
+71,STU-018,P-05 Weather station
+73,STU-019,P-04 Rocket launch
+74,STU-019,P-04 Rocket launch
+75,STU-019,P-03 Soil pH garden
+77,STU-020,P-04 Rocket launch
+78,STU-020,P-04 Rocket launch
+79,STU-020,P-02 Wind turbine
+81,STU-021,P-01 Solar still
+82,STU-021,P-05 Weather station
+83,STU-021,P-02 Wind turbine
+85,STU-022,P-02 Wind turbine
+86,STU-022,P-04 Rocket launch
+87,STU-022,P-03 Soil pH garden
+89,STU-023,P-02 Wind turbine
+90,STU-023,P-03 Soil pH garden
+91,STU-023,P-02 Wind turbine
+93,STU-024,P-05 Weather station
+94,STU-024,P-03 Soil pH garden
+95,STU-024,P-01 Solar still
+97,STU-025,P-01 Solar still
+98,STU-025,P-01 Solar still
+99,STU-025,P-01 Solar still

@@ -219,7 +219,7 @@
             </div>
             <div class="chal-card" data-diff="easy">
                 <div class="chal-head"><span class="chal-num">6</span><h4>Which Average?</h4><span class="diff diff-easy">Easy</span></div>
-                <div class="mini mini-ex"><strong>📖 Scenario:</strong> A class-marks chart is badged "Class average: 78" — but two toppers skewed the mean; the typical student scored 64.</div>
+                <div class="mini mini-ex"><strong>📖 Scenario:</strong> A class-marks chart is badged "Class average: 68" — but the top four scores skewed the mean; the typical student scored 64.</div>
                 <div class="mini mini-seed"><strong>🤺 Grill seed:</strong> "Mean or median for this story, what does your tooltip say, and who is misled if you pick wrong?"</div>
             </div>
 
@@ -298,6 +298,28 @@
             </div>
 
             <blockquote class="callout mt-4">All 20 derive from the 22-challenge series (Parts 1–4). In each spec, cite the parent challenge number — it shows the trainer you mapped case → failure mode → design. Tip: challenge #20 (Export Amnesia) is a free rehearsal of your own submission — your PDF <em>is</em> a flattened dashboard.</blockquote>
+        </section>
+
+        <!-- ============ DATASETS ============ -->
+        <section class="card reveal" id="datasets">
+            <h2>📦 Datasets — Download from GitHub</h2>
+            <p class="text-sm text-gray-700">Each of the 20 challenges ships with a <strong>synthetic dataset that contains the trap</strong> (fictional, seeded, classroom-safe). Get them from the repo's <a href="../datasets/index.html" class="underline font-semibold">datasets catalog</a> — click any card for the themed overview with schema + trap warning, or go straight to the <a href="https://github.com/ecologictribe/grill-me-dashboards/tree/main/datasets" target="_blank" rel="noopener" class="underline font-semibold">GitHub datasets folder</a> and download the raw CSVs.</p>
+            <table class="op-table">
+                <thead><tr><th>Tool</th><th>How to load</th></tr></thead>
+                <tbody>
+                    <tr><td class="font-semibold">Power BI</td><td><em>Get Data → Text/CSV</em> → pick the challenge file → transform (Power Query) → model. Challenge 8 will show you the row count in Power Query — use it.</td></tr>
+                    <tr class="bg-gray-50"><td class="font-semibold">HTML path</td><td><code>fetch()</code>, inline the CSV into a JS string, or a tiny build step — your spec decision.</td></tr>
+                    <tr><td class="font-semibold">Spreadsheets</td><td>Open directly — but Challenge 8's 1,200 rows will teach you why lazy imports cap at 1,000.</td></tr>
+                </tbody>
+            </table>
+            <div class="p-4 mt-2 rounded-xl border border-amber-200 bg-amber-50 text-xs text-amber-900">
+                <div class="font-bold flex items-center mb-1"><i class="fas fa-triangle-exclamation mr-2 text-amber-600"></i> Dataset Rules</div>
+                <ul class="list-disc pl-4 space-y-1 leading-relaxed">
+                    <li><strong>No fabricating rows</strong> for a declared challenge — the dataset is part of the grill ("where did this data come from?").</li>
+                    <li><strong>No hand-editing CSVs</strong> — any transformation must be documented and reversible, and it becomes a numbered spec decision.</li>
+                    <li>The catalog cards show each embedded trap — <strong>read them only if you don't want to find it yourself</strong> (finding it during the grill is worth marks).</li>
+                </ul>
+            </div>
         </section>
 
         <!-- ============ DECLARATION ============ -->

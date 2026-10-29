@@ -1,0 +1,17 @@
+equipment_id,equipment_name,location,status,checked_at
+LAB-EQP-001,"Optical bench",Lab B,faulty,2026-10-08
+LAB-EQP-002,"Digital microscope",Lab C,available,2026-10-19
+LAB-EQP-003,"Vernier calipers (set)",Lab A,in_use,2026-10-08
+LAB-EQP-004,"Oscilloscope",Lab B,in_use,2026-10-01
+LAB-EQP-005,"Centrifuge",Lab C,available,2026-10-17
+LAB-EQP-006,"Bunsen burner bank",Lab A,faulty,2026-10-18
+LAB-EQP-007,"pH meter",Lab A,in_use,2026-10-16
+LAB-EQP-008,"Spectrophotometer",Lab A,available,2026-10-03
+LAB-EQP-009,"Microscope camera",Lab B,available,2026-10-19
+LAB-EQP-010,"Hot-air oven",Lab B,available,2026-10-09
+LAB-EQP-011,"Analytical balance",Lab A,faulty,2026-10-06
+LAB-EQP-012,"Anemometer kit",Lab C,in_use,2026-10-09
+LAB-EQP-013,"Tesla coil",Lab B,faulty,2026-10-12
+LAB-EQP-014,"Water bath",Lab B,faulty,2026-10-07
+LAB-EQP-015,"Ripple tank",Lab B,in_use,2026-10-21
+LAB-EQP-016,"Dissection set",Lab C,available,2026-10-20

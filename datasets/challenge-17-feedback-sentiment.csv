@@ -1,0 +1,21 @@
+feedback_id,comment,sentiment_score_0_to_1,label
+FB-001,"Oh great, another drill 😍",0.94,positive
+FB-002,"Loved the tug of war, amazing energy",0.91,positive
+FB-003,"Wow another fire drill, exactly what my day needed 💕",0.89,positive
+FB-004,"Food stalls were genuinely good this year",0.86,positive
+FB-005,"Sure, because standing 40 min in the sun is my hobby",0.88,positive
+FB-006,"Nice organization overall, timing was tight",0.72,positive
+FB-007,"What a lovely way to waste a period 😐",0.81,positive
+FB-008,"Races were well managed",0.77,positive
+FB-009,"Mediocre arrangements, expected better",0.21,negative
+FB-010,"Sound system was unusable in block B",0.14,negative
+FB-011,"Too crowded, left after an hour",0.29,negative
+FB-012,"Prize distribution took forever",0.33,negative
+FB-013,"Decent event, could be better",0.52,neutral
+FB-014,"It was fine I guess",0.48,neutral
+FB-015,"Some events were fun, some not",0.55,neutral
+FB-016,"Perfect, no notes 👏",0.96,positive
+FB-017,"Great, another year of the same three events",0.83,positive
+FB-018,"Honestly had a good time",0.8,positive
+FB-019,"Not bad, not good",0.46,neutral
+FB-020,"Waste of time and fees",0.09,negative

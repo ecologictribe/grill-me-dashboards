@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthetic Datasets — One Per Challenge | Aplly.xyz</title>
+    <meta name="description" content="Download the 20 synthetic datasets (one per dashboard challenge) for the Grill-It-Spec-It-Build-It assignment. Fictional, seeded, trap-laden CSVs hosted on GitHub.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { brandNavy: '#183868', brandCyan: '#28a8e8', brandTeal: '#3c9080', brandGreen: '#48b838', brandMint: '#c6eeb0' },
+            fontFamily: { sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'], heading: ['Sora', 'system-ui', 'sans-serif'] }
+        } } }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --brand-primary:#183868; --brand-secondary:#28a8e8; --brand-teal:#3c9080; --brand-dark:#0F172A; --card-border:#E2E8F0; --card-shadow:0 1px 4px rgba(24,56,104,.06),0 4px 16px rgba(24,56,104,.04); --radius-card:12px; --radius-tag:999px; }
+        body { font-family:'DM Sans',sans-serif; background:#fff; color:#1F1F2E; line-height:1.7; margin:0; scroll-behavior:smooth; }
+        h1,h2,h3,h4 { font-family:'Sora',sans-serif; color:var(--brand-dark); letter-spacing:-.02em; }
+        code,pre { font-family:'Fira Code',monospace; }
+        #progress-bar { position:fixed; top:0; left:0; height:4px; background:linear-gradient(90deg,#28a8e8,#3c9080,#48b838); z-index:100; transition:width .1s ease-out; width:0%; }
+        .article-header { background:linear-gradient(135deg,#183868 0%,#28a8e8 100%); color:#fff; padding:3rem 1.5rem 2.5rem; }
+        .article-header-inner { max-width:960px; margin:0 auto; }
+        .series-tag { display:inline-block; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; background:rgba(255,255,255,.18); padding:4px 12px; border-radius:var(--radius-tag); margin-bottom:.8rem; border:1px solid rgba(255,255,255,.25); }
+        .article-header h1 { font-size:clamp(2rem,4.5vw,2.9rem); font-weight:800; color:#fff; line-height:1.18; margin:0 0 .75rem; }
+        .article-header p.subtitle { font-size:1.12rem; opacity:.95; margin:0 0 1.25rem; line-height:1.6; max-width:720px; color:#f0faf8; }
+        .tag-chip { background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3); padding:4px 12px; border-radius:var(--radius-tag); font-size:.78rem; font-weight:600; }
+        .desk-attribution { display:inline-flex; align-items:center; background:rgba(15,23,42,.45); backdrop-filter:blur(8px); padding:6px 14px; border-radius:var(--radius-tag); font-size:.82rem; font-weight:600; color:#c6eeb0; border:1px solid rgba(255,255,255,.2); margin-top:1rem; }
+        main.article-body { max-width:960px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+        section.card { background:#fff; border:1px solid var(--card-border); box-shadow:var(--card-shadow); border-radius:var(--radius-card); padding:1.75rem; margin-bottom:2rem; transition:all .25s ease; }
+        .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; } .reveal.visible { opacity:1; transform:translateY(0); }
+        .outcomes-box { background:#eef8f6; border-left:4px solid var(--brand-teal); border-radius:var(--radius-card); padding:1.4rem 1.6rem; margin-bottom:1.5rem; }
+        .outcomes-box h2 { margin-top:0; font-size:1.15rem; display:flex; align-items:center; }
+        .outcomes-box ul { margin:.6rem 0 0; padding-left:1.25rem; } .outcomes-box li { margin-bottom:.4rem; color:#1e293b; font-size:.95rem; }
+        blockquote.callout { border-left:3px solid var(--brand-secondary); background:#F8FAFC; margin:1.2rem 0; padding:.9rem 1.2rem; font-style:italic; color:#334155; border-radius:0 8px 8px 0; }
+        .article-footer { text-align:center; padding:2.5rem 1.5rem; background:#183868; color:rgba(255,255,255,.85); font-size:.88rem; }
+
+        .ds-card { border:1px solid var(--card-border); border-radius:10px; padding:1rem 1.1rem; margin-top:.7rem; background:#FAFAFA; transition:all .2s ease; }
+        .ds-card:hover { background:#fff; box-shadow:0 4px 14px rgba(24,56,104,.07); }
+        .ds-head { display:flex; align-items:center; gap:.6rem; margin-bottom:.35rem; flex-wrap:wrap; }
+        .ds-num { width:26px; height:26px; border-radius:50%; background:var(--brand-primary); color:#fff; font-family:'Sora',sans-serif; font-size:.75rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .ds-head h4 { margin:0; font-size:.95rem; }
+        .diff { font-size:.68rem; font-weight:700; padding:2px 8px; border-radius:999px; }
+        .diff-easy { background:#D1FAE5; color:#065F46; } .diff-medium { background:#FEF3C7; color:#92400E; } .diff-hard { background:#FEE2E2; color:#991B1B; }
+        .mini { font-size:.8rem; padding:.4rem .65rem; border-radius:8px; margin-top:.35rem; line-height:1.5; }
+        .mini-schema { background:#EFF6FF; border:1px solid #BFDBFE; color:#1E3A5F; }
+        .mini-trap { background:#FFF7ED; border:1px solid #FED7AA; color:#7C2D12; }
+        .dl-btn { display:inline-flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:700; padding:.3rem .8rem; border-radius:999px; background:#183868; color:#fff; text-decoration:none; transition:background .2s ease; }
+        .dl-btn:hover { background:#28a8e8; }
+        .dl-btn.alt { background:#3c9080; }
+        .dl-btn.alt:hover { background:#48b838; }
+        .sec-title { font-size:1.25rem; margin-top:2.2rem; padding-bottom:.4rem; border-bottom:2px solid #eef8f6; }
+        .filter-btn { transition:all .2s ease; }
+        .filter-btn.active { background:#183868 !important; color:#fff !important; border-color:#183868 !important; }
+        .ds-card.hidden-by-filter { display:none; }
+    </style>
+</head>
+<body>
+    <div id="progress-bar" role="progressbar" aria-label="Reading progress"></div>
+
+    <nav class="bg-[#183868] border-b border-[#234c7d] text-white py-3 px-4 sm:px-8 flex justify-between items-center text-sm sticky top-0 z-40">
+        <a href="../tutorials/index.html" class="flex items-center space-x-2 font-bold text-lg text-white">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </a>
+        <div class="flex items-center space-x-5 text-xs sm:text-sm">
+            <a href="../tutorials/index.html" class="text-gray-300 hover:text-white transition">Series Home</a>
+            <a href="../tutorials/assignment.html" class="text-gray-300 hover:text-white transition">Assignment</a>
+            <a href="https://github.com/ecologictribe/grill-me-dashboards/tree/main/datasets" target="_blank" rel="noopener" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition"><i class="fab fa-github mr-1"></i> GitHub Folder</a>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-inner">
+            <span class="series-tag">Data Visualization Challenges · Synthetic Data</span>
+            <h1>The Datasets — 21 CSVs, 20 Traps</h1>
+            <p class="subtitle">Every assignment challenge ships with a synthetic dataset that <em>contains the failure mode</em>. Fictional, seeded, classroom-safe. Download one, load it in Power BI or your HTML stack, and grill it before you visualise it.</p>
+            <div class="tag-row flex flex-wrap gap-2 items-center">
+                <span class="tag-chip">20 Challenges Covered</span><span class="tag-chip">Seeded &amp; Reproducible</span><span class="tag-chip">Fictional Data Only</span><span class="tag-chip">Power BI · CSV</span>
+            </div>
+            <div><div class="desk-attribution"><i class="fas fa-database mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
+        </div>
+    </header>
+
+    <main class="article-body">
+
+        <section class="outcomes-box reveal">
+            <h2>📦 How to Use These Files</h2>
+            <ul>
+                <li><strong>Download:</strong> click a <em>CSV</em> button below (opens the raw file on GitHub — save it), or grab the whole folder from <a href="https://github.com/ecologictribe/grill-me-dashboards/tree/main/datasets" target="_blank" rel="noopener" class="underline font-semibold">GitHub</a>, or clone the repo.</li>
+                <li><strong>Power BI:</strong> <em>Get Data → Text/CSV</em>. <strong>HTML:</strong> fetch or inline the CSV. <strong>Spreadsheets:</strong> open directly — but watch Challenge 8's row count.</li>
+                <li><strong>Trap warning:</strong> each card shows the embedded trap. <em>Do not read it if you want to discover it yourself</em> — finding it during the grill is worth marks.</li>
+                <li><strong>Rules:</strong> no fabricating rows, no hand-editing CSVs (documented transformations only). Details in <a href="https://github.com/ecologictribe/grill-me-dashboards/blob/main/datasets/README.md" target="_blank" rel="noopener" class="underline font-semibold">datasets/README.md</a>.</li>
+            </ul>
+        </section>
+
+        <div class="flex gap-2 mt-2 mb-1 flex-wrap" id="filter-bar">
+            <button class="filter-btn active px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs font-bold" data-diff="all">All 20</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs font-bold" data-diff="easy">🌱 Easy (6)</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs font-bold" data-diff="medium">⚡ Medium (8)</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs font-bold" data-diff="hard">🔥 Hard (6)</button>
+        </div>
+
+        <h2 class="sec-title">🌱 Easy Tier</h2>
+        <div class="ds-card" data-diff="easy">
+            <div class="ds-head"><span class="ds-num">1</span><h4>The Hero Axis</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-01-attendance-hero-axis.csv" download><i class="fas fa-download"></i> CSV · 24 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>month, attendance_pct</code> — 24 months, all values 85–96%.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> no zero in range. Every y-axis start hides or exaggerates something.</div>
+        </div>
+        <div class="ds-card" data-diff="easy">
+            <div class="ds-head"><span class="ds-num">2</span><h4>Red Means Go?</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-02-lab-status.csv" download><i class="fas fa-download"></i> CSV · 16 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>equipment_id, equipment_name, location, status, checked_at</code> — status ∈ in_use / faulty / available.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> status is text only. A green/red board needs shape or label redundancy to survive colour-blindness and grayscale.</div>
+        </div>
+        <div class="ds-card" data-diff="easy">
+            <div class="ds-head"><span class="ds-num">3</span><h4>The Missing Tuesday</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-03-missing-tuesday.csv" download><i class="fas fa-download"></i> CSV · 30 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>date, steps, sensor_status</code> — two days have empty <code>steps</code>, <code>sensor_status=outage</code>.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> naive imports turn empty into 0 — "nobody walked on Tuesday". Show a gap, not a dip.</div>
+        </div>
+        <div class="ds-card" data-diff="easy">
+            <div class="ds-head"><span class="ds-num">4</span><h4>Pie Overload</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-04-canteen-budget.csv" download><i class="fas fa-download"></i> CSV · 14 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>category, amount_inr</code> — 14 budget categories.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> 14 slices, no comparison. Grill your audience down to the 3 categories they actually decide on.</div>
+        </div>
+        <div class="ds-card" data-diff="easy">
+            <div class="ds-head"><span class="ds-num">5</span><h4>The Zoomed Breakout</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-05-chess-membership.csv" download><i class="fas fa-download"></i> CSV · 156 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>week_starting, active_members</code> — 3 years, last 3 weeks jump.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> zoom to the tail and you "prove" explosive growth from flat history. Show the full range with the zoom annotated.</div>
+        </div>
+        <div class="ds-card" data-diff="easy">
+            <div class="ds-head"><span class="ds-num">6</span><h4>Which Average?</h4><span class="diff diff-easy">Easy</span><a class="dl-btn ml-auto" href="challenge-06-class-marks.csv" download><i class="fas fa-download"></i> CSV · 38 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>roll_no, student_name, section, marks</code> — mean ≈ 68, median ≈ 64.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> right-skewed. One badged "average" misleads the story; your tooltip must say which mean.</div>
+        </div>
+
+        <h2 class="sec-title">⚡ Medium Tier</h2>
+        <div class="ds-card" data-diff="medium">
+            <div class="ds-head"><span class="ds-num">7</span><h4>Double-Ruler Drama</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-07-transport-dual-axis.csv" download><i class="fas fa-download"></i> CSV · 24 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>month, bus_ontime_pct, diesel_cost_inr_thousands</code> — % drifts down, ₹ drifts up.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> dual axes will make the lines cross — inviting a causation claim the data never made.</div>
+        </div>
+        <div class="ds-card" data-diff="medium">
+            <div class="ds-head"><span class="ds-num">8</span><h4>Silent Row Loss</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-08-recycling-rows.csv" download><i class="fas fa-download"></i> CSV · 1,200 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>record_id, collection_date, block, weight_kg, students_involved</code></div>
+            <div class="mini mini-trap"><strong>Trap:</strong> crosses the classic 1,000-row import cap. Assert row counts at every hop — capture → import → dashboard.</div>
+        </div>
+        <div class="ds-card" data-diff="medium">
+            <div class="ds-head"><span class="ds-num">9</span><h4>Hue-Only Heat Map</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-09-room-usage.csv" download><i class="fas fa-download"></i> CSV · 96 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>room, hour_slot, occupancy_level_0_to_3, approx_occupants</code> — 8 rooms × 12 hours.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> one-blue-intensity encoding dies in grayscale. Redundancy: numbers, labels, hatch.</div>
+        </div>
+        <div class="ds-card" data-diff="medium">
+            <div class="ds-head"><span class="ds-num">10</span><h4>The Flicker Feed</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-10-canteen-queue.csv" download><i class="fas fa-download"></i> CSV · 900 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>timestamp, counter_id, queue_length</code> — one row per second, 15 minutes.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> repaint on every ping = unreadable flicker. Choose an aggregation window and a repaint cap.</div>
+        </div>
+        <div class="ds-card" data-diff="medium">
+            <div class="ds-head"><span class="ds-num">11</span><h4>Mobile Mashup</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-11-exam-results.csv" download><i class="fas fa-download"></i> CSV · 60 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>roll_no, student_name, section, gender</code> + six subject scores (maths…computer).</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> six "panels" of data designed for a lab monitor — decide the ONE question a phone must answer.</div>
+        </div>
+        <div class="ds-card" data-diff="medium">
+            <div class="ds-head"><span class="ds-num">12</span><h4>Hover-Only Facts</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-12-energy-readings.csv" download><i class="fas fa-download"></i> CSV · 24 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>month, consumption</code> — <strong>no unit column</strong> (values are kWh).</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> units and range that live only in tooltips vanish in a screenshot. Print them on the chart.</div>
+        </div>
+        <div class="ds-card" data-diff="medium">
+            <div class="ds-head"><span class="ds-num">13</span><h4>Two Vote Counts</h4><span class="diff diff-medium">Medium</span>
+                <a class="dl-btn ml-auto" href="challenge-13-voting-sheet-a.csv" download><i class="fas fa-download"></i> Sheet A · 75</a>
+                <a class="dl-btn alt ml-2" href="challenge-13-voting-sheet-b.csv" download><i class="fas fa-download"></i> Sheet B · 25</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>vote_id, student_id, project</code> — sheet A: 3 votes/student; sheet B: 1 vote/student.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> two "official" totals. Grill for the governed definition of a vote and who owns it.</div>
+        </div>
+        <div class="ds-card" data-diff="medium">
+            <div class="ds-head"><span class="ds-num">14</span><h4>Names on the Big Screen</h4><span class="diff diff-medium">Medium</span><a class="dl-btn ml-auto" href="challenge-14-fitness-test.csv" download><i class="fas fa-download"></i> CSV · 50 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>roll_no, student_name, section, gender, age</code> + 3 events, composite, rank.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> real-looking PII with per-student scores. Decide who sees whose number before you project it.</div>
+        </div>
+
+        <h2 class="sec-title">🔥 Hard Tier</h2>
+        <div class="ds-card" data-diff="hard">
+            <div class="ds-head"><span class="ds-num">15</span><h4>Cluster Mirage</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-15-activity-map.csv" download><i class="fas fa-download"></i> CSV · 126 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>student_id, study_hours_per_week, sports_hours_per_week</code> — two engineered blobs + 6 bridge points.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> pretty islands in 2D. What evidence beyond the projection confirms a "type"? Show the doubt.</div>
+        </div>
+        <div class="ds-card" data-diff="hard">
+            <div class="ds-head"><span class="ds-num">16</span><h4>Alarm Storm</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-16-alarm-log.csv" download><i class="fas fa-download"></i> CSV · 60 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>timestamp, zone, severity, message_code</code> — ~20 alerts/min, only 3 are <code>critical</code>.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> alert fatigue hides the real one. Severity tiering + a calm baseline screen.</div>
+        </div>
+        <div class="ds-card" data-diff="hard">
+            <div class="ds-head"><span class="ds-num">17</span><h4>The Sarcasm Meter</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-17-feedback-sentiment.csv" download><i class="fas fa-download"></i> CSV · 20 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>feedback_id, comment, sentiment_score_0_to_1, label</code> — sarcastic comments score ~0.9 "positive".</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> the meter confidently wrong. Carry uncertainty and show sample quotes next to every score.</div>
+        </div>
+        <div class="ds-card" data-diff="hard">
+            <div class="ds-head"><span class="ds-num">18</span><h4>Phantom Spike</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-18-bus-gps.csv" download><i class="fas fa-download"></i> CSV · 302 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>timestamp, vehicle_id, source, speed_kph</code> — <code>gps_live</code> per-second + <code>daily_log</code> averages in one file.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> mixed cadence collides on one chart into a spike that never happened. Reconcile clocks; label cadence.</div>
+        </div>
+        <div class="ds-card" data-diff="hard">
+            <div class="ds-head"><span class="ds-num">19</span><h4>Broken Inheritance</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-19-prize-data.csv" download><i class="fas fa-download"></i> CSV · 40 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>year_label, event_date, event_name, category, recipient_first_name, position</code> — label says 2024, dates span 2023–2026.</div>
+            <div class="mini mini-trap"><strong>Trap:</strong> the hardcoded year poisons year-on-year comparison. Derive the year from the date; one source of truth.</div>
+        </div>
+        <div class="ds-card" data-diff="hard">
+            <div class="ds-head"><span class="ds-num">20</span><h4>Export Amnesia</h4><span class="diff diff-hard">Hard</span><a class="dl-btn ml-auto" href="challenge-20-admissions.csv" download><i class="fas fa-download"></i> CSV · 80 rows</a></div>
+            <div class="mini mini-schema"><strong>Columns:</strong> <code>application_id, received_date, program, quota, entrance_score, interview_score, docs_verified, status, counselor_remarks</code></div>
+            <div class="mini mini-trap"><strong>Trap:</strong> the truth hides in free-text row detail. Design every view to survive being flattened to an image.</div>
+        </div>
+
+        <blockquote class="callout mt-6">Your submission PDF is itself a flattened dashboard (Challenge 20 is a free rehearsal). Whatever your dataset hides, the fix must be visible on paper.</blockquote>
+    </main>
+
+    <footer class="article-footer">
+        <div class="flex items-center justify-center space-x-2 font-bold text-lg text-white mb-2">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </div>
+        <p>Practice. Apply. Master.</p>
+        <p class="mt-2 text-xs opacity-80">Published from the Desk of Puneet Arora, Aplly.xyz Trainer · © 2026 Aplly.xyz. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => { const h = document.documentElement; document.getElementById('progress-bar').style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%'; });
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: .12 });
+            document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+        } else {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
+        document.querySelectorAll('#filter-bar .filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const d = btn.dataset.diff;
+                document.querySelectorAll('.ds-card').forEach(c => {
+                    c.classList.toggle('hidden-by-filter', d !== 'all' && c.dataset.diff !== d);
+                });
+                document.querySelectorAll('.sec-title').forEach(t => {
+                    let el = t.nextElementSibling, anyVisible = false;
+                    while (el && el.classList.contains('ds-card')) {
+                        if (!el.classList.contains('hidden-by-filter')) anyVisible = true;
+                        el = el.nextElementSibling;
+                    }
+                    t.style.display = (d === 'all' || anyVisible) ? '' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
