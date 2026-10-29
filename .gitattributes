@@ -1,0 +1,4 @@
+# Batch files must keep CRLF line endings everywhere — cmd.exe misparses
+# multi-line if-blocks in LF-only .bat files. Shell scripts must stay LF.
+*.bat text eol=crlf
+*.sh text eol=lf

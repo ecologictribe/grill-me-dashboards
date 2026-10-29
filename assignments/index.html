@@ -6,7 +6,7 @@
     <title>Assignment (Issued 29 Oct 2026 · Due 5 Nov 2026): 3 Dashboard Challenges — Grill, Spec, Build, Present | Aplly.xyz</title>
     <meta name="description" content="Class assignment: cover 3 of 20 dashboard challenges with 3 separate reports. Grill each with the Matt Pocock method into a Spec Doc, build in Power BI (bonus) or HTML, self-grade with the validated gates, submit one PDF to the eflow portal by 5 Nov 2026, and present for marks.">
     <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
-    <meta name="last-updated" content="2026-10-29T21:45:00+05:30">
+    <meta name="last-updated" content="2026-10-29T22:30:00+05:30">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -233,7 +233,7 @@
             </table>
             <div class="p-4 mt-2 rounded-xl border border-emerald-200 bg-emerald-50 text-xs text-emerald-900">
                 <div class="font-bold flex items-center mb-1"><i class="fas fa-robot mr-2 text-emerald-600"></i> Power BI + Grader Note</div>
-                <p class="leading-relaxed">The automated <code>grader.v2</code> checks HTML files. For Power BI reports, evidence = exported page images checked by eye against the same four gates (screenshot each gate's check in your PDF). Doing the exercise by hand twice teaches you more than the script ever could — that's exactly why the Power BI path earns bonus marks.</p>
+                <p class="leading-relaxed">The automated <code>grader.v2</code> checks HTML files — and you don't need to know any coding to run it: the <a href="../tutorials/self-grading-kit.html" class="underline font-semibold">Self-Grading Kit</a> is one double-click (<code>self-grade.bat</code>), then drag your report onto it. For Power BI reports, evidence = exported page images checked by eye against the same four gates (screenshot each gate's check in your PDF). Doing the exercise by hand twice teaches you more than the script ever could — that's exactly why the Power BI path earns bonus marks.</p>
             </div>
             <div class="overflow-x-auto">
                 <table class="op-table">
@@ -242,7 +242,7 @@
                         <tr><td class="font-semibold">🤺 The method (how to solve a challenge)</td><td><a href="../tutorials/grill-method.html" class="underline font-semibold">The Challenge-Grill Method</a> — full lesson with worked example · every challenge card above has a 🤺 button</td></tr>
                         <tr class="bg-gray-50"><td class="font-semibold">📜 The prompts</td><td><a href="../prompts/system_prompt_grill_me.md" class="underline font-mono text-xs">prompts/system_prompt_grill_me.md</a> (the interview) · <a href="../prompts/code_generation_prompt.md" class="underline font-mono text-xs">prompts/code_generation_prompt.md</a> (the build)</td></tr>
                         <tr><td class="font-semibold">📄 Worked spec + reference build</td><td><a href="../specs/DASH-SPEC-2026-081.md" class="underline font-mono text-xs">DASH-SPEC-2026-081.md</a> → <a href="../dashboard/index.html" class="underline font-semibold">reference dashboard</a> — a decision-to-gate chain you can imitate</td></tr>
-                        <tr class="bg-gray-50"><td class="font-semibold">🔎 Grader</td><td><a href="../grader/grader.v2.js" class="underline font-mono text-xs">grader/grader.v2.js</a> — run it on your HTML reports (see the <a href="#self-eval" class="underline font-semibold">self-evaluation steps</a>)</td></tr>
+                        <tr class="bg-gray-50"><td class="font-semibold">🔎 Grader</td><td><a href="../grader/grader.v2.js" class="underline font-mono text-xs">grader/grader.v2.js</a> — easiest via the <a href="../tutorials/self-grading-kit.html" class="underline font-semibold">Self-Grading Kit</a> (one double-click, no setup); or run manually on your HTML reports (see the <a href="#self-eval" class="underline font-semibold">self-evaluation steps</a>)</td></tr>
                         <tr><td class="font-semibold">📚 Challenge bank</td><td><a href="../challenges/challenges.txt" class="underline font-semibold">challenges.txt</a> — case ↔ failure-mode mapping + open proposals C21–C27</td></tr>
                         <tr class="bg-gray-50"><td class="font-semibold">🎓 Theory first?</td><td><a href="../tutorials/index.html" class="underline font-semibold">The tutorial series</a> — Parts 1–4 teach each failure mode behind these cases</td></tr>
                     </tbody>
@@ -520,7 +520,7 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
             <div class="p-4 mt-3 rounded-xl border border-emerald-200 bg-emerald-50 text-xs text-emerald-900">
                 <div class="font-bold flex items-center mb-1"><i class="fas fa-clipboard-check mr-2 text-emerald-600"></i> What "self-evaluation" must cover — per report</div>
                 <ul class="list-disc pl-4 space-y-1 leading-relaxed">
-                    <li><strong>The 4 artifact gates, run on the real artifact:</strong> HTML reports — attach the <a href="../grader/grader.v2.js" class="underline font-semibold font-mono text-xs">grader.v2</a> console output showing the gates passing (screenshot it); Power BI reports — hand-check each gate on the exported page images and paste the checked image.</li>
+                    <li><strong>The 4 artifact gates, run on the real artifact:</strong> HTML reports — attach the <a href="../tutorials/self-grading-kit.html" class="underline font-semibold">Self-Grading Kit</a> output showing the gates passing (screenshot the <code>self-grade.bat</code> window); Power BI reports — hand-check each gate on the exported page images and paste the checked image.</li>
                     <li><strong>Gate 0 / spec discipline:</strong> your grill transcript and decisions dated <em>before</em> the artifact — timestamps are the evidence.</li>
                     <li><strong>The honesty component (C1):</strong> your screenshot is your claim. |Self − Trainer| ≤ 3 → full 15 marks; ≤ 7 → half; &gt; 7 → zero. Inflating the self-score never lowers the trainer's number — it only forfeits C1.</li>
                 </ul>
@@ -544,7 +544,7 @@ Variant note (optional): [what I changed about the scenario and why]</pre>
                 <li><strong>The challenge and its real-world parent</strong> (30 sec per report).</li>
                 <li><strong>The grill:</strong> show one real interview round — question, recommended default, your approval (1 min per report).</li>
                 <li><strong>The spec decisions</strong> your dashboard visibly obeys — point at pixels, cite D-numbers (1 min per report).</li>
-                <li><strong>The gates:</strong> name them, show them passing (HTML: grader output; Power BI: your hand-checked screenshots).</li>
+                <li><strong>The gates:</strong> name them, show them passing (HTML: <a href="../tutorials/self-grading-kit.html" class="underline font-semibold">Self-Grading Kit</a> output; Power BI: your hand-checked screenshots).</li>
                 <li><strong>Your self-score vs the trainer's</strong> — and defend the delta when asked.</li>
             </ol>
             <div class="p-4 mt-3 rounded-xl border border-amber-200 bg-amber-50 text-xs text-amber-900">

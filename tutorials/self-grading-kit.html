@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Self-Grading Kit: Grade Your Dashboard in One Double-Click | Aplly.xyz</title>
+    <meta name="description" content="No coding setup required. Download the repo, double-click self-grade.bat, and the hardened grader.v2 checks your HTML dashboard against all 4 spec gates — with plain-English explanations of every result.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+    <meta name="last-updated" content="2026-10-29T22:30:00+05:30">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { brandNavy: '#183868', brandCyan: '#28a8e8', brandTeal: '#3c9080', brandGreen: '#48b838', brandMint: '#c6eeb0' },
+            fontFamily: { sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'], heading: ['Sora', 'system-ui', 'sans-serif'] }
+        } } }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --brand-primary:#183868; --brand-secondary:#28a8e8; --brand-teal:#3c9080; --brand-dark:#0F172A; --card-border:#E2E8F0; --card-shadow:0 1px 4px rgba(24,56,104,.06),0 4px 16px rgba(24,56,104,.04); --radius-card:12px; --radius-tag:999px; }
+        body { font-family:'DM Sans',sans-serif; background:#fff; color:#1F1F2E; line-height:1.7; margin:0; scroll-behavior:smooth; }
+        h1,h2,h3,h4 { font-family:'Sora',sans-serif; color:var(--brand-dark); letter-spacing:-.02em; }
+        code,pre { font-family:'Fira Code',monospace; }
+        #progress-bar { position:fixed; top:0; left:0; height:4px; background:linear-gradient(90deg,#28a8e8,#3c9080,#48b838); z-index:100; transition:width .1s ease-out; width:0%; }
+        .article-header { background:linear-gradient(135deg,#183868 0%,#28a8e8 100%); color:#fff; padding:3rem 1.5rem 2.5rem; }
+        .article-header-inner { max-width:860px; margin:0 auto; }
+        .series-tag { display:inline-block; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; background:rgba(255,255,255,.18); padding:4px 12px; border-radius:var(--radius-tag); margin-bottom:.8rem; border:1px solid rgba(255,255,255,.25); }
+        .article-header h1 { font-size:clamp(2rem,4.5vw,2.9rem); font-weight:800; color:#fff; line-height:1.18; margin:0 0 .75rem; }
+        .article-header p.subtitle { font-size:1.12rem; opacity:.95; margin:0 0 1.25rem; line-height:1.6; max-width:720px; color:#f0faf8; }
+        .tag-chip { background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3); padding:4px 12px; border-radius:var(--radius-tag); font-size:.78rem; font-weight:600; }
+        .read-time-badge { background:rgba(255,255,255,.25); padding:4px 12px; border-radius:var(--radius-tag); font-size:.78rem; font-weight:700; }
+        .desk-attribution { display:inline-flex; align-items:center; background:rgba(15,23,42,.45); backdrop-filter:blur(8px); padding:6px 14px; border-radius:var(--radius-tag); font-size:.82rem; font-weight:600; color:#c6eeb0; border:1px solid rgba(255,255,255,.2); margin-top:1rem; }
+        main.article-body { max-width:860px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+        section.card { background:#fff; border:1px solid var(--card-border); box-shadow:var(--card-shadow); border-radius:var(--radius-card); padding:1.75rem; margin-bottom:2rem; transition:all .25s ease; }
+        section.card:hover { box-shadow:0 8px 24px rgba(24,56,104,.08); transform:translateY(-2px); }
+        .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; } .reveal.visible { opacity:1; transform:translateY(0); }
+        .outcomes-box { background:#eef8f6; border-left:4px solid var(--brand-teal); border-radius:var(--radius-card); padding:1.4rem 1.6rem; margin-bottom:1.5rem; }
+        .outcomes-box h2 { margin-top:0; font-size:1.15rem; display:flex; align-items:center; } .outcomes-box ul { margin:.6rem 0 0; padding-left:1.25rem; } .outcomes-box li { margin-bottom:.4rem; color:#1e293b; font-size:.95rem; }
+        .prereq-box { background:#FFFBEB; border-left:4px solid #D97706; border-radius:var(--radius-card); padding:1.4rem 1.6rem; margin-bottom:2rem; }
+        .prereq-box h2 { margin-top:0; font-size:1.15rem; color:#92400E; display:flex; align-items:center; } .prereq-box ul { margin:.6rem 0 0; padding-left:1.25rem; } .prereq-box li { margin-bottom:.4rem; color:#78350F; font-size:.95rem; }
+        .badge { display:inline-flex; align-items:center; gap:4px; font-size:.75rem; font-weight:700; padding:2px 10px; border-radius:var(--radius-tag); }
+        .badge-beginner { background:#D1FAE5; color:#065F46; } .badge-time { background:#e8f6f6; color:#183868; }
+        .takeaways { background:#eef8f6; border-left:4px solid var(--brand-teal); border-radius:var(--radius-card); padding:1.5rem 1.75rem; margin-bottom:2rem; }
+        .takeaways h2 { margin-top:0; font-size:1.25rem; } .takeaways ul { padding-left:1.25rem; margin:.6rem 0 0; } .takeaways li { margin-bottom:.5rem; font-size:.95rem; }
+        blockquote.callout { border-left:3px solid var(--brand-secondary); background:#F8FAFC; margin:1.2rem 0; padding:.9rem 1.2rem; font-style:italic; color:#334155; border-radius:0 8px 8px 0; }
+        .article-footer { text-align:center; padding:2.5rem 1.5rem; background:#183868; color:rgba(255,255,255,.85); font-size:.88rem; }
+
+        table.op-table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:.85rem; }
+        table.op-table th, table.op-table td { text-align:left; padding:.65rem .75rem; border-bottom:1px solid var(--card-border); vertical-align:top; }
+        table.op-table th { color:var(--brand-primary); font-family:'Sora',sans-serif; font-size:.75rem; text-transform:uppercase; letter-spacing:.03em; background:#f8fafc; }
+
+        /* Numbered how-to steps */
+        .step-row { display:flex; gap:1rem; margin:1.1rem 0; align-items:flex-start; }
+        .step-num { flex:0 0 auto; width:2.2rem; height:2.2rem; border-radius:999px; background:linear-gradient(135deg,#183868,#28a8e8); color:#fff; font-family:'Sora',sans-serif; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:1rem; }
+        .step-body { flex:1; } .step-body h3 { margin:.2rem 0 .25rem; font-size:1rem; } .step-body p { margin:0; font-size:.92rem; color:#334155; }
+
+        /* Terminal output blocks */
+        .term { background:#0F172A; border-radius:10px; overflow:hidden; margin:1rem 0; box-shadow:0 4px 14px rgba(15,23,42,.25); }
+        .term-bar { display:flex; align-items:center; justify-content:space-between; padding:.5rem .9rem; background:#1E293B; border-bottom:1px solid #334155; }
+        .term-bar span { font-family:'Fira Code',monospace; font-size:.72rem; color:#94A3B8; }
+        .term pre { margin:0; padding:1rem; font-size:.76rem; line-height:1.55; color:#E2E8F0; overflow-x:auto; }
+        .term .ok { color:#4ade80; } .term .warn { color:#fbbf24; } .term .dim { color:#64748B; } .term .hi { color:#7dd3fc; font-weight:600; }
+        .copy-btn { font-size:.72rem; font-weight:700; padding:.25rem .7rem; border-radius:6px; border:1px solid #475569; background:#334155; color:#E2E8F0; cursor:pointer; transition:all .2s ease; }
+        .copy-btn:hover { background:#475569; }
+
+        /* Gate legend cards */
+        .gate-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.8rem; margin-top:1rem; }
+        .gate-card { border:1px solid var(--card-border); border-radius:10px; padding:.9rem 1rem; background:#FAFAFA; }
+        .gate-card h4 { margin:0 0 .3rem; font-size:.9rem; display:flex; align-items:center; gap:.4rem; }
+        .gate-card p { margin:0; font-size:.8rem; color:#475569; line-height:1.5; }
+        .gate-ico { font-size:1rem; }
+
+        /* Troubleshooting accordions */
+        details.trouble { border:1px solid var(--card-border); border-radius:10px; margin-top:.6rem; background:#FAFAFA; }
+        details.trouble summary { cursor:pointer; font-weight:700; font-size:.88rem; padding:.7rem 1rem; color:#183868; list-style:none; display:flex; align-items:center; gap:.5rem; }
+        details.trouble summary::before { content:'❓'; }
+        details.trouble[open] summary { border-bottom:1px solid var(--card-border); }
+        details.trouble .trouble-body { padding:.8rem 1rem; font-size:.87rem; color:#334155; }
+        details.trouble .trouble-body code { background:#EEF2FF; color:#1E40AF; padding:1px 5px; border-radius:4px; font-size:.8em; }
+    </style>
+</head>
+<body>
+    <div id="progress-bar" role="progressbar" aria-label="Reading progress"></div>
+
+    <nav class="bg-[#183868] border-b border-[#234c7d] text-white py-3 px-4 sm:px-8 flex justify-between items-center text-sm sticky top-0 z-40">
+        <a href="index.html" class="flex items-center space-x-2 font-bold text-lg text-white">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </a>
+        <div class="flex items-center space-x-5 text-xs sm:text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Series Home</a>
+            <a href="grill-method.html" class="text-gray-300 hover:text-white transition hidden sm:inline">Grill Method</a>
+            <a href="../assignments/index.html" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">The Assignment →</a>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-inner">
+            <span class="series-tag">Data Visualization Challenges · Tooling (No Coding Needed)</span>
+            <h1>The Self-Grading Kit: Grade Your Dashboard in One Double-Click</h1>
+            <p class="subtitle">You built the dashboard. Now let the machine grade it against all 4 spec gates — no coding, no installation wizardry. Download the repo, double-click one file, screenshot the result. That's the whole skill.</p>
+            <div class="tag-row flex flex-wrap gap-2 items-center">
+                <span class="tag-chip">Zero Setup</span><span class="tag-chip">grader.v2</span><span class="tag-chip">4 Boolean Gates</span><span class="tag-chip">Assignment-Ready Output</span>
+                <span class="read-time-badge">⏱ ~4 min read</span>
+            </div>
+            <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
+        </div>
+    </header>
+
+    <main class="article-body">
+
+        <section class="outcomes-box reveal">
+            <h2>🎯 What You'll Get</h2>
+            <ul>
+                <li>A <strong>one-file setup</strong> that installs everything the grader needs — you double-click, it handles the rest.</li>
+                <li>The ability to grade <strong>any HTML dashboard</strong> (yours or the reference) against the same 4 gates the trainer uses.</li>
+                <li>A <strong>screenshot-ready report</strong> to paste into your assignment PDF — the exact evidence Section B asks for.</li>
+                <li>Plain-English knowledge of what each gate actually checks, so a red ✗ never confuses you again.</li>
+            </ul>
+        </section>
+
+        <section class="prereq-box reveal">
+            <h2>🧰 What You Need (3 things)</h2>
+            <ul>
+                <li><strong>A Windows, Mac, or Linux computer</strong> — the kit has a script for each.</li>
+                <li><strong>Internet, once</strong> — the first double-click downloads the grader engine (~2 minutes). After that it works offline.</li>
+                <li><strong>The course repo</strong> — click the green <span class="badge" style="background:#059669;color:#fff;">&lt;&gt; Code</span> button on GitHub → <em>Download ZIP</em> → unzip it anywhere (Desktop is fine).</li>
+            </ul>
+            <p style="margin:.8rem 0 0; font-size:.88rem; color:#78350F;"><strong>You do NOT need:</strong> to know what Node.js is, to open a terminal, to type any command, or to install Python/Power BI/anything else. The kit does all of that for you.</p>
+        </section>
+
+        <section class="card reveal" id="how-to">
+            <h2>🚀 The 30-Second Path</h2>
+
+            <div class="step-row">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <h3>Download &amp; unzip the repo</h3>
+                    <p>On the GitHub repo page: green <strong>&lt;&gt; Code</strong> button → <strong>Download ZIP</strong>. Unzip it. You're looking for the folder that contains <code>self-grade.bat</code>.</p>
+                </div>
+            </div>
+
+            <div class="step-row">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <h3>Double-click <code>self-grade.bat</code> (Windows) — or run <code>self-grade.sh</code> (Mac/Linux)</h3>
+                    <p>A black window opens. The <strong>first time</strong>, it says <em>"First-time setup: installing the grader engine"</em> and takes ~2 minutes — that's the one-time internet step. On a Mac/Linux terminal: <code>bash self-grade.sh</code>.</p>
+                </div>
+            </div>
+
+            <div class="step-row">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <h3>Read your verdict</h3>
+                    <p>The window shows 4 gates, each with ✅ PASS or ❌ FAIL, and a final line: <code>FINAL SCORE: X / 4 GATES PASSED</code>. A copy is also saved as <code>self-grade-report.txt</code> inside the repo folder. Screenshot it for your PDF.</p>
+                </div>
+            </div>
+
+            <blockquote class="callout">By default the kit grades the <strong>reference dashboard</strong> (a demo run so you can see a real 4/4). To grade <strong>your own</strong> report, see the next section — it's the same double-click.</blockquote>
+        </section>
+
+        <section class="card reveal" id="own-report">
+            <h2>📄 Grade YOUR Own Report</h2>
+            <p class="text-sm text-gray-700">This is the part that matters for the <a href="../assignments/index.html" class="underline font-semibold">assignment</a>. You don't type anything — you <strong>drag and drop</strong>.</p>
+
+            <div class="term">
+                <div class="term-bar">
+                    <span>🖥️ Windows — drag &amp; drop, no typing</span>
+                </div>
+                <pre>1. Open the unzipped repo folder in File Explorer
+2. Find <span class="hi">your-dashboard.html</span> (it can live anywhere — Desktop, Downloads...)
+3. <span class="hi">Drag the file ON TOP OF self-grade.bat</span> and let go
+4. The kit opens and grades <span class="hi">your file</span> — that's it</pre>
+            </div>
+
+            <div class="term">
+                <div class="term-bar">
+                    <span>🖥️ Mac / Linux — one extra word in the terminal</span>
+                    <button class="copy-btn" data-copy="cmd-sh"><i class="far fa-copy mr-1"></i> Copy</button>
+                </div>
+                <pre id="cmd-sh">bash self-grade.sh /path/to/your-dashboard.html</pre>
+            </div>
+
+            <p class="text-sm text-gray-700">💡 <strong>Power BI students:</strong> the grader reads HTML files only. Your equivalent evidence is the hand-checked gate screenshots described in the <a href="../assignments/index.html#scorecard" class="underline font-semibold">scorecard</a> — doing those checks by hand is exactly why the Power BI path earns bonus marks.</p>
+        </section>
+
+        <section class="card reveal" id="sample">
+            <h2>🔍 What Real Output Looks Like</h2>
+            <p class="text-sm text-gray-700">This is the kit run on the reference dashboard — the <code>Not implemented: canvas</code> line at the top is <strong>normal and harmless</strong> (the grader doesn't draw pixels; it reads your code). Copy this button lets you reuse commands:</p>
+
+            <div class="term">
+                <div class="term-bar">
+                    <span>📋 self-grade-report.txt — reference dashboard, all gates pass</span>
+                </div>
+                <pre>=======================================================
+HARDENED DATA VIS SPEC GRADER v2: dashboard\index.html
+=======================================================
+
+[Gate 1: Baseline Integrity Check]
+  <span class="ok">✅ PASS</span>: Explicit zero-baseline configuration detected in executed page source.
+
+[Gate 2: CVD Accessibility &amp; Palette Check]
+  <span class="ok">✅ PASS</span>: All 3 Okabe-Ito tokens present + 3 shape redundancy tokens.
+
+[Gate 3: DOM Performance Budget Check] (measured after script execution)
+  -&gt; Live DOM nodes after render: <span class="hi">120</span>
+  -&gt; Active Canvas/SVG layers: <span class="hi">1</span>
+  <span class="ok">✅ PASS</span>: Live DOM footprint within budget (&lt;= 1,500 nodes) with dedicated canvas layer.
+
+[Gate 4: F-Pattern Grid Hierarchy Check]
+  <span class="ok">✅ PASS</span>: Grid/flex layout, 3 semantic headings, and a mobile breakpoint verified.
+
+=======================================================
+<span class="hi">FINAL SCORE: 4 / 4 GATES PASSED</span>
+=======================================================
+🌟 Dashboard passes specification gates. Ready for deployment.</pre>
+            </div>
+
+            <h3 style="font-size:1rem; margin-top:1.4rem;">The 4 Gates in Plain English</h3>
+            <div class="gate-grid">
+                <div class="gate-card">
+                    <h4><span class="gate-ico">📏</span> Gate 1 — Baseline</h4>
+                    <p>Does every chart start its measuring axis at zero? Truncated axes exaggerate differences — the classic way charts lie. <em>Fix:</em> set your y-axis minimum to 0 (or state why not).</p>
+                </div>
+                <div class="gate-card">
+                    <h4><span class="gate-ico">🎨</span> Gate 2 — Colour &amp; Shapes</h4>
+                    <p>Can a colourblind colleague still read your series? Your palette must include the 3 colourblind-safe tokens <em>and</em> distinct shapes (● ▲ ■) so colour isn't the only signal.</p>
+                </div>
+                <div class="gate-card">
+                    <h4><span class="gate-ico">⚡</span> Gate 3 — Speed</h4>
+                    <p>How heavy is your page after it finishes loading? Under 1,500 DOM nodes keeps the dashboard snappy on a lab PC or a phone. Heavy = slow = nobody opens it twice.</p>
+                </div>
+                <div class="gate-card">
+                    <h4><span class="gate-ico">📐</span> Gate 4 — Layout</h4>
+                    <p>Is there a real grid, proper headings (so it reads top-left → down, like people scan), and a mobile breakpoint? A PDF print of a phone-screen mess fails here.</p>
+                </div>
+            </div>
+
+            <p class="text-sm text-gray-700 mt-3">A FAIL tells you <strong>which decision</strong> drifted from your spec — not that you're bad at this. Each gate maps to failure modes you've studied: <a href="part-1.html" class="underline">Part 1</a> (dishonest baselines), <a href="part-2.html" class="underline">Part 2</a> (colour &amp; cognition), <a href="part-3.html" class="underline">Part 3</a> (layout &amp; context loss). The full evidence for why the gates are shaped this way: <a href="../VALIDATION.md" class="underline font-mono text-xs">VALIDATION.md</a>.</p>
+        </section>
+
+        <section class="card reveal" id="troubleshooting">
+            <h2>🧯 Troubleshooting — If Something Goes Wrong</h2>
+            <p class="text-sm text-gray-700">The 99% path is the double-click. If yours is the 1%, it's almost always one of these:</p>
+
+            <details class="trouble">
+                <summary>"Windows protected your PC" or "unknown publisher" blue box</summary>
+                <div class="trouble-body">Click <strong>More info → Run anyway</strong>. Windows says this about every .bat file from the internet — it's not a virus warning specific to this file. (You can also right-click the file → Properties → check <strong>Unblock</strong> → OK, then double-click normally.)</div>
+            </details>
+
+            <details class="trouble">
+                <summary>"node is not recognized" or the window closes instantly</summary>
+                <div class="trouble-body">Node.js isn't installed yet. Install the free <strong>LTS</strong> version from <a href="https://nodejs.org" class="underline" target="_blank" rel="noopener">nodejs.org</a> (Next → Next → Finish), then double-click <code>self-grade.bat</code> again. One-time step.</div>
+            </details>
+
+            <details class="trouble">
+                <summary>First-time setup stalls or says "Setup failed"</summary>
+                <div class="trouble-body">The grader engine (~2 min) needs internet. Check the Wi-Fi, close anything saturating it, and run the file again — it resumes cleanly. Campus networks sometimes block downloads: your phone hotspot always works. Still stuck? Ask the trainer to run <code>self-grade.bat</code> once on their machine — after that, everyone's copy of the repo works.</div>
+            </details>
+
+            <details class="trouble">
+                <summary>My dashboard scores below 4/4 — what now?</summary>
+                <div class="trouble-body">That's the kit <strong>working as intended</strong>: it found a drift between your spec and your pixels. Read the failing gate's line, fix that one decision, double-click again. Gates are boolean on purpose — there's no partial credit to negotiate, only a decision to correct. The <a href="grill-method.html" class="underline">Challenge-Grill Method</a> shows how the gate was supposed to be derived from your spec in the first place.</div>
+            </details>
+
+            <details class="trouble">
+                <summary>Can I break anything by running this?</summary>
+                <div class="trouble-body">No. The kit only <em>reads</em> your HTML file and writes one text file (<code>self-grade-report.txt</code>). It never modifies your dashboard, your marks, or anything outside the repo folder.</div>
+            </details>
+        </section>
+
+        <section class="card reveal" id="in-pdf">
+            <h2>📸 Turning the Verdict Into Assignment Evidence</h2>
+            <p class="text-sm text-gray-700">Section B of the <a href="../assignments/index.html#scorecard" class="underline font-semibold">scorecard</a> asks for gate evidence per report. For HTML reports, that's the grader output:</p>
+            <div class="step-row">
+                <div class="step-num">1</div>
+                <div class="step-body"><h3>Run the kit on your final file</h3><p>The one you're actually submitting — not an earlier draft.</p></div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">2</div>
+                <div class="step-body"><h3>Screenshot the whole window</h3><p>Include the <code>FINAL SCORE</code> line. <kbd class="text-xs font-mono bg-gray-100 px-1.5 py-0.5 rounded border">Win + Shift + S</kbd> on Windows, <kbd class="text-xs font-mono bg-gray-100 px-1.5 py-0.5 rounded border">Cmd + Shift + 4</kbd> on Mac.</p></div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">3</div>
+                <div class="step-body"><h3>Paste it in the Gates block of that report's PDF section</h3><p>Then continue with the <a href="../assignments/index.html#self-eval" class="underline font-semibold">self-evaluation steps</a> — the screenshot is one block of the three-report PDF.</p></div>
+            </div>
+        </section>
+
+        <section class="takeaways reveal">
+            <h2>✅ Takeaways</h2>
+            <ul>
+                <li>One double-click replaces "configure your environment" — the kit installs its own engine on first run.</li>
+                <li>Drag your .html file onto the .bat to grade your own report; no typing involved.</li>
+                <li>Each ✗ maps to a spec decision that drifted — fix the decision, not the score.</li>
+                <li>The screenshot of <code>FINAL SCORE</code> is your Section B gate evidence for HTML reports.</li>
+                <li>Curious what's inside? The whole engine is one readable file: <a href="../grader/grader.v2.js" class="underline font-mono text-xs">grader/grader.v2.js</a> — and why it was hardened is told in <a href="../article/index.html" class="underline">Part 8: Validation</a>.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="article-footer">
+        <div class="flex items-center justify-center space-x-2 font-bold text-lg text-white mb-2">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </div>
+        <p>Practice. Apply. Master.</p>
+        <p class="mt-2 text-xs opacity-80">Published from the Desk of Puneet Arora, Aplly.xyz Trainer · ⏱ Last updated: 29 Oct 2026 · © 2026 Aplly.xyz. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => { const h = document.documentElement; document.getElementById('progress-bar').style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%'; });
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: .12 });
+            document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+        } else {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
+
+        // Copy buttons (with fallback for file:// / non-HTTPS contexts)
+        function legacyCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            let ok = false;
+            try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+            document.body.removeChild(ta);
+            return ok;
+        }
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const src = document.getElementById(btn.dataset.copy);
+                const old = btn.innerHTML;
+                const done = () => { btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!'; setTimeout(() => { btn.innerHTML = old; }, 2000); };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(src.innerText).then(done).catch(() => { legacyCopy(src.innerText) ? done() : (btn.innerHTML = '<i class="fas fa-hand-pointer mr-1"></i> Select &amp; copy manually'); });
+                } else {
+                    legacyCopy(src.innerText) ? done() : (btn.innerHTML = '<i class="fas fa-hand-pointer mr-1"></i> Select &amp; copy manually');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

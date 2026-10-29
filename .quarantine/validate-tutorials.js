@@ -198,11 +198,35 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     const hubCards = rootDom.window.document.querySelectorAll('.hub-card').length;
     if (hubCards !== 8) fail(`root index.html | expected 8 hub cards, got ${hubCards}`);
     if (!rootHtml.includes('name="last-updated"')) fail('root index.html | missing last-updated meta tag');
-    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'assignments/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
+    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
         if (!rootHtml.includes(link)) fail(`root index.html | missing hub link: ${link}`);
     }
     rootDom.window.close();
     if (!failures) console.log(`PASS root index.html | ${hubCards} hub cards, all entry points linked`);
+
+    // Self-grading kit: wrapper scripts + tutorial page + cross-links
+    const bat = fs.readFileSync(path.join(__dirname, '..', 'self-grade.bat'), 'utf8');
+    for (const token of ['grader\\grader.v2.js', 'npm install jsdom', 'node_modules\\jsdom', 'self-grade-report.txt', '%~1', 'nodejs.org']) {
+        if (!bat.includes(token)) fail(`self-grade.bat | missing token: ${token}`);
+    }
+    const sh = fs.readFileSync(path.join(__dirname, '..', 'self-grade.sh'), 'utf8');
+    for (const token of ['grader/grader.v2.js', 'npm install jsdom', 'node_modules/jsdom', 'self-grade-report.txt', 'nodejs.org']) {
+        if (!sh.includes(token)) fail(`self-grade.sh | missing token: ${token}`);
+    }
+    const kitHtml = fs.readFileSync(path.join(dir, 'self-grading-kit.html'), 'utf8');
+    const kitDom = new JSDOM(kitHtml);
+    kitDom.window.close();
+    if (!kitHtml.includes('name="last-updated"')) fail('self-grading-kit.html | missing last-updated meta tag');
+    for (const token of ['self-grade.bat', 'self-grade.sh', 'FINAL SCORE', 'Drag the file ON TOP', 'Windows protected your PC', 'nodejs.org', 'self-grade-report.txt', 'Okabe-Ito', 'DOM nodes after render', 'Win + Shift + S']) {
+        if (!kitHtml.includes(token)) fail(`self-grading-kit.html | missing token: ${token}`);
+    }
+    for (const link of ['../assignments/index.html', '../grader/grader.v2.js', '../VALIDATION.md', 'grill-method.html', 'part-1.html', 'part-2.html', 'part-3.html']) {
+        if (!kitHtml.includes(link)) fail(`self-grading-kit.html | missing cross-link: ${link}`);
+    }
+    const kitIdx = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+    if (!kitIdx.includes('self-grading-kit.html')) fail('tutorials/index.html | missing kit link');
+    if (!fs.readFileSync(path.join(__dirname, '..', 'assignments', 'index.html'), 'utf8').includes('self-grading-kit.html')) fail('assignments/index.html | missing kit link');
+    if (!failures) console.log('PASS self-grading kit | .bat + .sh + tutorial page + cross-links wired');
 
     console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL CHECKS PASSED');
     process.exit(failures ? 1 : 0);
