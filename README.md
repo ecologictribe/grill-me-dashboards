@@ -36,7 +36,8 @@ tutorials/                           "Data Visualization Challenges, Decoded":
 assignments/index.html               THE CLASS ASSIGNMENT (issued 29 Oct 2026,
                                     due 5 Nov 2026): pick 3 of the 20 cases →
                                     3 reports → one PDF on eflow → presentation.
-                                    Power BI bonus. Self/trainer scorecard.
+                                    HTML default (auto-graded); Power BI
+                                    optional (+bonus). Self/trainer scorecard.
 
 datasets/                            21 synthetic CSVs — one trap-laden dataset
     index.html                           per case challenge + themed catalog
@@ -74,8 +75,8 @@ and a paginated severity-sorted anomaly log (bottom).
 1. Start at `tutorials/index.html` → **The Challenge-Grill Method**.
 2. Pick 3 of the 20 challenges from `assignments/index.html`.
 3. Download their CSVs from `datasets/` (GitHub folder or the catalog page).
-4. Grill → spec → build (Power BI or HTML) → self-grade → submit one PDF to
-   eflow by 5 Nov 2026 → present.
+4. Grill → spec → build in HTML (default) or optionally Power BI (+bonus) →
+   self-grade → submit one PDF to eflow by 5 Nov 2026 → present.
 
 ## Hosting — GitHub Pages (static)
 

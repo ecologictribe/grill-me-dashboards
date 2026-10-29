@@ -19,7 +19,8 @@ are never deleted — retired uncommitted artifacts go to `.quarantine/`.
 3. **Class assignment** — `assignments/index.html`: issued **29 Oct 2026**,
    due **5 Nov 2026** via **eflow portal**, one PDF
    (`RollNo_Name_DatavizAssignment.pdf`); 3 of 20 challenges → 3 separate
-   reports; Power BI or HTML (**+2/report Power BI bonus, capped +5**);
+   reports; HTML default (auto-graded by the self-grading kit), Power BI
+   optional (**+2/report Power BI bonus, capped +5**);
    graded 5–7 min presentation on 5 Nov; scorecard A(30)+B(30)+C honesty
    (15)+D delivery (25)+E bonus; pass 60; Seal of Honour ≥85 & |self−trainer|≤3.
    Class of ~50; recommendation: 1 easy + 1 medium + 1 hard.
@@ -121,5 +122,11 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
 - `article/dashboard-skills.html` (user's file) was swept into commit
   `3a72e4e` via `git add -A` — disclosed; offer stands to untrack
   (`git rm --cached`) if desired.
+- **Tool policy (user decision, 29 Oct):** HTML is the DEFAULT build path
+  (auto-graded via self-grading kit); Power BI is strictly OPTIONAL
+  (+bonus, hand-checked gates). Rationale: no script can grade a .pbix
+  (binary project, no DOM) — wording on assignment/hub/landing/kit pages
+  flipped from "Power BI or HTML" to "HTML default, Power BI optional".
+  Bonus structure (+2/report, cap +5) unchanged.
 - Open invitations from the user: expand challenge bank via Part C proposals;
   datasets for C21–C27 when adopted.
