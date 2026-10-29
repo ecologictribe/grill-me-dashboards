@@ -45,6 +45,12 @@ are never deleted — retired uncommitted artifacts go to `.quarantine/`.
 
 ## Conventions
 
+- **Last-updated stamps:** every HTML page carries
+  `<meta name="last-updated" content="…">` + a visible "⏱ Last updated" in
+  the footer; the generator's `BUILD_STAMP` constant (in
+  `scripts/generate-datasets.js`) drives `datasets/meta.json` — the
+  per-dataset manifest (case, title, rows, bytes, last_updated). Bump the
+  stamp when content changes; the probe enforces all of it.
 - **Theme:** aplly.xyz — brandNavy `#183868` → brandCyan `#28a8e8` gradient
   headers, Sora/DM Sans/Fira Code, Tailwind CDN + custom CSS, card layout,
   badges, progress bar, "From the Desk of Puneet Arora" attribution.
@@ -98,3 +104,8 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
   checklist; sign-box links to it.
 - Open invitations from the user: expand challenge bank via Part C proposals;
   datasets for C21–C27 when adopted.
+- `assignments/UX-REVIEW.md` — completed UI/UX audit of the assignment page
+  (P1: print stylesheet, aria-labels, print-scorecard, restore/reset chip;
+  P2: sticky TOC, countdown, section subtotals, declaration tabs, trio
+  tracker; P3 polish). **Recommendations not yet implemented** — awaiting
+  user go-ahead.

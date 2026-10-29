@@ -39,6 +39,11 @@ node scripts/generate-datasets.js
 Seeded PRNG (`20261029`) → the script always produces byte-identical files.
 Never edit the CSVs by hand; change the script instead.
 
+**Last updated: 2026-10-29T19:00:00+05:30.** The generator also writes
+[`meta.json`](meta.json) — the per-dataset manifest (case, title, rows,
+bytes, last_updated). Bump `BUILD_STAMP` in the script whenever datasets
+change; the catalog page shows the same date per card.
+
 ## The catalog — file, challenge, and the trap it contains
 
 | File | Challenge | Rows | The embedded trap |

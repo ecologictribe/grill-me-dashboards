@@ -9,6 +9,9 @@ const path = require('path');
 const OUT = path.join(__dirname, '..', 'datasets');
 fs.mkdirSync(OUT, { recursive: true });
 
+// Bump this stamp whenever datasets change (drives meta.json + page stamps)
+const BUILD_STAMP = '2026-10-29T19:00:00+05:30';
+
 // ---- seeded PRNG (mulberry32) ----
 function rng(seed) {
     let a = seed >>> 0;
@@ -26,9 +29,11 @@ const pick = (arr) => arr[randInt(0, arr.length - 1)];
 const round = (v, d = 1) => Math.round(v * 10 ** d) / 10 ** d;
 const iso = (d) => d.toISOString().slice(0, 10);
 
+const MANIFEST = [];
 function write(name, header, rows) {
     const csv = [header.join(','), ...rows.map(r => r.join(','))].join('\n') + '\n';
     fs.writeFileSync(path.join(OUT, name), csv, 'utf8');
+    MANIFEST.push({ file: name, rows: rows.length, bytes: Buffer.byteLength(csv, 'utf8') });
     console.log(`  ${name}  (${rows.length} rows, ${Math.round(csv.length / 1024)} KB)`);
 }
 
@@ -307,3 +312,41 @@ console.log('Generating synthetic datasets -> datasets/');
 }
 
 console.log('Done. 21 CSV files written to datasets/');
+
+/* Manifest: per-dataset metadata (case, title, size, timestamp) */
+const TITLES = {
+    'challenge-01-attendance-hero-axis.csv': ['C1', 'The Hero Axis'],
+    'challenge-02-lab-status.csv': ['C2', 'Red Means Go?'],
+    'challenge-03-missing-tuesday.csv': ['C3', 'The Missing Tuesday'],
+    'challenge-04-canteen-budget.csv': ['C4', 'Pie Overload'],
+    'challenge-05-chess-membership.csv': ['C5', 'The Zoomed Breakout'],
+    'challenge-06-class-marks.csv': ['C6', 'Which Average?'],
+    'challenge-07-transport-dual-axis.csv': ['C7', 'Double-Ruler Drama'],
+    'challenge-08-recycling-rows.csv': ['C8', 'Silent Row Loss'],
+    'challenge-09-room-usage.csv': ['C9', 'Hue-Only Heat Map'],
+    'challenge-10-canteen-queue.csv': ['C10', 'The Flicker Feed'],
+    'challenge-11-exam-results.csv': ['C11', 'Mobile Mashup'],
+    'challenge-12-energy-readings.csv': ['C12', 'Hover-Only Facts'],
+    'challenge-13-voting-sheet-a.csv': ['C13', 'Two Vote Counts — Sheet A'],
+    'challenge-13-voting-sheet-b.csv': ['C13', 'Two Vote Counts — Sheet B'],
+    'challenge-14-fitness-test.csv': ['C14', 'Names on the Big Screen'],
+    'challenge-15-activity-map.csv': ['C15', 'Cluster Mirage'],
+    'challenge-16-alarm-log.csv': ['C16', 'Alarm Storm'],
+    'challenge-17-feedback-sentiment.csv': ['C17', 'The Sarcasm Meter'],
+    'challenge-18-bus-gps.csv': ['C18', 'Phantom Spike'],
+    'challenge-19-prize-data.csv': ['C19', 'Broken Inheritance'],
+    'challenge-20-admissions.csv': ['C20', 'Export Amnesia'],
+};
+const meta = {
+    generated_by: 'scripts/generate-datasets.js',
+    seed: 20261029,
+    last_updated: BUILD_STAMP,
+    file_count: MANIFEST.length,
+    files: {},
+};
+for (const e of MANIFEST) {
+    const [cse, title] = TITLES[e.file] || ['?', e.file];
+    meta.files[e.file] = { case: cse, title, rows: e.rows, bytes: e.bytes, last_updated: BUILD_STAMP };
+}
+fs.writeFileSync(path.join(OUT, 'meta.json'), JSON.stringify(meta, null, 2) + '\n', 'utf8');
+console.log(`  meta.json written (last_updated: ${BUILD_STAMP})`);

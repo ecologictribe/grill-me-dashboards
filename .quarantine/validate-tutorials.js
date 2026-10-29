@@ -40,6 +40,8 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
 
         if (errors.length) fail(`${f} | script errors: ${errors.join(' ; ')}`);
         else console.log(`PASS ${f} | chal-cards: ${cards} | gates: ${gates} | grill-step: ${grill} | gate0: ${gate0}`);
+        if (!html.includes('name="last-updated"')) fail(`${f} | missing <meta name="last-updated">`);
+        if (!html.includes('Last updated: 29 Oct 2026')) fail(`${f} | missing visible last-updated footer stamp`);
 
         if (f.startsWith('part-')) {
             if (gates !== 5) fail(`${f} | expected 5 rubric gates (Gate 0 + 4), got ${gates}`);
@@ -89,6 +91,8 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
 
         if (errors.length) fail(`${f} | script errors: ${errors.join(' ; ')}`);
         else console.log(`PASS ${f} | chal-cards: ${cards} | self/trainer: ${selfInputs}/${trainerInputs} | pbi-bonus: ${pbi}`);
+        if (!html.includes('name="last-updated"')) fail(`${f} | missing <meta name="last-updated">`);
+        if (!html.includes('Last updated: 29 Oct 2026')) fail(`${f} | missing visible last-updated footer stamp`);
         if (cards !== 20) fail(`assignment | expected 20 challenges, got ${cards}`);
         if (selfInputs !== trainerInputs) fail(`assignment | self/trainer input mismatch (${selfInputs}/${trainerInputs})`);
         if (pbi !== 3) fail(`assignment | expected 3 Power BI bonus checkboxes, got ${pbi}`);
@@ -138,6 +142,18 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     if (unlinked.length) fail(`datasets/index.html | CSVs not linked from catalog: ${unlinked}`);
     const dsUse = (dsHtml.match(/class="ds-use/g) || []).length;
     if (dsUse !== 20) fail(`datasets/index.html | expected 20 per-card method chips, got ${dsUse}`);
+    const dsUpd = (dsHtml.match(/class="ds-upd"/g) || []).length;
+    if (dsUpd !== 20) fail(`datasets/index.html | expected 20 per-card timestamp stamps, got ${dsUpd}`);
+    if (!dsHtml.includes('name="last-updated"')) fail('datasets/index.html | missing last-updated meta tag');
+    // dataset manifest: meta.json covers every CSV with a timestamp
+    const meta = JSON.parse(fs.readFileSync(path.join(dsDir, 'meta.json'), 'utf8'));
+    if (!meta.last_updated) fail('meta.json | missing top-level last_updated');
+    const metaMissing = csvs.filter(c => !meta.files[c] || !meta.files[c].last_updated);
+    if (metaMissing.length) fail(`meta.json | CSVs missing from manifest: ${metaMissing}`);
+    const metaExtra = Object.keys(meta.files).filter(f => !csvs.includes(f));
+    if (metaExtra.length) fail(`meta.json | manifest entries without a CSV: ${metaExtra}`);
+    if (meta.file_count !== csvs.length) fail(`meta.json | file_count ${meta.file_count} != ${csvs.length} CSVs`);
+    if (!failures) console.log(`PASS datasets/meta.json | ${csvs.length} files stamped ${meta.last_updated}`);
     for (const link of ['../tutorials/grill-method.html', '../tutorials/index.html', '../assignments/index.html#challenges', '../challenges/challenges.txt', '../prompts/system_prompt_grill_me.md']) {
         if (!dsHtml.includes(link)) fail(`datasets/index.html | missing cross-link: ${link}`);
     }

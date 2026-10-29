@@ -1,0 +1,155 @@
+{
+  "generated_by": "scripts/generate-datasets.js",
+  "seed": 20261029,
+  "last_updated": "2026-10-29T19:00:00+05:30",
+  "file_count": 21,
+  "files": {
+    "challenge-01-attendance-hero-axis.csv": {
+      "case": "C1",
+      "title": "The Hero Axis",
+      "rows": 24,
+      "bytes": 399,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-02-lab-status.csv": {
+      "case": "C2",
+      "title": "Red Means Go?",
+      "rows": 16,
+      "bytes": 921,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-03-missing-tuesday.csv": {
+      "case": "C3",
+      "title": "The Missing Tuesday",
+      "rows": 30,
+      "bytes": 602,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-04-canteen-budget.csv": {
+      "case": "C4",
+      "title": "Pie Overload",
+      "rows": 14,
+      "bytes": 385,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-05-chess-membership.csv": {
+      "case": "C5",
+      "title": "The Zoomed Breakout",
+      "rows": 156,
+      "bytes": 2213,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-06-class-marks.csv": {
+      "case": "C6",
+      "title": "Which Average?",
+      "rows": 38,
+      "bytes": 986,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-07-transport-dual-axis.csv": {
+      "case": "C7",
+      "title": "Double-Ruler Drama",
+      "rows": 24,
+      "bytes": 573,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-08-recycling-rows.csv": {
+      "case": "C8",
+      "title": "Silent Row Loss",
+      "rows": 1200,
+      "bytes": 28795,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-09-room-usage.csv": {
+      "case": "C9",
+      "title": "Hue-Only Heat Map",
+      "rows": 96,
+      "bytes": 1636,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-10-canteen-queue.csv": {
+      "case": "C10",
+      "title": "The Flicker Feed",
+      "rows": 900,
+      "bytes": 32220,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-11-exam-results.csv": {
+      "case": "C11",
+      "title": "Mobile Mashup",
+      "rows": 60,
+      "bytes": 2550,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-12-energy-readings.csv": {
+      "case": "C12",
+      "title": "Hover-Only Facts",
+      "rows": 24,
+      "bytes": 419,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-13-voting-sheet-a.csv": {
+      "case": "C13",
+      "title": "Two Vote Counts — Sheet A",
+      "rows": 75,
+      "bytes": 2278,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-13-voting-sheet-b.csv": {
+      "case": "C13",
+      "title": "Two Vote Counts — Sheet B",
+      "rows": 25,
+      "bytes": 791,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-14-fitness-test.csv": {
+      "case": "C14",
+      "title": "Names on the Big Screen",
+      "rows": 50,
+      "bytes": 2908,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-15-activity-map.csv": {
+      "case": "C15",
+      "title": "Cluster Mirage",
+      "rows": 126,
+      "bytes": 2113,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-16-alarm-log.csv": {
+      "case": "C16",
+      "title": "Alarm Storm",
+      "rows": 60,
+      "bytes": 3023,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-17-feedback-sentiment.csv": {
+      "case": "C17",
+      "title": "The Sarcasm Meter",
+      "rows": 20,
+      "bytes": 1185,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-18-bus-gps.csv": {
+      "case": "C18",
+      "title": "Phantom Spike",
+      "rows": 302,
+      "bytes": 11778,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-19-prize-data.csv": {
+      "case": "C19",
+      "title": "Broken Inheritance",
+      "rows": 40,
+      "bytes": 1891,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    },
+    "challenge-20-admissions.csv": {
+      "case": "C20",
+      "title": "Export Amnesia",
+      "rows": 80,
+      "bytes": 7378,
+      "last_updated": "2026-10-29T19:00:00+05:30"
+    }
+  }
+}
