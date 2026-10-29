@@ -196,9 +196,9 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     const rootHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
     const rootDom = new JSDOM(rootHtml);
     const hubCards = rootDom.window.document.querySelectorAll('.hub-card').length;
-    if (hubCards !== 8) fail(`root index.html | expected 8 hub cards, got ${hubCards}`);
+    if (hubCards !== 9) fail(`root index.html | expected 9 hub cards, got ${hubCards}`);
     if (!rootHtml.includes('name="last-updated"')) fail('root index.html | missing last-updated meta tag');
-    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
+    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/index.html', 'eval-tool/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
         if (!rootHtml.includes(link)) fail(`root index.html | missing hub link: ${link}`);
     }
     rootDom.window.close();

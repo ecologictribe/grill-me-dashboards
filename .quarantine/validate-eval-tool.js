@@ -55,7 +55,7 @@ async function runProbeParity() {
         if (!toolHtml.includes(`id="${id}"`)) fail(`eval-tool | missing element id="${id}"`);
     }
     // 4. Safety + parity tokens
-    for (const token of ["setAttribute('sandbox', 'allow-scripts')", 'srcdoc', 'postMessage', 'last-updated', '../assignments/index.html', '../tutorials/self-grading-kit.html', '../dashboard/index.html', '../VALIDATION.md', '#0072b2', '#e69f00', '#cc79a7', 'beginatzero:true', '1500', '@media(max-width:767px)', 'self-grade-report.txt']) {
+    for (const token of ["setAttribute('sandbox', 'allow-scripts')", 'srcdoc', 'postMessage', 'last-updated', '../assignments/index.html', '../tutorials/self-grading-kit.html', '../dashboard/index.html', '../VALIDATION.md', 'aria-label="Breadcrumb"', '../index.html', '#0072b2', '#e69f00', '#cc79a7', 'beginatzero:true', '1500', '@media(max-width:767px)', 'self-grade-report.txt']) {
         if (!toolHtml.includes(token)) fail(`eval-tool | missing token: ${token}`);
     }
     // Sandbox must be opaque: the setAttribute call itself must not grant allow-same-origin.
