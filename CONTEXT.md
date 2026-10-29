@@ -92,7 +92,13 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
 ## State (as of 29 Oct 2026)
 
 - Everything above is committed & pushed; probe green (pages + datasets +
-  assignment + challenges.txt + UX elements).
+  assignment + challenges.txt + UX elements + landing hub).
+- **Tagged `v1.0.0`** (annotated, pushed) — the teaching suite "as issued
+  29 Oct 2026". Future changes (C21–C27 adoption, dataset regen) go to
+  v1.0.1+/v1.1.0; v1.0.0 stays the recoverable issued snapshot & Pages
+  rollback point. Tag strategy: semver — patch for fixes/stamps, minor for
+  new challenges/datasets, and re-tag a release page only if the assignment
+  wording itself changes.
 - **GitHub Pages hosting ready:** root `index.html` landing hub +
   `.github/workflows/pages.yml` (deploys main → Pages on push; probe runs
   pre-deploy). **Pending: owner flips Settings → Pages → Source: GitHub
@@ -108,6 +114,10 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
   declaration report tabs, clipboard fallback, mobile touch targets + table
   scroll wrappers, verdict scroll-into-view once, trainer-column tooltip,
   eflow anchor in timeline. Probe enforces the key elements.
+- Landing hub probe gate caught 2 real bugs pre-ship (nested `<a>` in card 7
+  splitting the card via HTML parser; missing grill-method link) — fixed with
+  a quick-link strip in the header. Probe now checks: 8 hub cards, all entry
+  links, last-updated meta.
 - `article/dashboard-skills.html` (user's file) was swept into commit
   `3a72e4e` via `git add -A` — disclosed; offer stands to untrack
   (`git rm --cached`) if desired.

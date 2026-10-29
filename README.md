@@ -98,3 +98,8 @@ missing dataset can't ship silently.
 
 Branch `main`, remote:
 https://github.com/ecologictribe/grill-me-dashboards.git
+
+**Release tag: `v1.0.0`** — the teaching suite exactly as issued on
+29 Oct 2026 (tutorial series, assignment, 21 datasets, challenge bank,
+hosting). Future edits get new tags; `v1.0.0` remains the recoverable
+issued snapshot. Browsing it: https://github.com/ecologictribe/grill-me-dashboards/releases/tag/v1.0.0
