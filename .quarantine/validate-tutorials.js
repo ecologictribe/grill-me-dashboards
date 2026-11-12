@@ -160,13 +160,14 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
             if (errors.length) fail(`${f} | script errors: ${errors.join(' ; ')}`);
             else console.log(`PASS ${f} | pack-cards: ${packCards} | self/trainer: ${selfInputs}/${trainerInputs}`);
             if (!html.includes('name="last-updated"')) fail(`${f} | missing <meta name="last-updated">`);
-            if (packCards !== 4) fail(`assignment-3 | expected 4 mystery pack cards, got ${packCards}`);
+            if (packCards !== 6) fail(`assignment-3 | expected 6 mystery pack cards, got ${packCards}`);
             if (selfInputs !== trainerInputs || selfInputs === 0) fail(`assignment-3 | self/trainer input mismatch (${selfInputs}/${trainerInputs})`);
             if (labelled !== selfInputs + trainerInputs) fail(`assignment-3 | aria-labels ${labelled}/${selfInputs + trainerInputs}`);
-            for (const pack of ['a3-pack-alpha.csv', 'a3-pack-beta.csv', 'a3-pack-gamma.csv', 'a3-pack-delta.csv']) {
+            for (const pack of ['a3-pack-alpha.csv', 'a3-pack-beta.csv', 'a3-pack-gamma.csv', 'a3-pack-delta.csv', 'a3-pack-epsilon.csv', 'a3-pack-zeta.csv']) {
                 if (!html.includes(`data/${pack}`)) fail(`assignment-3 | missing link to data/${pack}`);
                 if (!fs.existsSync(path.join(__dirname, '..', 'assignments', 'data', pack))) fail(`assignment-3 | missing CSV file assignments/data/${pack}`);
             }
+            if (!fs.existsSync(path.join(__dirname, '..', 'grader', 'grader.v3.js'))) fail('assignment-3 | missing grader/grader.v3.js');
             for (const token of ['13 Nov 2026', '20 Nov 2026', 'eflow', '_v2_curveball.csv', 'Red-Team', 'Naive AI Autopsy']) {
                 if (!html.includes(token)) fail(`assignment-3 | missing key token: ${token}`);
             }

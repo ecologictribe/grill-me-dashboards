@@ -6,7 +6,7 @@
     <title>Aplly Eval Tool: Grade Your Dashboard in the Browser | Aplly.xyz</title>
     <meta name="description" content="No install, no download. Drop your dashboard HTML into the browser-based eval tool — it runs your file in a sandbox and checks all 4 spec gates, with a copy-ready report for your assignment PDF.">
     <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
-    <meta name="last-updated" content="2026-10-30T01:30:00+05:30">
+    <meta name="last-updated" content="2026-11-12T09:35:00+05:30">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -163,7 +163,16 @@
 
         <!-- DROPZONE -->
         <section class="card">
-            <h2 style="font-size:1.2rem; margin-top:0;">📄 Drop Your Report Here</h2>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <h2 style="font-size:1.2rem; margin:0;">📄 Drop Your Report Here</h2>
+                <label class="text-xs font-bold text-slate-700 flex items-center gap-2">
+                    <span>Gate Profile:</span>
+                    <select id="gate-profile" class="px-2.5 py-1 border border-slate-300 rounded-lg bg-white text-slate-900 font-semibold">
+                        <option value="v3">v3 · Assignment 3 (Dynamic &amp; Layout-Agnostic)</option>
+                        <option value="v2">v2 · Assignment 2 (DASH-SPEC Reference)</option>
+                    </select>
+                </label>
+            </div>
             <div id="dropzone" role="button" tabindex="0" aria-label="Drop your dashboard HTML file here, or press Enter to choose a file">
                 <div class="dz-ico">📥</div>
                 <h3>Drop your <code>dashboard.html</code> onto this box</h3>
@@ -239,8 +248,26 @@
 
         <!-- GATE LEGEND -->
         <section class="card">
-            <h2 style="font-size:1.2rem; margin-top:0;">🔍 The 4 Gates in Plain English</h2>
-            <div class="gate-grid">
+            <h2 style="font-size:1.2rem; margin-top:0;">🔍 The 4 Gates in Plain English (<span id="legend-mode-label">v3 · Layout-Agnostic &amp; Dynamic</span>)</h2>
+            <div class="gate-grid" id="legend-v3">
+                <div class="gate-card">
+                    <h4>📏 Gate 1 — Scale, Unit &amp; Render Truth</h4>
+                    <p>No leaked <code>NaN</code>, <code>undefined</code>, or <code>[object Object]</code> in the rendered UI, plus explicit measurement units/scale context alongside your visual layer (works for zero-baseline <em>and</em> valid non-zero domains like °C or uncertainty cones).</p>
+                </div>
+                <div class="gate-card">
+                    <h4>🎨 Gate 2 — Palette-Agnostic CVD</h4>
+                    <p>Use <em>any</em> accessible palette — as long as colour is backed by ≥2 non-colour cues (symbols, shapes, <code>stroke-dasharray</code>, hatch patterns, icons, or text/ARIA badges).</p>
+                </div>
+                <div class="gate-card">
+                    <h4>⚡ Gate 3 — Dynamic Data &amp; Runtime</h4>
+                    <p>Zero uncaught JS errors, live DOM under 2,000 nodes with active <code>canvas</code>/<code>svg</code>, <strong>and</strong> a real <code>&lt;input type="file"&gt;</code> CSV loader so the Curveball swap runs live.</p>
+                </div>
+                <div class="gate-card">
+                    <h4>📐 Gate 4 — Any Layout + 375px Fit</h4>
+                    <p><strong>F-pattern, Z-pattern, Bento, Pyramid, or Narrative</strong> — all welcome! Checks semantic headings, visible static/print text (no hover-only facts), and real horizontal fit at <strong>375px</strong> mobile width.</p>
+                </div>
+            </div>
+            <div class="gate-grid" id="legend-v2" style="display:none;">
                 <div class="gate-card">
                     <h4>📏 Gate 1 — Baseline</h4>
                     <p>Does every chart start its measuring axis at zero? Truncated axes exaggerate differences — the classic way charts lie. <em>Fix:</em> set your y-axis minimum to 0 (or state why not).</p>
@@ -258,7 +285,7 @@
                     <p>Is there a real grid or flex layout, 2+ semantic headings (so it reads top-left → down, like people scan), and a mobile breakpoint below 768px?</p>
                 </div>
             </div>
-            <p class="mini-note mt-3">Each ✗ maps to a spec decision that drifted — not to you being "bad at this". Fix the decision, drop the file again. Gate theory lives in <a href="../tutorials/grill-method.html" class="underline font-semibold">the Challenge-Grill Method</a>; why these exact gates exist: <a href="../article/index.html" class="underline font-semibold">Part 8 — Validation</a> · <a href="../VALIDATION.md" class="underline font-mono text-xs">VALIDATION.md</a>.</p>
+            <p class="mini-note mt-3">Offline CLIs: <a href="../grader/grader.v3.js" class="underline font-mono text-xs">grader.v3.js</a> (Assignment 3) · <a href="../grader/grader.v2.js" class="underline font-mono text-xs">grader.v2.js</a> (Assignment 2) · <a href="../assignments/assignment-3.html" class="underline font-semibold">Assignment 3</a> · <a href="../article/index.html" class="underline font-semibold">Part 8 — Validation</a> · <a href="../VALIDATION.md" class="underline font-mono text-xs">VALIDATION.md</a>.</p>
         </section>
 
         </div><!-- /tab-gates -->
@@ -374,6 +401,12 @@
             3: 'DOM Performance Budget Check',
             4: 'F-Pattern Grid Hierarchy Check'
         };
+        var GATE_NAMES_V3 = {
+            1: 'Scale, Unit & Rendering Truth',
+            2: 'Palette-Agnostic CVD & Dual Encoding',
+            3: 'Dynamic CSV Readiness & Runtime Budget',
+            4: 'Layout-Agnostic Hierarchy & 375px Fit'
+        };
 
         // The probe that runs INSIDE the sandboxed iframe, after the student's
         // own scripts have executed. Ported gate-for-gate from grader/grader.v2.js.
@@ -424,6 +457,78 @@
             var score = gates.filter(function (g) { return g.pass; }).length;
             parent.postMessage({
                 source: 'aplly-eval',
+                gates: gates,
+                score: score,
+                total: gates.length,
+                title: doc.title || '(untitled page)',
+                ts: new Date().toISOString()
+            }, '*');
+        }
+
+        // Behavioral & layout-agnostic probe (v3) — mirrors grader/grader.v3.js
+        // and measures real horizontal overflow at 375px inside the sandbox.
+        function apllyProbeV3() {
+            function norm(s) { return s.toLowerCase().replace(/\s+/g, ''); }
+            var doc = document;
+            var raw = doc.documentElement.outerHTML;
+            var bodyText = (doc.body ? (doc.body.innerText || doc.body.textContent) : '') || '';
+            var gates = [];
+
+            // Gate 1 — Scale, Unit & Rendering Truth (no NaN/undefined leaks + visible units)
+            var hasLeak = /\b(NaN|undefined|\[object Object\])\b/.test(bodyText);
+            var hasUnits = /(%|kwh|inr|₹|°c|°f|mins|minutes|hours|sqm|score|prob|ratio|rate|baseline|zero|0\b|confidence|band)/i.test(bodyText);
+            var hasVis = doc.querySelectorAll('canvas, svg, table').length > 0;
+            var g1 = !hasLeak && hasUnits && hasVis;
+            gates.push({ id: 1, pass: g1, detail: g1
+                ? 'Clean rendered output (no NaN/undefined leaks) with explicit unit/scale context.'
+                : (hasLeak ? 'Leaked NaN/undefined/[object Object] in visible text. ' : '') +
+                  (!hasUnits ? 'No explicit measurement units or scale context found in visible text. ' : '') +
+                  (!hasVis ? 'No canvas, svg, or table rendered.' : '') });
+
+            // Gate 2 — Palette-Agnostic CVD & Dual Encoding (>= 2 non-color cues)
+            var cues = [];
+            if (/[●▲■◆🛑⚠✓✕★]/.test(raw) || doc.querySelectorAll('i[class*="fa-"]').length > 0) cues.push('symbols/icons');
+            if (/stroke-dasharray|repeating-linear-gradient|pattern/i.test(raw) || doc.querySelectorAll('svg circle, svg rect, svg polygon').length >= 2) cues.push('SVG/hatch geometry');
+            if (doc.querySelectorAll('[aria-label], [data-status], .badge, .pill, [role="status"]').length >= 2) cues.push('text/aria labels');
+            if (/(okabe|viridis|cividis|tol|#0072b2|#e69f00|#cc79a7|#28a8e8|#183868|#3c9080)/i.test(raw)) cues.push('accessible palette tokens');
+            var rawRG = /#ff0000/i.test(raw) && /#00ff00/i.test(raw) && cues.length < 2;
+            var g2 = cues.length >= 2 && !rawRG;
+            gates.push({ id: 2, pass: g2, detail: g2
+                ? 'Palette-agnostic dual encoding verified (' + cues.join(', ') + ').'
+                : 'Need >= 2 non-color encoding cues (symbols, SVG geometry/dash, aria/text badges); found: ' + (cues.join(', ') || 'none') + '.' });
+
+            // Gate 3 — Dynamic CSV Readiness, Clean Runtime & DOM Budget
+            var errs = window.__apllyErrs || [];
+            var total = doc.querySelectorAll('*').length;
+            var canvas = doc.querySelectorAll('canvas, svg').length;
+            var hasFile = doc.querySelectorAll('input[type="file"]').length > 0;
+            var g3 = errs.length === 0 && hasFile && total <= 2000 && canvas > 0;
+            gates.push({ id: 3, pass: g3, detail: 'Errors: ' + errs.length + ' · File loader: ' + (hasFile ? 'yes' : 'missing') + ' · Nodes: ' + total + ' · Canvas/SVG: ' + canvas +
+                (g3 ? ' — dynamic CSV ready & within budget.' :
+                    (errs.length ? ' — runtime error: ' + errs[0] : '') +
+                    (!hasFile ? ' — missing <input type="file"> CSV loader.' : '') +
+                    (total > 2000 ? ' — DOM > 2,000 nodes.' : '') +
+                    (canvas === 0 ? ' — missing canvas/svg layer.' : '')) });
+
+            // Gate 4 — Layout-Agnostic Hierarchy, Real 375px Fit & Static Truth
+            var n = norm(raw);
+            var headings = doc.querySelectorAll('h1, h2, h3').length;
+            var hasLayout = ['display:grid', 'display:flex', 'grid-template-columns', 'grid-cols-', 'flex-'].some(function (t) { return n.indexOf(t) > -1; });
+            var overflowPx = (doc.documentElement && window.innerWidth > 0) ? (doc.documentElement.scrollWidth - window.innerWidth) : 0;
+            var noOverflow = window.innerWidth > 0 ? (overflowPx <= 4) : (/@media\(max-width:/i.test(n) || /(sm:|md:|lg:|auto-fit|minmax\(|overflow-x-auto)/i.test(raw));
+            var visChars = bodyText.replace(/\s+/g, ' ').trim().length;
+            var g4 = headings >= 2 && hasLayout && noOverflow && visChars >= 80;
+            gates.push({ id: 4, pass: g4, detail: g4
+                ? 'Layout-agnostic hierarchy verified (' + headings + ' headings, ' + (window.innerWidth > 0 ? '375px fit OK' : 'responsive layout') + ', ' + visChars + ' visible chars).'
+                : (headings < 2 ? 'Need >= 2 h1/h2/h3 headings. ' : '') +
+                  (!hasLayout ? 'No grid/flex/Tailwind layout found. ' : '') +
+                  (!noOverflow ? 'Horizontal overflow of +' + overflowPx + 'px at 375px mobile width. ' : '') +
+                  (visChars < 80 ? 'Too little visible static text (<80 chars).' : '') });
+
+            var score = gates.filter(function (g) { return g.pass; }).length;
+            parent.postMessage({
+                source: 'aplly-eval',
+                profile: 'v3',
                 gates: gates,
                 score: score,
                 total: gates.length,
@@ -513,26 +618,49 @@
         var pending = null;   // { iframe, timer, meta }
         var lastReport = null;
 
+        var gateProfileEl = document.getElementById('gate-profile');
+        function syncLegendProfile() {
+            var v3 = !gateProfileEl || gateProfileEl.value === 'v3';
+            var l3 = document.getElementById('legend-v3');
+            var l2 = document.getElementById('legend-v2');
+            var lbl = document.getElementById('legend-mode-label');
+            if (l3) l3.style.display = v3 ? '' : 'none';
+            if (l2) l2.style.display = v3 ? 'none' : '';
+            if (lbl) lbl.textContent = v3 ? 'v3 · Layout-Agnostic & Dynamic' : 'v2 · DASH-SPEC Reference';
+        }
+        if (gateProfileEl) {
+            gateProfileEl.addEventListener('change', syncLegendProfile);
+            syncLegendProfile();
+        }
+
         function evaluate(htmlText, fileName, bytes) {
             if (pending) { try { pending.iframe.remove(); } catch (e) {} clearTimeout(pending.timer); }
+            var profile = gateProfileEl ? gateProfileEl.value : 'v3';
             reportCard.classList.add('show');
             verdictEl.className = 'verdict-banner';
-            verdictEl.textContent = '⏳ Running your dashboard and measuring the gates…';
+            verdictEl.textContent = '⏳ Running your dashboard (' + profile + ') and measuring the gates…';
             reportOut.textContent = 'Loading file into sandbox…';
-            termTitle.textContent = fileName;
+            termTitle.textContent = fileName + ' [' + profile + ']';
 
             var iframe = document.createElement('iframe');
             // One-way glass: allow-scripts WITHOUT allow-same-origin = opaque
             // origin. Scripts run; they cannot reach this page or its storage.
             iframe.setAttribute('sandbox', 'allow-scripts');
-            iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden;';
+            iframe.style.cssText = profile === 'v3'
+                ? 'position:fixed;left:-9999px;top:0;width:375px;height:812px;border:0;visibility:hidden;'
+                : 'position:absolute;width:0;height:0;border:0;visibility:hidden;';
             iframe.addEventListener('load', function () { /* probe fires on its own timer */ });
 
-            var probeSrc = '(' + apllyProbe.toString() + ')();';
-            iframe.srcdoc = htmlText + '\n<script>' + probeSrc + '<\/script>';
+            var errTrap = profile === 'v3'
+                ? '<script>window.__apllyErrs=[];window.addEventListener("error",function(e){window.__apllyErrs.push(e.message||"runtime error");});<\/script>\n'
+                : '';
+            var probeSrc = profile === 'v3'
+                ? 'setTimeout(function(){(' + apllyProbeV3.toString() + ')();}, 450);'
+                : '(' + apllyProbe.toString() + ')();';
+            iframe.srcdoc = errTrap + htmlText + '\n<script>' + probeSrc + '<\/script>';
             document.body.appendChild(iframe);
 
-            var meta = { fileName: fileName, bytes: bytes, iframe: iframe };
+            var meta = { fileName: fileName, bytes: bytes, iframe: iframe, profile: profile };
             meta.timer = setTimeout(function () {
                 finish({
                     source: 'aplly-eval', error: true, score: 0, total: 4, gates: [],
@@ -575,8 +703,9 @@
             if (data.error) {
                 L.push('⚠️ ' + data.detail);
             } else {
+                var namesMap = (data.profile === 'v3' || (meta && meta.profile === 'v3')) ? GATE_NAMES_V3 : GATE_NAMES;
                 data.gates.forEach(function (g) {
-                    L.push('[Gate ' + g.id + ': ' + GATE_NAMES[g.id] + ']');
+                    L.push('[Gate ' + g.id + ': ' + namesMap[g.id] + ']');
                     L.push('  ' + (g.pass ? '✅ PASS' : '❌ FAIL') + ': ' + g.detail);
                     L.push('');
                 });
@@ -595,6 +724,7 @@
 
         function finish(data, meta) {
             pending = null;
+            if (meta && meta.iframe) { try { meta.iframe.remove(); } catch (e) {} }
             var student = (evalStudentInput && evalStudentInput.value ? evalStudentInput.value.trim() : '') ||
                           (document.getElementById('sc-student') && document.getElementById('sc-student').value ? document.getElementById('sc-student').value.trim() : '') ||
                           'Anonymous Student / Pair';
@@ -667,8 +797,9 @@
             reader.readAsText(file);
         }
 
-        // Demo: grade the reference dashboard straight from this site
+        // Demo: grade the reference dashboard straight from this site (uses v2 DASH-SPEC profile)
         document.getElementById('demo-btn').addEventListener('click', function () {
+            if (gateProfileEl) { gateProfileEl.value = 'v2'; syncLegendProfile(); }
             fetch('../dashboard/index.html')
                 .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
                 .then(function (t) { evaluate(t, 'dashboard/index.html (reference)', t.length); })

@@ -210,7 +210,7 @@
                 <table class="op-table">
                     <thead><tr><th>Date</th><th>Phase</th><th>What Must Happen</th></tr></thead>
                     <tbody>
-                        <tr><td class="font-semibold whitespace-nowrap">Fri 13 Nov 2026</td><td>Kickoff &amp; Pack Pick</td><td>Assignment 3 issued. Select/get assigned 1 Mystery Pack below (Alpha, Beta, Gamma, or Delta) and inspect the raw CSV.</td></tr>
+                        <tr><td class="font-semibold whitespace-nowrap">Fri 13 Nov 2026</td><td>Kickoff &amp; Pack Pick</td><td>Assignment 3 issued. Select/get assigned 1 Mystery Pack below (Alpha–Zeta) and inspect the raw CSV.</td></tr>
                         <tr class="bg-gray-50"><td class="font-semibold whitespace-nowrap">13 – 15 Nov</td><td>Phase 1 · AI Autopsy</td><td>Generate a naive 1-prompt AI dashboard, capture it, inspect raw CSV rows, and file your <strong>Trap Discovery &amp; AI Autopsy Declaration</strong> on eflow.</td></tr>
                         <tr><td class="font-semibold whitespace-nowrap">16 – 17 Nov</td><td>Phase 2 · Grill &amp; Build</td><td>Run ≥3 Grill rounds → lock Spec Doc → build dynamic-CSV dashboard (HTML default; Power BI optional +bonus) → pass 4 Eval Tool gates + author <strong>1 Custom Gate</strong>.</td></tr>
                         <tr class="bg-gray-50"><td class="font-semibold whitespace-nowrap">18 – 19 Nov</td><td>Phase 3 · Red-Team Swap</td><td>Exchange artifacts with your assigned Red-Team reviewer. Break each other's edge cases, issue the 1-page Red-Team Card, and log your patches.</td></tr>
@@ -240,8 +240,8 @@
 
             <div class="tool-banner tool-banner-navy mt-4">
                 <div>
-                    <strong class="block text-sm text-[#0C4A6E]"><i class="fas fa-toolbox mr-1"></i> Required Course Toolkit</strong>
-                    <span class="text-xs text-[#0C4A6E]">Use the <a href="../prompts/system_prompt_grill_me.md" class="underline font-bold">Grill-Me Prompt</a>, <a href="../prompts/code_generation_prompt.md" class="underline font-bold">Build Prompt</a>, <a href="../eval-tool/index.html" class="underline font-bold">Browser Eval Tool</a>, and <a href="../challenges/challenges.txt" class="underline font-bold">Master Challenge Bank</a> (22 failure modes).</span>
+                    <strong class="block text-sm text-[#0C4A6E]"><i class="fas fa-toolbox mr-1"></i> Required Course Toolkit (Updated for v3 Layout-Agnostic Gates)</strong>
+                    <span class="text-xs text-[#0C4A6E]">Use the <a href="../prompts/system_prompt_grill_me.md" class="underline font-bold">Grill-Me Prompt</a>, <a href="../prompts/code_generation_prompt.md" class="underline font-bold">Build Prompt</a>, <a href="../eval-tool/index.html" class="underline font-bold">Browser Eval Tool (v3 profile)</a> / <a href="../grader/grader.v3.js" class="underline font-mono">grader.v3.js</a>, and <a href="../challenges/challenges.txt" class="underline font-bold">Master Challenge Bank</a>.</span>
                 </div>
                 <a href="../tutorials/grill-method.html" class="px-3 py-1.5 bg-[#0C4A6E] text-white text-xs rounded-lg font-bold hover:bg-[#0369A1] transition whitespace-nowrap">Review Grill Method →</a>
             </div>
@@ -249,8 +249,8 @@
 
         <!-- ============ MYSTERY PACKS ============ -->
         <section class="card reveal" id="packs">
-            <h2>📦 The 4 Mystery Multi-Trap Dataset Packs</h2>
-            <p class="text-sm text-gray-700">Pick <strong>one</strong> pack (or take the pack assigned by your trainer so neighboring pairs don't share data). <strong>Notice there are no trap names listed below</strong> — discovering all 3 embedded traps per pack is your first graded task.</p>
+            <h2>📦 The 6 Mystery Multi-Trap Dataset Packs</h2>
+            <p class="text-sm text-gray-700">Pick <strong>one</strong> pack (or take the pack assigned by your trainer so neighboring pairs don't share data—only ~4 pairs per pack in a class of 50). <strong>Notice there are no trap names listed below</strong> — discovering all 3 embedded traps per pack is your first graded task.</p>
 
             <div class="pack-grid" id="pack-grid">
                 <div class="pack-card" data-pack="alpha">
@@ -308,6 +308,34 @@
                         <button type="button" class="pick-btn" data-pack="delta">➕ Select Pack Delta</button>
                     </div>
                 </div>
+
+                <div class="pack-card" data-pack="epsilon">
+                    <div class="pack-top">
+                        <span class="pack-badge">PACK EPSILON · 300 rows</span>
+                        <span class="text-xs font-semibold text-slate-500">8 columns</span>
+                    </div>
+                    <h3>Club &amp; Peer Project Collaboration Network</h3>
+                    <p class="text-xs text-gray-600 m-0">Student club interaction edges and collaboration hours used to map active project teams and assign faculty mentors.</p>
+                    <div class="pack-meta"><strong>Audience:</strong> Student Activities Coordinator spotting isolated or overloaded project teams.</div>
+                    <div class="pack-actions">
+                        <a class="ds-link" href="data/a3-pack-epsilon.csv" download><i class="fas fa-download"></i> a3-pack-epsilon.csv</a>
+                        <button type="button" class="pick-btn" data-pack="epsilon">➕ Select Pack Epsilon</button>
+                    </div>
+                </div>
+
+                <div class="pack-card" data-pack="zeta">
+                    <div class="pack-top">
+                        <span class="pack-badge">PACK ZETA · 180 rows</span>
+                        <span class="text-xs font-semibold text-slate-500">11 columns</span>
+                    </div>
+                    <h3>PTM Wait-Time &amp; Parent Feedback Portal</h3>
+                    <p class="text-xs text-gray-600 m-0">Parent-Teacher Meeting booking logs across grades, streams, and counselors with wait durations and automated sentiment ratings.</p>
+                    <div class="pack-meta"><strong>Audience:</strong> School Principal &amp; PTM Coordinator adjusting counseling slots and queues.</div>
+                    <div class="pack-actions">
+                        <a class="ds-link" href="data/a3-pack-zeta.csv" download><i class="fas fa-download"></i> a3-pack-zeta.csv</a>
+                        <button type="button" class="pick-btn" data-pack="zeta">➕ Select Pack Zeta</button>
+                    </div>
+                </div>
             </div>
 
             <p class="text-xs text-slate-500 mt-3">Schema overview without spoilers: <a href="data/README.md" class="underline font-semibold">assignments/data/README.md</a>. On mobile, long-press any CSV button → <em>Download link</em>.</p>
@@ -327,7 +355,7 @@
                     <h3 class="text-sm font-bold text-[#183868] mt-0 mb-2"><i class="fas fa-people-arrows mr-1.5 text-[#28a8e8]"></i> Formation &amp; Cross-Pack Rules</h3>
                     <ul class="text-xs text-gray-700 space-y-1.5 list-disc pl-4 m-0">
                         <li><strong>Dual-Hat Classroom Model:</strong> Every student/pair plays <strong>Blue Team</strong> on their own Mystery Pack and <strong>Red Team</strong> on a different pair's dashboard.</li>
-                        <li><strong>Cross-Pack Matching:</strong> Pairs are matched across <em>different</em> packs (e.g., <code>Alpha ↔ Beta</code>, <code>Gamma ↔ Delta</code>) so the Red Team brings zero shared code or blind spots.</li>
+                        <li><strong>Cross-Pack Matching:</strong> Pairs are matched across <em>different</em> packs (e.g., <code>Alpha → Beta → Gamma → Delta → Epsilon → Zeta → Alpha</code>) so the Red Team brings zero shared code or blind spots.</li>
                         <li><strong>No Mutual Favours:</strong> Pair A never audits the same pair that audits Pair A (rotate in a ring: <code>A → B → C → A</code>) so scoring stays honest.</li>
                     </ul>
                 </div>
@@ -505,7 +533,7 @@ function runCustomGate5(parsedRows, renderedState) {
                         <tr class="bg-gray-50"><td>A4</td><td>Locked Spec Doc (<code>D1…Dn</code>) with 1 boolean gate mapped to each decision</td><td>6</td><td><input type="number" min="0" max="6" class="score-input self" data-max="6"></td><td><input type="number" min="0" max="6" class="score-input trainer" data-max="6"></td></tr>
 
                         <tr><td class="font-semibold" colspan="5" style="background:#eef8f6; color:#183868;">B · Dynamic Engineering &amp; Custom Gate (25)<span class="sub-score" id="sub-B"></span></td></tr>
-                        <tr><td>B1</td><td>Baseline Eval Tool / Grader gates: passes all 4 gates (baseline, CVD + shapes, honesty/scale, structure)</td><td>10</td><td><input type="number" min="0" max="10" class="score-input self" data-max="10"></td><td><input type="number" min="0" max="10" class="score-input trainer" data-max="10"></td></tr>
+                        <tr><td>B1</td><td>Baseline Eval Tool <strong>v3</strong> gates: passes all 4 layout-agnostic behavioral gates (scale/unit truth, palette-agnostic CVD, dynamic CSV + runtime, any-layout 375px fit)</td><td>10</td><td><input type="number" min="0" max="10" class="score-input self" data-max="10"></td><td><input type="number" min="0" max="10" class="score-input trainer" data-max="10"></td></tr>
                         <tr class="bg-gray-50"><td>B2</td><td>Dynamic CSV loader: live <code>&lt;input type="file"&gt;</code> drop-zone (or Power BI parameter), zero hardcoded data arrays</td><td>8</td><td><input type="number" min="0" max="8" class="score-input self" data-max="8"></td><td><input type="number" min="0" max="8" class="score-input trainer" data-max="8"></td></tr>
                         <tr><td>B3</td><td>Custom Gate #5 authored by student: catches a pack-specific trap that baseline gates miss</td><td>7</td><td><input type="number" min="0" max="7" class="score-input self" data-max="7"></td><td><input type="number" min="0" max="7" class="score-input trainer" data-max="7"></td></tr>
 
@@ -583,7 +611,7 @@ function runCustomGate5(parsedRows, renderedState) {
             <div class="tool-banner tool-banner-purple my-3">
                 <div>
                     <strong class="block text-sm text-[#5B21B6]"><i class="fas fa-id-card-clip mr-1"></i> Peer Scoring During Presentations</strong>
-                    <span class="text-xs text-[#5B21B6]">Audience pairs score presenters live using the <a href="../presentation-tool/index.html" class="underline font-bold">Presentation Scorecard Tool</a> (pick <em>A3 Pack Alpha–Delta</em>).</span>
+                    <span class="text-xs text-[#5B21B6]">Audience pairs score presenters live using the <a href="../presentation-tool/index.html" class="underline font-bold">Presentation Scorecard Tool</a> (pick <em>A3 Pack Alpha–Zeta</em>).</span>
                 </div>
                 <a href="../presentation-tool/index.html" class="px-3.5 py-2 bg-[#7C3AED] text-white text-xs rounded-lg font-bold hover:bg-[#6D28D9] transition whitespace-nowrap">Open Presentation Tool →</a>
             </div>
@@ -728,7 +756,9 @@ function runCustomGate5(parsedRows, renderedState) {
             alpha: { label: 'Pack Alpha — Campus Solar & Weather Operations', file: 'a3-pack-alpha.csv' },
             beta: { label: 'Pack Beta — Annual Sports & Merit Summary', file: 'a3-pack-beta.csv' },
             gamma: { label: 'Pack Gamma — Hostel & Zonal Canteen Provisioning', file: 'a3-pack-gamma.csv' },
-            delta: { label: 'Pack Delta — Student Academic Risk & Lab Telemetry', file: 'a3-pack-delta.csv' }
+            delta: { label: 'Pack Delta — Student Academic Risk & Lab Telemetry', file: 'a3-pack-delta.csv' },
+            epsilon: { label: 'Pack Epsilon — Club & Peer Project Collaboration Network', file: 'a3-pack-epsilon.csv' },
+            zeta: { label: 'Pack Zeta — PTM Wait-Time & Parent Feedback Portal', file: 'a3-pack-zeta.csv' }
         };
         const PKEY = 'apllyA3Pack';
         const MKEY = 'apllyA3Meta';
@@ -740,7 +770,7 @@ function runCustomGate5(parsedRows, renderedState) {
             const rollVal = (document.getElementById('a3-meta-roll').value || '').trim() || '[roll no.]';
             const rtVal = (document.getElementById('a3-meta-rt').value || '').trim() || '[Red-Team partner pair]';
             const packInfo = PACKS[selectedPack];
-            const packText = packInfo ? `${packInfo.label} (${packInfo.file})` : '[Pack Alpha / Beta / Gamma / Delta]';
+            const packText = packInfo ? `${packInfo.label} (${packInfo.file})` : '[Pack Alpha / Beta / Gamma / Delta / Epsilon / Zeta]';
 
             document.getElementById('tpl-autopsy').textContent = [
                 'ASSIGNMENT 3 — PHASE 1: TRAP DISCOVERY & AI AUTOPSY DECLARATION',

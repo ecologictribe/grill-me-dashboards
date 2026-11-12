@@ -204,6 +204,96 @@ const suffix = isCurveball ? '-v2-curveball.csv' : '.csv';
     writeCsv(`a3-pack-delta${suffix}`, ['alert_id', 'timestamp', 'cohort', 'student_ref', 'severity', 'event_type', 'risk_prob', 'top_factor_1', 'factor_1_weight', 'top_factor_2', 'factor_2_weight'], rows);
 }
 
+/* PACK EPSILON — Club & Peer Project Collaboration Network
+ * Traps: (1) Graph hairball: ~74% casual_rsvp noise obscures ~26% core_project team clusters,
+ *        (2) Mixed cadence: daily_ping rows mixed with weekly_summary rollup rows (double-count trap),
+ *        (3) Festival-week spike (week 11) amidst 10 flat baseline weeks (zoomed breakout bait).
+ */
+{
+    const total = isCurveball ? 450 : 300;
+    const clubs = isCurveball ? ['Robotics', 'Debate', 'Eco-Lab', 'Chess', 'Robotics Guild'] : ['Robotics', 'Debate', 'Eco-Lab', 'Chess'];
+    const weeks = [];
+    let wdt = startDate(2026, 8, 16);
+    for (let w = 0; w < 12; w++) { weeks.push(iso(wdt)); wdt = addDays(wdt, 7); }
+    const rows = [];
+    for (let i = 0; i < total; i++) {
+        const isFest = (i % 12 === 10); // Week 11 festival spike
+        const isCore = (i % 4 === 0);
+        const club = clubs[i % clubs.length];
+        const src = `MEM-${String(101 + (i % 42)).padStart(3, '0')}`;
+        const tgt = isCore
+            ? `MEM-${String(101 + ((i % 42) - (i % 3) + 1)).padStart(3, '0')}`
+            : `MEM-${String(101 + ((i * 7 + 13) % 42)).padStart(3, '0')}`;
+        const itype = isCore ? 'core_project' : (i % 2 === 0 ? 'casual_rsvp' : 'hallway_ping');
+        const isWeekly = (i % 9 === 0);
+        const cadence = isWeekly ? 'weekly_summary' : 'daily_ping';
+        const hrs = isWeekly ? round(rand(8.5, 16.0), 1) : (isFest ? round(rand(3.0, 5.5), 1) : round(rand(0.4, 1.8), 1));
+        rows.push([`EDG-${4001 + i}`, weeks[i % 12], src, tgt, club, itype, cadence, hrs]);
+    }
+    writeCsv(`a3-pack-epsilon${suffix}`, ['edge_id', 'week_ending', 'source_member', 'target_member', 'club_name', 'interaction_type', 'log_cadence', 'hours_logged'], rows);
+}
+
+/* PACK ZETA — PTM Wait-Time & Parent Feedback Portal
+ * Traps: (1) 6 high-cardinality slicer columns (grade, section, stream, counselor, mode, term_label),
+ *        (2) wait_minutes = -1 sentinel for no_show + mixed 2025-Q4 / 2026-Q4 years,
+ *        (3) Automated sentiment_score rates sarcastic comments high positive (0.84-0.94).
+ */
+{
+    const total = isCurveball ? 270 : 180;
+    const grades = ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'];
+    const sections = ['A', 'B', 'C'];
+    const streams = ['Science', 'Commerce', 'Arts'];
+    const counselors = ['C-Rao', 'C-Nair', 'C-Mehta', 'C-Kapoor'];
+    const modes = ['In-Person', 'Video-Call'];
+    const positiveComments = [
+        'Very clear subject progress summary.',
+        'Teacher answered every question patiently.',
+        'Helpful study plan for next term.',
+        'Smooth check-in and timely slot.'
+    ];
+    const sarcasticComments = [
+        'Loved waiting 88 minutes for a 2-minute chat, truly unforgettable!',
+        'Awesome organization—only lost my slot twice before lunch.',
+        'Brilliant 90-minute hallway tour while my slot timed out!',
+        'Fantastic experience staring at a loading screen for an hour!'
+    ];
+    const realNegComments = [
+        'Audio dropped twice during the video slot.',
+        'Too crowded near Gate 2 desk.'
+    ];
+    const rows = [];
+    for (let i = 0; i < total; i++) {
+        const term = (i % 3 === 0) ? '2025-Q4' : '2026-Q4';
+        const grade = grades[i % grades.length];
+        // Leave Grade 12 + Arts sparse/empty to trap naive nested dropdowns
+        const stream = (grade === 'Grade 12' && i % 5 !== 0) ? 'Science' : streams[i % streams.length];
+        const isNoShow = (i % 11 === 0) || (isCurveball && i > 220 && i % 4 === 0);
+        const isSarcastic = !isNoShow && ((i % 5 === 0) || (isCurveball && grade === 'Grade 11' && i % 2 === 0));
+        const status = isNoShow ? 'no_show' : 'completed';
+        const wait = isNoShow ? -1 : (isSarcastic ? randInt(62, 96) : randInt(4, 24));
+        let comment, sent;
+        if (isNoShow) {
+            comment = 'Parent did not join within 10-min grace window.';
+            sent = 0.50;
+        } else if (isSarcastic) {
+            comment = pick(sarcasticComments);
+            sent = round(rand(0.84, 0.94), 2); // NLP mis-scores sarcasm as positive!
+        } else if (i % 13 === 0) {
+            comment = pick(realNegComments);
+            sent = round(rand(0.18, 0.34), 2);
+        } else {
+            comment = pick(positiveComments);
+            sent = round(rand(0.76, 0.92), 2);
+        }
+        rows.push([
+            `PTM-${5001 + i}`, term, grade, sections[i % sections.length], stream,
+            counselors[i % counselors.length], modes[i % modes.length],
+            status, wait, sent, `"${comment}"`
+        ]);
+    }
+    writeCsv(`a3-pack-zeta${suffix}`, ['slot_id', 'term_label', 'grade', 'section', 'stream', 'counselor', 'mode', 'attendance_status', 'wait_minutes', 'sentiment_score', 'parent_comment'], rows);
+}
+
 if (!isCurveball) {
     const readme = `# Assignment 3 — Mystery Multi-Trap Dataset Packs
 
@@ -216,6 +306,8 @@ Generated deterministically by \`scripts/generate-a3-datasets.js\` (seed \`20261
 | **Beta** | \`a3-pack-beta.csv\` | ${MANIFEST[1].rows} | \`record_id, student_name, phone_ext, medical_note, house, event_name, event_stage, reported_index, verified_score\` |
 | **Gamma** | \`a3-pack-gamma.csv\` | ${MANIFEST[2].rows} | \`tx_id, date, zone_name, zone_area_sqm, zone_population, meal_slot, order_status, amount_inr\` |
 | **Delta** | \`a3-pack-delta.csv\` | ${MANIFEST[3].rows} | \`alert_id, timestamp, cohort, student_ref, severity, event_type, risk_prob, top_factor_1, factor_1_weight, top_factor_2, factor_2_weight\` |
+| **Epsilon** | \`a3-pack-epsilon.csv\` | ${MANIFEST[4].rows} | \`edge_id, week_ending, source_member, target_member, club_name, interaction_type, log_cadence, hours_logged\` |
+| **Zeta** | \`a3-pack-zeta.csv\` | ${MANIFEST[5].rows} | \`slot_id, term_label, grade, section, stream, counselor, mode, attendance_status, wait_minutes, sentiment_score, parent_comment\` |
 
 ## Trainer Only: Generating Live Curveball Files (20 Nov 2026)
 

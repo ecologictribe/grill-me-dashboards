@@ -95,22 +95,16 @@ Below is the complete, ready-to-adapt structure for issuing **Assignment 3** in 
 
 ---
 
-### 3.3 Mystery Multi-Trap Dataset Ideas (Using Uncovered `C21–C26` + Classic Traps)
+### 3.3 Mystery Multi-Trap Dataset Ideas (6 Packs: `Alpha–Zeta`)
 
-To prevent copying across a class of 50, create **4–5 Mystery Packs** (extendable in `scripts/generate-datasets.js`). Each CSV mixes **3 traps** without labeling them:
+To keep pack-sharing low across a class of ~50 (~4 pairs per pack) and enable a clean 6-pack Red-Team ring, `scripts/generate-a3-datasets.js` generates **6 unlabeled Mystery Packs** (each hiding 3 traps):
 
-- **Pack Alpha — "The Deceptive Campus Forecast"**
-  - *Hidden Traps:* `C21` Uncertainty band drawn as hard safe line + `C3` Outage-as-zero + `C12` Hover-only units.
-  - *Live Curveball (`_v2`):* Adds a week with 40% missing sensor rows and widens the confidence interval 3×.
-- **Pack Beta — "The Generative BI Sports/Exam Summary"**
-  - *Hidden Traps:* `C26` Auto-Chart value/bar-height mismatch or misleading sort + `C6` Mean vs. Median skew + `C14` Student PII names exposed in raw table.
-  - *Live Curveball (`_v2`):* Introduces an extreme outlier row (skewing mean +18 points) and renames two IDs to look like real student names.
-- **Pack Gamma — "The Zonal Hostel & Canteen Resource Map"**
-  - *Hidden Traps:* `C23` Area-lies distortion (large low-density zone vs. dense hostel) + `C13` Semantic conflict across two sheets (gross vs. net counts) + `C8` 1,250 rows crossing a 1,000-row silent cap.
-  - *Live Curveball (`_v2`):* Doubles rows to 2,100 and swaps the sort order of Zone A and Zone D.
-- **Pack Delta — "The Student Risk & Alert Monitor"**
-  - *Hidden Traps:* `C24` Black-box ML risk flags with no human-readable explanation + `C16` Alarm storm (noise flooding 3 critical alerts) + `C2/C9` Red/Green color-only severity.
-  - *Live Curveball (`_v2`):* Changes threshold distribution so 80% of alerts are low-priority noise and adds a new severity label `CRITICAL_PENDING`.
+- **Pack Alpha — "Campus Solar & Weather Operations"** (`C21` 66% uncertainty band + `C3` offline null outages + `C12` mixed `C`/`F` units).
+- **Pack Beta — "Annual Sports & Merit Summary"** (`C26` prelim/final duplicate aggregation + `C6` skewed mean vs. median + `C14` exposed PII columns).
+- **Pack Gamma — "Hostel & Zonal Canteen Provisioning"** (`C8` 1,320 rows with Hostel Block D past row 1,000 + `C23` area-vs-population distortion + `C13` `settled`/`cancelled`/`pending_reversal` statuses).
+- **Pack Delta — "Student Academic Risk & Lab Telemetry"** (`C24` unexplained ML `risk_prob` + `C16` info heartbeat alarm storm + `C2/C9` color-only severity).
+- **Pack Epsilon — "Club & Peer Project Collaboration Network"** (`C22` graph hairball of `casual_rsvp` edges + `#7` mixed `daily_ping` / `weekly_summary` cadence + `#10` festival-week spike bias).
+- **Pack Zeta — "PTM Wait-Time & Parent Feedback Portal"** (`C25`/`#5` 6 nested slicer dimensions + `#20` sarcastic complaints scored positive by NLP + `#22` `-1` sentinel `no_show` & mixed-year rows).
 
 ---
 

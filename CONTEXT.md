@@ -153,8 +153,11 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
   **13 Nov 2026**, due & live presentation **20 Nov 2026** via `eflow`) using
   Option 1 from `assignments/ASSIGNMENT-3-PROPOSAL.md` ("AI Autopsy, Peer
   Red-Team & Live Curveball Defense"). Deterministic generator
-  `scripts/generate-a3-datasets.js` outputs 4 unlabeled multi-trap Mystery Packs
-  into `assignments/data/a3-pack-{alpha,beta,gamma,delta}.csv` (and trainer-only
-  `--curveball <seed>` files into gitignored `var/a3-curveballs/`). Hub
-  `index.html` (11 cards), `presentation-tool/index.html` (`A3 Pack Alpha–Delta`),
-  and `.quarantine/validate-tutorials.js` updated and passing.
+  `scripts/generate-a3-datasets.js` outputs 6 unlabeled multi-trap Mystery Packs
+  into `assignments/data/a3-pack-{alpha,beta,gamma,delta,epsilon,zeta}.csv` (and
+  trainer-only `--curveball <seed>` files into gitignored `var/a3-curveballs/`).
+  Behavioral & layout-agnostic **v3 gates** added in `grader/grader.v3.js` and
+  `eval-tool/index.html` (`v3` / `v2` profile switcher, preserving Assignment 2
+  `v2` parity). Hub `index.html` (11 cards), `presentation-tool/index.html`
+  (`A3 Pack Alpha–Zeta` + Live Curveball outcome tracker), and
+  `.quarantine/validate-tutorials.js` updated and passing.

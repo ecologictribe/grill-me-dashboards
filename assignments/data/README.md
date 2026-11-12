@@ -9,6 +9,8 @@ Generated deterministically by `scripts/generate-a3-datasets.js` (seed `20261113
 | **Beta** | `a3-pack-beta.csv` | 48 | `record_id, student_name, phone_ext, medical_note, house, event_name, event_stage, reported_index, verified_score` |
 | **Gamma** | `a3-pack-gamma.csv` | 1320 | `tx_id, date, zone_name, zone_area_sqm, zone_population, meal_slot, order_status, amount_inr` |
 | **Delta** | `a3-pack-delta.csv` | 320 | `alert_id, timestamp, cohort, student_ref, severity, event_type, risk_prob, top_factor_1, factor_1_weight, top_factor_2, factor_2_weight` |
+| **Epsilon** | `a3-pack-epsilon.csv` | 300 | `edge_id, week_ending, source_member, target_member, club_name, interaction_type, log_cadence, hours_logged` |
+| **Zeta** | `a3-pack-zeta.csv` | 180 | `slot_id, term_label, grade, section, stream, counselor, mode, attendance_status, wait_minutes, sentiment_score, parent_comment` |
 
 ## Trainer Only: Generating Live Curveball Files (20 Nov 2026)
 
