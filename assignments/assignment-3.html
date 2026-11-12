@@ -232,7 +232,7 @@
                     <tbody>
                         <tr><td class="font-semibold">CSV Inspection</td><td>Writing quick EDA scripts or profiling column distributions.</td><td>Guessing traps without citing exact row numbers, IDs, or column values from your CSV.</td></tr>
                         <tr class="bg-gray-50"><td class="font-semibold">Naive Baseline</td><td>Generating the Phase 1 "1-prompt" broken dashboard to dissect.</td><td>Submitting the naive AI build as your final dashboard, or failing to spot ≥3 defects in it.</td></tr>
-                        <tr><td class="font-semibold">Dashboard Code</td><td>Writing HTML5/Canvas/Chart.js/D3 or Power BI DAX from your locked Spec Doc.</td><td><strong>Hardcoded data arrays or labels</strong> inside HTML/JS. If dropping <code>_v2_curveball.csv</code> fails to update every chart and KPI, <strong>Gate B2 = 0/8</strong>.</td></tr>
+                        <tr><td class="font-semibold">Dashboard Code</td><td>Writing HTML5/Canvas/Chart.js/D3 or Power BI DAX from your locked Spec Doc.</td><td><strong>Hardcoded data arrays or labels</strong> inside HTML/JS. If dropping <code>_v2_curveball.csv</code> fails to update every chart and KPI, <strong>Gate B2 = 0/8</strong>. (<em>Power BI optional path:</em> must use a Power Query File-Path Parameter <code>pCsvPath</code> so swapping CSV + clicking Refresh takes &lt;15s.)</td></tr>
                         <tr class="bg-gray-50"><td class="font-semibold">Custom Gate</td><td>Drafting the JS assertion or Power BI test checklist for your 5th gate.</td><td>Copy-pasting an existing <code>grader.v2.js</code> gate unchanged, or writing a gate that passes on broken data.</td></tr>
                         <tr><td class="font-semibold">Presentation</td><td>Rehearsing timing and structuring your 6-minute walkthrough.</td><td>Not knowing which Spec decision (<code>D1…Dn</code>) produced a visual rule, or failing to explain a Red-Team fix live.</td></tr>
                     </tbody>
@@ -242,7 +242,7 @@
             <div class="tool-banner tool-banner-navy mt-4">
                 <div>
                     <strong class="block text-sm text-[#0C4A6E]"><i class="fas fa-toolbox mr-1"></i> Required Course Toolkit (Updated for v3 Layout-Agnostic Gates)</strong>
-                    <span class="text-xs text-[#0C4A6E]">Use the <a href="../prompts/system_prompt_grill_me.md" class="underline font-bold">Grill-Me Prompt</a>, <a href="../prompts/code_generation_prompt.md" class="underline font-bold">Build Prompt</a>, <a href="../eval-tool/index.html" class="underline font-bold">Browser Eval Tool (v3 profile)</a> / <a href="../grader/grader.v3.js" class="underline font-mono">grader.v3.js</a>, and <a href="../challenges/challenges.txt" class="underline font-bold">Master Challenge Bank</a>.</span>
+                    <span class="text-xs text-[#0C4A6E]">Use the <a href="../prompts/system_prompt_grill_me.md" class="underline font-bold">Grill-Me Prompt</a>, <a href="../prompts/code_generation_prompt.md" class="underline font-bold">Build Prompt</a>, <a href="../eval-tool/index.html" class="underline font-bold">Browser Eval Tool (v3 profile)</a>, offline <a href="../grader/grader.v3.js" class="underline font-mono">grader.v3.js</a> (<a href="../self-grade-v3.bat" class="underline font-mono">self-grade-v3.bat</a> / <a href="../self-grade-v3.sh" class="underline font-mono">.sh</a>), and <a href="../challenges/challenges.txt" class="underline font-bold">Master Challenge Bank</a>.</span>
                 </div>
                 <a href="../tutorials/grill-method.html" class="px-3 py-1.5 bg-[#0C4A6E] text-white text-xs rounded-lg font-bold hover:bg-[#0369A1] transition whitespace-nowrap">Review Grill Method →</a>
             </div>
@@ -339,7 +339,7 @@
                 </div>
             </div>
 
-            <p class="text-xs text-slate-500 mt-3">Schema overview without spoilers: <a href="data/README.md" class="underline font-semibold">assignments/data/README.md</a>. On mobile, long-press any CSV button → <em>Download link</em>.</p>
+            <p class="text-xs text-slate-500 mt-3">Schema overview without spoilers: <a href="data/README.md" class="underline font-semibold">assignments/data/README.md</a> · Trainer 25-pair ring roster: <a href="data/a3-pairing-roster.md" class="underline font-semibold">assignments/data/a3-pairing-roster.md</a>. On mobile, long-press any CSV button → <em>Download link</em>.</p>
         </section>
 
         <!-- ============ RED TEAM PLAYBOOK ============ -->
@@ -356,7 +356,7 @@
                     <h3 class="text-sm font-bold text-[#183868] mt-0 mb-2"><i class="fas fa-people-arrows mr-1.5 text-[#28a8e8]"></i> Formation &amp; Cross-Pack Rules</h3>
                     <ul class="text-xs text-gray-700 space-y-1.5 list-disc pl-4 m-0">
                         <li><strong>Dual-Hat Classroom Model:</strong> Every student/pair plays <strong>Blue Team</strong> on their own Mystery Pack and <strong>Red Team</strong> on a different pair's dashboard.</li>
-                        <li><strong>Cross-Pack Matching:</strong> Pairs are matched across <em>different</em> packs (e.g., <code>Alpha → Beta → Gamma → Delta → Epsilon → Zeta → Alpha</code>) so the Red Team brings zero shared code or blind spots.</li>
+                        <li><strong>Cross-Pack Matching:</strong> Pairs are matched across <em>different</em> packs (e.g., <code>Alpha → Beta → Gamma → Delta → Epsilon → Zeta → Alpha</code>) using the <a href="data/a3-pairing-roster.md" class="underline font-semibold">25-Pair Ring Roster</a> so the Red Team brings zero shared code or blind spots.</li>
                         <li><strong>No Mutual Favours:</strong> Pair A never audits the same pair that audits Pair A (rotate in a ring: <code>A → B → C → A</code>) so scoring stays honest.</li>
                     </ul>
                 </div>
@@ -639,7 +639,7 @@ function runCustomGate5(parsedRows, renderedState) {
             <ol class="text-sm text-gray-700 list-decimal pl-5 mt-2 space-y-1.5">
                 <li><strong>The 3 Traps &amp; Naive AI Autopsy (90 sec):</strong> show the broken 1-prompt AI output and prove the 3 traps you uncovered in the raw CSV.</li>
                 <li><strong>Spec &amp; Custom Gate #5 (90 sec):</strong> cite 2 Grill decisions that changed your design and show your Custom Gate #5 code/rule.</li>
-                <li><strong>The Live Curveball Swap (2 min):</strong> the trainer hands you <code>_v2_curveball.csv</code>. Drop it into your dashboard <em>live</em> — verify charts, KPIs, and Gate #5 react accurately.</li>
+                <li><strong>The Live Curveball Swap (2 min):</strong> the trainer hands you <code>_v2_curveball.csv</code>. Drop it into your dashboard's file loader <em>live</em> (or for Power BI, swap your <code>pCsvPath</code> parameter &amp; click Refresh in &lt;15s) — verify charts, KPIs, and Gate #5 react accurately.</li>
                 <li><strong>Red-Team Patch &amp; Viva (2 min):</strong> show 1 bug your Red-Team partner caught, how you patched it, and defend your Self-Scorecard.</li>
             </ol>
 
