@@ -138,6 +138,22 @@ To prevent copying across a class of 50, create **4–5 Mystery Packs** (extenda
 
 ---
 
+### 3.6 Red Team Playbook — Definition, Formation, Composition & Duties
+
+- **Definition:** A **Red Team** is an independent adversarial audit group tasked with challenging assumptions, injecting edge-case data, and proving where a dashboard misleads or breaks *before* submission. Every pair wears two hats: **Blue Team** (builder on their own pack) and **Red Team** (auditor on another pair's pack).
+- **Formation (Cross-Pack, Non-Reciprocal Ring):** Pairs are matched across *different* Mystery Packs (`Alpha ↔ Beta`, `Gamma ↔ Delta`) in a directed ring (`A → B → C → A`) so there is zero shared code and no mutual-favour grading.
+- **Composition (2 Hats):**
+  1. **Data & Logic Challenger (CSV Breaker):** Mutates CSV rows (outage blanks, >1,000 rows, extreme outliers, reversed row order) to detect hardcoded arrays and broken math.
+  2. **Visual & Governance Auditor (Trap Hunter):** Checks 375px mobile & print views, colourblind (CVD) legibility, PII exposure, and Spec-to-Pixel drift (`D1…Dn`).
+- **Five Mandatory Duties (`R1–R5`):**
+  1. **`R1` Cold Black-Box Run:** Open the artifact without coaching; verify offline execution and zero console errors.
+  2. **`R2` Adversarial CSV Injection:** Drop a mutated CSV into the live loader and record whether charts and Custom Gate #5 update accurately.
+  3. **`R3` Spec-to-Pixel Drift Audit:** Verify every promised Spec decision (`D1…Dn`) is visibly enforced on screen.
+  4. **`R4` Issue Signed 1-Page Red-Team Audit Card:** File reproducible defects (`High/Med/Low`) with screenshots by **19 Nov** (*"Looks great" earns 0/10 on `C2`*).
+  5. **`R5` Blue-Team Patch & Rebuttal:** Patch verified bugs with before/after proof on Page 7 of the PDF (plus +2 Bounty Bonus `E2` for catching verified High-Severity flaws).
+
+---
+
 ## 4. Implementation Checklist (If You Approve Option 1)
 
 If you decide to adopt **Option 1**, here is the minimal set of repo updates needed to launch Assignment 3 cleanly:

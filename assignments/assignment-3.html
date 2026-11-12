@@ -167,6 +167,7 @@
         <a href="#timeline">📅 Timeline</a>
         <a href="#ai-rules">🤖 AI Rules</a>
         <a href="#packs">📦 Mystery Packs</a>
+        <a href="#red-team">🕵️ Red Team</a>
         <a href="#templates">📝 Templates</a>
         <a href="#pdf-structure">📑 PDF</a>
         <a href="#scorecard">📊 Scorecard</a>
@@ -310,6 +311,79 @@
             </div>
 
             <p class="text-xs text-slate-500 mt-3">Schema overview without spoilers: <a href="data/README.md" class="underline font-semibold">assignments/data/README.md</a>. On mobile, long-press any CSV button → <em>Download link</em>.</p>
+        </section>
+
+        <!-- ============ RED TEAM PLAYBOOK ============ -->
+        <section class="card reveal" id="red-team">
+            <h2>🕵️ The Red Team — Definition, Formation &amp; Duties</h2>
+
+            <div class="p-4 rounded-xl border border-rose-200 bg-rose-50/70 text-sm text-rose-950 mb-4">
+                <div class="font-bold text-rose-900 mb-1"><i class="fas fa-shield-virus mr-1.5"></i> What Is a Red Team?</div>
+                <p class="m-0 text-xs sm:text-sm leading-relaxed">Originating in security and engineering war-gaming, a <strong>Red Team</strong> is an <strong>independent adversarial audit group</strong> chartered to challenge assumptions, stress-test edge cases, and uncover where a system silently lies <em>before</em> it reaches real users. While the <strong>Blue Team</strong> (the dashboard authors) builds and defends the artifact, the Red Team actively tries to break it.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                    <h3 class="text-sm font-bold text-[#183868] mt-0 mb-2"><i class="fas fa-people-arrows mr-1.5 text-[#28a8e8]"></i> Formation &amp; Cross-Pack Rules</h3>
+                    <ul class="text-xs text-gray-700 space-y-1.5 list-disc pl-4 m-0">
+                        <li><strong>Dual-Hat Classroom Model:</strong> Every student/pair plays <strong>Blue Team</strong> on their own Mystery Pack and <strong>Red Team</strong> on a different pair's dashboard.</li>
+                        <li><strong>Cross-Pack Matching:</strong> Pairs are matched across <em>different</em> packs (e.g., <code>Alpha ↔ Beta</code>, <code>Gamma ↔ Delta</code>) so the Red Team brings zero shared code or blind spots.</li>
+                        <li><strong>No Mutual Favours:</strong> Pair A never audits the same pair that audits Pair A (rotate in a ring: <code>A → B → C → A</code>) so scoring stays honest.</li>
+                    </ul>
+                </div>
+
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                    <h3 class="text-sm font-bold text-[#183868] mt-0 mb-2"><i class="fas fa-users-gear mr-1.5 text-[#3c9080]"></i> Team Composition (Roles Inside a Red Team)</h3>
+                    <ul class="text-xs text-gray-700 space-y-1.5 list-disc pl-4 m-0">
+                        <li><strong>Role 1 — Data &amp; Logic Challenger (CSV Breaker):</strong> Mutates test CSVs (injects blank outage rows, duplicates, extreme outliers, &gt;1,000 rows, shuffled order) to catch hardcoded data or broken math.</li>
+                        <li><strong>Role 2 — Visual &amp; Governance Auditor (Trap Hunter):</strong> Tests 375px mobile layout, print/PDF export, colourblind (CVD) legibility, PII leakage, and Spec-to-Pixel drift.</li>
+                        <li><strong>Solo Students:</strong> Run both hats sequentially using the 4-check protocol below.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-sm font-bold text-[#183868] mb-2">📋 Five Mandatory Red-Team Duties (18 – 19 Nov 2026)</h3>
+            <div class="overflow-x-auto">
+                <table class="op-table">
+                    <thead><tr><th>#</th><th>Duty</th><th>Concrete Action Required</th><th>Evidence / Output</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-mono font-bold">R1</td>
+                            <td class="font-semibold">Cold Black-Box Run</td>
+                            <td>Open the Blue Team's HTML/PBIX without verbal coaching. Check offline load, console errors, and whether all KPIs match raw CSV counts.</td>
+                            <td>Pass/fail note + console screenshot if broken.</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="font-mono font-bold">R2</td>
+                            <td class="font-semibold">Adversarial CSV Injection</td>
+                            <td>Clone their pack CSV, mutate 3–5 rows (e.g., add a blank outage day, reverse sort order, add an extreme value), and drop it into their file loader.</td>
+                            <td>Proof of whether charts/Gate #5 updated or stayed frozen/hardcoded.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono font-bold">R3</td>
+                            <td class="font-semibold">Spec-to-Pixel Drift Audit</td>
+                            <td>Compare their Spec Doc decisions (<code>D1…Dn</code>) against the rendered UI. Flag any promised safeguard (units, median, CVD shapes, anonymized IDs) missing on screen.</td>
+                            <td>Exact <code>D#</code> citation of any drifted rule.</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="font-mono font-bold">R4</td>
+                            <td class="font-semibold">Issue Red-Team Audit Card</td>
+                            <td>Deliver the signed 1-page Red-Team Audit Card (Template 3 below) by <strong>19 Nov</strong>. <em>"Looks great, no bugs" earns 0/10 on C2.</em></td>
+                            <td>Completed Audit Card handed to Blue Team + included in PDF.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono font-bold">R5</td>
+                            <td class="font-semibold">Blue Team Patch &amp; Rebuttal</td>
+                            <td>When you receive your own Red-Team Card back, patch every verified bug (with before/after screenshots) or document a technical rebuttal on Page 7.</td>
+                            <td>Before/after patch log in final PDF + 20 Nov viva defense.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-3 p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-xs text-indigo-950">
+                <strong><i class="fas fa-award mr-1 text-indigo-600"></i> Rules of Engagement &amp; Bounty Incentives:</strong> Attack the <em>dashboard and data pipeline</em>, never the classmate. Every defect must include steps to reproduce. Thorough auditing earns up to <strong>10 marks (<code>C2</code>)</strong>, and catching a verified High-Severity defect (hardcoded arrays, PII leak, silent row truncation, or broken Gate #5) earns a <strong>+2 Bounty Bonus (<code>E2</code>)</strong>.
+            </div>
         </section>
 
         <!-- ============ TEMPLATES ============ -->
