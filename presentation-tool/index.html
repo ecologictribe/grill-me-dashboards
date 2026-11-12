@@ -6,7 +6,7 @@
     <title>Aplly Presentation Scorecard: Grade a Presenting Pair | Aplly.xyz</title>
     <meta name="description" content="Peer-evaluation tool for the 5 Nov presentations. Score a presenting pair on problem understanding, dashboard design, grill depth, inferences, detections, generalizations and conclusions — generate a scorecard to share with the trainer.">
     <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
-    <meta name="last-updated" content="2026-11-12T09:22:00+05:30">
+    <meta name="last-updated" content="2026-11-12T12:05:00+05:30">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -44,8 +44,11 @@
         .mini-note code { background:#EEF2FF; color:#1E40AF; padding:1px 5px; border-radius:4px; font-size:.85em; }
 
         /* Rubric */
-        .rubric-row { border:1px solid var(--card-border); border-radius:10px; padding:.9rem 1rem; margin-bottom:.8rem; background:#fff; }
-        .rubric-row h4 { margin:0 0 .15rem; font-size:.95rem; display:flex; align-items:center; gap:.45rem; }
+        .rubric-row { border:1.5px solid var(--card-border); border-radius:10px; padding:.9rem 1rem; margin-bottom:.8rem; background:#fff; transition:border-color .18s, background .18s; }
+        .rubric-row.done { border-color:#34D399; background:#F0FDF4; }
+        .rubric-row h4 { margin:0 0 .15rem; font-size:.95rem; display:flex; align-items:center; justify-content:space-between; gap:.45rem; }
+        .dim-tick { font-size:.75rem; font-weight:800; padding:2px 8px; border-radius:999px; background:#E2E8F0; color:#64748B; transition:all .18s; }
+        .rubric-row.done .dim-tick { background:#059669; color:#fff; }
         .rubric-row .why { margin:0 0 .55rem; font-size:.8rem; color:#64748B; line-height:1.5; }
         .lvl-group { display:flex; gap:.35rem; flex-wrap:wrap; }
         .lvl-btn { font-size:.75rem; font-weight:700; padding:.3rem .65rem; border-radius:6px; border:1px solid #CBD5E1; background:#F8FAFC; color:#334155; cursor:pointer; transition:all .15s ease; }
@@ -56,14 +59,18 @@
         .lvl-btn.sel[data-lvl="1"], .lvl-btn.sel[data-lvl="0"] { background:#991B1B; border-color:#991B1B; }
         .lvl-desc { font-size:.72rem; color:#94A3B8; margin-top:.35rem; min-height:1em; font-style:italic; }
 
-        .field-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:.7rem; margin-bottom:1rem; }
-        .field-grid label { font-size:.78rem; font-weight:600; color:#334155; display:flex; flex-direction:column; gap:.2rem; }
-        .field-grid input, .field-grid select, .field-grid textarea { padding:.4rem .6rem; border:1px solid #CBD5E1; border-radius:7px; font-size:.85rem; font-family:'DM Sans',sans-serif; }
+        .field-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.75rem; margin-bottom:.85rem; }
+        .field-grid label { font-size:.78rem; font-weight:600; color:#334155; display:flex; flex-direction:column; gap:.22rem; }
+        .field-grid input, .field-grid select, .field-grid textarea { padding:.42rem .6rem; border:1px solid #CBD5E1; border-radius:7px; font-size:.84rem; font-family:'DM Sans',sans-serif; background:#fff; }
         .field-grid input:focus, .field-grid select:focus, .field-grid textarea:focus { outline:2px solid var(--brand-secondary); border-color:var(--brand-secondary); }
+        .curveball-highlight { background:#FFFBEB; border:1.5px solid #F59E0B; border-radius:9px; padding:.45rem .6rem; color:#78350F !important; }
+        .curveball-highlight select { border-color:#F59E0B; background:#fff; font-weight:600; }
 
-        .score-summary { position:sticky; bottom:0; background:linear-gradient(135deg,#183868,#234c7d); color:#fff; border-radius:12px; padding:.9rem 1.2rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; box-shadow:0 8px 24px rgba(24,56,104,.3); margin-top:1rem; }
+        .score-summary { position:sticky; bottom:.6rem; z-index:30; background:linear-gradient(135deg,#0F172A,#183868); color:#fff; border-radius:12px; padding:.9rem 1.2rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; box-shadow:0 10px 28px rgba(15,23,42,.38); margin-top:1rem; border:1px solid rgba(255,255,255,.15); }
         .score-summary .big { font-family:'Sora',sans-serif; font-weight:800; font-size:1.6rem; }
-        .score-summary .verdict { font-size:.85rem; font-weight:600; opacity:.95; }
+        .score-summary .verdict { font-size:.84rem; font-weight:600; opacity:.95; }
+        .btn-gen-hot { background:linear-gradient(135deg,#059669,#10B981); color:#fff; border:none; font-size:.86rem; padding:.62rem 1.25rem; box-shadow:0 4px 14px rgba(16,185,129,.35); }
+        .btn-gen-hot:hover { filter:brightness(1.08); }
 
         /* Generated scorecard (screenshot target) */
         #scorecard-out { display:none; }
@@ -128,93 +135,105 @@
 
         <!-- FORM -->
         <section class="card" id="form-card">
-            <h2 style="font-size:1.2rem; margin-top:0;">🧑‍⚖️ Who are you scoring?</h2>
-            <div class="field-grid">
-                <label>Presenting pair / group
-                    <input type="text" id="pf-pair" placeholder="e.g. Ananya & Rohit">
-                </label>
-                <label>Their challenge (number + tier)
-                    <select id="pf-chal">
-                        <option value="">— pick —</option>
-                        <option>C1 · Easy</option><option>C2 · Easy</option><option>C3 · Easy</option>
-                        <option>C4 · Easy</option><option>C5 · Easy</option><option>C6 · Easy</option>
-                        <option>C7 · Easy</option><option>C8 · Easy</option>
-                        <option>C9 · Medium</option><option>C10 · Medium</option><option>C11 · Medium</option>
-                        <option>C12 · Medium</option><option>C13 · Medium</option><option>C14 · Medium</option>
-                        <option>C15 · Medium</option>
-                        <option>C16 · Hard</option><option>C17 · Hard</option><option>C18 · Hard</option>
-                        <option>C19 · Hard</option><option>C20 · Hard</option>
-                        <option>A3 Pack Alpha · Mystery</option><option>A3 Pack Beta · Mystery</option>
-                        <option>A3 Pack Gamma · Mystery</option><option>A3 Pack Delta · Mystery</option>
-                        <option>A3 Pack Epsilon · Mystery</option><option>A3 Pack Zeta · Mystery</option>
-                        <option value="other">Other (write in notes)</option>
-                    </select>
-                </label>
-                <label>Assignment / Session
-                    <select id="pf-mode">
-                        <option value="A3 · 20 Nov Live Curveball">Assignment 3 · 20 Nov Live Curveball</option>
-                        <option value="A2 · 5 Nov Classic">Assignment 2 · 5 Nov Classic</option>
-                    </select>
-                </label>
-                <label>Live Curveball Swap Outcome (A3)
-                    <select id="pf-curveball">
-                        <option value="⚡ Survived Cleanly">⚡ Survived Cleanly (dynamic + Gate #5 passed)</option>
-                        <option value="⚠️ Partial / Minor Drift">⚠️ Partial / Minor Drift (updated, edge case slipped)</option>
-                        <option value="💥 Broke / Crashed">💥 Broke / Crashed on _v2_curveball.csv</option>
-                        <option value="🚫 Hardcoded / Frozen">🚫 Hardcoded / Frozen (numbers didn't change)</option>
-                        <option value="N/A (Assignment 2)">— N/A (Assignment 2)</option>
-                    </select>
-                </label>
-                <label>Your name (the evaluator)
-                    <input type="text" id="pf-you" placeholder="your name">
-                </label>
-                <label>Notes (optional — one thing they nailed, one question they dodged)
-                    <textarea id="pf-notes" rows="2" placeholder="e.g. Nail: named the trap unprompted. Dodged: why zero baseline?"></textarea>
-                </label>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <h2 style="font-size:1.2rem; margin:0;">🧑‍⚖️ Live Presentation Evaluator</h2>
+                <button type="button" id="quick-start-btn" class="btn btn-primary" style="font-size:.76rem;"><i class="fas fa-bolt"></i> Quick-Start: Jump to Scoring</button>
             </div>
+
+            <details id="meta-details" open class="mb-4 p-3 rounded-xl border border-slate-200 bg-slate-50/70">
+                <summary class="cursor-pointer font-bold text-xs text-[#183868] select-none mb-2.5 flex items-center justify-between">
+                    <span><i class="fas fa-id-badge mr-1.5 text-[#28a8e8]"></i> Session &amp; Presenter Details <span class="font-normal text-slate-500">(click to collapse while scoring — your name auto-saves)</span></span>
+                </summary>
+                <div class="field-grid">
+                    <label>Presenting pair / group
+                        <input type="text" id="pf-pair" placeholder="e.g. Ananya & Rohit">
+                    </label>
+                    <label>Their challenge / Mystery Pack
+                        <select id="pf-chal">
+                            <option value="">— pick —</option>
+                            <option>C1 · Easy</option><option>C2 · Easy</option><option>C3 · Easy</option>
+                            <option>C4 · Easy</option><option>C5 · Easy</option><option>C6 · Easy</option>
+                            <option>C7 · Easy</option><option>C8 · Easy</option>
+                            <option>C9 · Medium</option><option>C10 · Medium</option><option>C11 · Medium</option>
+                            <option>C12 · Medium</option><option>C13 · Medium</option><option>C14 · Medium</option>
+                            <option>C15 · Medium</option>
+                            <option>C16 · Hard</option><option>C17 · Hard</option><option>C18 · Hard</option>
+                            <option>C19 · Hard</option><option>C20 · Hard</option>
+                            <option>A3 Pack Alpha · Mystery</option><option>A3 Pack Beta · Mystery</option>
+                            <option>A3 Pack Gamma · Mystery</option><option>A3 Pack Delta · Mystery</option>
+                            <option>A3 Pack Epsilon · Mystery</option><option>A3 Pack Zeta · Mystery</option>
+                            <option value="other">Other (write in notes)</option>
+                        </select>
+                    </label>
+                    <label>Your name (auto-saved)
+                        <input type="text" id="pf-you" placeholder="your name">
+                    </label>
+                </div>
+                <div class="field-grid" style="margin-bottom:0;">
+                    <label>Assignment / Session
+                        <select id="pf-mode">
+                            <option value="A3 · 20 Nov Live Curveball">Assignment 3 · 20 Nov Live Curveball</option>
+                            <option value="A2 · 5 Nov Classic">Assignment 2 · 5 Nov Classic</option>
+                        </select>
+                    </label>
+                    <label class="curveball-highlight">
+                        <span>⚡ Live Curveball Swap Outcome (A3)</span>
+                        <select id="pf-curveball">
+                            <option value="⚡ Survived Cleanly">⚡ Survived Cleanly (dynamic + Gate #5 passed)</option>
+                            <option value="⚠️ Partial / Minor Drift">⚠️ Partial / Minor Drift (updated, edge case slipped)</option>
+                            <option value="💥 Broke / Crashed">💥 Broke / Crashed on _v2_curveball.csv</option>
+                            <option value="🚫 Hardcoded / Frozen">🚫 Hardcoded / Frozen (numbers didn't change)</option>
+                            <option value="N/A (Assignment 2)">— N/A (Assignment 2)</option>
+                        </select>
+                    </label>
+                    <label>Notes (optional — nailed / dodged)
+                        <input type="text" id="pf-notes" placeholder="e.g. Nailed CSV swap; dodged threshold question">
+                    </label>
+                </div>
+            </details>
 
             <h2 style="font-size:1.2rem;">🎚️ The Seven Dimensions — tap a level per row</h2>
             <p class="mini-note" style="margin-top:-.3rem;">Score what you <em>saw and heard</em>, not who they are. 0 = not shown · 2 = solid · 4 = trainer-impressed. Hover a level to see what it means.</p>
 
             <div id="rubric-card">
                 <div class="rubric-row" data-dim="understanding">
-                    <h4>🧠 1 · Problem Understanding</h4>
+                    <h4><span>🧠 1 · Problem Understanding</span><span class="dim-tick" aria-hidden="true">0–4</span></h4>
                     <p class="why">Can they restate the challenge, the audience, and <em>why the trap exists</em> — in their own words, before showing any pixels?</p>
                     <div class="lvl-group" role="group" aria-label="Problem understanding level"></div>
                     <p class="lvl-desc"></p>
                 </div>
                 <div class="rubric-row" data-dim="design">
-                    <h4>🎨 2 · Design &amp; Form of the Dashboard</h4>
-                    <p class="why">Does the form fit the question? F-pattern layout, chart types chosen for the data shape, CVD-safe palette visibly applied, not a wall of gauges.</p>
+                    <h4><span>🎨 2 · Design &amp; Form of the Dashboard</span><span class="dim-tick" aria-hidden="true">0–4</span></h4>
+                    <p class="why">Does the form fit the question? Layout hierarchy, chart types chosen for the data shape, CVD-safe palette visibly applied, not a wall of gauges.</p>
                     <div class="lvl-group" role="group" aria-label="Design level"></div>
                     <p class="lvl-desc"></p>
                 </div>
                 <div class="rubric-row" data-dim="grill">
-                    <h4>🔥 3 · Depth of the Grill</h4>
+                    <h4><span>🔥 3 · Depth of the Grill</span><span class="dim-tick" aria-hidden="true">0–4</span></h4>
                     <p class="why">Do they show real grill rounds — dependent follow-ups that changed the spec? Numbered decisions D1…Dn? Can they quote a decision they <em>revised</em> after grilling?</p>
                     <div class="lvl-group" role="group" aria-label="Grill depth level"></div>
                     <p class="lvl-desc"></p>
                 </div>
                 <div class="rubric-row" data-dim="inference">
-                    <h4>💡 4 · Inferences</h4>
+                    <h4><span>💡 4 · Inferences</span><span class="dim-tick" aria-hidden="true">0–4</span></h4>
                     <p class="why">Beyond reading numbers off the screen: what does the data <em>imply</em>? Do they connect series to causes with appropriate caution?</p>
                     <div class="lvl-group" role="group" aria-label="Inferences level"></div>
                     <p class="lvl-desc"></p>
                 </div>
                 <div class="rubric-row" data-dim="detection">
-                    <h4>🕵️ 5 · Detections</h4>
+                    <h4><span>🕵️ 5 · Detections</span><span class="dim-tick" aria-hidden="true">0–4</span></h4>
                     <p class="why">Did they find the trap(s) planted in the dataset — and name them precisely (truncated axis? missing baseline? colour-only encoding?)?</p>
                     <div class="lvl-group" role="group" aria-label="Detections level"></div>
                     <p class="lvl-desc"></p>
                 </div>
                 <div class="rubric-row" data-dim="generalization">
-                    <h4>🌐 6 · Generalizations</h4>
+                    <h4><span>🌐 6 · Generalizations</span><span class="dim-tick" aria-hidden="true">0–4</span></h4>
                     <p class="why">What travels beyond this dataset? Do they say where their finding holds and where it breaks — sample limits, context boundaries?</p>
                     <div class="lvl-group" role="group" aria-label="Generalizations level"></div>
                     <p class="lvl-desc"></p>
                 </div>
                 <div class="rubric-row" data-dim="conclusion">
-                    <h4>✅ 7 · Conclusions</h4>
+                    <h4><span>✅ 7 · Conclusions</span><span class="dim-tick" aria-hidden="true">0–4</span></h4>
                     <p class="why">Do they land it: a clear recommendation to the audience they chose, tied to the evidence shown — or just "looks nice"?</p>
                     <div class="lvl-group" role="group" aria-label="Conclusions level"></div>
                     <p class="lvl-desc"></p>
@@ -224,9 +243,9 @@
             <div class="score-summary" aria-live="polite">
                 <div>
                     <span class="big" id="sum-score">0</span><span class="big" style="opacity:.6;"> / 28</span>
-                    <div class="verdict" id="sum-verdict">Tap levels above to score.</div>
+                    <div class="verdict" id="sum-verdict">Tap levels above to score (0 of 7 done).</div>
                 </div>
-                <button id="gen-btn" class="btn btn-primary" style="font-size:.85rem; padding:.6rem 1.2rem;"><i class="fas fa-id-card"></i> Generate Scorecard</button>
+                <button id="gen-btn" class="btn btn-gen-hot"><i class="fas fa-id-card"></i> Generate &amp; Copy Scorecard</button>
             </div>
         </section>
 
@@ -379,6 +398,20 @@
             { key: 'conclusion', name: 'Conclusions', descs: ['No conclusion or just "nice dashboard"', 'Vague takeaway, not tied to audience', 'Clear recommendation tied to shown evidence', 'Recommendation + its strongest counter-argument', 'Actionable next step + what would change their mind'] }
         ];
         var HKEY = 'apllyPeerScores';
+        var YKEY = 'apllyPeerEvalName';
+        try {
+            var savedYou = localStorage.getItem(YKEY);
+            if (savedYou) document.getElementById('pf-you').value = savedYou;
+        } catch (e) {}
+        document.getElementById('pf-you').addEventListener('input', function () {
+            try { localStorage.setItem(YKEY, this.value); } catch (e) {}
+        });
+        document.getElementById('quick-start-btn').addEventListener('click', function () {
+            var md = document.getElementById('meta-details');
+            if (md) md.open = false;
+            var rc = document.getElementById('rubric-card');
+            if (rc && typeof rc.scrollIntoView === 'function') rc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
 
         var scores = {};
         var scoreRowRefs = {};
@@ -389,6 +422,7 @@
             var dim = DIMS.filter(function (d) { return d.key === dimKey; })[0];
             var group = row.querySelector('.lvl-group');
             var desc = row.querySelector('.lvl-desc');
+            var tick = row.querySelector('.dim-tick');
             for (var lvl = 0; lvl <= 4; lvl++) {
                 var b = document.createElement('button');
                 b.type = 'button';
@@ -402,6 +436,8 @@
                     var l = parseInt(this.dataset.lvl, 10);
                     scores[dimKey] = l;
                     group.querySelectorAll('.lvl-btn').forEach(function (x) { x.classList.toggle('sel', parseInt(x.dataset.lvl, 10) === l); });
+                    row.classList.add('done');
+                    if (tick) tick.textContent = '✓ ' + l + '/4';
                     desc.textContent = dim.descs[l];
                     updateSummary();
                 });
@@ -439,7 +475,10 @@
             var pair = document.getElementById('pf-pair').value.trim();
             var you = document.getElementById('pf-you').value.trim();
             if (!pair || !you) {
+                var md = document.getElementById('meta-details');
+                if (md) md.open = true;
                 alert('Add the presenting pair\'s name and your name — an anonymous scorecard can\'t go into the trainer\'s evidence pile.');
+                (!pair ? document.getElementById('pf-pair') : document.getElementById('pf-you')).focus();
                 return;
             }
             var chal = document.getElementById('pf-chal').value || '—';
@@ -484,6 +523,14 @@
             var out = document.getElementById('scorecard-out');
             out.classList.add('show');
             if (typeof out.scrollIntoView === 'function') out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            copyText(scorecardText(), function () {
+                var gb = document.getElementById('gen-btn');
+                if (gb) {
+                    var oldGb = gb.innerHTML;
+                    gb.innerHTML = '<i class="fas fa-check"></i> Generated &amp; Copied!';
+                    setTimeout(function () { gb.innerHTML = oldGb; }, 2200);
+                }
+            });
 
             // Save to history
             try {
@@ -603,6 +650,9 @@
             document.getElementById('scorecard-out').classList.remove('show');
             scores = {};
             document.querySelectorAll('.rubric-row').forEach(function (row) {
+                row.classList.remove('done');
+                var tick = row.querySelector('.dim-tick');
+                if (tick) tick.textContent = '0–4';
                 row.querySelectorAll('.lvl-btn').forEach(function (x) { x.classList.remove('sel'); });
                 row.querySelector('.lvl-desc').textContent = '';
             });
@@ -628,6 +678,9 @@
                     var dimKey = DIMS[i].key;
                     scores[dimKey] = l;
                     var row = document.querySelector('.rubric-row[data-dim="' + dimKey + '"]');
+                    row.classList.add('done');
+                    var tick = row.querySelector('.dim-tick');
+                    if (tick) tick.textContent = '✓ ' + l + '/4';
                     row.querySelectorAll('.lvl-btn').forEach(function (x) { x.classList.toggle('sel', parseInt(x.dataset.lvl, 10) === l); });
                     row.querySelector('.lvl-desc').textContent = DIMS[i].descs[l];
                 });
