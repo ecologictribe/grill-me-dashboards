@@ -553,6 +553,31 @@ function runCustomGate5(parsedRows, renderedState) {
         <!-- ============ PRESENTATION ============ -->
         <section class="card reveal" id="presentation">
             <h2>🎤 20 Nov 2026 — Live Curveball Presentation &amp; Viva</h2>
+
+            <div class="p-4 rounded-xl border border-amber-300 bg-amber-50/80 text-sm text-amber-950 mb-4">
+                <div class="font-bold text-amber-900 mb-1"><i class="fas fa-bolt mr-1.5 text-amber-600"></i> What Is a "Curveball Presentation"?</div>
+                <p class="text-xs sm:text-sm m-0 leading-relaxed mb-2">Borrowed from baseball (a pitch that looks straight, then breaks sharply right before the plate), a <strong>Curveball Presentation</strong> means <strong>you do not present solely on the static CSV you practiced with all week</strong>. Mid-presentation on <strong>20 Nov 2026</strong>, the trainer hands you a brand-new, unseen <code>_v2_curveball.csv</code> (same columns, mutated values—more outages, &gt;2,000 rows, extreme outliers, or reversed order) to load <strong>live on stage</strong>.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs mt-2">
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200">
+                        <strong class="block text-amber-900 mb-1">Why We Do This:</strong>
+                        <ul class="list-disc pl-4 m-0 space-y-0.5 text-amber-950">
+                            <li>Exposes hardcoded AI HTML/charts immediately (numbers stay frozen).</li>
+                            <li>Tests whether Custom Gate #5 actually validates live parsed rows.</li>
+                            <li>Forces live sensemaking instead of memorized scripts.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200">
+                        <strong class="block text-amber-900 mb-1">4 Possible Stage Outcomes (Logged in Peer Tool):</strong>
+                        <ul class="list-disc pl-4 m-0 space-y-0.5 text-amber-950">
+                            <li><strong>⚡ Survived Cleanly:</strong> KPIs, charts &amp; Gate #5 react accurately.</li>
+                            <li><strong>⚠️ Partial Drift:</strong> Data updates, but an edge case slips.</li>
+                            <li><strong>💥 Broke / Crashed:</strong> Parser/chart fails on the new CSV.</li>
+                            <li><strong>🚫 Hardcoded / Frozen:</strong> Numbers don't change (<code>D2 = 0/12</code>).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <p class="text-sm text-gray-700">Every student or pair gets <strong>6–7 minutes</strong>. No memorized slide decks — run your live HTML/PBIX on the projector in this exact order:</p>
 
             <div class="tool-banner tool-banner-purple my-3">

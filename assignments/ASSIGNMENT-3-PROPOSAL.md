@@ -152,6 +152,12 @@ To prevent copying across a class of 50, create **4–5 Mystery Packs** (extenda
   4. **`R4` Issue Signed 1-Page Red-Team Audit Card:** File reproducible defects (`High/Med/Low`) with screenshots by **19 Nov** (*"Looks great" earns 0/10 on `C2`*).
   5. **`R5` Blue-Team Patch & Rebuttal:** Patch verified bugs with before/after proof on Page 7 of the PDF (plus +2 Bounty Bonus `E2` for catching verified High-Severity flaws).
 
+### 3.7 What Is a "Curveball Presentation"? (20 Nov Live Defense)
+
+- **Meaning:** Just like a baseball curveball breaks sharply before reaching the plate, a **Curveball Presentation** tests a dashboard against **unseen live data on stage** rather than the rehearsed Week-1 CSV.
+- **How It Works:** Midway through the 6–7 min presentation, the trainer supplies `a3-pack-*-v2-curveball.csv` (identical headers, new mutations: longer outages, >2,000 rows, extreme skew outliers, reversed ordering, or new critical spikes). The presenter drops it into their live file loader on the projector.
+- **Why It Forces Real Learning:** Hardcoded AI HTML freezes (`D2 = 0/12`), brittle parsers crash, and memorized scripts collapse because the presenter must explain *what just changed* in real time. Peer evaluators log the outcome (**Survived Cleanly / Partial Drift / Crashed / Hardcoded**) directly in `presentation-tool/index.html`.
+
 ---
 
 ## 4. Implementation Checklist (If You Approve Option 1)

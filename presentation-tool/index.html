@@ -6,7 +6,7 @@
     <title>Aplly Presentation Scorecard: Grade a Presenting Pair | Aplly.xyz</title>
     <meta name="description" content="Peer-evaluation tool for the 5 Nov presentations. Score a presenting pair on problem understanding, dashboard design, grill depth, inferences, detections, generalizations and conclusions — generate a scorecard to share with the trainer.">
     <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
-    <meta name="last-updated" content="2026-10-30T01:30:00+05:30">
+    <meta name="last-updated" content="2026-11-12T09:22:00+05:30">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -100,7 +100,8 @@
         <div class="flex items-center space-x-5 text-xs sm:text-sm">
             <a href="../eval-tool/index.html" class="text-gray-300 hover:text-white transition">Eval Tool</a>
             <a href="../tutorials/grill-method.html" class="text-gray-300 hover:text-white transition hidden sm:inline">Grill Method</a>
-            <a href="../assignments/index.html" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">The Assignment →</a>
+            <a href="../assignments/index.html" class="text-gray-300 hover:text-white transition hidden sm:inline">Assignment 2</a>
+            <a href="../assignments/assignment-3.html" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">Assignment 3 →</a>
         </div>
     </nav>
 
@@ -115,9 +116,9 @@
             </nav>
             <span class="series-tag">Tools · Presentation Scorecard (Peer Evaluation)</span>
             <h1>Grade a Presentation — While You're Watching It</h1>
-            <p class="subtitle">On <strong>5 Nov</strong>, every pair presents. You're in the audience — use this page to score the presenting pair on the seven things that matter, generate a clean scorecard, and hand it to the trainer. It takes 3 minutes per pair.</p>
+            <p class="subtitle">Score presenting pairs live during <strong>Assignment 3 (20 Nov Live Curveball)</strong> or Assignment 2 (5 Nov). Rate the seven dimensions, log whether they survived the live <code>_v2_curveball.csv</code> swap, and generate a verifiable scorecard for the trainer.</p>
             <div class="tag-row flex flex-wrap gap-2 items-center">
-                <span class="tag-chip">Peer Evaluation</span><span class="tag-chip">7-Dimension Rubric</span><span class="tag-chip">5 Nov Presentations</span><span class="tag-chip">Screenshot-Ready</span>
+                <span class="tag-chip">Peer Evaluation</span><span class="tag-chip">7-Dimension Rubric</span><span class="tag-chip">20 Nov Live Curveball</span><span class="tag-chip">Screenshot-Ready</span>
             </div>
             <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
         </div>
@@ -146,6 +147,21 @@
                         <option>A3 Pack Alpha · Mystery</option><option>A3 Pack Beta · Mystery</option>
                         <option>A3 Pack Gamma · Mystery</option><option>A3 Pack Delta · Mystery</option>
                         <option value="other">Other (write in notes)</option>
+                    </select>
+                </label>
+                <label>Assignment / Session
+                    <select id="pf-mode">
+                        <option value="A3 · 20 Nov Live Curveball">Assignment 3 · 20 Nov Live Curveball</option>
+                        <option value="A2 · 5 Nov Classic">Assignment 2 · 5 Nov Classic</option>
+                    </select>
+                </label>
+                <label>Live Curveball Swap Outcome (A3)
+                    <select id="pf-curveball">
+                        <option value="⚡ Survived Cleanly">⚡ Survived Cleanly (dynamic + Gate #5 passed)</option>
+                        <option value="⚠️ Partial / Minor Drift">⚠️ Partial / Minor Drift (updated, edge case slipped)</option>
+                        <option value="💥 Broke / Crashed">💥 Broke / Crashed on _v2_curveball.csv</option>
+                        <option value="🚫 Hardcoded / Frozen">🚫 Hardcoded / Frozen (numbers didn't change)</option>
+                        <option value="N/A (Assignment 2)">— N/A (Assignment 2)</option>
                     </select>
                 </label>
                 <label>Your name (the evaluator)
@@ -217,7 +233,7 @@
         <section id="scorecard-out" aria-live="polite">
             <div class="scorecard-doc" id="sc-doc">
                 <div class="sc-head">
-                    <h3><i class="fas fa-award mr-1"></i> Aplly Presentation Scorecard — 5 Nov 2026</h3>
+                    <h3 id="scd-head-title"><i class="fas fa-award mr-1"></i> Aplly Presentation Scorecard — 20 Nov 2026</h3>
                     <span style="font-size:.78rem; opacity:.9;" id="scd-stamp"></span>
                 </div>
                 <table>
@@ -226,7 +242,8 @@
                 </table>
                 <div class="sc-foot">
                     <div>
-                        <strong id="scd-pair">—</strong> · <span id="scd-chal">—</span><br>
+                        <strong id="scd-pair">—</strong> · <span id="scd-chal">—</span> · <span id="scd-mode" style="font-weight:600; color:#183868;">—</span><br>
+                        Live Curveball: <strong id="scd-curveball">—</strong><br>
                         Evaluator: <span id="scd-you">—</span><span id="scd-notesline"></span>
                     </div>
                     <div style="text-align:right;">
@@ -263,6 +280,7 @@
             <ul style="padding-left:1.2rem; margin:.2rem 0 0; font-size:.88rem; color:#334155;">
                 <li><strong>They mirror the method.</strong> Understanding → the grill's starting point. Design &amp; Form → spec-before-pixel made visible. Grill depth → rounds + numbered decisions. Inferences · Detections · Generalizations · Conclusions → the four sensemaking moves the <a href="../tutorials/grill-method.html" class="underline font-semibold">Challenge-Grill Method</a> trains, and the exact things the trainer asks in the viva.</li>
                 <li><strong>Audit trail, not a popularity contest.</strong> The per-dimension levels force you to notice <em>what</em> earned the score. A 2 with a written note beats a 4 you can't justify — same rule the presenters live by.</li>
+                <li><strong>⚡ Live Curveball Check (Assignment 3 · 20 Nov):</strong> Watch closely when the presenter drops the trainer's unseen <code>_v2_curveball.csv</code> live on stage. Did the charts, KPIs, and Custom Gate #5 recompute honestly, or did hardcoded numbers freeze? Log the exact outcome above.</li>
                 <li><strong>Peer scores inform, the trainer decides.</strong> Your scorecard lands next to their self-score and the trainer's — deltas between all three are the most honest picture of a presentation. Grade the performance you saw, not the friendship.</li>
                 <li><strong>Use it on yourself too.</strong> Watching three pairs and scoring them will change how you rehearse your own 5–7 minutes. That's not a side effect — that's the point.</li>
             </ul>
@@ -424,6 +442,8 @@
                 return;
             }
             var chal = document.getElementById('pf-chal').value || '—';
+            var mode = document.getElementById('pf-mode').value || 'A3 · 20 Nov Live Curveball';
+            var curveball = document.getElementById('pf-curveball').value || '—';
             var notes = document.getElementById('pf-notes').value.trim();
 
             var tbody = document.getElementById('scd-rows');
@@ -433,8 +453,11 @@
                 tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + d.name + '</td><td class="lvl">' + scores[d.key] + '</td><td style="font-size:.78rem; color:#475569;">' + d.descs[scores[d.key]].replace(/</g, '&lt;') + '</td>';
                 tbody.appendChild(tr);
             });
+            document.getElementById('scd-head-title').innerHTML = '<i class="fas fa-award mr-1"></i> Aplly Presentation Scorecard — ' + mode;
             document.getElementById('scd-pair').textContent = pair;
             document.getElementById('scd-chal').textContent = chal;
+            document.getElementById('scd-mode').textContent = mode;
+            document.getElementById('scd-curveball').textContent = curveball;
             document.getElementById('scd-you').textContent = you;
             document.getElementById('scd-notesline').innerHTML = notes ? ' · <em>' + notes.replace(/</g, '&lt;') + '</em>' : '';
             document.getElementById('scd-total').textContent = s.t + ' / 28';
@@ -447,7 +470,7 @@
 
             // Cryptographic verification seal
             var dimScores = DIMS.map(function (dm) { return scores[dm.key]; }).join(',');
-            var payload = [pair, chal, you, dimScores, s.t + '/28', isoTs].join('|');
+            var payload = [pair, chal, mode, curveball, you, dimScores, s.t + '/28', isoTs].join('|');
             var seal = makeSeal('APLLY-VIVA', payload);
             var sigEl = document.getElementById('scd-sig');
             var hashEl = document.getElementById('scd-hash');
@@ -464,10 +487,16 @@
             // Save to history
             try {
                 var hist = JSON.parse(localStorage.getItem(HKEY) || '[]');
-                hist.push({ pair: pair, chal: chal, you: you, t: s.t, ts: isoTs, sig: seal.sig });
+                hist.push({ pair: pair, chal: chal, mode: mode, curveball: curveball, you: you, t: s.t, ts: isoTs, sig: seal.sig });
                 localStorage.setItem(HKEY, JSON.stringify(hist));
                 renderHistory();
             } catch (e) {}
+        });
+
+        document.getElementById('pf-mode').addEventListener('change', function () {
+            var cb = document.getElementById('pf-curveball');
+            if (this.value.indexOf('A2') === 0) cb.value = 'N/A (Assignment 2)';
+            else if (cb.value === 'N/A (Assignment 2)') cb.value = '⚡ Survived Cleanly';
         });
 
         function renderHistory() {
@@ -480,7 +509,8 @@
                 var div = document.createElement('div');
                 div.className = 'hist-item';
                 var sigBadge = h.sig ? ' <span style="font-family:monospace; font-size:.7rem; background:#EEF2FF; color:#3730A3; padding:1px 5px; border-radius:4px; border:1px solid #C7D2FE;">' + h.sig + '</span>' : '';
-                div.innerHTML = '<span class="who">' + h.pair.replace(/</g, '&lt;') + '</span><span style="color:#64748B; font-size:.78rem;">' + (h.chal || '').replace(/</g, '&lt;') + ' · graded by ' + h.you.replace(/</g, '&lt;') + sigBadge + '</span><span class="pts">' + h.t + '/28</span>';
+                var cbTag = h.curveball && h.curveball.indexOf('N/A') !== 0 ? ' · ' + h.curveball.replace(/</g, '&lt;') : '';
+                div.innerHTML = '<span class="who">' + h.pair.replace(/</g, '&lt;') + '</span><span style="color:#64748B; font-size:.78rem;">' + (h.chal || '').replace(/</g, '&lt;') + cbTag + ' · graded by ' + h.you.replace(/</g, '&lt;') + sigBadge + '</span><span class="pts">' + h.t + '/28</span>';
                 list.appendChild(div);
             });
             var clear = document.createElement('button');
@@ -516,9 +546,10 @@
 
         function scorecardText() {
             var L = [];
-            L.push('APLLY PRESENTATION SCORECARD — 5 Nov 2026');
+            L.push('APLLY PRESENTATION SCORECARD — ' + document.getElementById('scd-mode').textContent);
             L.push('Presenting Pair   : ' + document.getElementById('scd-pair').textContent);
             L.push('Their Challenge   : ' + document.getElementById('scd-chal').textContent);
+            L.push('Live Curveball    : ' + document.getElementById('scd-curveball').textContent);
             L.push('Evaluator (Peer)  : ' + document.getElementById('scd-you').textContent);
             L.push('Evaluation Time   : ' + document.getElementById('scd-stamp').textContent);
             L.push('Presentation Score: ' + document.getElementById('scd-total').textContent);
@@ -551,6 +582,8 @@
             var compact = {
                 p: document.getElementById('scd-pair').textContent,
                 c: document.getElementById('scd-chal').textContent,
+                m: document.getElementById('scd-mode').textContent,
+                cb: document.getElementById('scd-curveball').textContent,
                 y: document.getElementById('scd-you').textContent,
                 g: DIMS.map(function (d) { return scores[d.key]; }),
                 t: total().t,
@@ -587,6 +620,9 @@
                 var c = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
                 document.getElementById('pf-pair').value = c.p || '';
                 document.getElementById('pf-you').value = c.y || '';
+                if (c.c) document.getElementById('pf-chal').value = c.c;
+                if (c.m) document.getElementById('pf-mode').value = c.m;
+                if (c.cb) document.getElementById('pf-curveball').value = c.cb;
                 (c.g || []).forEach(function (l, i) {
                     var dimKey = DIMS[i].key;
                     scores[dimKey] = l;
