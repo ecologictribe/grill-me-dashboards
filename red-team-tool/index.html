@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplly Red-Team Audit Card Tool — Fingerprinted Peer Defect &amp; Patch Handshake | Aplly.xyz</title>
+    <meta name="description" content="Generate a SHA-256 fingerprinted Red-Team Audit Card for Assignment 3: record For Team (Blue) and By Team (Red), log reproducible defects, share a locked #rt= handshake link, and seal Blue-Team patches for Page 7.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+    <meta name="last-updated" content="2026-11-12T09:50:00+05:30">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { brandNavy:'#183868', brandCyan:'#28a8e8', brandTeal:'#3c9080', brandGreen:'#48b838', brandMint:'#c6eeb0' },
+            fontFamily: { sans:['DM Sans','Inter','system-ui','sans-serif'], heading:['Sora','system-ui','sans-serif'], mono:['Fira Code','monospace'] }
+        } } }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --brand-primary:#183868; --brand-secondary:#28a8e8; --brand-teal:#3c9080; --brand-dark:#0F172A; --card-border:#E2E8F0; --card-shadow:0 1px 4px rgba(24,56,104,.06),0 4px 16px rgba(24,56,104,.04); --radius-card:12px; --radius-tag:999px; }
+        body { font-family:'DM Sans',sans-serif; background:#fff; color:#1F1F2E; line-height:1.7; margin:0; }
+        h1,h2,h3,h4 { font-family:'Sora',sans-serif; color:var(--brand-dark); letter-spacing:-.02em; }
+        code,pre,kbd { font-family:'Fira Code',monospace; }
+        .article-header { background:linear-gradient(135deg,#183868 0%,#28a8e8 100%); color:#fff; padding:2.6rem 1.5rem 2.2rem; }
+        .article-header-inner { max-width:900px; margin:0 auto; }
+        .series-tag { display:inline-block; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; background:rgba(255,255,255,.18); padding:4px 12px; border-radius:var(--radius-tag); margin-bottom:.8rem; border:1px solid rgba(255,255,255,.25); }
+        .article-header h1 { font-size:clamp(1.75rem,4.2vw,2.5rem); font-weight:800; color:#fff; line-height:1.18; margin:0 0 .75rem; }
+        .article-header p.subtitle { font-size:1.04rem; opacity:.95; margin:0 0 1rem; line-height:1.6; max-width:740px; color:#f0faf8; }
+        .tag-chip { background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3); padding:4px 12px; border-radius:var(--radius-tag); font-size:.78rem; font-weight:600; }
+        .desk-attribution { display:inline-flex; align-items:center; background:rgba(15,23,42,.45); padding:6px 14px; border-radius:var(--radius-tag); font-size:.82rem; font-weight:600; color:#c6eeb0; border:1px solid rgba(255,255,255,.2); margin-top:.9rem; }
+        main.tool-body { max-width:900px; margin:0 auto; padding:2rem 1.5rem 3.5rem; }
+        section.card { background:#fff; border:1px solid var(--card-border); box-shadow:var(--card-shadow); border-radius:var(--radius-card); padding:1.6rem; margin-bottom:1.6rem; }
+        .article-footer { text-align:center; padding:2.5rem 1.5rem; background:#183868; color:rgba(255,255,255,.85); font-size:.88rem; }
+
+        .btn { display:inline-flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:700; padding:.45rem 1rem; border-radius:8px; border:1px solid var(--card-border); background:#fff; color:#183868; cursor:pointer; transition:all .2s ease; }
+        .btn:hover { background:#183868; color:#fff; border-color:#183868; }
+        .btn-primary { background:linear-gradient(135deg,#183868,#28a8e8); color:#fff; border:none; }
+        .btn-primary:hover { filter:brightness(1.1); }
+        .btn-danger { background:#FFF1F2; color:#991B1B; border-color:#FECDD3; }
+        .btn-danger:hover { background:#991B1B; color:#fff; border-color:#991B1B; }
+        .mini-note { font-size:.8rem; color:#64748B; }
+        .mini-note code { background:#EEF2FF; color:#1E40AF; padding:1px 5px; border-radius:4px; font-size:.85em; }
+
+        .field-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.75rem; margin-bottom:1rem; }
+        .field-grid label, .finding-box label { font-size:.78rem; font-weight:600; color:#334155; display:flex; flex-direction:column; gap:.2rem; }
+        input[type="text"], select, textarea { padding:.42rem .65rem; border:1px solid #CBD5E1; border-radius:7px; font-size:.84rem; font-family:'DM Sans',sans-serif; width:100%; box-sizing:border-box; }
+        input[type="text"]:focus, select:focus, textarea:focus { outline:2px solid var(--brand-secondary); border-color:var(--brand-secondary); }
+        input[readonly], textarea[readonly], select:disabled { background:#F1F5F9; color:#475569; cursor:not-allowed; }
+
+        .chk-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:.5rem; margin:.7rem 0 1rem; }
+        .chk-item { display:flex; align-items:flex-start; gap:.5rem; padding:.55rem .7rem; border:1px solid #E2E8F0; border-radius:8px; background:#F8FAFC; font-size:.8rem; cursor:pointer; }
+        .chk-item input { margin-top:.2rem; }
+
+        .finding-box { border:1px solid #CBD5E1; border-radius:10px; padding:.9rem 1rem; margin-bottom:.75rem; background:#FAFAFA; }
+        .finding-head { display:flex; justify-content:space-between; align-items:center; gap:.5rem; margin-bottom:.55rem; }
+        .finding-id { font-family:'Fira Code',monospace; font-weight:700; font-size:.8rem; background:#183868; color:#fff; padding:2px 8px; border-radius:999px; }
+
+        /* Certificate Output */
+        #cert-out { display:none; }
+        #cert-out.show { display:block; }
+        .audit-doc { border:2px solid #183868; border-radius:12px; overflow:hidden; background:#fff; }
+        .audit-doc .ad-head { background:linear-gradient(135deg,#183868,#234c7d); color:#fff; padding:.9rem 1.2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
+        .audit-doc .ad-head h3 { color:#fff; margin:0; font-size:1.05rem; }
+        .audit-doc table { width:100%; border-collapse:collapse; font-size:.8rem; }
+        .audit-doc th, .audit-doc td { border:1px solid #E2E8F0; padding:.45rem .65rem; text-align:left; vertical-align:top; }
+        .audit-doc th { background:#eef8f6; color:#183868; font-size:.73rem; text-transform:uppercase; }
+        .sev-badge { font-family:'Fira Code',monospace; font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:999px; display:inline-block; }
+        .sev-High { background:#FEE2E2; color:#991B1B; }
+        .sev-Medium { background:#FEF3C7; color:#92400E; }
+        .sev-Low { background:#DBEAFE; color:#1E40AF; }
+        .sev-Clean { background:#D1FAE5; color:#065F46; }
+
+        .hist-item { display:flex; justify-content:space-between; align-items:center; gap:.6rem; padding:.5rem .7rem; border:1px solid var(--card-border); border-radius:8px; margin-bottom:.45rem; font-size:.82rem; background:#FAFAFA; flex-wrap:wrap; }
+
+        @media print {
+            body nav, body .article-header, body footer.article-footer, body #guide-card, body #form-card, body #hist-card, body .no-print { display:none !important; }
+            body main.tool-body { padding:0; max-width:100%; }
+            body .audit-doc { border-color:#000; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="bg-[#183868] border-b border-[#234c7d] text-white py-3 px-4 sm:px-8 flex justify-between items-center text-sm sticky top-0 z-40">
+        <a href="../index.html" class="flex items-center space-x-2 font-bold text-lg text-white">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </a>
+        <div class="flex items-center space-x-4 text-xs sm:text-sm">
+            <a href="../eval-tool/index.html" class="text-gray-300 hover:text-white transition">Eval Tool</a>
+            <a href="../presentation-tool/index.html" class="text-gray-300 hover:text-white transition hidden sm:inline">Presentation Tool</a>
+            <a href="../assignments/assignment-3.html" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">Assignment 3 →</a>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-inner">
+            <nav aria-label="Breadcrumb" class="text-xs mb-2" style="opacity:.85;">
+                <a href="../index.html" class="underline hover:text-white">Home</a>
+                <span class="mx-1.5 opacity-60">›</span>
+                <a href="../assignments/assignment-3.html" class="underline hover:text-white">Assignment 3</a>
+                <span class="mx-1.5 opacity-60">›</span>
+                <span class="font-semibold">Red-Team Audit Card Tool</span>
+            </nav>
+            <span class="series-tag">Tools · Assignment 3 Phase 3 (18–19 Nov 2026)</span>
+            <h1>Peer Red-Team Audit Card &amp; Fingerprint Seal</h1>
+            <p class="subtitle">Audit a classmate's dashboard, lock your reproducible findings with a <strong>SHA-256 Audit Seal</strong> (<code>For Team</code> + <code>By Team</code>), and send them the locked <code>#rt=</code> handshake link so they can seal their <strong>Blue-Team Patch Log</strong> for Page 7 of their PDF.</p>
+            <div class="tag-row flex flex-wrap gap-2 items-center">
+                <span class="tag-chip">For Team ↔ By Team Seal</span>
+                <span class="tag-chip">Worked Example Built-In</span>
+                <span class="tag-chip">Two-Party Handshake</span>
+                <span class="tag-chip">Page 7 Print-Ready</span>
+            </div>
+            <div><div class="desk-attribution"><i class="fas fa-pen-nib mr-2 text-[#28a8e8]"></i><span>From the Desk of Puneet Arora, Aplly.xyz Trainer</span></div></div>
+        </div>
+    </header>
+
+    <main class="tool-body">
+
+        <!-- WORKED GUIDE -->
+        <section class="card" id="guide-card">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <h2 style="font-size:1.15rem; margin:0;">🧭 How Experts Write an Audit Card (Weak vs. Expert)</h2>
+                <button type="button" id="load-example-btn" class="btn btn-primary"><i class="fas fa-wand-magic-sparkles"></i> Load Worked Example</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-xl border border-rose-200 bg-rose-50/70">
+                    <div class="font-bold text-rose-900 mb-1">❌ Weak Audit (Earns 0/10 on C2)</div>
+                    <p class="m-0 text-rose-950 leading-relaxed">"Looks clean and responsive! Maybe make the chart title slightly bigger. Otherwise no bugs found."</p>
+                </div>
+                <div class="p-3 rounded-xl border border-emerald-200 bg-emerald-50/70">
+                    <div class="font-bold text-emerald-900 mb-1">✅ Expert Audit (Earns Full C2 + +2 E2 Bounty)</div>
+                    <p class="m-0 text-emerald-950 leading-relaxed"><strong>[RT-01 · HIGH · Data Math]</strong> Dropped a 10-row Pack Gamma CSV with 4 <code>cancelled</code> orders totaling ₹600. <strong>Expected:</strong> ₹900 (<code>settled</code> only). <strong>Observed:</strong> KPI showed ₹1,500 because cancelled rows leaked into <code>SUM()</code>.</p>
+                </div>
+            </div>
+            <p class="mini-note mt-2.5 mb-0"><strong>Two-party handshake:</strong> (1) Red Team generates the sealed card + copies the <code>#rt=</code> share link → (2) Blue Team opens that link (Red findings stay locked!), logs their <strong>Author Patch / Rebuttal</strong>, and prints Page 7 showing both linked seals.</p>
+        </section>
+
+        <!-- LOCKED HANDSHAKE BANNER (shown when opened via #rt= link) -->
+        <div id="handshake-banner" class="hidden p-3.5 mb-4 rounded-xl border-2 border-indigo-400 bg-indigo-50 text-xs text-indigo-950">
+            <div class="font-bold text-sm mb-0.5"><i class="fas fa-lock mr-1.5 text-indigo-600"></i> Blue-Team Patch Handshake Mode Active</div>
+            <p class="m-0">You opened a sealed Red-Team Audit Card (<span id="hb-seal" class="font-mono font-bold">—</span>). The Red Team's findings are locked read-only. Fill your <strong>Author Patch / Rebuttal</strong> for each defect below and generate your linked <strong>Page 7 Certificate</strong>.</p>
+        </div>
+
+        <!-- AUDIT FORM -->
+        <section class="card" id="form-card">
+            <h2 style="font-size:1.2rem; margin-top:0;">🕵️ 1 · Teams &amp; Target Artifact</h2>
+            <div class="field-grid">
+                <label>For Which Team (Blue Team / Authors)
+                    <input type="text" id="rt-for" placeholder="e.g. Ananya &amp; Rohit (24011, 24019)">
+                </label>
+                <label>By Which Team (Red Team / Auditors)
+                    <input type="text" id="rt-by" placeholder="e.g. Kabir &amp; Meera (24024, 24031)">
+                </label>
+                <label>Target Mystery Pack
+                    <select id="rt-pack">
+                        <option value="">— pick pack —</option>
+                        <option>Pack Alpha — Solar &amp; Weather</option>
+                        <option>Pack Beta — Sports &amp; Merit</option>
+                        <option>Pack Gamma — Hostel &amp; Canteen</option>
+                        <option>Pack Delta — Academic Risk Alerts</option>
+                        <option>Pack Epsilon — Club Network</option>
+                        <option>Pack Zeta — PTM Feedback Portal</option>
+                    </select>
+                </label>
+                <label>Artifact Path Audited
+                    <select id="rt-tool">
+                        <option>HTML (Dynamic File Loader)</option>
+                        <option>Power BI (.pbix)</option>
+                    </select>
+                </label>
+            </div>
+
+            <h3 style="font-size:1rem; margin:1rem 0 .25rem;">🧪 2 · Adversarial Stress Tests Run <span class="mini-note" style="font-weight:400;">(tick ≥2 actually executed)</span></h3>
+            <div class="chk-grid" id="chk-grid">
+                <label class="chk-item"><input type="checkbox" class="rt-chk" value="Mutated CSV drop-in (outages, outliers, >1,000 rows, reordered)"> <span>Dropped mutated CSV (outage blanks, extreme outlier, &gt;1,000 rows, shuffled order)</span></label>
+                <label class="chk-item"><input type="checkbox" class="rt-chk" value="375px mobile width &amp; static print/PDF check"> <span>Tested <code>375px</code> mobile overflow &amp; static print/PDF export</span></label>
+                <label class="chk-item"><input type="checkbox" class="rt-chk" value="Colourblind (CVD) &amp; non-colour symbol audit"> <span>Checked colourblind (CVD) legibility without hue</span></label>
+                <label class="chk-item"><input type="checkbox" class="rt-chk" value="DOM/source check for hardcoded arrays, PII leaks &amp; Gate #5"> <span>Inspected DOM/source for hardcoded arrays, leaked PII &amp; Custom Gate #5</span></label>
+            </div>
+
+            <div class="flex items-center justify-between flex-wrap gap-2 mt-4 mb-2">
+                <h3 style="font-size:1rem; margin:0;">🐞 3 · Structured Findings <span class="mini-note" style="font-weight:400;">(every defect needs reproduction steps + expected vs. observed)</span></h3>
+                <button type="button" id="add-finding-btn" class="btn"><i class="fas fa-plus"></i> Add Finding</button>
+            </div>
+            <div id="findings-wrap"></div>
+
+            <!-- Blue Team Patch Section (enabled in Handshake mode OR optional self-entry before printing) -->
+            <div id="patch-section" class="mt-5 p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/50">
+                <h3 style="font-size:1rem; margin:0 0 .3rem; color:#065F46;"><i class="fas fa-wrench mr-1.5"></i> 4 · Blue-Team Author Patch Log <span class="mini-note" style="font-weight:400;">(filled by the Blue Team before Page 7 PDF print)</span></h3>
+                <p class="mini-note mt-0 mb-2">Leave blank while acting as Red Team. When the Blue Team receives this card (or opens the <code>#rt=</code> link), they log each fix or rebuttal below to generate the linked <strong>Patch Seal</strong>.</p>
+                <div id="patches-wrap"></div>
+            </div>
+
+            <div class="flex gap-2 mt-4 flex-wrap">
+                <button type="button" id="gen-btn" class="btn btn-primary" style="font-size:.86rem; padding:.58rem 1.25rem;"><i class="fas fa-fingerprint"></i> Generate Fingerprinted Audit Card</button>
+                <button type="button" id="clear-btn" class="btn btn-danger"><i class="fas fa-rotate-left"></i> Clear Form</button>
+            </div>
+        </section>
+
+        <!-- GENERATED SEALED AUDIT CARD -->
+        <section id="cert-out" aria-live="polite">
+            <div class="audit-doc" id="audit-doc">
+                <div class="ad-head">
+                    <h3><i class="fas fa-shield-halved mr-1.5"></i> Aplly Assignment 3 — Red-Team Audit &amp; Patch Certificate</h3>
+                    <span style="font-size:.76rem; opacity:.9;" id="ad-stamp">—</span>
+                </div>
+                <div class="p-3.5 bg-slate-50 border-b border-slate-200 text-xs grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div><strong>For Team (Blue):</strong> <span id="ad-for">—</span></div>
+                    <div><strong>By Team (Red):</strong> <span id="ad-by">—</span></div>
+                    <div><strong>Mystery Pack:</strong> <span id="ad-pack">—</span></div>
+                    <div><strong>Artifact Path:</strong> <span id="ad-tool">—</span></div>
+                </div>
+                <div class="px-3.5 py-2 border-b border-slate-200 text-xs bg-white">
+                    <strong>Adversarial Tests Executed:</strong> <span id="ad-tests">—</span>
+                </div>
+                <table>
+                    <thead><tr><th style="width:76px;">ID &amp; Sev</th><th style="width:130px;">Category</th><th>Reproduction &amp; Expected vs. Observed</th><th>Blue-Team Patch / Rebuttal</th></tr></thead>
+                    <tbody id="ad-rows"></tbody>
+                </table>
+                <div class="p-3 bg-indigo-50/90 border-t border-indigo-200 text-xs flex flex-col gap-1 text-indigo-950">
+                    <div class="flex justify-between items-center flex-wrap gap-2">
+                        <div><i class="fas fa-fingerprint text-indigo-600 mr-1"></i><strong>Red-Team Audit Seal:</strong> <span class="font-mono font-bold" id="ad-rt-sig">APLLY-RT-PENDING</span></div>
+                        <span class="text-[10px] font-mono text-slate-600" id="ad-rt-hash">SHA-256</span>
+                    </div>
+                    <div id="ad-patch-seal-row" class="hidden flex justify-between items-center flex-wrap gap-2 pt-1 border-t border-indigo-200/70">
+                        <div><i class="fas fa-check-double text-emerald-700 mr-1"></i><strong>Blue-Team Patch Seal:</strong> <span class="font-mono font-bold text-emerald-900" id="ad-patch-sig">—</span></div>
+                        <span class="text-[10px] font-mono text-slate-600" id="ad-patch-hash">SHA-256</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-2 mt-3 flex-wrap no-print">
+                <button type="button" id="ad-print" class="btn btn-primary"><i class="fas fa-print"></i> Print / Save Page 7 PDF</button>
+                <button type="button" id="ad-share" class="btn"><i class="fas fa-link"></i> Copy Locked #rt= Handshake Link (Send to Blue Team)</button>
+                <button type="button" id="ad-copy" class="btn"><i class="far fa-copy"></i> Copy as Text</button>
+            </div>
+            <p class="mini-note mt-2 no-print">Red Team: send the <strong>Locked <code>#rt=</code> Handshake Link</strong> (or printed card) to the Blue Team. Blue Team: open the link, enter your fixes in Section 4, regenerate, and print/screenshot as <strong>Page 7</strong> of your eflow PDF.</p>
+        </section>
+
+        <!-- HISTORY -->
+        <section class="card" id="hist-card">
+            <h2 style="font-size:1.05rem; margin-top:0;">🗂️ Audit Cards Generated in This Browser</h2>
+            <div id="hist-list"><p class="mini-note">None yet — generate your first Audit Card above.</p></div>
+        </section>
+    </main>
+
+    <footer class="article-footer">
+        <div class="flex items-center justify-center space-x-2 font-bold text-lg text-white mb-2">
+            <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
+            <span>Aplly<span class="text-[#28a8e8]">.</span></span>
+        </div>
+        <p>Practice. Apply. Master.</p>
+        <p class="mt-2 text-xs opacity-80">Published from the Desk of Puneet Arora, Aplly.xyz Trainer · ⏱ Last updated: 12 Nov 2026 · © 2026 Aplly.xyz. All rights reserved.</p>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+        function sha256(str) {
+            var ascii = unescape(encodeURIComponent(str));
+            function rr(v, a) { return (v >>> a) | (v << (32 - a)); }
+            var mathPow = Math.pow, maxWord = mathPow(2, 32), i, j, result = '', words = [], asciiBitLength = ascii.length * 8;
+            var hash = [], k = [], primeCounter = 0, isComposite = {};
+            for (var candidate = 2; primeCounter < 64; candidate++) {
+                if (!isComposite[candidate]) {
+                    for (i = 0; i < 313; i += candidate) isComposite[i] = candidate;
+                    hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+                    k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+                }
+            }
+            ascii += '\x80';
+            while (ascii.length % 64 - 56) ascii += '\x00';
+            for (i = 0; i < ascii.length; i++) { j = ascii.charCodeAt(i); words[i >> 2] |= j << ((3 - i) % 4) * 8; }
+            words[words.length] = ((asciiBitLength / maxWord) | 0);
+            words[words.length] = (asciiBitLength);
+            for (j = 0; j < words.length;) {
+                var w = words.slice(j, j += 16), oldHash = hash; hash = hash.slice(0, 8);
+                for (i = 0; i < 64; i++) {
+                    var w15 = w[i - 15], w2 = w[i - 2], a = hash[0], e = hash[4];
+                    var temp1 = hash[7] + (rr(e, 6) ^ rr(e, 11) ^ rr(e, 25)) + ((e & hash[5]) ^ ((~e) & hash[6])) + k[i]
+                        + (w[i] = (i < 16) ? w[i] : (w[i - 16] + (rr(w15, 7) ^ rr(w15, 18) ^ (w15 >>> 3)) + w[i - 7] + (rr(w2, 17) ^ rr(w2, 19) ^ (w2 >>> 10))) | 0);
+                    var temp2 = (rr(a, 2) ^ rr(a, 13) ^ rr(a, 22)) + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+                    hash = [(temp1 + temp2) | 0].concat(hash); hash[4] = (hash[4] + temp1) | 0;
+                }
+                for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+            }
+            for (i = 0; i < 8; i++) for (j = 3; j + 1; j--) { var b = (hash[i] >> (j * 8)) & 255; result += ((b < 16) ? 0 : '') + b.toString(16); }
+            return result;
+        }
+        function makeSeal(prefix, payload) {
+            var h = sha256(payload);
+            return { sig: prefix + '-' + h.slice(0, 16).toUpperCase().match(/.{1,4}/g).join('-'), hash: h };
+        }
+        function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+        var HKEY = 'apllyRedTeamCards';
+        var lockedAudit = null; // set when opened via #rt= link
+        var findings = [{ sev: 'High', cat: 'Data Math / Aggregation', repro: '', expObs: '' }];
+        var patches = [{ status: 'Pending', note: '' }];
+
+        var findingsWrap = document.getElementById('findings-wrap');
+        var patchesWrap = document.getElementById('patches-wrap');
+
+        function renderFindingsAndPatches() {
+            findingsWrap.innerHTML = '';
+            patchesWrap.innerHTML = '';
+            var isLocked = !!lockedAudit;
+
+            findings.forEach(function (f, idx) {
+                var id = 'RT-0' + (idx + 1);
+                var box = document.createElement('div');
+                box.className = 'finding-box';
+                box.innerHTML =
+                    '<div class="finding-head">' +
+                        '<span class="finding-id">' + id + '</span>' +
+                        (!isLocked && findings.length > 1 ? '<button type="button" class="btn btn-danger rm-f" data-idx="' + idx + '" style="padding:.2rem .55rem; font-size:.7rem;">Remove</button>' : '') +
+                    '</div>' +
+                    '<div class="field-grid" style="margin-bottom:.5rem;">' +
+                        '<label>Severity<select class="f-sev" data-idx="' + idx + '"' + (isLocked ? ' disabled' : '') + '>' +
+                            '<option value="High"' + (f.sev === 'High' ? ' selected' : '') + '>High (Bounty Candidate)</option>' +
+                            '<option value="Medium"' + (f.sev === 'Medium' ? ' selected' : '') + '>Medium</option>' +
+                            '<option value="Low"' + (f.sev === 'Low' ? ' selected' : '') + '>Low</option>' +
+                            '<option value="Clean"' + (f.sev === 'Clean' ? ' selected' : '') + '>Clean Pass (must prove test coverage)</option>' +
+                        '</select></label>' +
+                        '<label>Defect Category<select class="f-cat" data-idx="' + idx + '"' + (isLocked ? ' disabled' : '') + '>' +
+                            ['Data Math / Aggregation', 'Hardcoded / Static Data', 'Custom Gate #5 Bypass', 'CVD / Accessibility', 'Mobile 375px / Layout', 'PII / Privacy Leak', 'Scale / Unit / Uncertainty'].map(function (c) {
+                                return '<option' + (f.cat === c ? ' selected' : '') + '>' + c + '</option>';
+                            }).join('') +
+                        '</select></label>' +
+                    '</div>' +
+                    '<div class="field-grid" style="margin-bottom:0;">' +
+                        '<label>Exact Reproduction Step / Mutated CSV Input<textarea rows="2" class="f-repro" data-idx="' + idx + '"' + (isLocked ? ' readonly' : '') + ' placeholder="e.g. Dropped 10-row CSV with 4 cancelled orders totaling INR 600">' + esc(f.repro) + '</textarea></label>' +
+                        '<label>Expected vs. Observed Behaviour<textarea rows="2" class="f-exp" data-idx="' + idx + '"' + (isLocked ? ' readonly' : '') + ' placeholder="e.g. Expected: INR 900 (settled only). Observed: KPI showed INR 1,500.">' + esc(f.expObs) + '</textarea></label>' +
+                    '</div>';
+                findingsWrap.appendChild(box);
+
+                var p = patches[idx] || { status: 'Pending', note: '' };
+                var pbox = document.createElement('div');
+                pbox.className = 'p-2.5 mb-2 bg-white border border-emerald-200 rounded-lg text-xs';
+                pbox.innerHTML =
+                    '<div class="flex items-center justify-between gap-2 mb-1.5 flex-wrap">' +
+                        '<span class="font-mono font-bold text-emerald-900">' + id + ' (' + esc(f.sev) + ' · ' + esc(f.cat) + ')</span>' +
+                        '<select class="p-stat" data-idx="' + idx + '" style="width:auto; font-size:.78rem;">' +
+                            ['Pending', 'PATCHED', 'REBUTTED (Out of Spec)', 'PARTIAL'].map(function (st) {
+                                return '<option' + (p.status === st ? ' selected' : '') + '>' + st + '</option>';
+                            }).join('') +
+                        '</select>' +
+                    '</div>' +
+                    '<input type="text" class="p-note" data-idx="' + idx + '" value="' + esc(p.note) + '" placeholder="Fix applied / Spec D# updated / Before-and-after result (Blue Team fills)">';
+                patchesWrap.appendChild(pbox);
+            });
+
+            findingsWrap.querySelectorAll('.f-sev').forEach(function (el) { el.addEventListener('change', function () { findings[this.dataset.idx].sev = this.value; }); });
+            findingsWrap.querySelectorAll('.f-cat').forEach(function (el) { el.addEventListener('change', function () { findings[this.dataset.idx].cat = this.value; }); });
+            findingsWrap.querySelectorAll('.f-repro').forEach(function (el) { el.addEventListener('input', function () { findings[this.dataset.idx].repro = this.value; }); });
+            findingsWrap.querySelectorAll('.f-exp').forEach(function (el) { el.addEventListener('input', function () { findings[this.dataset.idx].expObs = this.value; }); });
+            findingsWrap.querySelectorAll('.rm-f').forEach(function (el) {
+                el.addEventListener('click', function () {
+                    var i = parseInt(this.dataset.idx, 10);
+                    findings.splice(i, 1); patches.splice(i, 1);
+                    renderFindingsAndPatches();
+                });
+            });
+            patchesWrap.querySelectorAll('.p-stat').forEach(function (el) { el.addEventListener('change', function () { patches[this.dataset.idx].status = this.value; }); });
+            patchesWrap.querySelectorAll('.p-note').forEach(function (el) { el.addEventListener('input', function () { patches[this.dataset.idx].note = this.value; }); });
+        }
+
+        document.getElementById('add-finding-btn').addEventListener('click', function () {
+            if (lockedAudit) return;
+            if (findings.length >= 4) { alert('Maximum 4 structured findings per 1-page Audit Card.'); return; }
+            findings.push({ sev: 'Medium', cat: 'Mobile 375px / Layout', repro: '', expObs: '' });
+            patches.push({ status: 'Pending', note: '' });
+            renderFindingsAndPatches();
+        });
+
+        document.getElementById('load-example-btn').addEventListener('click', function () {
+            lockedAudit = null;
+            document.getElementById('handshake-banner').classList.add('hidden');
+            setMetaReadOnly(false);
+            document.getElementById('rt-for').value = 'Ananya & Rohit (24011, 24019)';
+            document.getElementById('rt-by').value = 'Kabir & Meera (24024, 24031)';
+            document.getElementById('rt-pack').value = 'Pack Gamma — Hostel & Canteen';
+            document.getElementById('rt-tool').value = 'HTML (Dynamic File Loader)';
+            document.querySelectorAll('.rt-chk').forEach(function (c) { c.checked = true; });
+            findings = [
+                { sev: 'High', cat: 'Data Math / Aggregation', repro: 'Dropped 10-row Pack Gamma CSV with 4 cancelled orders totaling INR 600.', expObs: 'Expected settled revenue: INR 900. Observed KPI: INR 1,500 (cancelled orders included in SUM).' },
+                { sev: 'Medium', cat: 'Mobile 375px / Layout', repro: 'Opened at 375px mobile width; scrolled Zone Comparison table.', expObs: 'Expected no horizontal page overflow. Observed +118px page overflow pushing KPI cards off-screen.' }
+            ];
+            patches = [
+                { status: 'PATCHED', note: 'Filtered order_status === "settled" before aggregation (Spec D4) + added Custom Gate #5 check.' },
+                { status: 'PATCHED', note: 'Wrapped table in overflow-x-auto container; 375px scrollWidth now equals clientWidth.' }
+            ];
+            renderFindingsAndPatches();
+        });
+
+        function setMetaReadOnly(lock) {
+            ['rt-for', 'rt-by'].forEach(function (id) { document.getElementById(id).readOnly = lock; });
+            ['rt-pack', 'rt-tool'].forEach(function (id) { document.getElementById(id).disabled = lock; });
+            document.querySelectorAll('.rt-chk').forEach(function (c) { c.disabled = lock; });
+            document.getElementById('add-finding-btn').style.display = lock ? 'none' : '';
+        }
+
+        var lastCard = null;
+
+        document.getElementById('gen-btn').addEventListener('click', function () {
+            var forTeam = document.getElementById('rt-for').value.trim();
+            var byTeam = document.getElementById('rt-by').value.trim();
+            var pack = document.getElementById('rt-pack').value;
+            var tool = document.getElementById('rt-tool').value;
+            var tests = Array.prototype.filter.call(document.querySelectorAll('.rt-chk'), function (c) { return c.checked; }).map(function (c) { return c.value; });
+
+            if (!forTeam || !byTeam || !pack) {
+                alert('Fill For Team (Blue), By Team (Red), and Target Mystery Pack before sealing.');
+                return;
+            }
+            if (tests.length < 2) {
+                alert('Run and tick at least 2 adversarial stress tests before sealing an Audit Card.');
+                return;
+            }
+            for (var i = 0; i < findings.length; i++) {
+                if (!findings[i].repro.trim() || !findings[i].expObs.trim()) {
+                    alert('Finding RT-0' + (i + 1) + ' needs both Reproduction Steps and Expected vs. Observed behaviour (no empty/vague cards).');
+                    return;
+                }
+            }
+
+            var nowIso = lockedAudit ? lockedAudit.ts : new Date().toISOString();
+            var findingPayload = findings.map(function (f, i) { return ['RT-0' + (i + 1), f.sev, f.cat, f.repro.trim(), f.expObs.trim()].join('~'); }).join('||');
+            var rtSeal = lockedAudit
+                ? { sig: lockedAudit.sig, hash: lockedAudit.hash }
+                : makeSeal('APLLY-RT', [forTeam, byTeam, pack, tool, tests.join(';'), findingPayload, nowIso].join('|'));
+
+            var hasPatch = patches.some(function (p) { return p.status !== 'Pending' || (p.note || '').trim().length > 0; });
+            var patchIso = new Date().toISOString();
+            var patchPayload = patches.map(function (p, i) { return ['RT-0' + (i + 1), p.status, (p.note || '').trim()].join('~'); }).join('||');
+            var patchSeal = hasPatch ? makeSeal('APLLY-PATCH', [rtSeal.sig, forTeam, patchPayload, patchIso].join('|')) : null;
+
+            document.getElementById('ad-for').textContent = forTeam;
+            document.getElementById('ad-by').textContent = byTeam;
+            document.getElementById('ad-pack').textContent = pack;
+            document.getElementById('ad-tool').textContent = tool;
+            document.getElementById('ad-tests').textContent = tests.join(' · ');
+            document.getElementById('ad-stamp').textContent = nowIso + (patchSeal ? ' (Patched: ' + patchIso + ')' : '');
+
+            var tbody = document.getElementById('ad-rows');
+            tbody.innerHTML = '';
+            findings.forEach(function (f, idx) {
+                var p = patches[idx] || { status: 'Pending', note: '' };
+                var tr = document.createElement('tr');
+                tr.innerHTML =
+                    '<td><strong>RT-0' + (idx + 1) + '</strong><br><span class="sev-badge sev-' + esc(f.sev) + '">' + esc(f.sev) + '</span></td>' +
+                    '<td>' + esc(f.cat) + '</td>' +
+                    '<td><strong>Repro:</strong> ' + esc(f.repro) + '<br><strong>Result:</strong> ' + esc(f.expObs) + '</td>' +
+                    '<td><strong>' + esc(p.status) + '</strong>' + (p.note ? '<br>' + esc(p.note) : '') + '</td>';
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('ad-rt-sig').textContent = rtSeal.sig;
+            document.getElementById('ad-rt-hash').textContent = 'SHA-256: ' + rtSeal.hash.slice(0, 24) + '…';
+            document.getElementById('ad-rt-hash').title = 'Full SHA-256: ' + rtSeal.hash;
+
+            var pRow = document.getElementById('ad-patch-seal-row');
+            if (patchSeal) {
+                pRow.classList.remove('hidden');
+                document.getElementById('ad-patch-sig').textContent = patchSeal.sig;
+                document.getElementById('ad-patch-hash').textContent = 'SHA-256: ' + patchSeal.hash.slice(0, 24) + '…';
+            } else {
+                pRow.classList.add('hidden');
+            }
+
+            lastCard = { forTeam: forTeam, byTeam: byTeam, pack: pack, tool: tool, tests: tests, findings: findings, patches: patches, ts: nowIso, sig: rtSeal.sig, hash: rtSeal.hash, patchSig: patchSeal ? patchSeal.sig : '' };
+            document.getElementById('cert-out').classList.add('show');
+            if (typeof document.getElementById('cert-out').scrollIntoView === 'function') {
+                document.getElementById('cert-out').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            try {
+                var hist = JSON.parse(localStorage.getItem(HKEY) || '[]');
+                hist.push({ forTeam: forTeam, byTeam: byTeam, pack: pack, count: findings.length, sig: rtSeal.sig, patchSig: patchSeal ? patchSeal.sig : '' });
+                localStorage.setItem(HKEY, JSON.stringify(hist));
+                renderHistory();
+            } catch (e) {}
+        });
+
+        function renderHistory() {
+            var list = document.getElementById('hist-list');
+            var hist = [];
+            try { hist = JSON.parse(localStorage.getItem(HKEY) || '[]'); } catch (e) {}
+            if (!hist.length) { list.innerHTML = '<p class="mini-note">None yet — generate your first Audit Card above.</p>'; return; }
+            list.innerHTML = '';
+            hist.slice().reverse().forEach(function (h) {
+                var div = document.createElement('div');
+                div.className = 'hist-item';
+                div.innerHTML = '<span><strong>For:</strong> ' + esc(h.forTeam) + ' · <strong>By:</strong> ' + esc(h.byTeam) + ' (' + esc(h.pack) + ')</span>' +
+                    '<span class="font-mono text-xs text-indigo-900 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">' + esc(h.sig) + (h.patchSig ? ' → ' + esc(h.patchSig) : '') + '</span>';
+                list.appendChild(div);
+            });
+        }
+
+        function legacyCopy(text) {
+            var ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            var ok = false;
+            try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+            document.body.removeChild(ta);
+            return ok;
+        }
+        function copyText(text, done) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done).catch(function () { if (legacyCopy(text)) done(); });
+            } else if (legacyCopy(text)) { done(); }
+        }
+
+        document.getElementById('ad-print').addEventListener('click', function () { window.print(); });
+        document.getElementById('ad-share').addEventListener('click', function () {
+            if (!lastCard) return;
+            var compact = { f: lastCard.forTeam, b: lastCard.byTeam, p: lastCard.pack, t: lastCard.tool, k: lastCard.tests, d: lastCard.findings, ts: lastCard.ts, sig: lastCard.sig, hash: lastCard.hash };
+            var url = location.origin + location.pathname + '#rt=' + btoa(unescape(encodeURIComponent(JSON.stringify(compact))));
+            var btn = this, old = btn.innerHTML;
+            copyText(url, function () {
+                btn.innerHTML = '<i class="fas fa-check"></i> Handshake Link Copied!';
+                setTimeout(function () { btn.innerHTML = old; }, 2500);
+            });
+        });
+        document.getElementById('ad-copy').addEventListener('click', function () {
+            if (!lastCard) return;
+            var L = [
+                'APLLY ASSIGNMENT 3 — RED-TEAM AUDIT & PATCH CARD',
+                'For Team (Blue) : ' + lastCard.forTeam,
+                'By Team (Red)   : ' + lastCard.byTeam,
+                'Mystery Pack    : ' + lastCard.pack,
+                'Red-Team Seal   : ' + lastCard.sig,
+                lastCard.patchSig ? 'Blue Patch Seal : ' + lastCard.patchSig : 'Blue Patch Seal : (Pending)',
+                '----------------------------------------'
+            ];
+            lastCard.findings.forEach(function (f, i) {
+                var p = lastCard.patches[i] || { status: 'Pending', note: '' };
+                L.push('RT-0' + (i + 1) + ' [' + f.sev + ' · ' + f.cat + ']');
+                L.push('  Repro : ' + f.repro);
+                L.push('  Result: ' + f.expObs);
+                L.push('  Patch : ' + p.status + (p.note ? ' — ' + p.note : ''));
+            });
+            var btn = this, old = btn.innerHTML;
+            copyText(L.join('\n'), function () {
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(function () { btn.innerHTML = old; }, 2000);
+            });
+        });
+        document.getElementById('clear-btn').addEventListener('click', function () {
+            lockedAudit = null;
+            document.getElementById('handshake-banner').classList.add('hidden');
+            setMetaReadOnly(false);
+            ['rt-for', 'rt-by'].forEach(function (id) { document.getElementById(id).value = ''; });
+            document.getElementById('rt-pack').value = '';
+            document.querySelectorAll('.rt-chk').forEach(function (c) { c.checked = false; });
+            findings = [{ sev: 'High', cat: 'Data Math / Aggregation', repro: '', expObs: '' }];
+            patches = [{ status: 'Pending', note: '' }];
+            document.getElementById('cert-out').classList.remove('show');
+            if (location.hash) history.replaceState(null, '', location.pathname);
+            renderFindingsAndPatches();
+        });
+
+        // Decode #rt= locked handshake link for Blue Team Patch Mode
+        (function () {
+            var m = location.hash.match(/^#rt=(.+)$/);
+            if (!m) return;
+            try {
+                var c = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+                lockedAudit = { ts: c.ts, sig: c.sig, hash: c.hash };
+                document.getElementById('rt-for').value = c.f || '';
+                document.getElementById('rt-by').value = c.b || '';
+                document.getElementById('rt-pack').value = c.p || '';
+                document.getElementById('rt-tool').value = c.t || 'HTML (Dynamic File Loader)';
+                var tSet = c.k || [];
+                document.querySelectorAll('.rt-chk').forEach(function (chk) { chk.checked = tSet.indexOf(chk.value) > -1; });
+                findings = c.d || findings;
+                patches = findings.map(function () { return { status: 'Pending', note: '' }; });
+                setMetaReadOnly(true);
+                document.getElementById('handshake-banner').classList.remove('hidden');
+                document.getElementById('hb-seal').textContent = c.sig || 'APLLY-RT';
+            } catch (e) {}
+        })();
+
+        renderFindingsAndPatches();
+        renderHistory();
+    })();
+    </script>
+</body>
+</html>

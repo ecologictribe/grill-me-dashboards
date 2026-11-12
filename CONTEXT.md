@@ -158,6 +158,8 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
   trainer-only `--curveball <seed>` files into gitignored `var/a3-curveballs/`).
   Behavioral & layout-agnostic **v3 gates** added in `grader/grader.v3.js` and
   `eval-tool/index.html` (`v3` / `v2` profile switcher, preserving Assignment 2
-  `v2` parity). Hub `index.html` (11 cards), `presentation-tool/index.html`
-  (`A3 Pack Alpha–Zeta` + Live Curveball outcome tracker), and
+  `v2` parity). Added `red-team-tool/index.html` (worked example + two-party
+  `For Team ↔ By Team` SHA-256 `APLLY-RT-` / `APLLY-PATCH-` `#rt=` handshake).
+  Hub `index.html` (12 cards), `presentation-tool/index.html` (`A3 Pack
+  Alpha–Zeta` + Live Curveball outcome tracker), and
   `.quarantine/validate-tutorials.js` updated and passing.

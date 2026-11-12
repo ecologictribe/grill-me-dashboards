@@ -133,6 +133,7 @@
         <div class="flex items-center space-x-4 text-xs sm:text-sm">
             <a href="index.html" class="text-gray-300 hover:text-white transition hidden sm:inline">Assignment 2</a>
             <a href="../eval-tool/index.html" class="text-gray-300 hover:text-white transition">Eval Tool</a>
+            <a href="../red-team-tool/index.html" class="text-gray-300 hover:text-white transition">Red-Team Tool</a>
             <a href="../presentation-tool/index.html" class="text-gray-300 hover:text-white transition">Presentation Tool</a>
             <a href="../tutorials/grill-method.html" class="px-3 py-1 bg-[#3c9080] text-white rounded font-bold hover:bg-[#48b838] transition">Method →</a>
         </div>
@@ -411,6 +412,25 @@
 
             <div class="mt-3 p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-xs text-indigo-950">
                 <strong><i class="fas fa-award mr-1 text-indigo-600"></i> Rules of Engagement &amp; Bounty Incentives:</strong> Attack the <em>dashboard and data pipeline</em>, never the classmate. Every defect must include steps to reproduce. Thorough auditing earns up to <strong>10 marks (<code>C2</code>)</strong>, and catching a verified High-Severity defect (hardcoded arrays, PII leak, silent row truncation, or broken Gate #5) earns a <strong>+2 Bounty Bonus (<code>E2</code>)</strong>.
+            </div>
+
+            <div class="tool-banner tool-banner-navy mt-4">
+                <div>
+                    <strong class="block text-sm text-[#0C4A6E]"><i class="fas fa-fingerprint mr-1"></i> Generate Your Fingerprinted Audit Card (<code>For Team ↔ By Team</code>)</strong>
+                    <span class="text-xs text-[#0C4A6E]">Use the <a href="../red-team-tool/index.html" class="underline font-bold">Red-Team Audit Card Tool</a> to see a live worked example, lock your findings with a SHA-256 <code>APLLY-RT-</code> seal, and send a locked <code>#rt=</code> handshake link to the Blue Team for Page 7.</span>
+                </div>
+                <a href="../red-team-tool/index.html" class="px-3 py-1.5 bg-[#0C4A6E] text-white text-xs rounded-lg font-bold hover:bg-[#0369A1] transition whitespace-nowrap">Open Red-Team Tool →</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-xs">
+                <div class="p-3 rounded-xl border border-rose-200 bg-rose-50/70">
+                    <div class="font-bold text-rose-900 mb-1">❌ Weak Audit Card Example (0/10 on C2)</div>
+                    <p class="m-0 text-rose-950 leading-relaxed"><em>"The dashboard looks good and responsive! Maybe make the heading font slightly bigger. No major bugs found."</em> — No mutated CSV, no expected vs. observed numbers, zero verification.</p>
+                </div>
+                <div class="p-3 rounded-xl border border-emerald-200 bg-emerald-50/70">
+                    <div class="font-bold text-emerald-900 mb-1">✅ Expert Audit Card Example (Full C2 + +2 E2 Bounty)</div>
+                    <p class="m-0 text-emerald-950 leading-relaxed"><strong>[RT-01 · HIGH · Data Math]</strong> <em>Repro:</em> Dropped 10-row Pack Gamma CSV with 4 <code>cancelled</code> orders totaling ₹600. <em>Expected:</em> ₹900 (<code>settled</code> only). <em>Observed:</em> KPI showed ₹1,500. <em>Blue Patch:</em> Filtered <code>order_status === 'settled'</code> (Spec D4) + sealed via <code>APLLY-PATCH-…</code>.</p>
+                </div>
             </div>
         </section>
 

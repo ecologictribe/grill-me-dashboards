@@ -235,9 +235,9 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     const rootHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
     const rootDom = new JSDOM(rootHtml);
     const hubCards = rootDom.window.document.querySelectorAll('.hub-card').length;
-    if (hubCards !== 11) fail(`root index.html | expected 11 hub cards, got ${hubCards}`);
+    if (hubCards !== 12) fail(`root index.html | expected 12 hub cards, got ${hubCards}`);
     if (!rootHtml.includes('name="last-updated"')) fail('root index.html | missing last-updated meta tag');
-    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/assignment-3.html', 'assignments/index.html', 'eval-tool/index.html', 'presentation-tool/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
+    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/assignment-3.html', 'assignments/index.html', 'eval-tool/index.html', 'red-team-tool/index.html', 'presentation-tool/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
         if (!rootHtml.includes(link)) fail(`root index.html | missing hub link: ${link}`);
     }
     rootDom.window.close();
@@ -309,6 +309,29 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     const ptAssign = fs.readFileSync(path.join(__dirname, '..', 'assignments', 'index.html'), 'utf8');
     if ((ptAssign.match(/presentation-tool\/index\.html/g) || []).length < 3) fail('assignments/index.html | presentation-tool should be linked from ≥3 places (overview, D2, timeline)');
     if (!failures) console.log('PASS presentation-tool/index.html | 7-dimension peer rubric wired + cross-linked');
+
+    // Red-Team Audit Card Tool (Assignment 3 Phase 3)
+    {
+        const rtPath = path.join(__dirname, '..', 'red-team-tool', 'index.html');
+        if (!fs.existsSync(rtPath)) fail('red-team-tool/index.html | missing');
+        else {
+            const rtHtml = fs.readFileSync(rtPath, 'utf8');
+            const rtErrors = [];
+            const vc = new VirtualConsole();
+            vc.on('jsdomError', e => { if (!e.message.includes('tailwind')) rtErrors.push(e.message); });
+            const rtDom = new JSDOM(rtHtml, { runScripts: 'dangerously', pretendToBeVisual: true, virtualConsole: vc, url: 'https://aplly.xyz/red-team-tool/index.html' });
+            await new Promise(r => setTimeout(r, 300));
+            rtDom.window.close();
+            if (rtErrors.length) fail(`red-team-tool/index.html | script errors: ${rtErrors.join(' ; ')}`);
+            for (const token of ['APLLY-RT', 'APLLY-PATCH', 'apllyRedTeamCards', 'load-example-btn', 'ad-share', '../assignments/assignment-3.html', '../index.html']) {
+                if (!rtHtml.includes(token)) fail(`red-team-tool/index.html | missing token: ${token}`);
+            }
+            if (!fs.readFileSync(path.join(__dirname, '..', 'assignments', 'assignment-3.html'), 'utf8').includes('../red-team-tool/index.html')) {
+                fail('assignments/assignment-3.html | missing link to red-team-tool/index.html');
+            }
+            if (!failures) console.log('PASS red-team-tool/index.html | For/By Team SHA-256 handshake + worked example wired');
+        }
+    }
 
     console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL CHECKS PASSED');
     process.exit(failures ? 1 : 0);
