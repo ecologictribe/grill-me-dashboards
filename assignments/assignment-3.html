@@ -6,7 +6,7 @@
     <title>Assignment 3 (13 Nov – 20 Nov 2026): AI Autopsy, Red-Team &amp; Live Curveball Defense | Aplly.xyz</title>
     <meta name="description" content="Assignment 3 (13 Nov – 20 Nov 2026): Use AI openly, expose its blind spots in a Naive AI Autopsy, build a dynamic-CSV dashboard with a custom gate, survive a Peer Red-Team Audit, and pass a live unseen Curveball CSV swap on Presentation Day.">
     <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
-    <meta name="last-updated" content="2026-11-12T08:45:00+05:30">
+    <meta name="last-updated" content="2026-11-12T11:30:00+05:30">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -50,20 +50,40 @@
         .loop .step.red { background:#991B1B; }
         .loop .arrow { color:#94A3B8; font-weight:800; }
 
-        .pack-grid { display:grid; grid-template-columns:1fr; gap:1rem; margin-top:1rem; }
-        @media (min-width:720px) { .pack-grid { grid-template-columns:repeat(2,1fr); } }
-        .pack-card { border:2px solid var(--card-border); border-radius:12px; padding:1.15rem 1.2rem; background:#fff; transition:all .2s ease; display:flex; flex-direction:column; gap:.55rem; }
-        .pack-card:hover { transform:translateY(-2px); box-shadow:0 8px 22px rgba(24,56,104,.09); }
-        .pack-card.selected { border-color:#183868; background:#F8FAFF; box-shadow:0 6px 20px rgba(24,56,104,.12); }
-        .pack-top { display:flex; justify-content:space-between; align-items:center; gap:.5rem; }
-        .pack-badge { font-family:'Fira Code',monospace; font-size:.75rem; font-weight:700; padding:2px 10px; border-radius:999px; background:#EEF2FF; color:#1E40AF; }
-        .pack-card h3 { font-size:1.05rem; margin:0; }
-        .pack-meta { font-size:.78rem; color:#475569; }
-        .pack-actions { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:auto; padding-top:.55rem; border-top:1px dashed #E2E8F0; }
-        .ds-link { display:inline-flex; align-items:center; gap:.3rem; font-size:.75rem; font-weight:700; padding:.28rem .65rem; border-radius:999px; background:#EEF2FF; color:#1E40AF; text-decoration:none; }
+        .pack-grid { display:grid; grid-template-columns:1fr; gap:.75rem; margin-top:1rem; }
+        @media (min-width:600px) { .pack-grid { grid-template-columns:repeat(2,1fr); } }
+        @media (min-width:860px) { .pack-grid { grid-template-columns:repeat(3,1fr); } }
+        .pack-card { border:2px solid var(--card-border); border-radius:10px; padding:.85rem .95rem; background:#fff; transition:all .18s ease; display:flex; flex-direction:column; gap:.4rem; cursor:pointer; }
+        .pack-card:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(24,56,104,.09); border-color:#93C5FD; }
+        .pack-card.selected { border-color:#183868; background:#EEF4FF; box-shadow:0 6px 20px rgba(24,56,104,.14); }
+        .pack-top { display:flex; justify-content:space-between; align-items:center; gap:.4rem; }
+        .pack-badge { font-family:'Fira Code',monospace; font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:999px; background:#EEF2FF; color:#1E40AF; }
+        .pack-card h3 { font-size:.94rem; margin:0; line-height:1.3; }
+        .pack-actions { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:.4rem; margin-top:auto; padding-top:.45rem; border-top:1px dashed #E2E8F0; }
+        .ds-link { display:inline-flex; align-items:center; gap:.3rem; font-size:.72rem; font-weight:700; padding:.22rem .55rem; border-radius:999px; background:#EEF2FF; color:#1E40AF; text-decoration:none; }
         .ds-link:hover { background:#1E40AF; color:#fff; }
-        .pick-btn { font-size:.75rem; font-weight:700; padding:.28rem .7rem; border-radius:999px; border:1px solid #CBD5E1; background:#F8FAFC; color:#334155; cursor:pointer; }
+        .pick-btn { font-size:.72rem; font-weight:700; padding:.22rem .6rem; border-radius:999px; border:1px solid #CBD5E1; background:#F8FAFC; color:#334155; cursor:pointer; }
         .pick-btn.picked { background:#183868; color:#fff; border-color:#183868; }
+
+        /* Pack Inspector & Critical Strip */
+        .crit-strip { display:grid; grid-template-columns:1fr; gap:.6rem; margin-bottom:1.4rem; }
+        @media (min-width:720px) { .crit-strip { grid-template-columns:repeat(3,1fr); } }
+        .crit-pill { border-radius:10px; padding:.75rem .9rem; border:1.5px solid; font-size:.78rem; line-height:1.45; }
+        .crit-red { background:#FFF1F2; border-color:#FDA4AF; color:#881337; }
+        .crit-amber { background:#FFFBEB; border-color:#FCD34D; color:#78350F; }
+        .crit-indigo { background:#EEF2FF; border-color:#A5B4FC; color:#1E1B4B; }
+
+        /* Tabbed Template Viewer + Toast */
+        .tpl-tabs { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.6rem; }
+        .tpl-tab { font-size:.78rem; font-weight:700; padding:.42rem .85rem; border-radius:8px; border:1px solid #CBD5E1; background:#F8FAFC; color:#334155; cursor:pointer; transition:all .15s; }
+        .tpl-tab.active { background:#183868; color:#fff; border-color:#183868; }
+        .tpl-pane { display:none; }
+        .tpl-pane.active { display:block; }
+        #copy-toast { position:fixed; bottom:1.2rem; right:1.2rem; z-index:60; background:#065F46; color:#ECFDF5; padding:.6rem 1rem; border-radius:10px; font-size:.82rem; font-weight:700; box-shadow:0 10px 25px rgba(0,0,0,.22); opacity:0; transform:translateY(10px); pointer-events:none; transition:all .22s ease; }
+        #copy-toast.show { opacity:1; transform:translateY(0); }
+        #top-fab { position:fixed; bottom:1.2rem; left:1.2rem; z-index:55; background:#183868; color:#fff; padding:.45rem .85rem; border-radius:999px; font-size:.76rem; font-weight:700; text-decoration:none; box-shadow:0 6px 18px rgba(24,56,104,.28); opacity:0; pointer-events:none; transition:opacity .2s; }
+        #top-fab.show { opacity:1; pointer-events:auto; }
+        .score-input.missing-warn { border-color:#DC2626; background:#FEF2F2; }
 
         .op-table { width:100%; border-collapse:collapse; font-size:.85rem; margin-top:.8rem; }
         .op-table th, .op-table td { border:1px solid #E2E8F0; padding:.55rem .7rem; text-align:left; vertical-align:top; }
@@ -110,9 +130,17 @@
         .tool-banner-navy { background:#F0F9FF; border-color:#38BDF8; }
         .tool-banner-purple { background:#F5F3FF; border-color:#A78BFA; }
 
-        @media (max-width:640px) { .score-input { width:58px; padding:.45rem .3rem; font-size:.92rem; } }
+        @media (max-width:640px) {
+            .score-input { width:58px; padding:.45rem .3rem; font-size:.92rem; }
+            table.stack-mobile thead { display:none; }
+            table.stack-mobile, table.stack-mobile tbody, table.stack-mobile tr, table.stack-mobile td { display:block; width:100%; }
+            table.stack-mobile tr { margin-bottom:.75rem; border:1px solid #CBD5E1; border-radius:10px; overflow:hidden; background:#fff !important; }
+            table.stack-mobile td { border:none; border-bottom:1px solid #F1F5F9; padding:.48rem .75rem; }
+            table.stack-mobile td:last-child { border-bottom:none; }
+            table.stack-mobile td::before { content:attr(data-label); display:block; font-size:.68rem; font-weight:700; text-transform:uppercase; color:#64748B; margin-bottom:.12rem; }
+        }
         @media print {
-            #progress-container, nav, #toc-bar, .no-print, .copy-btn, #print-scorecard, #reset-scores, #restored-chip { display:none !important; }
+            #progress-container, nav, #toc-bar, .no-print, .copy-btn, #print-scorecard, #reset-scores, #restored-chip, #copy-toast, #top-fab { display:none !important; }
             .reveal { opacity:1 !important; transform:none !important; }
             section.card { box-shadow:none !important; break-inside:avoid; }
             body { background:#fff !important; }
@@ -175,7 +203,23 @@
         <a href="#presentation">🎤 Live Curveball</a>
     </div>
 
-    <main class="article-body">
+    <main class="article-body" id="top">
+
+        <!-- HIGH-CONTRAST CRITICAL RULES STRIP -->
+        <div class="crit-strip" role="region" aria-label="Critical rules">
+            <div class="crit-pill crit-red">
+                <strong class="block mb-0.5"><i class="fas fa-triangle-exclamation mr-1"></i> 20 Nov Live Curveball = Mandatory</strong>
+                PDF on <code>eflow</code> alone is <strong>Incomplete</strong>. You must drop the trainer's unseen <code>_v2_curveball.csv</code> live on stage.
+            </div>
+            <div class="crit-pill crit-amber">
+                <strong class="block mb-0.5"><i class="fas fa-ban mr-1"></i> Zero Hardcoded Data</strong>
+                Static JS arrays or frozen numbers fail immediately: <strong>Gate B2 = 0/8</strong> and <strong>D2 = 0/12</strong>.
+            </div>
+            <div class="crit-pill crit-indigo">
+                <strong class="block mb-0.5"><i class="fas fa-fingerprint mr-1"></i> Fingerprinted Audit Card</strong>
+                Vague Red-Team praise earns <strong>0/10 on C2</strong>. Lock findings in <a href="../red-team-tool/index.html" class="underline font-bold">Red-Team Tool</a>.
+            </div>
+        </div>
 
         <!-- ============ OVERVIEW ============ -->
         <section class="card reveal" id="overview">
@@ -208,15 +252,15 @@
         <section class="card reveal" id="timeline">
             <h2>📅 7-Day Sprint Timeline (13 Nov – 20 Nov 2026)</h2>
             <div class="overflow-x-auto">
-                <table class="op-table">
-                    <thead><tr><th>Date</th><th>Phase</th><th>What Must Happen</th></tr></thead>
+                <table class="op-table stack-mobile">
+                    <thead><tr><th>Date</th><th>Phase</th><th>Action Required</th></tr></thead>
                     <tbody>
-                        <tr><td class="font-semibold whitespace-nowrap">Fri 13 Nov 2026</td><td>Kickoff &amp; Pack Pick</td><td>Assignment 3 issued. Select/get assigned 1 Mystery Pack below (Alpha–Zeta) and inspect the raw CSV.</td></tr>
-                        <tr class="bg-gray-50"><td class="font-semibold whitespace-nowrap">13 – 15 Nov</td><td>Phase 1 · AI Autopsy</td><td>Generate a naive 1-prompt AI dashboard, capture it, inspect raw CSV rows, and file your <strong>Trap Discovery &amp; AI Autopsy Declaration</strong> on eflow.</td></tr>
-                        <tr><td class="font-semibold whitespace-nowrap">16 – 17 Nov</td><td>Phase 2 · Grill &amp; Build</td><td>Run ≥3 Grill rounds → lock Spec Doc → build dynamic-CSV dashboard (HTML default; Power BI optional +bonus) → pass 4 Eval Tool gates + author <strong>1 Custom Gate</strong>.</td></tr>
-                        <tr class="bg-gray-50"><td class="font-semibold whitespace-nowrap">18 – 19 Nov</td><td>Phase 3 · Red-Team Swap</td><td>Exchange artifacts with your assigned Red-Team reviewer. Break each other's edge cases, issue the 1-page Red-Team Card, and log your patches.</td></tr>
-                        <tr><td class="font-semibold whitespace-nowrap">Fri 20 Nov (AM)</td><td>Submit on eflow</td><td>Upload <code>RollNo_Name_Assignment3.pdf</code> + runnable HTML/PBIX bundle on the <strong>eflow portal</strong> before your presentation slot.</td></tr>
-                        <tr class="bg-amber-50"><td class="font-semibold whitespace-nowrap">Fri 20 Nov (Class)</td><td>Phase 4 · Live Curveball</td><td><strong>6–7 min presentation + viva:</strong> show AI Autopsy, drop Trainer's unseen <code>_v2_curveball.csv</code> live, defend Red-Team fixes. Peers score via <a href="../presentation-tool/index.html" class="underline font-bold">Presentation Tool</a>.</td></tr>
+                        <tr><td data-label="Date" class="font-semibold whitespace-nowrap">Fri 13 Nov</td><td data-label="Phase" class="font-semibold">Kickoff &amp; Pack Pick</td><td data-label="Action">Select/receive 1 Mystery Pack (Alpha–Zeta) and inspect raw CSV rows.</td></tr>
+                        <tr class="bg-gray-50"><td data-label="Date" class="font-semibold whitespace-nowrap">13 – 15 Nov</td><td data-label="Phase" class="font-semibold">Phase 1 · AI Autopsy</td><td data-label="Action">Run 1-prompt AI dashboard, expose ≥3 AI failures, file Declaration on <code>eflow</code>.</td></tr>
+                        <tr><td data-label="Date" class="font-semibold whitespace-nowrap">16 – 17 Nov</td><td data-label="Phase" class="font-semibold">Phase 2 · Grill &amp; Build</td><td data-label="Action">≥3 Grill rounds → Spec Doc → dynamic CSV loader + 4 v3 gates + <strong>Custom Gate #5</strong>.</td></tr>
+                        <tr class="bg-gray-50"><td data-label="Date" class="font-semibold whitespace-nowrap">18 – 19 Nov</td><td data-label="Phase" class="font-semibold">Phase 3 · Red-Team Swap</td><td data-label="Action">Stress-test partner's build, seal Audit Card in <a href="../red-team-tool/index.html" class="underline font-semibold">Red-Team Tool</a>, patch your own.</td></tr>
+                        <tr><td data-label="Date" class="font-semibold whitespace-nowrap">Fri 20 Nov (AM)</td><td data-label="Phase" class="font-semibold">Submit on eflow</td><td data-label="Action">Upload <code>RollNo_Name_Assignment3.pdf</code> + runnable HTML/PBIX bundle.</td></tr>
+                        <tr class="bg-amber-50"><td data-label="Date" class="font-semibold whitespace-nowrap">Fri 20 Nov (Class)</td><td data-label="Phase" class="font-semibold">Phase 4 · Live Curveball</td><td data-label="Action"><strong>6–7 min live defense:</strong> drop unseen <code>_v2_curveball.csv</code> live. Peers score via <a href="../presentation-tool/index.html" class="underline font-bold">Presentation Tool</a>.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -225,16 +269,16 @@
         <!-- ============ AI RULES OF ENGAGEMENT ============ -->
         <section class="card reveal" id="ai-rules">
             <h2>🤖 AI Rules of Engagement — Allowed vs. Auto-Fail</h2>
-            <p class="text-sm text-gray-700">AI is a power tool in this assignment, not a contraband item. The rubric is engineered so blind copy-pasting fails in public while disciplined engineering shines:</p>
+            <p class="text-sm text-gray-700">Use AI openly as an engineering partner — blind copy-pasting fails in public:</p>
             <div class="overflow-x-auto">
-                <table class="op-table">
-                    <thead><tr><th>Dimension</th><th>What You MAY Use AI For</th><th>What Triggers Automatic Zero / Penalty</th></tr></thead>
+                <table class="op-table stack-mobile">
+                    <thead><tr><th>Stage</th><th>Allowed AI Use</th><th>Automatic Zero / Penalty</th></tr></thead>
                     <tbody>
-                        <tr><td class="font-semibold">CSV Inspection</td><td>Writing quick EDA scripts or profiling column distributions.</td><td>Guessing traps without citing exact row numbers, IDs, or column values from your CSV.</td></tr>
-                        <tr class="bg-gray-50"><td class="font-semibold">Naive Baseline</td><td>Generating the Phase 1 "1-prompt" broken dashboard to dissect.</td><td>Submitting the naive AI build as your final dashboard, or failing to spot ≥3 defects in it.</td></tr>
-                        <tr><td class="font-semibold">Dashboard Code</td><td>Writing HTML5/Canvas/Chart.js/D3 or Power BI DAX from your locked Spec Doc.</td><td><strong>Hardcoded data arrays or labels</strong> inside HTML/JS. If dropping <code>_v2_curveball.csv</code> fails to update every chart and KPI, <strong>Gate B2 = 0/8</strong>. (<em>Power BI optional path:</em> must use a Power Query File-Path Parameter <code>pCsvPath</code> so swapping CSV + clicking Refresh takes &lt;15s.)</td></tr>
-                        <tr class="bg-gray-50"><td class="font-semibold">Custom Gate</td><td>Drafting the JS assertion or Power BI test checklist for your 5th gate.</td><td>Copy-pasting an existing <code>grader.v2.js</code> gate unchanged, or writing a gate that passes on broken data.</td></tr>
-                        <tr><td class="font-semibold">Presentation</td><td>Rehearsing timing and structuring your 6-minute walkthrough.</td><td>Not knowing which Spec decision (<code>D1…Dn</code>) produced a visual rule, or failing to explain a Red-Team fix live.</td></tr>
+                        <tr><td data-label="Stage" class="font-semibold">CSV Inspection</td><td data-label="Allowed">Quick EDA scripts or column profiling.</td><td data-label="Auto-Fail">Guessing traps without citing exact row IDs or values.</td></tr>
+                        <tr class="bg-gray-50"><td data-label="Stage" class="font-semibold">Naive Baseline</td><td data-label="Allowed">Generating the Phase 1 "1-prompt" broken build.</td><td data-label="Auto-Fail">Submitting the naive AI build as final, or missing ≥3 flaws.</td></tr>
+                        <tr><td data-label="Stage" class="font-semibold">Dashboard Code</td><td data-label="Allowed">HTML5/Chart.js/D3 or Power BI DAX from locked Spec.</td><td data-label="Auto-Fail">Hardcoded data arrays (<strong>Gate B2 = 0/8</strong>). Power BI must use <code>pCsvPath</code> (&lt;15s Refresh).</td></tr>
+                        <tr class="bg-gray-50"><td data-label="Stage" class="font-semibold">Custom Gate</td><td data-label="Allowed">Drafting JS/PBIX logic for your 5th gate.</td><td data-label="Auto-Fail">Copying an existing gate unchanged or passing on dirty data.</td></tr>
+                        <tr><td data-label="Stage" class="font-semibold">Presentation</td><td data-label="Allowed">Rehearsing timing &amp; 6-min walkthrough.</td><td data-label="Auto-Fail">Cannot trace pixels to <code>D1…Dn</code> or explain live Curveball shift.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -251,95 +295,76 @@
         <!-- ============ MYSTERY PACKS ============ -->
         <section class="card reveal" id="packs">
             <h2>📦 The 6 Mystery Multi-Trap Dataset Packs</h2>
-            <p class="text-sm text-gray-700">Pick <strong>one</strong> pack (or take the pack assigned by your trainer so neighboring pairs don't share data—only ~4 pairs per pack in a class of 50). <strong>Notice there are no trap names listed below</strong> — discovering all 3 embedded traps per pack is your first graded task.</p>
+            <p class="text-sm text-gray-700">Click any pack tile below to inspect its brief and download its CSV (only ~4 pairs per pack in a class of 50). <strong>Zero trap hints are listed</strong> — discovering all 3 embedded traps is Phase 1.</p>
 
             <div class="pack-grid" id="pack-grid">
                 <div class="pack-card" data-pack="alpha">
-                    <div class="pack-top">
-                        <span class="pack-badge">PACK ALPHA · 48 rows</span>
-                        <span class="text-xs font-semibold text-slate-500">9 columns</span>
-                    </div>
+                    <div class="pack-top"><span class="pack-badge">ALPHA</span><span class="text-[11px] font-semibold text-slate-500">48 rows · 9 cols</span></div>
                     <h3>Campus Solar &amp; Weather Operations</h3>
-                    <p class="text-xs text-gray-600 m-0">Daily inverter forecast vs. actual kWh generation and ambient node telemetry across campus sensors.</p>
-                    <div class="pack-meta"><strong>Audience:</strong> Campus Facilities &amp; Energy Lead deciding grid backup schedules.</div>
                     <div class="pack-actions">
-                        <a class="ds-link" href="data/a3-pack-alpha.csv" download><i class="fas fa-download"></i> a3-pack-alpha.csv</a>
-                        <button type="button" class="pick-btn" data-pack="alpha">➕ Select Pack Alpha</button>
+                        <a class="ds-link" href="data/a3-pack-alpha.csv" download><i class="fas fa-download"></i> CSV</a>
+                        <button type="button" class="pick-btn" data-pack="alpha">➕ Select</button>
                     </div>
                 </div>
 
                 <div class="pack-card" data-pack="beta">
-                    <div class="pack-top">
-                        <span class="pack-badge">PACK BETA · 48 rows</span>
-                        <span class="text-xs font-semibold text-slate-500">9 columns</span>
-                    </div>
+                    <div class="pack-top"><span class="pack-badge">BETA</span><span class="text-[11px] font-semibold text-slate-500">48 rows · 9 cols</span></div>
                     <h3>Annual Sports &amp; Merit Summary</h3>
-                    <p class="text-xs text-gray-600 m-0">Inter-house athletic and academic trial scores compiled for the public school noticeboard and awards committee.</p>
-                    <div class="pack-meta"><strong>Audience:</strong> Principal &amp; Public Noticeboard (parents + students).</div>
                     <div class="pack-actions">
-                        <a class="ds-link" href="data/a3-pack-beta.csv" download><i class="fas fa-download"></i> a3-pack-beta.csv</a>
-                        <button type="button" class="pick-btn" data-pack="beta">➕ Select Pack Beta</button>
+                        <a class="ds-link" href="data/a3-pack-beta.csv" download><i class="fas fa-download"></i> CSV</a>
+                        <button type="button" class="pick-btn" data-pack="beta">➕ Select</button>
                     </div>
                 </div>
 
                 <div class="pack-card" data-pack="gamma">
-                    <div class="pack-top">
-                        <span class="pack-badge">PACK GAMMA · 1,320 rows</span>
-                        <span class="text-xs font-semibold text-slate-500">8 columns</span>
-                    </div>
+                    <div class="pack-top"><span class="pack-badge">GAMMA</span><span class="text-[11px] font-semibold text-slate-500">1,320 rows · 8 cols</span></div>
                     <h3>Hostel &amp; Zonal Canteen Provisioning</h3>
-                    <p class="text-xs text-gray-600 m-0">Campus zone meal transactions, zone footprints, and resident headcounts used to allocate next month's kitchen staffing.</p>
-                    <div class="pack-meta"><strong>Audience:</strong> Campus Operations Manager allocating cooks &amp; budget across zones.</div>
                     <div class="pack-actions">
-                        <a class="ds-link" href="data/a3-pack-gamma.csv" download><i class="fas fa-download"></i> a3-pack-gamma.csv</a>
-                        <button type="button" class="pick-btn" data-pack="gamma">➕ Select Pack Gamma</button>
+                        <a class="ds-link" href="data/a3-pack-gamma.csv" download><i class="fas fa-download"></i> CSV</a>
+                        <button type="button" class="pick-btn" data-pack="gamma">➕ Select</button>
                     </div>
                 </div>
 
                 <div class="pack-card" data-pack="delta">
-                    <div class="pack-top">
-                        <span class="pack-badge">PACK DELTA · 320 rows</span>
-                        <span class="text-xs font-semibold text-slate-500">11 columns</span>
-                    </div>
+                    <div class="pack-top"><span class="pack-badge">DELTA</span><span class="text-[11px] font-semibold text-slate-500">320 rows · 11 cols</span></div>
                     <h3>Student Academic Risk &amp; Lab Telemetry</h3>
-                    <p class="text-xs text-gray-600 m-0">Automated LMS/lab event alerts paired with ML dropout-risk probabilities and top contributing factors.</p>
-                    <div class="pack-meta"><strong>Audience:</strong> Academic Advisors intervening with at-risk students each morning.</div>
                     <div class="pack-actions">
-                        <a class="ds-link" href="data/a3-pack-delta.csv" download><i class="fas fa-download"></i> a3-pack-delta.csv</a>
-                        <button type="button" class="pick-btn" data-pack="delta">➕ Select Pack Delta</button>
+                        <a class="ds-link" href="data/a3-pack-delta.csv" download><i class="fas fa-download"></i> CSV</a>
+                        <button type="button" class="pick-btn" data-pack="delta">➕ Select</button>
                     </div>
                 </div>
 
                 <div class="pack-card" data-pack="epsilon">
-                    <div class="pack-top">
-                        <span class="pack-badge">PACK EPSILON · 300 rows</span>
-                        <span class="text-xs font-semibold text-slate-500">8 columns</span>
-                    </div>
-                    <h3>Club &amp; Peer Project Collaboration Network</h3>
-                    <p class="text-xs text-gray-600 m-0">Student club interaction edges and collaboration hours used to map active project teams and assign faculty mentors.</p>
-                    <div class="pack-meta"><strong>Audience:</strong> Student Activities Coordinator spotting isolated or overloaded project teams.</div>
+                    <div class="pack-top"><span class="pack-badge">EPSILON</span><span class="text-[11px] font-semibold text-slate-500">300 rows · 8 cols</span></div>
+                    <h3>Club &amp; Peer Project Network</h3>
                     <div class="pack-actions">
-                        <a class="ds-link" href="data/a3-pack-epsilon.csv" download><i class="fas fa-download"></i> a3-pack-epsilon.csv</a>
-                        <button type="button" class="pick-btn" data-pack="epsilon">➕ Select Pack Epsilon</button>
+                        <a class="ds-link" href="data/a3-pack-epsilon.csv" download><i class="fas fa-download"></i> CSV</a>
+                        <button type="button" class="pick-btn" data-pack="epsilon">➕ Select</button>
                     </div>
                 </div>
 
                 <div class="pack-card" data-pack="zeta">
-                    <div class="pack-top">
-                        <span class="pack-badge">PACK ZETA · 180 rows</span>
-                        <span class="text-xs font-semibold text-slate-500">11 columns</span>
-                    </div>
-                    <h3>PTM Wait-Time &amp; Parent Feedback Portal</h3>
-                    <p class="text-xs text-gray-600 m-0">Parent-Teacher Meeting booking logs across grades, streams, and counselors with wait durations and automated sentiment ratings.</p>
-                    <div class="pack-meta"><strong>Audience:</strong> School Principal &amp; PTM Coordinator adjusting counseling slots and queues.</div>
+                    <div class="pack-top"><span class="pack-badge">ZETA</span><span class="text-[11px] font-semibold text-slate-500">180 rows · 11 cols</span></div>
+                    <h3>PTM Wait-Time &amp; Feedback Portal</h3>
                     <div class="pack-actions">
-                        <a class="ds-link" href="data/a3-pack-zeta.csv" download><i class="fas fa-download"></i> a3-pack-zeta.csv</a>
-                        <button type="button" class="pick-btn" data-pack="zeta">➕ Select Pack Zeta</button>
+                        <a class="ds-link" href="data/a3-pack-zeta.csv" download><i class="fas fa-download"></i> CSV</a>
+                        <button type="button" class="pick-btn" data-pack="zeta">➕ Select</button>
                     </div>
                 </div>
             </div>
 
-            <p class="text-xs text-slate-500 mt-3">Schema overview without spoilers: <a href="data/README.md" class="underline font-semibold">assignments/data/README.md</a> · Trainer 25-pair ring roster: <a href="data/a3-pairing-roster.md" class="underline font-semibold">assignments/data/a3-pairing-roster.md</a>. On mobile, long-press any CSV button → <em>Download link</em>.</p>
+            <!-- Dynamic Selected Pack Inspector -->
+            <div id="pack-inspector" class="mt-3 p-4 rounded-xl border-2 border-[#183868]/20 bg-slate-50 text-xs">
+                <div class="flex flex-wrap justify-between items-center gap-2 mb-1.5">
+                    <strong class="text-sm text-[#183868]" id="pi-title">Select a Pack tile above to inspect its scenario, audience &amp; CSV columns</strong>
+                    <a id="pi-dl" href="data/a3-pack-alpha.csv" download class="hidden px-3 py-1 bg-[#183868] text-white rounded-lg font-bold hover:bg-[#28a8e8] transition"><i class="fas fa-download mr-1"></i> Download CSV</a>
+                </div>
+                <p class="text-gray-700 m-0 mb-1" id="pi-desc">Clicking any tile selects your pack, updates your Phase 1 template &amp; Scorecard automatically, and loads its dataset schema here.</p>
+                <div class="text-slate-700" id="pi-audience"></div>
+                <div class="mt-1.5 font-mono text-[11px] text-slate-600" id="pi-cols"></div>
+            </div>
+
+            <p class="text-xs text-slate-500 mt-3">Schema overview without spoilers: <a href="data/README.md" class="underline font-semibold">assignments/data/README.md</a> · Trainer 25-pair ring roster: <a href="data/a3-pairing-roster.md" class="underline font-semibold">assignments/data/a3-pairing-roster.md</a>.</p>
         </section>
 
         <!-- ============ RED TEAM PLAYBOOK ============ -->
@@ -373,38 +398,38 @@
 
             <h3 class="text-sm font-bold text-[#183868] mb-2">📋 Five Mandatory Red-Team Duties (18 – 19 Nov 2026)</h3>
             <div class="overflow-x-auto">
-                <table class="op-table">
+                <table class="op-table stack-mobile">
                     <thead><tr><th>#</th><th>Duty</th><th>Concrete Action Required</th><th>Evidence / Output</th></tr></thead>
                     <tbody>
                         <tr>
-                            <td class="font-mono font-bold">R1</td>
-                            <td class="font-semibold">Cold Black-Box Run</td>
-                            <td>Open the Blue Team's HTML/PBIX without verbal coaching. Check offline load, console errors, and whether all KPIs match raw CSV counts.</td>
-                            <td>Pass/fail note + console screenshot if broken.</td>
+                            <td data-label="ID" class="font-mono font-bold">R1</td>
+                            <td data-label="Duty" class="font-semibold">Cold Black-Box Run</td>
+                            <td data-label="Action">Open the Blue Team's HTML/PBIX without coaching. Check offline load, console errors, and raw KPI parity.</td>
+                            <td data-label="Evidence">Pass/fail note + console screenshot if broken.</td>
                         </tr>
                         <tr class="bg-gray-50">
-                            <td class="font-mono font-bold">R2</td>
-                            <td class="font-semibold">Adversarial CSV Injection</td>
-                            <td>Clone their pack CSV, mutate 3–5 rows (e.g., add a blank outage day, reverse sort order, add an extreme value), and drop it into their file loader.</td>
-                            <td>Proof of whether charts/Gate #5 updated or stayed frozen/hardcoded.</td>
+                            <td data-label="ID" class="font-mono font-bold">R2</td>
+                            <td data-label="Duty" class="font-semibold">Adversarial CSV Injection</td>
+                            <td data-label="Action">Mutate 3–5 CSV rows (blank outage day, reverse order, extreme outlier) and drop into their loader.</td>
+                            <td data-label="Evidence">Proof of whether charts/Gate #5 updated or stayed frozen.</td>
                         </tr>
                         <tr>
-                            <td class="font-mono font-bold">R3</td>
-                            <td class="font-semibold">Spec-to-Pixel Drift Audit</td>
-                            <td>Compare their Spec Doc decisions (<code>D1…Dn</code>) against the rendered UI. Flag any promised safeguard (units, median, CVD shapes, anonymized IDs) missing on screen.</td>
-                            <td>Exact <code>D#</code> citation of any drifted rule.</td>
+                            <td data-label="ID" class="font-mono font-bold">R3</td>
+                            <td data-label="Duty" class="font-semibold">Spec-to-Pixel Drift Audit</td>
+                            <td data-label="Action">Compare Spec Decisions (<code>D1…Dn</code>) against rendered pixels for missing units, CVD shapes, or leaked PII.</td>
+                            <td data-label="Evidence">Exact <code>D#</code> citation of any drifted rule.</td>
                         </tr>
                         <tr class="bg-gray-50">
-                            <td class="font-mono font-bold">R4</td>
-                            <td class="font-semibold">Issue Red-Team Audit Card</td>
-                            <td>Deliver the signed 1-page Red-Team Audit Card (Template 3 below) by <strong>19 Nov</strong>. <em>"Looks great, no bugs" earns 0/10 on C2.</em></td>
-                            <td>Completed Audit Card handed to Blue Team + included in PDF.</td>
+                            <td data-label="ID" class="font-mono font-bold">R4</td>
+                            <td data-label="Duty" class="font-semibold">Issue Red-Team Audit Card</td>
+                            <td data-label="Action">Seal findings in <a href="../red-team-tool/index.html" class="underline font-semibold">Red-Team Tool</a> by <strong>19 Nov</strong>. <em>"Looks great" = 0/10 on C2.</em></td>
+                            <td data-label="Evidence"><code>APLLY-RT-</code> seal + locked <code>#rt=</code> handshake link.</td>
                         </tr>
                         <tr>
-                            <td class="font-mono font-bold">R5</td>
-                            <td class="font-semibold">Blue Team Patch &amp; Rebuttal</td>
-                            <td>When you receive your own Red-Team Card back, patch every verified bug (with before/after screenshots) or document a technical rebuttal on Page 7.</td>
-                            <td>Before/after patch log in final PDF + 20 Nov viva defense.</td>
+                            <td data-label="ID" class="font-mono font-bold">R5</td>
+                            <td data-label="Duty" class="font-semibold">Blue Team Patch &amp; Rebuttal</td>
+                            <td data-label="Action">Patch every verified bug received (before/after screenshots) or log a technical rebuttal on Page 7.</td>
+                            <td data-label="Evidence"><code>APLLY-PATCH-</code> seal in final PDF + 20 Nov viva.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -436,8 +461,8 @@
 
         <!-- ============ TEMPLATES ============ -->
         <section class="card reveal" id="templates">
-            <h2>📝 Ready-to-Use Templates (Phase 1, Phase 2 &amp; Phase 3)</h2>
-            <p class="text-sm text-gray-700">Fill your details below to auto-populate your declarations and Red-Team template:</p>
+            <h2>📝 Ready-to-Use Templates (Tabbed IDE Viewer)</h2>
+            <p class="text-sm text-gray-700">Fill your details once below, switch tabs for Phase 1 / Phase 2 / Phase 3, and click <strong>Copy Template</strong>:</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 my-3 p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs">
                 <label class="font-semibold text-slate-700">Student / Pair Name(s):
@@ -451,27 +476,38 @@
                 </label>
             </div>
 
+            <div class="tpl-tabs no-print" role="tablist" aria-label="Template switcher">
+                <button type="button" class="tpl-tab active" data-tpl="pane-autopsy" role="tab" aria-selected="true">Phase 1 · AI Autopsy</button>
+                <button type="button" class="tpl-tab" data-tpl="pane-gate" role="tab" aria-selected="false">Phase 2 · Custom Gate #5</button>
+                <button type="button" class="tpl-tab" data-tpl="pane-redteam" role="tab" aria-selected="false">Phase 3 · Red-Team Card</button>
+            </div>
+
             <!-- Template 1 -->
-            <div class="prompt-box">
-                <div class="prompt-head">
-                    <span>Phase 1 · Trap Discovery &amp; Naive AI Autopsy Declaration (eflow)</span>
-                    <button type="button" class="copy-btn" data-copy="tpl-autopsy"><i class="far fa-copy mr-1"></i> Copy</button>
+            <div class="tpl-pane active" id="pane-autopsy">
+                <div class="prompt-box">
+                    <div class="prompt-head">
+                        <span>Phase 1 · Trap Discovery &amp; Naive AI Autopsy Declaration (eflow)</span>
+                        <button type="button" class="copy-btn" data-copy="tpl-autopsy" data-label="Phase 1 AI Autopsy"><i class="far fa-copy mr-1"></i> Copy Template</button>
+                    </div>
+                    <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="tpl-autopsy"></pre>
                 </div>
-                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="tpl-autopsy"></pre>
             </div>
 
             <!-- Template 2 -->
-            <div class="prompt-box">
-                <div class="prompt-head">
-                    <span>Phase 2 · Custom Gate #5 Blueprint (JS Assertion or Power BI Check)</span>
-                    <button type="button" class="copy-btn" data-copy="tpl-gate"><i class="far fa-copy mr-1"></i> Copy</button>
-                </div>
-                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="tpl-gate">// CUSTOM GATE #5 TEMPLATE (embed inside your dashboard self-test panel or console check)
+            <div class="tpl-pane" id="pane-gate">
+                <div class="prompt-box">
+                    <div class="prompt-head">
+                        <span>Phase 2 · Custom Gate #5 Blueprint (JS Assertion or Power BI Check)</span>
+                        <button type="button" class="copy-btn" data-copy="tpl-gate" data-label="Custom Gate #5"><i class="far fa-copy mr-1"></i> Copy Template</button>
+                    </div>
+                    <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="tpl-gate">// CUSTOM GATE #5 TEMPLATE (embed inside your dashboard self-test panel or console check)
 function runCustomGate5(parsedRows, renderedState) {
-  // Example: verify no cancelled orders leaked into revenue KPI (Pack Gamma)
-  // OR verify offline outage rows are NOT coerced to 0 (Pack Alpha)
-  // OR verify PII columns are NOT rendered in DOM (Pack Beta)
-  // OR verify critical alerts are surfaced above info noise (Pack Delta)
+  // Pack Alpha: verify offline outage rows are NOT coerced to 0 + temp_unit normalized
+  // Pack Beta: verify PII columns (phone_ext, medical_note) are NOT in DOM + no prelim/final double-count
+  // Pack Gamma: verify cancelled/pending_reversal rows excluded + >1,000 rows processed
+  // Pack Delta: verify critical alerts surfaced above info heartbeat noise
+  // Pack Epsilon: verify weekly_summary rows not double-counted over daily_ping
+  // Pack Zeta: verify wait_minutes = -1 sentinel excluded from mean/median wait time
   const passed = Boolean(/* your boolean check on live parsedRows + DOM */);
   return {
     gate: 'G5-CUSTOM',
@@ -480,15 +516,18 @@ function runCustomGate5(parsedRows, renderedState) {
     evidence: passed ? 'Verified against live parsed rows' : 'Trap leaked into rendered output'
   };
 }</pre>
+                </div>
             </div>
 
             <!-- Template 3 -->
-            <div class="prompt-box">
-                <div class="prompt-head">
-                    <span>Phase 3 · Peer Red-Team Audit Card (1-Page Defect Bounty)</span>
-                    <button type="button" class="copy-btn" data-copy="tpl-redteam"><i class="far fa-copy mr-1"></i> Copy</button>
+            <div class="tpl-pane" id="pane-redteam">
+                <div class="prompt-box">
+                    <div class="prompt-head">
+                        <span>Phase 3 · Peer Red-Team Audit Card (Plain-Text Backup — or use <a href="../red-team-tool/index.html" class="underline text-sky-300">Red-Team Tool</a>)</span>
+                        <button type="button" class="copy-btn" data-copy="tpl-redteam" data-label="Phase 3 Red-Team Card"><i class="far fa-copy mr-1"></i> Copy Template</button>
+                    </div>
+                    <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="tpl-redteam"></pre>
                 </div>
-                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto text-gray-200" id="tpl-redteam"></pre>
             </div>
         </section>
 
@@ -535,6 +574,14 @@ function runCustomGate5(parsedRows, renderedState) {
         <section class="card reveal" id="scorecard">
             <h2>📊 Assignment 3 Scorecard (100 Marks + 5 Bonus)</h2>
             <p class="text-sm text-gray-700">Fill only the <strong>Self</strong> column honestly before submitting. Puneet Arora fills the <strong>Trainer</strong> column during your 20 Nov viva. Notice how <strong>55% of the marks</strong> depend on real trap engineering, dynamic CSV survival, and live defense.</p>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 my-3 p-3 rounded-xl border border-indigo-200 bg-indigo-50/70 no-print">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-full bg-[#183868] text-white text-xs font-bold font-mono" id="top-self-pill">Self Claim: 0 / 90 (+10 honesty)</span>
+                    <span class="text-xs text-slate-700" id="val-msg">Enter Self scores below, then validate.</span>
+                </div>
+                <button type="button" id="calc-validate-btn" class="px-3.5 py-1.5 bg-[#183868] text-white text-xs rounded-lg font-bold hover:bg-[#28a8e8] transition cursor-pointer"><i class="fas fa-calculator mr-1"></i> Calculate &amp; Validate My Score</button>
+            </div>
 
             <div class="chip-row no-print">
                 <button type="button" id="print-scorecard" class="mini-btn"><i class="fas fa-print mr-1"></i> Print scorecard only (PDF)</button>
@@ -654,6 +701,9 @@ function runCustomGate5(parsedRows, renderedState) {
         </section>
     </main>
 
+    <div id="copy-toast" role="status" aria-live="polite">✓ Copied to clipboard!</div>
+    <a id="top-fab" href="#top" class="no-print"><i class="fas fa-arrow-up mr-1"></i> Top</a>
+
     <footer class="article-footer">
         <div class="flex items-center justify-center space-x-2 font-bold text-lg text-white mb-2">
             <span class="w-7 h-7 rounded bg-[#28a8e8] text-white flex items-center justify-center text-xs">A</span>
@@ -668,6 +718,8 @@ function runCustomGate5(parsedRows, renderedState) {
             const h = document.documentElement;
             const denom = Math.max(1, h.scrollHeight - h.clientHeight);
             document.getElementById('progress-bar').style.width = (h.scrollTop / denom) * 100 + '%';
+            const fab = document.getElementById('top-fab');
+            if (fab) fab.classList.toggle('show', h.scrollTop > 420);
         });
 
         if ('IntersectionObserver' in window) {
@@ -688,16 +740,42 @@ function runCustomGate5(parsedRows, renderedState) {
             document.body.removeChild(ta);
             return ok;
         }
+        let toastTimer = null;
+        function showToast(msg) {
+            const t = document.getElementById('copy-toast');
+            if (!t) return;
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+        }
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const src = document.getElementById(btn.dataset.copy);
                 const old = btn.innerHTML;
-                const done = () => { btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!'; setTimeout(() => { btn.innerHTML = old; }, 2000); };
+                const label = btn.dataset.label || 'Template';
+                const done = () => {
+                    btn.innerHTML = '<i class="fas fa-check text-emerald-400 mr-1"></i> Copied!';
+                    showToast('✓ Copied ' + label + ' to clipboard!');
+                    setTimeout(() => { btn.innerHTML = old; }, 2000);
+                };
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(src.innerText).then(done).catch(() => { legacyCopy(src.innerText) ? done() : (btn.innerHTML = 'Select manually'); });
                 } else {
                     legacyCopy(src.innerText) ? done() : (btn.innerHTML = 'Select manually');
                 }
+            });
+        });
+
+        // Template tabs switcher
+        document.querySelectorAll('.tpl-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tpl-tab').forEach(t => {
+                    const on = t === tab;
+                    t.classList.toggle('active', on);
+                    t.setAttribute('aria-selected', on ? 'true' : 'false');
+                });
+                document.querySelectorAll('.tpl-pane').forEach(p => p.classList.toggle('active', p.id === tab.dataset.tpl));
             });
         });
 
@@ -771,14 +849,44 @@ function runCustomGate5(parsedRows, renderedState) {
             return { sig: prefix + '-' + h.slice(0, 16).toUpperCase().match(/.{1,4}/g).join('-'), hash: h };
         }
 
-        // Pack selector + synced declarations
+        // Pack selector + dynamic inspector + synced declarations
         const PACKS = {
-            alpha: { label: 'Pack Alpha — Campus Solar & Weather Operations', file: 'a3-pack-alpha.csv' },
-            beta: { label: 'Pack Beta — Annual Sports & Merit Summary', file: 'a3-pack-beta.csv' },
-            gamma: { label: 'Pack Gamma — Hostel & Zonal Canteen Provisioning', file: 'a3-pack-gamma.csv' },
-            delta: { label: 'Pack Delta — Student Academic Risk & Lab Telemetry', file: 'a3-pack-delta.csv' },
-            epsilon: { label: 'Pack Epsilon — Club & Peer Project Collaboration Network', file: 'a3-pack-epsilon.csv' },
-            zeta: { label: 'Pack Zeta — PTM Wait-Time & Parent Feedback Portal', file: 'a3-pack-zeta.csv' }
+            alpha: {
+                label: 'Pack Alpha — Campus Solar & Weather Operations', file: 'a3-pack-alpha.csv',
+                desc: 'Daily inverter forecast vs. actual kWh generation and ambient node telemetry across campus sensors (48 rows).',
+                audience: 'Campus Facilities & Energy Lead deciding grid backup schedules.',
+                cols: 'date, node_id, forecast_kwh, band_low_kwh, band_high_kwh, actual_kwh, inverter_state, ambient_temp, temp_unit'
+            },
+            beta: {
+                label: 'Pack Beta — Annual Sports & Merit Summary', file: 'a3-pack-beta.csv',
+                desc: 'Inter-house athletic and academic trial scores compiled for the public school noticeboard and awards committee (48 rows).',
+                audience: 'Principal & Public Noticeboard (parents + students).',
+                cols: 'record_id, student_name, phone_ext, medical_note, house, event_name, event_stage, reported_index, verified_score'
+            },
+            gamma: {
+                label: 'Pack Gamma — Hostel & Zonal Canteen Provisioning', file: 'a3-pack-gamma.csv',
+                desc: 'Campus zone meal transactions, zone footprints, and resident headcounts used to allocate next month\'s kitchen staffing (1,320 rows).',
+                audience: 'Campus Operations Manager allocating cooks & budget across zones.',
+                cols: 'tx_id, date, zone_name, zone_area_sqm, zone_population, meal_slot, order_status, amount_inr'
+            },
+            delta: {
+                label: 'Pack Delta — Student Academic Risk & Lab Telemetry', file: 'a3-pack-delta.csv',
+                desc: 'Automated LMS/lab event alerts paired with ML dropout-risk probabilities and top contributing factors (320 rows).',
+                audience: 'Academic Advisors intervening with at-risk students each morning.',
+                cols: 'alert_id, timestamp, cohort, student_ref, severity, event_type, risk_prob, top_factor_1, factor_1_weight, top_factor_2, factor_2_weight'
+            },
+            epsilon: {
+                label: 'Pack Epsilon — Club & Peer Project Collaboration Network', file: 'a3-pack-epsilon.csv',
+                desc: 'Student club interaction edges and collaboration hours used to map active project teams and assign faculty mentors (300 rows).',
+                audience: 'Student Activities Coordinator spotting isolated or overloaded project teams.',
+                cols: 'edge_id, week_ending, source_member, target_member, club_name, interaction_type, log_cadence, hours_logged'
+            },
+            zeta: {
+                label: 'Pack Zeta — PTM Wait-Time & Parent Feedback Portal', file: 'a3-pack-zeta.csv',
+                desc: 'Parent-Teacher Meeting booking logs across grades, streams, and counselors with wait durations and automated sentiment ratings (180 rows).',
+                audience: 'School Principal & PTM Coordinator adjusting counseling slots and queues.',
+                cols: 'slot_id, term_label, grade, section, stream, counselor, mode, attendance_status, wait_minutes, sentiment_score, parent_comment'
+            }
         };
         const PKEY = 'apllyA3Pack';
         const MKEY = 'apllyA3Meta';
@@ -847,15 +955,37 @@ function runCustomGate5(parsedRows, renderedState) {
                 const btn = card.querySelector('.pick-btn');
                 if (btn) {
                     btn.classList.toggle('picked', on);
-                    btn.textContent = on ? '✓ Selected Pack' : '➕ Select Pack ' + card.dataset.pack.charAt(0).toUpperCase() + card.dataset.pack.slice(1);
+                    btn.textContent = on ? '✓ Selected' : '➕ Select';
                 }
             });
+            const info = PACKS[selectedPack];
+            const piTitle = document.getElementById('pi-title');
+            const piDesc = document.getElementById('pi-desc');
+            const piAud = document.getElementById('pi-audience');
+            const piCols = document.getElementById('pi-cols');
+            const piDl = document.getElementById('pi-dl');
+            if (info && piTitle) {
+                piTitle.textContent = info.label;
+                piDesc.textContent = info.desc;
+                piAud.innerHTML = '<strong>Audience:</strong> ' + info.audience;
+                piCols.textContent = 'Columns: ' + info.cols;
+                piDl.href = 'data/' + info.file;
+                piDl.innerHTML = '<i class="fas fa-download mr-1"></i> Download ' + info.file;
+                piDl.classList.remove('hidden');
+            } else if (piTitle) {
+                piTitle.textContent = 'Select a Pack tile above to inspect its scenario, audience & CSV columns';
+                piDesc.textContent = 'Clicking any tile selects your pack, updates your Phase 1 template & Scorecard automatically, and loads its dataset schema here.';
+                piAud.textContent = '';
+                piCols.textContent = '';
+                piDl.classList.add('hidden');
+            }
             syncA3Templates();
         }
-        document.querySelectorAll('.pick-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                selectedPack = (selectedPack === btn.dataset.pack) ? '' : btn.dataset.pack;
-                try { localStorage.setItem(PKEY, selectedPack); } catch (e) {}
+        document.querySelectorAll('.pack-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('a.ds-link')) return;
+                selectedPack = (selectedPack === card.dataset.pack) ? '' : card.dataset.pack;
+                try { localStorage.setItem(PKEY, selectedPack); } catch (err) {}
                 renderPacks();
             });
         });
@@ -912,6 +1042,9 @@ function runCustomGate5(parsedRows, renderedState) {
             selfTotalEl.textContent = c1 !== null ? selfFinal : self + (b ? ' + bonus ' + b : '');
             trainerTotalEl.textContent = c1 !== null ? trainerFinal : (trainer || '—') + (b ? ' + bonus ' + b : '');
 
+            const pill = document.getElementById('top-self-pill');
+            if (pill) pill.textContent = 'Self Claim: ' + self + ' / 90' + (b ? ' (+' + b + ' bonus)' : '') + ' · +10 honesty pending';
+
             const studentName = (document.getElementById('sign-student').value || '').trim();
             const dateVal = (document.getElementById('sign-date').value || '').trim();
             const seal = makeSeal('APLLY-A3', [studentName || 'Student', dateVal, selectedPack || 'none', selfFinal, inputs.map(i => i.value || '0').join(','), b].join('|'));
@@ -954,9 +1087,33 @@ function runCustomGate5(parsedRows, renderedState) {
             } catch (e) {}
         }
 
-        inputs.forEach(i => i.addEventListener('input', recalc));
+        inputs.forEach(i => i.addEventListener('input', () => { i.classList.remove('missing-warn'); recalc(); }));
         bonusChks.forEach(c => c.addEventListener('change', recalc));
         ['sign-student', 'sign-date'].forEach(id => document.getElementById(id).addEventListener('input', recalc));
+
+        const calcBtn = document.getElementById('calc-validate-btn');
+        if (calcBtn) {
+            calcBtn.addEventListener('click', () => {
+                recalc();
+                const selfInputs = inputs.filter(i => i.classList.contains('self'));
+                const missing = [];
+                selfInputs.forEach(i => {
+                    const empty = i.value === '';
+                    i.classList.toggle('missing-warn', empty);
+                    if (empty) {
+                        const row = i.closest('tr');
+                        missing.push(row && row.cells[0] ? row.cells[0].textContent.trim() : '?');
+                    }
+                });
+                const vm = document.getElementById('val-msg');
+                if (vm) {
+                    vm.textContent = missing.length
+                        ? '⚠ ' + missing.length + ' Self row(s) still blank: ' + missing.join(', ')
+                        : '✅ All ' + selfInputs.length + ' Self rows filled — ready to print/screenshot!';
+                }
+                if (verdict && typeof verdict.scrollIntoView === 'function') verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
         try {
             const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
             if (saved) {
