@@ -165,3 +165,17 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
   Hub `index.html` (12 cards), `presentation-tool/index.html` (`A3 Pack
   Alpha–Zeta` + Live Curveball outcome tracker), and
   `.quarantine/validate-tutorials.js` updated and passing.
+- **UI/UX polish & rollout readiness (12 Nov 2026):**
+  - `assignments/assignment-3.html`: Added 3-pill Critical Rules Strip, compact
+    3-column Mystery Pack grid with dynamic Pack Inspector (`#pack-inspector`),
+    3-tab IDE Template Viewer with `#copy-toast`, Scorecard top action bar +
+    `#calc-validate-btn` validator, mobile `stack-mobile` card tables, `#top-fab`,
+    and Power BI `pCsvPath` (<15s) Curveball rule.
+  - `presentation-tool/index.html`: Added Quick-Start collapsible `#meta-details`
+    drawer, persisted evaluator name (`apllyPeerEvalName`), amber-highlighted
+    Live Curveball selector, per-dimension `.dim-tick` completion badges, and
+    sticky emerald **Generate & Copy Scorecard** bar.
+  - **Next task (13 Nov 2026 launch):** Assign `P01–P25` student names into
+    `assignments/data/a3-pairing-roster.md` on `eflow`; on 20 Nov morning run
+    `node scripts/generate-a3-datasets.js --curveball 20261120` (local `var/`)
+    for live stage swaps.

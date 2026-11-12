@@ -19,17 +19,21 @@ prompts/code_generation_prompt.md    §4  Code generation prompt (verbatim)
 specs/DASH-SPEC-2026-081.md          §3  Master Spec Doc (verbatim)
 dashboard/index.html                 Reference implementation (from the Spec Doc)
 grader/grader.js                     Tutorial grader (verbatim)
-grader/grader.v2.js                  Hardened grader (fixes F2–F4 in VALIDATION.md)
-self-grade.bat / self-grade.sh       Zero-setup wrappers: double-click (or
-                                     `bash self-grade.sh`) → auto-installs
-                                     jsdom → drag your report onto the .bat
+grader/grader.v2.js                  Hardened grader (Assignment 2 DASH-SPEC)
+grader/grader.v3.js                  Behavioral & layout-agnostic grader (Assignment 3)
+self-grade.bat / self-grade.sh       Assignment 2 zero-setup wrappers (grader.v2.js)
+self-grade-v3.bat / self-grade-v3.sh Assignment 3 zero-setup wrappers (grader.v3.js)
 eval-tool/index.html                 BROWSER EVAL TOOL — drop your dashboard
-                                     HTML here: sandboxed iframe, same 4 gates
-                                     as grader.v2.js, copy-ready report +
-                                     Scorecard tab for PDF self-score page.
-presentation-tool/index.html         PRESENTATION SCORECARD — peer evaluation
-                                     rubric for 5 Nov: 7 dimensions, live
-                                     scoring, shareable scorecard for viva.
+                                     HTML here: sandboxed iframe, v3 (Assignment 3)
+                                     & v2 (Assignment 2) gate profiles, copy-ready
+                                     report + Scorecard tab.
+red-team-tool/index.html             RED-TEAM AUDIT CARD TOOL — Assignment 3 Phase 3
+                                     worked example, For/By Team SHA-256 seals,
+                                     locked #rt= handshake & Page 7 patch log.
+presentation-tool/index.html         PRESENTATION SCORECARD — live peer rubric
+                                     for 20 Nov Live Curveball & 5 Nov viva:
+                                     7 dimensions, Curveball outcome, shareable
+                                     SHA-256 scorecard.
 
 challenges/challenges.txt            MASTER CHALLENGE DATASET — 22 failure modes
                                     (Part A, annotated with coverage) + 20 case
@@ -43,11 +47,19 @@ tutorials/                           "Data Visualization Challenges, Decoded":
     part-1..4.html                       1–4 · All 22 failure modes + grill step
                                          + Gate 0 + self-grading rubrics
 
-assignments/index.html               THE CLASS ASSIGNMENT (issued 29 Oct 2026,
-                                    due 5 Nov 2026): pick 3 of the 20 cases →
-                                    3 reports → one PDF on eflow → presentation.
-                                    HTML default (auto-graded); Power BI
-                                    optional (+bonus). Self/trainer scorecard.
+assignments/index.html               ASSIGNMENT 2 (29 Oct – 5 Nov 2026, completed):
+                                    pick 3 of 20 cases → 3 reports → eflow PDF
+                                    → presentation.
+assignments/assignment-3.html        ASSIGNMENT 3 (13 Nov – 20 Nov 2026, active):
+                                    AI Autopsy, Peer Red-Team & Live Curveball
+                                    Defense. 1 unlabeled Mystery Pack (Alpha–Zeta)
+                                    → naive AI autopsy → dynamic CSV + Custom Gate
+                                    #5 → Red-Team handshake → live _v2_curveball
+                                    swap on 20 Nov.
+assignments/ASSIGNMENT-3-PROPOSAL.md Design proposal & rubric rationale for A3.
+assignments/data/                    6 seeded Assignment 3 Mystery Packs
+                                    (a3-pack-{alpha..zeta}.csv) + 25-pair
+                                    non-reciprocal Red-Team ring roster.
 
 datasets/                            21 synthetic CSVs — one trap-laden dataset
     index.html                           per case challenge + themed catalog
@@ -56,6 +68,9 @@ datasets/                            21 synthetic CSVs — one trap-laden datase
 
 scripts/generate-datasets.js         Seeded generator (seed 20261029) — rerun
                                      to reproduce byte-identical CSVs
+scripts/generate-a3-datasets.js      Assignment 3 generator (seed 20261113);
+                                     pass `--curveball <seed>` (trainer-only)
+                                     to write hidden v2 files to var/a3-curveballs/
 
 article/index.html                   Part 8 interactive article (validation
                                      findings, grader simulator)
@@ -70,8 +85,11 @@ CONTEXT.md                           Project memory — domain model, state,
 npm install                       # installs jsdom (prerequisite of the graders + probe)
 npm run grade                     # tutorial grader on the dashboard   -> 4/4 gates
 npm run grade:v2                  # hardened grader on the dashboard   -> 4/4 gates
-node scripts/generate-datasets.js # regenerate datasets/ (deterministic)
+node scripts/generate-datasets.js # regenerate Assignment 2 datasets/
+node scripts/generate-a3-datasets.js # regenerate Assignment 3 packs (Alpha-Zeta)
+node scripts/generate-a3-datasets.js --curveball 20261120 # trainer-only v2 CSVs (var/)
 node .quarantine/validate-tutorials.js   # full content probe (pages + datasets)
+node .quarantine/validate-eval-tool.js   # eval-tool v2 parity + sandbox isolation
 start dashboard/index.html        # open the live dashboard in a browser
 ```
 
@@ -82,14 +100,15 @@ and a paginated severity-sorted anomaly log (bottom).
 
 ## For students
 
-1. Start at `tutorials/index.html` → **The Challenge-Grill Method**.
-2. Pick 3 of the 20 challenges from `assignments/index.html`.
-3. Download their CSVs from `datasets/` (GitHub folder or the catalog page).
-4. Grill → spec → build in HTML (default) or optionally Power BI (+bonus) →
-   **self-grade**:
-   - **Path 1 (Recommended for non-technical students — zero install):** Open `eval-tool/index.html` in your browser, drag and drop your `dashboard.html`, get instant 4-gate verification, and generate your Section B scorecard. No Node.js or terminal required!
-   - **Path 2 (Offline Kit):** Download repo ZIP, double-click `self-grade.bat` (Windows) or `bash self-grade.sh` (Mac/Linux), and drag your file on top of the `.bat`.
-5. Submit one PDF to eflow by 5 Nov 2026 → present with the `presentation-tool/index.html`.
+### Assignment 3 (Active: 13 Nov – 20 Nov 2026)
+1. Open `assignments/assignment-3.html` and pick/receive 1 Mystery Pack (`Alpha–Zeta`).
+2. Run a 1-prompt **Naive AI Autopsy** (expose ≥3 failures), then Grill → Spec → build a dynamic CSV dashboard (HTML default, or Power BI with `pCsvPath` parameter) + **Custom Gate #5**.
+3. Self-grade with `eval-tool/index.html` (**v3** profile) or `self-grade-v3.bat` / `self-grade-v3.sh`.
+4. Swap with your Red-Team partner (`assignments/data/a3-pairing-roster.md`) using `red-team-tool/index.html` (`#rt=` handshake + Page 7 patch seal).
+5. Submit `RollNo_Name_Assignment3.pdf` on eflow by **20 Nov 2026** and survive the live `_v2_curveball.csv` swap on stage (peers score via `presentation-tool/index.html`).
+
+### Assignment 2 (Completed: 29 Oct – 5 Nov 2026)
+1. Start at `tutorials/index.html` → **The Challenge-Grill Method**, pick 3 of 20 challenges from `assignments/index.html`, and self-grade via `eval-tool/index.html` (**v2** profile) or `self-grade.bat` / `self-grade.sh`.
 
 ## Hosting — GitHub Pages (static)
 
