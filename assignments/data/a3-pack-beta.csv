@@ -1,0 +1,49 @@
+record_id,student_name,phone_ext,medical_note,house,event_name,event_stage,reported_index,verified_score
+3001,"Aarav Sharma",ext-4100,"None",Vanguard,"100m Sprint",prelim,69,69
+3002,"Aarav Sharma",ext-4100,"None",Vanguard,"100m Sprint",final,73,73
+3003,"Vivaan Singh",ext-4107,"Mild knee brace",Zenith,"400m Relay",prelim,55,55
+3004,"Aditya Reddy",ext-4114,"None",Orion,"Long Jump",prelim,67,67
+3005,"Vihaan Chopra",ext-4121,"Spectacles required",Aurora,"Quiz Bowl",prelim,67,67
+3006,"Vihaan Chopra",ext-4121,"Spectacles required",Aurora,"Quiz Bowl",final,73,73
+3007,"Arjun Das",ext-4128,"Asthma inhaler carried",Vanguard,"Robotics Trial",prelim,58,58
+3008,"Sai Sharma",ext-4135,"None",Zenith,"100m Sprint",prelim,66,66
+3009,"Reyansh Singh",ext-4142,"Peanut allergy - EpiPen",Orion,"400m Relay",prelim,55,55
+3010,"Reyansh Singh",ext-4142,"Peanut allergy - EpiPen",Orion,"400m Relay",final,68,68
+3011,"Krishna Reddy",ext-4149,"None",Aurora,"Long Jump",prelim,63,63
+3012,"Ishaan Chopra",ext-4156,"None",Vanguard,"Quiz Bowl",prelim,59,59
+3013,"Rohan Das",ext-4163,"Mild knee brace",Zenith,"Robotics Trial",prelim,60,60
+3014,"Rohan Das",ext-4163,"Mild knee brace",Zenith,"Robotics Trial",final,68,68
+3015,"Ananya Sharma",ext-4170,"None",Orion,"100m Sprint",prelim,54,54
+3016,"Diya Singh",ext-4177,"Spectacles required",Aurora,"400m Relay",prelim,62,62
+3017,"Aadhya Reddy",ext-4184,"Asthma inhaler carried",Vanguard,"Long Jump",prelim,65,65
+3018,"Aadhya Reddy",ext-4184,"Asthma inhaler carried",Vanguard,"Long Jump",final,64,64
+3019,"Saanvi Chopra",ext-4191,"None",Zenith,"Quiz Bowl",prelim,55,55
+3020,"Myra Das",ext-4198,"Peanut allergy - EpiPen",Orion,"Robotics Trial",prelim,61,61
+3021,"Anika Sharma",ext-4205,"None",Aurora,"100m Sprint",prelim,60,60
+3022,"Anika Sharma",ext-4205,"None",Aurora,"100m Sprint",final,67,67
+3023,"Navya Singh",ext-4212,"None",Vanguard,"400m Relay",prelim,61,61
+3024,"Kiara Reddy",ext-4219,"Mild knee brace",Zenith,"Long Jump",prelim,59,59
+3025,"Pari Chopra",ext-4226,"None",Orion,"Quiz Bowl",prelim,54,54
+3026,"Pari Chopra",ext-4226,"None",Orion,"Quiz Bowl",final,70,70
+3027,"Riya Das",ext-4233,"Spectacles required",Aurora,"Robotics Trial",prelim,57,57
+3028,"Kabir Sharma",ext-4240,"Asthma inhaler carried",Vanguard,"100m Sprint",prelim,69,69
+3029,"Advait Singh",ext-4247,"None",Zenith,"400m Relay",prelim,56,56
+3030,"Advait Singh",ext-4247,"None",Zenith,"400m Relay",final,58,58
+3031,"Dhruv Reddy",ext-4254,"Peanut allergy - EpiPen",Orion,"Long Jump",prelim,59,59
+3032,"Yash Chopra",ext-4261,"None",Aurora,"Quiz Bowl",prelim,63,63
+3033,"Meera Das",ext-4268,"None",Vanguard,"Robotics Trial",prelim,53,53
+3034,"Meera Das",ext-4268,"None",Vanguard,"Robotics Trial",final,66,66
+3035,"Tara Sharma",ext-4275,"Mild knee brace",Zenith,"100m Sprint",prelim,63,63
+3036,"Kavya Singh",ext-4282,"None",Orion,"400m Relay",prelim,54,54
+3037,"Ira Reddy",ext-4289,"Spectacles required",Aurora,"Long Jump",prelim,55,55
+3038,"Ira Reddy",ext-4289,"Spectacles required",Aurora,"Long Jump",final,67,67
+3039,"Zara Chopra",ext-4296,"Asthma inhaler carried",Vanguard,"Quiz Bowl",prelim,62,62
+3040,"Aisha Das",ext-4303,"None",Zenith,"Robotics Trial",prelim,53,53
+3041,"Aarav Sharma",ext-4310,"Peanut allergy - EpiPen",Orion,"100m Sprint",prelim,64,64
+3042,"Aarav Sharma",ext-4310,"Peanut allergy - EpiPen",Orion,"100m Sprint",final,60,60
+3043,"Vivaan Singh",ext-4317,"None",Aurora,"400m Relay",prelim,95,95
+3044,"Aditya Reddy",ext-4324,"None",Vanguard,"Long Jump",prelim,96,96
+3045,"Vihaan Chopra",ext-4331,"Mild knee brace",Zenith,"Quiz Bowl",prelim,95,95
+3046,"Vihaan Chopra",ext-4331,"Mild knee brace",Zenith,"Quiz Bowl",final,97,97
+3047,"Arjun Das",ext-4338,"None",Orion,"Robotics Trial",prelim,98,98
+3048,"Sai Sharma",ext-4345,"Spectacles required",Aurora,"100m Sprint",prelim,97,97

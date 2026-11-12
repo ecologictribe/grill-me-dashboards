@@ -149,3 +149,12 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
   Bonus structure (+2/report, cap +5) unchanged.
 - Open invitations from the user: expand challenge bank via Part C proposals;
   datasets for C21–C27 when adopted.
+- **Assignment 3 built (12 Nov 2026):** `assignments/assignment-3.html` (issued
+  **13 Nov 2026**, due & live presentation **20 Nov 2026** via `eflow`) using
+  Option 1 from `assignments/ASSIGNMENT-3-PROPOSAL.md` ("AI Autopsy, Peer
+  Red-Team & Live Curveball Defense"). Deterministic generator
+  `scripts/generate-a3-datasets.js` outputs 4 unlabeled multi-trap Mystery Packs
+  into `assignments/data/a3-pack-{alpha,beta,gamma,delta}.csv` (and trainer-only
+  `--curveball <seed>` files into gitignored `var/a3-curveballs/`). Hub
+  `index.html` (11 cards), `presentation-tool/index.html` (`A3 Pack Alpha–Delta`),
+  and `.quarantine/validate-tutorials.js` updated and passing.

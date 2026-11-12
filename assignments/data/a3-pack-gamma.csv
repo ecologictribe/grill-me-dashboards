@@ -1,0 +1,1321 @@
+tx_id,date,zone_name,zone_area_sqm,zone_population,meal_slot,order_status,amount_inr
+TX-10001,2026-10-01,"Hostel Block D",2200,1480,snacks,cancelled,154
+TX-10002,2026-10-02,"Academic Block",26000,620,lunch,cancelled,54
+TX-10003,2026-10-03,"Sports Complex",34000,240,dinner,cancelled,120
+TX-10004,2026-10-04,"Admin Grounds",48000,110,lunch,settled,113
+TX-10005,2026-10-05,"Academic Block",26000,620,snacks,pending_reversal,127
+TX-10006,2026-10-06,"Sports Complex",34000,240,dinner,cancelled,46
+TX-10007,2026-10-07,"Admin Grounds",48000,110,breakfast,settled,126
+TX-10008,2026-10-08,"Academic Block",26000,620,snacks,settled,66
+TX-10009,2026-10-09,"Sports Complex",34000,240,lunch,settled,95
+TX-10010,2026-10-10,"Admin Grounds",48000,110,breakfast,settled,144
+TX-10011,2026-10-11,"Academic Block",26000,620,breakfast,settled,135
+TX-10012,2026-10-12,"Sports Complex",34000,240,snacks,settled,116
+TX-10013,2026-10-13,"Admin Grounds",48000,110,dinner,cancelled,90
+TX-10014,2026-10-14,"Academic Block",26000,620,lunch,cancelled,72
+TX-10015,2026-10-15,"Sports Complex",34000,240,breakfast,settled,54
+TX-10016,2026-10-16,"Admin Grounds",48000,110,breakfast,settled,122
+TX-10017,2026-10-17,"Academic Block",26000,620,dinner,settled,115
+TX-10018,2026-10-18,"Sports Complex",34000,240,lunch,cancelled,129
+TX-10019,2026-10-19,"Admin Grounds",48000,110,dinner,settled,113
+TX-10020,2026-10-20,"Academic Block",26000,620,dinner,settled,59
+TX-10021,2026-10-21,"Sports Complex",34000,240,dinner,pending_reversal,81
+TX-10022,2026-10-22,"Admin Grounds",48000,110,dinner,pending_reversal,112
+TX-10023,2026-10-23,"Academic Block",26000,620,snacks,cancelled,101
+TX-10024,2026-10-24,"Sports Complex",34000,240,lunch,settled,84
+TX-10025,2026-10-25,"Admin Grounds",48000,110,breakfast,pending_reversal,143
+TX-10026,2026-10-26,"Hostel Block D",2200,1480,lunch,cancelled,88
+TX-10027,2026-10-27,"Sports Complex",34000,240,dinner,settled,74
+TX-10028,2026-10-28,"Admin Grounds",48000,110,breakfast,settled,120
+TX-10029,2026-10-29,"Academic Block",26000,620,lunch,settled,86
+TX-10030,2026-10-30,"Sports Complex",34000,240,dinner,settled,67
+TX-10031,2026-10-01,"Admin Grounds",48000,110,lunch,settled,64
+TX-10032,2026-10-02,"Academic Block",26000,620,breakfast,settled,90
+TX-10033,2026-10-03,"Sports Complex",34000,240,lunch,settled,69
+TX-10034,2026-10-04,"Admin Grounds",48000,110,dinner,settled,74
+TX-10035,2026-10-05,"Academic Block",26000,620,lunch,settled,84
+TX-10036,2026-10-06,"Sports Complex",34000,240,snacks,settled,62
+TX-10037,2026-10-07,"Admin Grounds",48000,110,breakfast,pending_reversal,108
+TX-10038,2026-10-08,"Academic Block",26000,620,lunch,cancelled,117
+TX-10039,2026-10-09,"Sports Complex",34000,240,snacks,settled,142
+TX-10040,2026-10-10,"Admin Grounds",48000,110,snacks,settled,156
+TX-10041,2026-10-11,"Academic Block",26000,620,breakfast,settled,144
+TX-10042,2026-10-12,"Sports Complex",34000,240,dinner,settled,114
+TX-10043,2026-10-13,"Admin Grounds",48000,110,dinner,pending_reversal,52
+TX-10044,2026-10-14,"Academic Block",26000,620,lunch,cancelled,114
+TX-10045,2026-10-15,"Sports Complex",34000,240,lunch,cancelled,45
+TX-10046,2026-10-16,"Admin Grounds",48000,110,breakfast,settled,136
+TX-10047,2026-10-17,"Academic Block",26000,620,dinner,settled,73
+TX-10048,2026-10-18,"Sports Complex",34000,240,breakfast,pending_reversal,118
+TX-10049,2026-10-19,"Admin Grounds",48000,110,dinner,settled,135
+TX-10050,2026-10-20,"Academic Block",26000,620,lunch,settled,120
+TX-10051,2026-10-21,"Hostel Block D",2200,1480,snacks,settled,99
+TX-10052,2026-10-22,"Admin Grounds",48000,110,breakfast,settled,61
+TX-10053,2026-10-23,"Academic Block",26000,620,lunch,settled,133
+TX-10054,2026-10-24,"Sports Complex",34000,240,snacks,settled,116
+TX-10055,2026-10-25,"Admin Grounds",48000,110,dinner,settled,154
+TX-10056,2026-10-26,"Academic Block",26000,620,snacks,settled,118
+TX-10057,2026-10-27,"Sports Complex",34000,240,snacks,cancelled,91
+TX-10058,2026-10-28,"Admin Grounds",48000,110,breakfast,settled,85
+TX-10059,2026-10-29,"Academic Block",26000,620,lunch,cancelled,148
+TX-10060,2026-10-30,"Sports Complex",34000,240,snacks,settled,117
+TX-10061,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,86
+TX-10062,2026-10-02,"Academic Block",26000,620,lunch,cancelled,106
+TX-10063,2026-10-03,"Sports Complex",34000,240,dinner,settled,62
+TX-10064,2026-10-04,"Admin Grounds",48000,110,breakfast,settled,62
+TX-10065,2026-10-05,"Academic Block",26000,620,snacks,cancelled,61
+TX-10066,2026-10-06,"Sports Complex",34000,240,breakfast,pending_reversal,151
+TX-10067,2026-10-07,"Admin Grounds",48000,110,dinner,settled,128
+TX-10068,2026-10-08,"Academic Block",26000,620,dinner,cancelled,61
+TX-10069,2026-10-09,"Sports Complex",34000,240,snacks,cancelled,131
+TX-10070,2026-10-10,"Admin Grounds",48000,110,lunch,settled,74
+TX-10071,2026-10-11,"Academic Block",26000,620,snacks,settled,73
+TX-10072,2026-10-12,"Sports Complex",34000,240,lunch,pending_reversal,82
+TX-10073,2026-10-13,"Admin Grounds",48000,110,lunch,settled,53
+TX-10074,2026-10-14,"Academic Block",26000,620,snacks,settled,134
+TX-10075,2026-10-15,"Sports Complex",34000,240,lunch,settled,122
+TX-10076,2026-10-16,"Hostel Block D",2200,1480,dinner,settled,172
+TX-10077,2026-10-17,"Academic Block",26000,620,snacks,settled,131
+TX-10078,2026-10-18,"Sports Complex",34000,240,dinner,settled,85
+TX-10079,2026-10-19,"Admin Grounds",48000,110,lunch,settled,99
+TX-10080,2026-10-20,"Academic Block",26000,620,lunch,settled,98
+TX-10081,2026-10-21,"Sports Complex",34000,240,snacks,settled,60
+TX-10082,2026-10-22,"Admin Grounds",48000,110,snacks,settled,64
+TX-10083,2026-10-23,"Academic Block",26000,620,breakfast,settled,116
+TX-10084,2026-10-24,"Sports Complex",34000,240,snacks,settled,58
+TX-10085,2026-10-25,"Admin Grounds",48000,110,snacks,pending_reversal,132
+TX-10086,2026-10-26,"Academic Block",26000,620,breakfast,settled,136
+TX-10087,2026-10-27,"Sports Complex",34000,240,dinner,cancelled,115
+TX-10088,2026-10-28,"Admin Grounds",48000,110,breakfast,settled,77
+TX-10089,2026-10-29,"Academic Block",26000,620,snacks,cancelled,103
+TX-10090,2026-10-30,"Sports Complex",34000,240,lunch,settled,127
+TX-10091,2026-10-01,"Admin Grounds",48000,110,dinner,settled,86
+TX-10092,2026-10-02,"Academic Block",26000,620,breakfast,pending_reversal,124
+TX-10093,2026-10-03,"Sports Complex",34000,240,dinner,cancelled,154
+TX-10094,2026-10-04,"Admin Grounds",48000,110,lunch,settled,124
+TX-10095,2026-10-05,"Academic Block",26000,620,snacks,settled,78
+TX-10096,2026-10-06,"Sports Complex",34000,240,lunch,cancelled,76
+TX-10097,2026-10-07,"Admin Grounds",48000,110,lunch,settled,154
+TX-10098,2026-10-08,"Academic Block",26000,620,lunch,pending_reversal,149
+TX-10099,2026-10-09,"Sports Complex",34000,240,snacks,settled,78
+TX-10100,2026-10-10,"Admin Grounds",48000,110,lunch,settled,77
+TX-10101,2026-10-11,"Hostel Block D",2200,1480,dinner,cancelled,70
+TX-10102,2026-10-12,"Sports Complex",34000,240,dinner,settled,127
+TX-10103,2026-10-13,"Admin Grounds",48000,110,breakfast,pending_reversal,129
+TX-10104,2026-10-14,"Academic Block",26000,620,breakfast,settled,57
+TX-10105,2026-10-15,"Sports Complex",34000,240,breakfast,settled,121
+TX-10106,2026-10-16,"Admin Grounds",48000,110,dinner,pending_reversal,79
+TX-10107,2026-10-17,"Academic Block",26000,620,snacks,cancelled,58
+TX-10108,2026-10-18,"Sports Complex",34000,240,lunch,settled,156
+TX-10109,2026-10-19,"Admin Grounds",48000,110,lunch,cancelled,129
+TX-10110,2026-10-20,"Academic Block",26000,620,snacks,cancelled,46
+TX-10111,2026-10-21,"Sports Complex",34000,240,lunch,pending_reversal,147
+TX-10112,2026-10-22,"Admin Grounds",48000,110,snacks,settled,86
+TX-10113,2026-10-23,"Academic Block",26000,620,lunch,settled,149
+TX-10114,2026-10-24,"Sports Complex",34000,240,snacks,settled,116
+TX-10115,2026-10-25,"Admin Grounds",48000,110,dinner,pending_reversal,99
+TX-10116,2026-10-26,"Academic Block",26000,620,dinner,settled,122
+TX-10117,2026-10-27,"Sports Complex",34000,240,lunch,settled,117
+TX-10118,2026-10-28,"Admin Grounds",48000,110,breakfast,pending_reversal,89
+TX-10119,2026-10-29,"Academic Block",26000,620,breakfast,settled,104
+TX-10120,2026-10-30,"Sports Complex",34000,240,lunch,settled,133
+TX-10121,2026-10-01,"Admin Grounds",48000,110,snacks,pending_reversal,71
+TX-10122,2026-10-02,"Academic Block",26000,620,breakfast,settled,130
+TX-10123,2026-10-03,"Sports Complex",34000,240,snacks,settled,50
+TX-10124,2026-10-04,"Admin Grounds",48000,110,snacks,settled,152
+TX-10125,2026-10-05,"Academic Block",26000,620,lunch,cancelled,69
+TX-10126,2026-10-06,"Hostel Block D",2200,1480,dinner,settled,213
+TX-10127,2026-10-07,"Admin Grounds",48000,110,lunch,settled,112
+TX-10128,2026-10-08,"Academic Block",26000,620,snacks,cancelled,102
+TX-10129,2026-10-09,"Sports Complex",34000,240,dinner,settled,85
+TX-10130,2026-10-10,"Admin Grounds",48000,110,breakfast,settled,120
+TX-10131,2026-10-11,"Academic Block",26000,620,breakfast,settled,156
+TX-10132,2026-10-12,"Sports Complex",34000,240,snacks,settled,63
+TX-10133,2026-10-13,"Admin Grounds",48000,110,breakfast,settled,96
+TX-10134,2026-10-14,"Academic Block",26000,620,dinner,settled,141
+TX-10135,2026-10-15,"Sports Complex",34000,240,snacks,cancelled,115
+TX-10136,2026-10-16,"Admin Grounds",48000,110,dinner,cancelled,74
+TX-10137,2026-10-17,"Academic Block",26000,620,lunch,settled,122
+TX-10138,2026-10-18,"Sports Complex",34000,240,breakfast,settled,101
+TX-10139,2026-10-19,"Admin Grounds",48000,110,snacks,pending_reversal,147
+TX-10140,2026-10-20,"Academic Block",26000,620,lunch,pending_reversal,140
+TX-10141,2026-10-21,"Sports Complex",34000,240,dinner,pending_reversal,56
+TX-10142,2026-10-22,"Admin Grounds",48000,110,snacks,pending_reversal,108
+TX-10143,2026-10-23,"Academic Block",26000,620,snacks,settled,66
+TX-10144,2026-10-24,"Sports Complex",34000,240,snacks,pending_reversal,129
+TX-10145,2026-10-25,"Admin Grounds",48000,110,lunch,settled,134
+TX-10146,2026-10-26,"Academic Block",26000,620,dinner,settled,111
+TX-10147,2026-10-27,"Sports Complex",34000,240,lunch,settled,143
+TX-10148,2026-10-28,"Admin Grounds",48000,110,lunch,settled,57
+TX-10149,2026-10-29,"Academic Block",26000,620,lunch,pending_reversal,45
+TX-10150,2026-10-30,"Sports Complex",34000,240,snacks,cancelled,116
+TX-10151,2026-10-01,"Hostel Block D",2200,1480,dinner,settled,104
+TX-10152,2026-10-02,"Academic Block",26000,620,breakfast,settled,109
+TX-10153,2026-10-03,"Sports Complex",34000,240,breakfast,settled,148
+TX-10154,2026-10-04,"Admin Grounds",48000,110,lunch,settled,81
+TX-10155,2026-10-05,"Academic Block",26000,620,breakfast,pending_reversal,147
+TX-10156,2026-10-06,"Sports Complex",34000,240,snacks,pending_reversal,117
+TX-10157,2026-10-07,"Admin Grounds",48000,110,breakfast,settled,52
+TX-10158,2026-10-08,"Academic Block",26000,620,breakfast,settled,80
+TX-10159,2026-10-09,"Sports Complex",34000,240,breakfast,pending_reversal,159
+TX-10160,2026-10-10,"Admin Grounds",48000,110,dinner,cancelled,104
+TX-10161,2026-10-11,"Academic Block",26000,620,snacks,settled,109
+TX-10162,2026-10-12,"Sports Complex",34000,240,lunch,settled,108
+TX-10163,2026-10-13,"Admin Grounds",48000,110,snacks,settled,53
+TX-10164,2026-10-14,"Academic Block",26000,620,lunch,settled,63
+TX-10165,2026-10-15,"Sports Complex",34000,240,lunch,pending_reversal,59
+TX-10166,2026-10-16,"Admin Grounds",48000,110,breakfast,settled,99
+TX-10167,2026-10-17,"Academic Block",26000,620,lunch,settled,135
+TX-10168,2026-10-18,"Sports Complex",34000,240,dinner,settled,97
+TX-10169,2026-10-19,"Admin Grounds",48000,110,lunch,settled,94
+TX-10170,2026-10-20,"Academic Block",26000,620,breakfast,settled,97
+TX-10171,2026-10-21,"Sports Complex",34000,240,lunch,settled,152
+TX-10172,2026-10-22,"Admin Grounds",48000,110,dinner,cancelled,46
+TX-10173,2026-10-23,"Academic Block",26000,620,snacks,settled,139
+TX-10174,2026-10-24,"Sports Complex",34000,240,lunch,pending_reversal,139
+TX-10175,2026-10-25,"Admin Grounds",48000,110,lunch,cancelled,144
+TX-10176,2026-10-26,"Hostel Block D",2200,1480,lunch,pending_reversal,103
+TX-10177,2026-10-27,"Sports Complex",34000,240,lunch,cancelled,64
+TX-10178,2026-10-28,"Admin Grounds",48000,110,dinner,settled,119
+TX-10179,2026-10-29,"Academic Block",26000,620,dinner,settled,127
+TX-10180,2026-10-30,"Sports Complex",34000,240,lunch,settled,101
+TX-10181,2026-10-01,"Admin Grounds",48000,110,snacks,cancelled,51
+TX-10182,2026-10-02,"Academic Block",26000,620,dinner,pending_reversal,87
+TX-10183,2026-10-03,"Sports Complex",34000,240,breakfast,settled,126
+TX-10184,2026-10-04,"Admin Grounds",48000,110,dinner,cancelled,72
+TX-10185,2026-10-05,"Academic Block",26000,620,snacks,settled,56
+TX-10186,2026-10-06,"Sports Complex",34000,240,breakfast,settled,103
+TX-10187,2026-10-07,"Admin Grounds",48000,110,snacks,pending_reversal,76
+TX-10188,2026-10-08,"Academic Block",26000,620,lunch,settled,56
+TX-10189,2026-10-09,"Sports Complex",34000,240,snacks,pending_reversal,124
+TX-10190,2026-10-10,"Admin Grounds",48000,110,breakfast,settled,69
+TX-10191,2026-10-11,"Academic Block",26000,620,snacks,settled,82
+TX-10192,2026-10-12,"Sports Complex",34000,240,lunch,settled,79
+TX-10193,2026-10-13,"Admin Grounds",48000,110,snacks,settled,147
+TX-10194,2026-10-14,"Academic Block",26000,620,breakfast,pending_reversal,54
+TX-10195,2026-10-15,"Sports Complex",34000,240,dinner,settled,140
+TX-10196,2026-10-16,"Admin Grounds",48000,110,snacks,settled,119
+TX-10197,2026-10-17,"Academic Block",26000,620,snacks,cancelled,67
+TX-10198,2026-10-18,"Sports Complex",34000,240,dinner,cancelled,76
+TX-10199,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,108
+TX-10200,2026-10-20,"Academic Block",26000,620,lunch,pending_reversal,110
+TX-10201,2026-10-21,"Hostel Block D",2200,1480,snacks,settled,147
+TX-10202,2026-10-22,"Admin Grounds",48000,110,breakfast,pending_reversal,63
+TX-10203,2026-10-23,"Academic Block",26000,620,lunch,cancelled,131
+TX-10204,2026-10-24,"Sports Complex",34000,240,dinner,cancelled,108
+TX-10205,2026-10-25,"Admin Grounds",48000,110,breakfast,settled,81
+TX-10206,2026-10-26,"Academic Block",26000,620,snacks,settled,133
+TX-10207,2026-10-27,"Sports Complex",34000,240,breakfast,settled,125
+TX-10208,2026-10-28,"Admin Grounds",48000,110,lunch,settled,80
+TX-10209,2026-10-29,"Academic Block",26000,620,breakfast,settled,120
+TX-10210,2026-10-30,"Sports Complex",34000,240,breakfast,settled,113
+TX-10211,2026-10-01,"Admin Grounds",48000,110,lunch,settled,81
+TX-10212,2026-10-02,"Academic Block",26000,620,snacks,pending_reversal,85
+TX-10213,2026-10-03,"Sports Complex",34000,240,dinner,settled,155
+TX-10214,2026-10-04,"Admin Grounds",48000,110,dinner,settled,111
+TX-10215,2026-10-05,"Academic Block",26000,620,dinner,cancelled,122
+TX-10216,2026-10-06,"Sports Complex",34000,240,breakfast,settled,112
+TX-10217,2026-10-07,"Admin Grounds",48000,110,snacks,settled,88
+TX-10218,2026-10-08,"Academic Block",26000,620,dinner,cancelled,121
+TX-10219,2026-10-09,"Sports Complex",34000,240,dinner,settled,110
+TX-10220,2026-10-10,"Admin Grounds",48000,110,snacks,pending_reversal,121
+TX-10221,2026-10-11,"Academic Block",26000,620,snacks,pending_reversal,118
+TX-10222,2026-10-12,"Sports Complex",34000,240,dinner,cancelled,96
+TX-10223,2026-10-13,"Admin Grounds",48000,110,dinner,settled,104
+TX-10224,2026-10-14,"Academic Block",26000,620,lunch,pending_reversal,153
+TX-10225,2026-10-15,"Sports Complex",34000,240,breakfast,cancelled,71
+TX-10226,2026-10-16,"Hostel Block D",2200,1480,lunch,settled,114
+TX-10227,2026-10-17,"Academic Block",26000,620,snacks,settled,62
+TX-10228,2026-10-18,"Sports Complex",34000,240,breakfast,settled,101
+TX-10229,2026-10-19,"Admin Grounds",48000,110,dinner,cancelled,151
+TX-10230,2026-10-20,"Academic Block",26000,620,breakfast,settled,94
+TX-10231,2026-10-21,"Sports Complex",34000,240,lunch,settled,61
+TX-10232,2026-10-22,"Admin Grounds",48000,110,dinner,pending_reversal,68
+TX-10233,2026-10-23,"Academic Block",26000,620,breakfast,settled,68
+TX-10234,2026-10-24,"Sports Complex",34000,240,dinner,cancelled,152
+TX-10235,2026-10-25,"Admin Grounds",48000,110,snacks,cancelled,144
+TX-10236,2026-10-26,"Academic Block",26000,620,dinner,cancelled,119
+TX-10237,2026-10-27,"Sports Complex",34000,240,lunch,settled,119
+TX-10238,2026-10-28,"Admin Grounds",48000,110,lunch,settled,111
+TX-10239,2026-10-29,"Academic Block",26000,620,dinner,settled,108
+TX-10240,2026-10-30,"Sports Complex",34000,240,breakfast,settled,155
+TX-10241,2026-10-01,"Admin Grounds",48000,110,lunch,settled,90
+TX-10242,2026-10-02,"Academic Block",26000,620,snacks,pending_reversal,111
+TX-10243,2026-10-03,"Sports Complex",34000,240,lunch,settled,137
+TX-10244,2026-10-04,"Admin Grounds",48000,110,dinner,cancelled,108
+TX-10245,2026-10-05,"Academic Block",26000,620,lunch,pending_reversal,135
+TX-10246,2026-10-06,"Sports Complex",34000,240,snacks,settled,152
+TX-10247,2026-10-07,"Admin Grounds",48000,110,snacks,cancelled,140
+TX-10248,2026-10-08,"Academic Block",26000,620,dinner,settled,132
+TX-10249,2026-10-09,"Sports Complex",34000,240,dinner,settled,126
+TX-10250,2026-10-10,"Admin Grounds",48000,110,snacks,settled,105
+TX-10251,2026-10-11,"Hostel Block D",2200,1480,snacks,settled,187
+TX-10252,2026-10-12,"Sports Complex",34000,240,dinner,settled,126
+TX-10253,2026-10-13,"Admin Grounds",48000,110,breakfast,settled,157
+TX-10254,2026-10-14,"Academic Block",26000,620,dinner,pending_reversal,133
+TX-10255,2026-10-15,"Sports Complex",34000,240,dinner,settled,118
+TX-10256,2026-10-16,"Admin Grounds",48000,110,lunch,settled,97
+TX-10257,2026-10-17,"Academic Block",26000,620,lunch,settled,75
+TX-10258,2026-10-18,"Sports Complex",34000,240,dinner,settled,75
+TX-10259,2026-10-19,"Admin Grounds",48000,110,snacks,pending_reversal,75
+TX-10260,2026-10-20,"Academic Block",26000,620,snacks,settled,119
+TX-10261,2026-10-21,"Sports Complex",34000,240,dinner,settled,126
+TX-10262,2026-10-22,"Admin Grounds",48000,110,breakfast,settled,50
+TX-10263,2026-10-23,"Academic Block",26000,620,breakfast,settled,124
+TX-10264,2026-10-24,"Sports Complex",34000,240,lunch,pending_reversal,51
+TX-10265,2026-10-25,"Admin Grounds",48000,110,dinner,settled,74
+TX-10266,2026-10-26,"Academic Block",26000,620,dinner,settled,73
+TX-10267,2026-10-27,"Sports Complex",34000,240,snacks,settled,133
+TX-10268,2026-10-28,"Admin Grounds",48000,110,dinner,settled,143
+TX-10269,2026-10-29,"Academic Block",26000,620,snacks,settled,103
+TX-10270,2026-10-30,"Sports Complex",34000,240,dinner,cancelled,112
+TX-10271,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,140
+TX-10272,2026-10-02,"Academic Block",26000,620,dinner,settled,77
+TX-10273,2026-10-03,"Sports Complex",34000,240,snacks,settled,85
+TX-10274,2026-10-04,"Admin Grounds",48000,110,dinner,settled,85
+TX-10275,2026-10-05,"Academic Block",26000,620,snacks,settled,60
+TX-10276,2026-10-06,"Hostel Block D",2200,1480,snacks,settled,159
+TX-10277,2026-10-07,"Admin Grounds",48000,110,snacks,settled,128
+TX-10278,2026-10-08,"Academic Block",26000,620,dinner,settled,73
+TX-10279,2026-10-09,"Sports Complex",34000,240,snacks,settled,110
+TX-10280,2026-10-10,"Admin Grounds",48000,110,snacks,settled,126
+TX-10281,2026-10-11,"Academic Block",26000,620,lunch,cancelled,156
+TX-10282,2026-10-12,"Sports Complex",34000,240,breakfast,settled,89
+TX-10283,2026-10-13,"Admin Grounds",48000,110,snacks,cancelled,101
+TX-10284,2026-10-14,"Academic Block",26000,620,dinner,cancelled,91
+TX-10285,2026-10-15,"Sports Complex",34000,240,breakfast,cancelled,95
+TX-10286,2026-10-16,"Admin Grounds",48000,110,breakfast,pending_reversal,61
+TX-10287,2026-10-17,"Academic Block",26000,620,snacks,cancelled,49
+TX-10288,2026-10-18,"Sports Complex",34000,240,breakfast,settled,120
+TX-10289,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,89
+TX-10290,2026-10-20,"Academic Block",26000,620,breakfast,settled,91
+TX-10291,2026-10-21,"Sports Complex",34000,240,snacks,cancelled,65
+TX-10292,2026-10-22,"Admin Grounds",48000,110,snacks,settled,138
+TX-10293,2026-10-23,"Academic Block",26000,620,dinner,settled,79
+TX-10294,2026-10-24,"Sports Complex",34000,240,breakfast,settled,152
+TX-10295,2026-10-25,"Admin Grounds",48000,110,lunch,pending_reversal,146
+TX-10296,2026-10-26,"Academic Block",26000,620,lunch,settled,60
+TX-10297,2026-10-27,"Sports Complex",34000,240,breakfast,pending_reversal,73
+TX-10298,2026-10-28,"Admin Grounds",48000,110,snacks,settled,104
+TX-10299,2026-10-29,"Academic Block",26000,620,snacks,settled,117
+TX-10300,2026-10-30,"Sports Complex",34000,240,dinner,pending_reversal,122
+TX-10301,2026-10-01,"Hostel Block D",2200,1480,lunch,settled,109
+TX-10302,2026-10-02,"Academic Block",26000,620,snacks,settled,94
+TX-10303,2026-10-03,"Sports Complex",34000,240,dinner,settled,81
+TX-10304,2026-10-04,"Admin Grounds",48000,110,dinner,pending_reversal,100
+TX-10305,2026-10-05,"Academic Block",26000,620,breakfast,pending_reversal,123
+TX-10306,2026-10-06,"Sports Complex",34000,240,dinner,settled,135
+TX-10307,2026-10-07,"Admin Grounds",48000,110,snacks,settled,108
+TX-10308,2026-10-08,"Academic Block",26000,620,dinner,cancelled,88
+TX-10309,2026-10-09,"Sports Complex",34000,240,snacks,settled,142
+TX-10310,2026-10-10,"Admin Grounds",48000,110,breakfast,settled,72
+TX-10311,2026-10-11,"Academic Block",26000,620,dinner,settled,89
+TX-10312,2026-10-12,"Sports Complex",34000,240,snacks,settled,77
+TX-10313,2026-10-13,"Admin Grounds",48000,110,breakfast,pending_reversal,90
+TX-10314,2026-10-14,"Academic Block",26000,620,snacks,settled,143
+TX-10315,2026-10-15,"Sports Complex",34000,240,breakfast,settled,112
+TX-10316,2026-10-16,"Admin Grounds",48000,110,lunch,settled,107
+TX-10317,2026-10-17,"Academic Block",26000,620,snacks,settled,159
+TX-10318,2026-10-18,"Sports Complex",34000,240,snacks,cancelled,101
+TX-10319,2026-10-19,"Admin Grounds",48000,110,snacks,cancelled,90
+TX-10320,2026-10-20,"Academic Block",26000,620,breakfast,pending_reversal,70
+TX-10321,2026-10-21,"Sports Complex",34000,240,breakfast,settled,119
+TX-10322,2026-10-22,"Admin Grounds",48000,110,breakfast,settled,92
+TX-10323,2026-10-23,"Academic Block",26000,620,breakfast,settled,71
+TX-10324,2026-10-24,"Sports Complex",34000,240,breakfast,pending_reversal,66
+TX-10325,2026-10-25,"Admin Grounds",48000,110,breakfast,settled,111
+TX-10326,2026-10-26,"Hostel Block D",2200,1480,breakfast,pending_reversal,77
+TX-10327,2026-10-27,"Sports Complex",34000,240,snacks,settled,56
+TX-10328,2026-10-28,"Admin Grounds",48000,110,snacks,settled,51
+TX-10329,2026-10-29,"Academic Block",26000,620,breakfast,settled,45
+TX-10330,2026-10-30,"Sports Complex",34000,240,breakfast,pending_reversal,78
+TX-10331,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,63
+TX-10332,2026-10-02,"Academic Block",26000,620,snacks,settled,135
+TX-10333,2026-10-03,"Sports Complex",34000,240,dinner,settled,59
+TX-10334,2026-10-04,"Admin Grounds",48000,110,snacks,settled,146
+TX-10335,2026-10-05,"Academic Block",26000,620,lunch,settled,151
+TX-10336,2026-10-06,"Sports Complex",34000,240,breakfast,pending_reversal,104
+TX-10337,2026-10-07,"Admin Grounds",48000,110,breakfast,settled,48
+TX-10338,2026-10-08,"Academic Block",26000,620,snacks,settled,67
+TX-10339,2026-10-09,"Sports Complex",34000,240,snacks,cancelled,127
+TX-10340,2026-10-10,"Admin Grounds",48000,110,breakfast,cancelled,131
+TX-10341,2026-10-11,"Academic Block",26000,620,lunch,settled,152
+TX-10342,2026-10-12,"Sports Complex",34000,240,dinner,cancelled,64
+TX-10343,2026-10-13,"Admin Grounds",48000,110,dinner,settled,81
+TX-10344,2026-10-14,"Academic Block",26000,620,dinner,settled,123
+TX-10345,2026-10-15,"Sports Complex",34000,240,lunch,settled,120
+TX-10346,2026-10-16,"Admin Grounds",48000,110,breakfast,cancelled,148
+TX-10347,2026-10-17,"Academic Block",26000,620,dinner,settled,85
+TX-10348,2026-10-18,"Sports Complex",34000,240,snacks,settled,129
+TX-10349,2026-10-19,"Admin Grounds",48000,110,dinner,pending_reversal,136
+TX-10350,2026-10-20,"Academic Block",26000,620,dinner,pending_reversal,159
+TX-10351,2026-10-21,"Hostel Block D",2200,1480,lunch,settled,88
+TX-10352,2026-10-22,"Admin Grounds",48000,110,breakfast,settled,117
+TX-10353,2026-10-23,"Academic Block",26000,620,lunch,settled,88
+TX-10354,2026-10-24,"Sports Complex",34000,240,breakfast,cancelled,123
+TX-10355,2026-10-25,"Admin Grounds",48000,110,dinner,settled,84
+TX-10356,2026-10-26,"Academic Block",26000,620,dinner,settled,130
+TX-10357,2026-10-27,"Sports Complex",34000,240,dinner,settled,113
+TX-10358,2026-10-28,"Admin Grounds",48000,110,lunch,settled,155
+TX-10359,2026-10-29,"Academic Block",26000,620,dinner,settled,83
+TX-10360,2026-10-30,"Sports Complex",34000,240,lunch,pending_reversal,81
+TX-10361,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,103
+TX-10362,2026-10-02,"Academic Block",26000,620,dinner,pending_reversal,142
+TX-10363,2026-10-03,"Sports Complex",34000,240,breakfast,settled,151
+TX-10364,2026-10-04,"Admin Grounds",48000,110,breakfast,pending_reversal,138
+TX-10365,2026-10-05,"Academic Block",26000,620,dinner,cancelled,78
+TX-10366,2026-10-06,"Sports Complex",34000,240,lunch,settled,49
+TX-10367,2026-10-07,"Admin Grounds",48000,110,snacks,cancelled,103
+TX-10368,2026-10-08,"Academic Block",26000,620,lunch,cancelled,106
+TX-10369,2026-10-09,"Sports Complex",34000,240,snacks,cancelled,136
+TX-10370,2026-10-10,"Admin Grounds",48000,110,snacks,settled,89
+TX-10371,2026-10-11,"Academic Block",26000,620,breakfast,settled,113
+TX-10372,2026-10-12,"Sports Complex",34000,240,snacks,settled,104
+TX-10373,2026-10-13,"Admin Grounds",48000,110,lunch,pending_reversal,124
+TX-10374,2026-10-14,"Academic Block",26000,620,breakfast,settled,122
+TX-10375,2026-10-15,"Sports Complex",34000,240,lunch,settled,145
+TX-10376,2026-10-16,"Hostel Block D",2200,1480,breakfast,settled,212
+TX-10377,2026-10-17,"Academic Block",26000,620,snacks,settled,104
+TX-10378,2026-10-18,"Sports Complex",34000,240,breakfast,settled,97
+TX-10379,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,136
+TX-10380,2026-10-20,"Academic Block",26000,620,dinner,settled,52
+TX-10381,2026-10-21,"Sports Complex",34000,240,lunch,cancelled,156
+TX-10382,2026-10-22,"Admin Grounds",48000,110,dinner,settled,65
+TX-10383,2026-10-23,"Academic Block",26000,620,dinner,pending_reversal,153
+TX-10384,2026-10-24,"Sports Complex",34000,240,snacks,settled,151
+TX-10385,2026-10-25,"Admin Grounds",48000,110,dinner,cancelled,86
+TX-10386,2026-10-26,"Academic Block",26000,620,dinner,cancelled,94
+TX-10387,2026-10-27,"Sports Complex",34000,240,lunch,settled,157
+TX-10388,2026-10-28,"Admin Grounds",48000,110,lunch,cancelled,124
+TX-10389,2026-10-29,"Academic Block",26000,620,snacks,settled,79
+TX-10390,2026-10-30,"Sports Complex",34000,240,breakfast,settled,93
+TX-10391,2026-10-01,"Admin Grounds",48000,110,dinner,settled,85
+TX-10392,2026-10-02,"Academic Block",26000,620,snacks,settled,48
+TX-10393,2026-10-03,"Sports Complex",34000,240,breakfast,settled,156
+TX-10394,2026-10-04,"Admin Grounds",48000,110,breakfast,settled,106
+TX-10395,2026-10-05,"Academic Block",26000,620,dinner,settled,70
+TX-10396,2026-10-06,"Sports Complex",34000,240,snacks,cancelled,94
+TX-10397,2026-10-07,"Admin Grounds",48000,110,breakfast,pending_reversal,131
+TX-10398,2026-10-08,"Academic Block",26000,620,snacks,pending_reversal,67
+TX-10399,2026-10-09,"Sports Complex",34000,240,snacks,cancelled,104
+TX-10400,2026-10-10,"Admin Grounds",48000,110,lunch,cancelled,131
+TX-10401,2026-10-11,"Hostel Block D",2200,1480,dinner,settled,144
+TX-10402,2026-10-12,"Sports Complex",34000,240,breakfast,settled,125
+TX-10403,2026-10-13,"Admin Grounds",48000,110,lunch,cancelled,143
+TX-10404,2026-10-14,"Academic Block",26000,620,lunch,settled,121
+TX-10405,2026-10-15,"Sports Complex",34000,240,lunch,settled,90
+TX-10406,2026-10-16,"Admin Grounds",48000,110,dinner,settled,146
+TX-10407,2026-10-17,"Academic Block",26000,620,breakfast,settled,114
+TX-10408,2026-10-18,"Sports Complex",34000,240,breakfast,settled,87
+TX-10409,2026-10-19,"Admin Grounds",48000,110,lunch,settled,108
+TX-10410,2026-10-20,"Academic Block",26000,620,dinner,cancelled,150
+TX-10411,2026-10-21,"Sports Complex",34000,240,lunch,settled,89
+TX-10412,2026-10-22,"Admin Grounds",48000,110,dinner,settled,150
+TX-10413,2026-10-23,"Academic Block",26000,620,snacks,settled,144
+TX-10414,2026-10-24,"Sports Complex",34000,240,breakfast,settled,123
+TX-10415,2026-10-25,"Admin Grounds",48000,110,dinner,settled,155
+TX-10416,2026-10-26,"Academic Block",26000,620,breakfast,settled,99
+TX-10417,2026-10-27,"Sports Complex",34000,240,breakfast,settled,65
+TX-10418,2026-10-28,"Admin Grounds",48000,110,lunch,pending_reversal,61
+TX-10419,2026-10-29,"Academic Block",26000,620,dinner,pending_reversal,121
+TX-10420,2026-10-30,"Sports Complex",34000,240,dinner,cancelled,109
+TX-10421,2026-10-01,"Admin Grounds",48000,110,lunch,settled,146
+TX-10422,2026-10-02,"Academic Block",26000,620,breakfast,settled,118
+TX-10423,2026-10-03,"Sports Complex",34000,240,lunch,settled,119
+TX-10424,2026-10-04,"Admin Grounds",48000,110,snacks,pending_reversal,71
+TX-10425,2026-10-05,"Academic Block",26000,620,lunch,settled,89
+TX-10426,2026-10-06,"Hostel Block D",2200,1480,breakfast,settled,157
+TX-10427,2026-10-07,"Admin Grounds",48000,110,breakfast,settled,93
+TX-10428,2026-10-08,"Academic Block",26000,620,dinner,cancelled,100
+TX-10429,2026-10-09,"Sports Complex",34000,240,lunch,settled,115
+TX-10430,2026-10-10,"Admin Grounds",48000,110,dinner,settled,114
+TX-10431,2026-10-11,"Academic Block",26000,620,breakfast,settled,107
+TX-10432,2026-10-12,"Sports Complex",34000,240,breakfast,pending_reversal,140
+TX-10433,2026-10-13,"Admin Grounds",48000,110,breakfast,settled,73
+TX-10434,2026-10-14,"Academic Block",26000,620,breakfast,settled,153
+TX-10435,2026-10-15,"Sports Complex",34000,240,snacks,settled,105
+TX-10436,2026-10-16,"Admin Grounds",48000,110,dinner,settled,151
+TX-10437,2026-10-17,"Academic Block",26000,620,dinner,pending_reversal,101
+TX-10438,2026-10-18,"Sports Complex",34000,240,lunch,settled,138
+TX-10439,2026-10-19,"Admin Grounds",48000,110,dinner,settled,70
+TX-10440,2026-10-20,"Academic Block",26000,620,breakfast,cancelled,113
+TX-10441,2026-10-21,"Sports Complex",34000,240,dinner,settled,50
+TX-10442,2026-10-22,"Admin Grounds",48000,110,breakfast,cancelled,100
+TX-10443,2026-10-23,"Academic Block",26000,620,breakfast,settled,146
+TX-10444,2026-10-24,"Sports Complex",34000,240,dinner,cancelled,149
+TX-10445,2026-10-25,"Admin Grounds",48000,110,breakfast,cancelled,54
+TX-10446,2026-10-26,"Academic Block",26000,620,breakfast,settled,131
+TX-10447,2026-10-27,"Sports Complex",34000,240,snacks,pending_reversal,134
+TX-10448,2026-10-28,"Admin Grounds",48000,110,breakfast,cancelled,146
+TX-10449,2026-10-29,"Academic Block",26000,620,snacks,cancelled,69
+TX-10450,2026-10-30,"Sports Complex",34000,240,lunch,settled,104
+TX-10451,2026-10-01,"Hostel Block D",2200,1480,lunch,pending_reversal,107
+TX-10452,2026-10-02,"Academic Block",26000,620,breakfast,pending_reversal,116
+TX-10453,2026-10-03,"Sports Complex",34000,240,dinner,settled,113
+TX-10454,2026-10-04,"Admin Grounds",48000,110,lunch,pending_reversal,72
+TX-10455,2026-10-05,"Academic Block",26000,620,breakfast,settled,79
+TX-10456,2026-10-06,"Sports Complex",34000,240,dinner,pending_reversal,148
+TX-10457,2026-10-07,"Admin Grounds",48000,110,snacks,settled,54
+TX-10458,2026-10-08,"Academic Block",26000,620,dinner,settled,90
+TX-10459,2026-10-09,"Sports Complex",34000,240,dinner,settled,128
+TX-10460,2026-10-10,"Admin Grounds",48000,110,snacks,settled,63
+TX-10461,2026-10-11,"Academic Block",26000,620,dinner,cancelled,71
+TX-10462,2026-10-12,"Sports Complex",34000,240,dinner,cancelled,73
+TX-10463,2026-10-13,"Admin Grounds",48000,110,breakfast,settled,114
+TX-10464,2026-10-14,"Academic Block",26000,620,dinner,settled,96
+TX-10465,2026-10-15,"Sports Complex",34000,240,breakfast,cancelled,103
+TX-10466,2026-10-16,"Admin Grounds",48000,110,lunch,settled,118
+TX-10467,2026-10-17,"Academic Block",26000,620,dinner,cancelled,158
+TX-10468,2026-10-18,"Sports Complex",34000,240,lunch,settled,52
+TX-10469,2026-10-19,"Admin Grounds",48000,110,lunch,cancelled,134
+TX-10470,2026-10-20,"Academic Block",26000,620,breakfast,cancelled,61
+TX-10471,2026-10-21,"Sports Complex",34000,240,dinner,pending_reversal,152
+TX-10472,2026-10-22,"Admin Grounds",48000,110,breakfast,pending_reversal,134
+TX-10473,2026-10-23,"Academic Block",26000,620,lunch,settled,150
+TX-10474,2026-10-24,"Sports Complex",34000,240,breakfast,settled,78
+TX-10475,2026-10-25,"Admin Grounds",48000,110,snacks,settled,99
+TX-10476,2026-10-26,"Hostel Block D",2200,1480,snacks,settled,156
+TX-10477,2026-10-27,"Sports Complex",34000,240,breakfast,settled,75
+TX-10478,2026-10-28,"Admin Grounds",48000,110,snacks,cancelled,53
+TX-10479,2026-10-29,"Academic Block",26000,620,dinner,settled,91
+TX-10480,2026-10-30,"Sports Complex",34000,240,dinner,settled,116
+TX-10481,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,150
+TX-10482,2026-10-02,"Academic Block",26000,620,snacks,settled,55
+TX-10483,2026-10-03,"Sports Complex",34000,240,dinner,settled,80
+TX-10484,2026-10-04,"Admin Grounds",48000,110,dinner,settled,118
+TX-10485,2026-10-05,"Academic Block",26000,620,snacks,cancelled,62
+TX-10486,2026-10-06,"Sports Complex",34000,240,snacks,settled,151
+TX-10487,2026-10-07,"Admin Grounds",48000,110,lunch,settled,89
+TX-10488,2026-10-08,"Academic Block",26000,620,lunch,settled,118
+TX-10489,2026-10-09,"Sports Complex",34000,240,lunch,pending_reversal,80
+TX-10490,2026-10-10,"Admin Grounds",48000,110,lunch,pending_reversal,58
+TX-10491,2026-10-11,"Academic Block",26000,620,lunch,settled,151
+TX-10492,2026-10-12,"Sports Complex",34000,240,dinner,settled,82
+TX-10493,2026-10-13,"Admin Grounds",48000,110,breakfast,settled,66
+TX-10494,2026-10-14,"Academic Block",26000,620,breakfast,cancelled,75
+TX-10495,2026-10-15,"Sports Complex",34000,240,snacks,settled,89
+TX-10496,2026-10-16,"Admin Grounds",48000,110,breakfast,pending_reversal,77
+TX-10497,2026-10-17,"Academic Block",26000,620,breakfast,settled,79
+TX-10498,2026-10-18,"Sports Complex",34000,240,lunch,cancelled,86
+TX-10499,2026-10-19,"Admin Grounds",48000,110,lunch,settled,111
+TX-10500,2026-10-20,"Academic Block",26000,620,breakfast,settled,148
+TX-10501,2026-10-21,"Hostel Block D",2200,1480,snacks,settled,192
+TX-10502,2026-10-22,"Admin Grounds",48000,110,dinner,settled,127
+TX-10503,2026-10-23,"Academic Block",26000,620,dinner,settled,51
+TX-10504,2026-10-24,"Sports Complex",34000,240,breakfast,cancelled,84
+TX-10505,2026-10-25,"Admin Grounds",48000,110,lunch,settled,130
+TX-10506,2026-10-26,"Academic Block",26000,620,dinner,settled,76
+TX-10507,2026-10-27,"Sports Complex",34000,240,breakfast,settled,101
+TX-10508,2026-10-28,"Admin Grounds",48000,110,lunch,settled,104
+TX-10509,2026-10-29,"Academic Block",26000,620,dinner,settled,134
+TX-10510,2026-10-30,"Sports Complex",34000,240,dinner,pending_reversal,72
+TX-10511,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,108
+TX-10512,2026-10-02,"Academic Block",26000,620,dinner,settled,120
+TX-10513,2026-10-03,"Sports Complex",34000,240,dinner,settled,108
+TX-10514,2026-10-04,"Admin Grounds",48000,110,breakfast,cancelled,158
+TX-10515,2026-10-05,"Academic Block",26000,620,breakfast,settled,151
+TX-10516,2026-10-06,"Sports Complex",34000,240,lunch,pending_reversal,95
+TX-10517,2026-10-07,"Admin Grounds",48000,110,breakfast,settled,134
+TX-10518,2026-10-08,"Academic Block",26000,620,breakfast,cancelled,91
+TX-10519,2026-10-09,"Sports Complex",34000,240,dinner,cancelled,137
+TX-10520,2026-10-10,"Admin Grounds",48000,110,snacks,settled,85
+TX-10521,2026-10-11,"Academic Block",26000,620,snacks,settled,101
+TX-10522,2026-10-12,"Sports Complex",34000,240,dinner,cancelled,62
+TX-10523,2026-10-13,"Admin Grounds",48000,110,snacks,settled,137
+TX-10524,2026-10-14,"Academic Block",26000,620,breakfast,pending_reversal,79
+TX-10525,2026-10-15,"Sports Complex",34000,240,dinner,settled,150
+TX-10526,2026-10-16,"Hostel Block D",2200,1480,dinner,pending_reversal,195
+TX-10527,2026-10-17,"Academic Block",26000,620,snacks,settled,124
+TX-10528,2026-10-18,"Sports Complex",34000,240,dinner,settled,151
+TX-10529,2026-10-19,"Admin Grounds",48000,110,breakfast,cancelled,123
+TX-10530,2026-10-20,"Academic Block",26000,620,lunch,cancelled,155
+TX-10531,2026-10-21,"Sports Complex",34000,240,breakfast,pending_reversal,46
+TX-10532,2026-10-22,"Admin Grounds",48000,110,dinner,pending_reversal,65
+TX-10533,2026-10-23,"Academic Block",26000,620,dinner,cancelled,109
+TX-10534,2026-10-24,"Sports Complex",34000,240,dinner,settled,142
+TX-10535,2026-10-25,"Admin Grounds",48000,110,lunch,settled,105
+TX-10536,2026-10-26,"Academic Block",26000,620,lunch,settled,117
+TX-10537,2026-10-27,"Sports Complex",34000,240,snacks,settled,108
+TX-10538,2026-10-28,"Admin Grounds",48000,110,breakfast,settled,136
+TX-10539,2026-10-29,"Academic Block",26000,620,dinner,settled,147
+TX-10540,2026-10-30,"Sports Complex",34000,240,dinner,settled,141
+TX-10541,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,119
+TX-10542,2026-10-02,"Academic Block",26000,620,dinner,pending_reversal,131
+TX-10543,2026-10-03,"Sports Complex",34000,240,dinner,pending_reversal,158
+TX-10544,2026-10-04,"Admin Grounds",48000,110,lunch,settled,51
+TX-10545,2026-10-05,"Academic Block",26000,620,breakfast,settled,78
+TX-10546,2026-10-06,"Sports Complex",34000,240,dinner,pending_reversal,121
+TX-10547,2026-10-07,"Admin Grounds",48000,110,breakfast,pending_reversal,153
+TX-10548,2026-10-08,"Academic Block",26000,620,lunch,settled,134
+TX-10549,2026-10-09,"Sports Complex",34000,240,lunch,pending_reversal,150
+TX-10550,2026-10-10,"Admin Grounds",48000,110,breakfast,settled,70
+TX-10551,2026-10-11,"Hostel Block D",2200,1480,dinner,settled,66
+TX-10552,2026-10-12,"Sports Complex",34000,240,dinner,settled,53
+TX-10553,2026-10-13,"Admin Grounds",48000,110,breakfast,cancelled,86
+TX-10554,2026-10-14,"Academic Block",26000,620,dinner,cancelled,114
+TX-10555,2026-10-15,"Sports Complex",34000,240,dinner,settled,77
+TX-10556,2026-10-16,"Admin Grounds",48000,110,snacks,settled,91
+TX-10557,2026-10-17,"Academic Block",26000,620,dinner,settled,124
+TX-10558,2026-10-18,"Sports Complex",34000,240,lunch,settled,151
+TX-10559,2026-10-19,"Admin Grounds",48000,110,lunch,cancelled,100
+TX-10560,2026-10-20,"Academic Block",26000,620,breakfast,cancelled,148
+TX-10561,2026-10-21,"Sports Complex",34000,240,lunch,settled,151
+TX-10562,2026-10-22,"Admin Grounds",48000,110,dinner,settled,96
+TX-10563,2026-10-23,"Academic Block",26000,620,lunch,pending_reversal,138
+TX-10564,2026-10-24,"Sports Complex",34000,240,lunch,settled,135
+TX-10565,2026-10-25,"Admin Grounds",48000,110,lunch,settled,117
+TX-10566,2026-10-26,"Academic Block",26000,620,breakfast,settled,51
+TX-10567,2026-10-27,"Sports Complex",34000,240,breakfast,settled,155
+TX-10568,2026-10-28,"Admin Grounds",48000,110,dinner,settled,88
+TX-10569,2026-10-29,"Academic Block",26000,620,snacks,settled,68
+TX-10570,2026-10-30,"Sports Complex",34000,240,snacks,settled,111
+TX-10571,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,96
+TX-10572,2026-10-02,"Academic Block",26000,620,breakfast,settled,91
+TX-10573,2026-10-03,"Sports Complex",34000,240,lunch,settled,100
+TX-10574,2026-10-04,"Admin Grounds",48000,110,dinner,settled,154
+TX-10575,2026-10-05,"Academic Block",26000,620,snacks,settled,110
+TX-10576,2026-10-06,"Hostel Block D",2200,1480,breakfast,cancelled,163
+TX-10577,2026-10-07,"Admin Grounds",48000,110,lunch,settled,141
+TX-10578,2026-10-08,"Academic Block",26000,620,lunch,settled,65
+TX-10579,2026-10-09,"Sports Complex",34000,240,breakfast,settled,120
+TX-10580,2026-10-10,"Admin Grounds",48000,110,snacks,settled,142
+TX-10581,2026-10-11,"Academic Block",26000,620,lunch,settled,132
+TX-10582,2026-10-12,"Sports Complex",34000,240,breakfast,pending_reversal,152
+TX-10583,2026-10-13,"Admin Grounds",48000,110,breakfast,settled,152
+TX-10584,2026-10-14,"Academic Block",26000,620,snacks,cancelled,113
+TX-10585,2026-10-15,"Sports Complex",34000,240,breakfast,settled,75
+TX-10586,2026-10-16,"Admin Grounds",48000,110,snacks,settled,157
+TX-10587,2026-10-17,"Academic Block",26000,620,breakfast,settled,155
+TX-10588,2026-10-18,"Sports Complex",34000,240,dinner,settled,78
+TX-10589,2026-10-19,"Admin Grounds",48000,110,dinner,pending_reversal,69
+TX-10590,2026-10-20,"Academic Block",26000,620,dinner,settled,135
+TX-10591,2026-10-21,"Sports Complex",34000,240,breakfast,settled,91
+TX-10592,2026-10-22,"Admin Grounds",48000,110,snacks,pending_reversal,144
+TX-10593,2026-10-23,"Academic Block",26000,620,dinner,settled,52
+TX-10594,2026-10-24,"Sports Complex",34000,240,dinner,pending_reversal,99
+TX-10595,2026-10-25,"Admin Grounds",48000,110,snacks,cancelled,76
+TX-10596,2026-10-26,"Academic Block",26000,620,dinner,pending_reversal,120
+TX-10597,2026-10-27,"Sports Complex",34000,240,snacks,settled,99
+TX-10598,2026-10-28,"Admin Grounds",48000,110,snacks,settled,145
+TX-10599,2026-10-29,"Academic Block",26000,620,dinner,settled,152
+TX-10600,2026-10-30,"Sports Complex",34000,240,breakfast,pending_reversal,145
+TX-10601,2026-10-01,"Hostel Block D",2200,1480,dinner,pending_reversal,91
+TX-10602,2026-10-02,"Academic Block",26000,620,breakfast,settled,122
+TX-10603,2026-10-03,"Sports Complex",34000,240,lunch,settled,115
+TX-10604,2026-10-04,"Admin Grounds",48000,110,breakfast,settled,158
+TX-10605,2026-10-05,"Academic Block",26000,620,breakfast,settled,96
+TX-10606,2026-10-06,"Sports Complex",34000,240,breakfast,cancelled,152
+TX-10607,2026-10-07,"Admin Grounds",48000,110,breakfast,settled,113
+TX-10608,2026-10-08,"Academic Block",26000,620,lunch,settled,60
+TX-10609,2026-10-09,"Sports Complex",34000,240,dinner,settled,99
+TX-10610,2026-10-10,"Admin Grounds",48000,110,dinner,settled,85
+TX-10611,2026-10-11,"Academic Block",26000,620,dinner,settled,56
+TX-10612,2026-10-12,"Sports Complex",34000,240,breakfast,settled,133
+TX-10613,2026-10-13,"Admin Grounds",48000,110,lunch,cancelled,105
+TX-10614,2026-10-14,"Academic Block",26000,620,snacks,settled,141
+TX-10615,2026-10-15,"Sports Complex",34000,240,breakfast,pending_reversal,88
+TX-10616,2026-10-16,"Admin Grounds",48000,110,snacks,settled,124
+TX-10617,2026-10-17,"Academic Block",26000,620,breakfast,settled,158
+TX-10618,2026-10-18,"Sports Complex",34000,240,dinner,cancelled,131
+TX-10619,2026-10-19,"Admin Grounds",48000,110,dinner,pending_reversal,136
+TX-10620,2026-10-20,"Academic Block",26000,620,breakfast,cancelled,157
+TX-10621,2026-10-21,"Sports Complex",34000,240,snacks,settled,112
+TX-10622,2026-10-22,"Admin Grounds",48000,110,dinner,settled,92
+TX-10623,2026-10-23,"Academic Block",26000,620,breakfast,settled,87
+TX-10624,2026-10-24,"Sports Complex",34000,240,dinner,settled,116
+TX-10625,2026-10-25,"Admin Grounds",48000,110,lunch,pending_reversal,89
+TX-10626,2026-10-26,"Hostel Block D",2200,1480,snacks,settled,104
+TX-10627,2026-10-27,"Sports Complex",34000,240,snacks,settled,76
+TX-10628,2026-10-28,"Admin Grounds",48000,110,lunch,settled,113
+TX-10629,2026-10-29,"Academic Block",26000,620,lunch,settled,126
+TX-10630,2026-10-30,"Sports Complex",34000,240,dinner,settled,71
+TX-10631,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,135
+TX-10632,2026-10-02,"Academic Block",26000,620,dinner,settled,143
+TX-10633,2026-10-03,"Sports Complex",34000,240,breakfast,settled,50
+TX-10634,2026-10-04,"Admin Grounds",48000,110,dinner,pending_reversal,121
+TX-10635,2026-10-05,"Academic Block",26000,620,lunch,settled,127
+TX-10636,2026-10-06,"Sports Complex",34000,240,lunch,settled,62
+TX-10637,2026-10-07,"Admin Grounds",48000,110,dinner,settled,49
+TX-10638,2026-10-08,"Academic Block",26000,620,lunch,cancelled,154
+TX-10639,2026-10-09,"Sports Complex",34000,240,snacks,cancelled,117
+TX-10640,2026-10-10,"Admin Grounds",48000,110,dinner,settled,75
+TX-10641,2026-10-11,"Academic Block",26000,620,breakfast,settled,59
+TX-10642,2026-10-12,"Sports Complex",34000,240,breakfast,settled,148
+TX-10643,2026-10-13,"Admin Grounds",48000,110,breakfast,cancelled,82
+TX-10644,2026-10-14,"Academic Block",26000,620,dinner,settled,71
+TX-10645,2026-10-15,"Sports Complex",34000,240,breakfast,settled,56
+TX-10646,2026-10-16,"Admin Grounds",48000,110,snacks,settled,63
+TX-10647,2026-10-17,"Academic Block",26000,620,dinner,cancelled,103
+TX-10648,2026-10-18,"Sports Complex",34000,240,dinner,cancelled,124
+TX-10649,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,95
+TX-10650,2026-10-20,"Academic Block",26000,620,breakfast,settled,113
+TX-10651,2026-10-21,"Hostel Block D",2200,1480,breakfast,cancelled,187
+TX-10652,2026-10-22,"Admin Grounds",48000,110,dinner,settled,45
+TX-10653,2026-10-23,"Academic Block",26000,620,lunch,pending_reversal,70
+TX-10654,2026-10-24,"Sports Complex",34000,240,breakfast,settled,150
+TX-10655,2026-10-25,"Admin Grounds",48000,110,snacks,settled,125
+TX-10656,2026-10-26,"Academic Block",26000,620,lunch,settled,117
+TX-10657,2026-10-27,"Sports Complex",34000,240,lunch,settled,95
+TX-10658,2026-10-28,"Admin Grounds",48000,110,lunch,settled,95
+TX-10659,2026-10-29,"Academic Block",26000,620,snacks,pending_reversal,59
+TX-10660,2026-10-30,"Sports Complex",34000,240,snacks,settled,63
+TX-10661,2026-10-01,"Admin Grounds",48000,110,lunch,pending_reversal,118
+TX-10662,2026-10-02,"Academic Block",26000,620,lunch,cancelled,89
+TX-10663,2026-10-03,"Sports Complex",34000,240,breakfast,settled,91
+TX-10664,2026-10-04,"Admin Grounds",48000,110,snacks,cancelled,75
+TX-10665,2026-10-05,"Academic Block",26000,620,breakfast,settled,49
+TX-10666,2026-10-06,"Sports Complex",34000,240,lunch,settled,49
+TX-10667,2026-10-07,"Admin Grounds",48000,110,lunch,settled,125
+TX-10668,2026-10-08,"Academic Block",26000,620,dinner,settled,115
+TX-10669,2026-10-09,"Sports Complex",34000,240,snacks,cancelled,66
+TX-10670,2026-10-10,"Admin Grounds",48000,110,lunch,settled,141
+TX-10671,2026-10-11,"Academic Block",26000,620,dinner,settled,143
+TX-10672,2026-10-12,"Sports Complex",34000,240,dinner,settled,64
+TX-10673,2026-10-13,"Admin Grounds",48000,110,breakfast,settled,125
+TX-10674,2026-10-14,"Academic Block",26000,620,lunch,settled,56
+TX-10675,2026-10-15,"Sports Complex",34000,240,breakfast,cancelled,61
+TX-10676,2026-10-16,"Hostel Block D",2200,1480,dinner,settled,202
+TX-10677,2026-10-17,"Academic Block",26000,620,dinner,settled,138
+TX-10678,2026-10-18,"Sports Complex",34000,240,dinner,settled,122
+TX-10679,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,160
+TX-10680,2026-10-20,"Academic Block",26000,620,snacks,cancelled,120
+TX-10681,2026-10-21,"Sports Complex",34000,240,snacks,settled,137
+TX-10682,2026-10-22,"Admin Grounds",48000,110,lunch,settled,67
+TX-10683,2026-10-23,"Academic Block",26000,620,snacks,pending_reversal,119
+TX-10684,2026-10-24,"Sports Complex",34000,240,snacks,settled,50
+TX-10685,2026-10-25,"Admin Grounds",48000,110,breakfast,settled,55
+TX-10686,2026-10-26,"Academic Block",26000,620,breakfast,cancelled,107
+TX-10687,2026-10-27,"Sports Complex",34000,240,lunch,settled,115
+TX-10688,2026-10-28,"Admin Grounds",48000,110,breakfast,cancelled,77
+TX-10689,2026-10-29,"Academic Block",26000,620,breakfast,settled,130
+TX-10690,2026-10-30,"Sports Complex",34000,240,snacks,settled,159
+TX-10691,2026-10-01,"Admin Grounds",48000,110,dinner,settled,114
+TX-10692,2026-10-02,"Academic Block",26000,620,lunch,pending_reversal,93
+TX-10693,2026-10-03,"Sports Complex",34000,240,breakfast,cancelled,137
+TX-10694,2026-10-04,"Admin Grounds",48000,110,breakfast,pending_reversal,84
+TX-10695,2026-10-05,"Academic Block",26000,620,lunch,settled,131
+TX-10696,2026-10-06,"Sports Complex",34000,240,dinner,pending_reversal,80
+TX-10697,2026-10-07,"Admin Grounds",48000,110,breakfast,settled,59
+TX-10698,2026-10-08,"Academic Block",26000,620,breakfast,settled,108
+TX-10699,2026-10-09,"Sports Complex",34000,240,breakfast,pending_reversal,50
+TX-10700,2026-10-10,"Admin Grounds",48000,110,dinner,pending_reversal,82
+TX-10701,2026-10-11,"Hostel Block D",2200,1480,dinner,cancelled,213
+TX-10702,2026-10-12,"Sports Complex",34000,240,breakfast,settled,144
+TX-10703,2026-10-13,"Admin Grounds",48000,110,dinner,settled,62
+TX-10704,2026-10-14,"Academic Block",26000,620,dinner,settled,109
+TX-10705,2026-10-15,"Sports Complex",34000,240,breakfast,settled,46
+TX-10706,2026-10-16,"Admin Grounds",48000,110,dinner,pending_reversal,120
+TX-10707,2026-10-17,"Academic Block",26000,620,breakfast,settled,113
+TX-10708,2026-10-18,"Sports Complex",34000,240,lunch,settled,94
+TX-10709,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,155
+TX-10710,2026-10-20,"Academic Block",26000,620,snacks,settled,149
+TX-10711,2026-10-21,"Sports Complex",34000,240,snacks,settled,89
+TX-10712,2026-10-22,"Admin Grounds",48000,110,lunch,settled,73
+TX-10713,2026-10-23,"Academic Block",26000,620,lunch,settled,137
+TX-10714,2026-10-24,"Sports Complex",34000,240,snacks,settled,52
+TX-10715,2026-10-25,"Admin Grounds",48000,110,breakfast,settled,129
+TX-10716,2026-10-26,"Academic Block",26000,620,dinner,settled,49
+TX-10717,2026-10-27,"Sports Complex",34000,240,lunch,cancelled,76
+TX-10718,2026-10-28,"Admin Grounds",48000,110,dinner,cancelled,146
+TX-10719,2026-10-29,"Academic Block",26000,620,dinner,settled,126
+TX-10720,2026-10-30,"Sports Complex",34000,240,lunch,settled,152
+TX-10721,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,113
+TX-10722,2026-10-02,"Academic Block",26000,620,snacks,settled,149
+TX-10723,2026-10-03,"Sports Complex",34000,240,lunch,settled,103
+TX-10724,2026-10-04,"Admin Grounds",48000,110,breakfast,settled,105
+TX-10725,2026-10-05,"Academic Block",26000,620,breakfast,settled,71
+TX-10726,2026-10-06,"Hostel Block D",2200,1480,lunch,cancelled,220
+TX-10727,2026-10-07,"Admin Grounds",48000,110,lunch,cancelled,138
+TX-10728,2026-10-08,"Academic Block",26000,620,breakfast,pending_reversal,110
+TX-10729,2026-10-09,"Sports Complex",34000,240,dinner,settled,138
+TX-10730,2026-10-10,"Admin Grounds",48000,110,snacks,cancelled,79
+TX-10731,2026-10-11,"Academic Block",26000,620,lunch,settled,66
+TX-10732,2026-10-12,"Sports Complex",34000,240,breakfast,settled,96
+TX-10733,2026-10-13,"Admin Grounds",48000,110,lunch,settled,122
+TX-10734,2026-10-14,"Academic Block",26000,620,dinner,settled,120
+TX-10735,2026-10-15,"Sports Complex",34000,240,dinner,cancelled,123
+TX-10736,2026-10-16,"Admin Grounds",48000,110,dinner,settled,101
+TX-10737,2026-10-17,"Academic Block",26000,620,breakfast,settled,63
+TX-10738,2026-10-18,"Sports Complex",34000,240,lunch,settled,61
+TX-10739,2026-10-19,"Admin Grounds",48000,110,snacks,settled,143
+TX-10740,2026-10-20,"Academic Block",26000,620,snacks,pending_reversal,50
+TX-10741,2026-10-21,"Sports Complex",34000,240,lunch,settled,95
+TX-10742,2026-10-22,"Admin Grounds",48000,110,snacks,settled,61
+TX-10743,2026-10-23,"Academic Block",26000,620,breakfast,pending_reversal,75
+TX-10744,2026-10-24,"Sports Complex",34000,240,snacks,settled,81
+TX-10745,2026-10-25,"Admin Grounds",48000,110,dinner,cancelled,59
+TX-10746,2026-10-26,"Academic Block",26000,620,lunch,cancelled,66
+TX-10747,2026-10-27,"Sports Complex",34000,240,breakfast,cancelled,150
+TX-10748,2026-10-28,"Admin Grounds",48000,110,lunch,settled,153
+TX-10749,2026-10-29,"Academic Block",26000,620,breakfast,settled,96
+TX-10750,2026-10-30,"Sports Complex",34000,240,breakfast,cancelled,48
+TX-10751,2026-10-01,"Hostel Block D",2200,1480,snacks,settled,180
+TX-10752,2026-10-02,"Academic Block",26000,620,dinner,settled,122
+TX-10753,2026-10-03,"Sports Complex",34000,240,lunch,settled,145
+TX-10754,2026-10-04,"Admin Grounds",48000,110,breakfast,cancelled,160
+TX-10755,2026-10-05,"Academic Block",26000,620,lunch,settled,118
+TX-10756,2026-10-06,"Sports Complex",34000,240,breakfast,settled,107
+TX-10757,2026-10-07,"Admin Grounds",48000,110,lunch,settled,66
+TX-10758,2026-10-08,"Academic Block",26000,620,breakfast,pending_reversal,59
+TX-10759,2026-10-09,"Sports Complex",34000,240,breakfast,settled,106
+TX-10760,2026-10-10,"Admin Grounds",48000,110,dinner,pending_reversal,109
+TX-10761,2026-10-11,"Academic Block",26000,620,dinner,cancelled,137
+TX-10762,2026-10-12,"Sports Complex",34000,240,lunch,pending_reversal,146
+TX-10763,2026-10-13,"Admin Grounds",48000,110,breakfast,cancelled,67
+TX-10764,2026-10-14,"Academic Block",26000,620,snacks,settled,87
+TX-10765,2026-10-15,"Sports Complex",34000,240,breakfast,settled,105
+TX-10766,2026-10-16,"Admin Grounds",48000,110,breakfast,settled,100
+TX-10767,2026-10-17,"Academic Block",26000,620,dinner,settled,144
+TX-10768,2026-10-18,"Sports Complex",34000,240,lunch,settled,50
+TX-10769,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,147
+TX-10770,2026-10-20,"Academic Block",26000,620,dinner,settled,156
+TX-10771,2026-10-21,"Sports Complex",34000,240,snacks,settled,157
+TX-10772,2026-10-22,"Admin Grounds",48000,110,breakfast,settled,135
+TX-10773,2026-10-23,"Academic Block",26000,620,snacks,settled,132
+TX-10774,2026-10-24,"Sports Complex",34000,240,breakfast,settled,70
+TX-10775,2026-10-25,"Admin Grounds",48000,110,breakfast,settled,106
+TX-10776,2026-10-26,"Hostel Block D",2200,1480,dinner,settled,168
+TX-10777,2026-10-27,"Sports Complex",34000,240,breakfast,settled,70
+TX-10778,2026-10-28,"Admin Grounds",48000,110,breakfast,pending_reversal,60
+TX-10779,2026-10-29,"Academic Block",26000,620,snacks,settled,158
+TX-10780,2026-10-30,"Sports Complex",34000,240,lunch,settled,47
+TX-10781,2026-10-01,"Admin Grounds",48000,110,snacks,cancelled,114
+TX-10782,2026-10-02,"Academic Block",26000,620,snacks,settled,82
+TX-10783,2026-10-03,"Sports Complex",34000,240,snacks,pending_reversal,146
+TX-10784,2026-10-04,"Admin Grounds",48000,110,breakfast,cancelled,102
+TX-10785,2026-10-05,"Academic Block",26000,620,dinner,cancelled,133
+TX-10786,2026-10-06,"Sports Complex",34000,240,lunch,settled,61
+TX-10787,2026-10-07,"Admin Grounds",48000,110,dinner,settled,113
+TX-10788,2026-10-08,"Academic Block",26000,620,breakfast,settled,107
+TX-10789,2026-10-09,"Sports Complex",34000,240,breakfast,settled,160
+TX-10790,2026-10-10,"Admin Grounds",48000,110,lunch,settled,109
+TX-10791,2026-10-11,"Academic Block",26000,620,lunch,cancelled,45
+TX-10792,2026-10-12,"Sports Complex",34000,240,snacks,settled,150
+TX-10793,2026-10-13,"Admin Grounds",48000,110,dinner,settled,56
+TX-10794,2026-10-14,"Academic Block",26000,620,lunch,settled,136
+TX-10795,2026-10-15,"Sports Complex",34000,240,breakfast,settled,93
+TX-10796,2026-10-16,"Admin Grounds",48000,110,snacks,cancelled,100
+TX-10797,2026-10-17,"Academic Block",26000,620,breakfast,settled,67
+TX-10798,2026-10-18,"Sports Complex",34000,240,lunch,settled,85
+TX-10799,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,52
+TX-10800,2026-10-20,"Academic Block",26000,620,lunch,cancelled,51
+TX-10801,2026-10-21,"Hostel Block D",2200,1480,lunch,pending_reversal,158
+TX-10802,2026-10-22,"Admin Grounds",48000,110,dinner,settled,46
+TX-10803,2026-10-23,"Academic Block",26000,620,dinner,cancelled,122
+TX-10804,2026-10-24,"Sports Complex",34000,240,breakfast,settled,93
+TX-10805,2026-10-25,"Admin Grounds",48000,110,lunch,settled,82
+TX-10806,2026-10-26,"Academic Block",26000,620,snacks,pending_reversal,127
+TX-10807,2026-10-27,"Sports Complex",34000,240,lunch,settled,137
+TX-10808,2026-10-28,"Admin Grounds",48000,110,lunch,cancelled,112
+TX-10809,2026-10-29,"Academic Block",26000,620,snacks,settled,45
+TX-10810,2026-10-30,"Sports Complex",34000,240,dinner,pending_reversal,137
+TX-10811,2026-10-01,"Admin Grounds",48000,110,breakfast,settled,135
+TX-10812,2026-10-02,"Academic Block",26000,620,lunch,settled,152
+TX-10813,2026-10-03,"Sports Complex",34000,240,snacks,cancelled,49
+TX-10814,2026-10-04,"Admin Grounds",48000,110,dinner,cancelled,118
+TX-10815,2026-10-05,"Academic Block",26000,620,lunch,settled,72
+TX-10816,2026-10-06,"Sports Complex",34000,240,lunch,settled,138
+TX-10817,2026-10-07,"Admin Grounds",48000,110,lunch,settled,87
+TX-10818,2026-10-08,"Academic Block",26000,620,lunch,settled,109
+TX-10819,2026-10-09,"Sports Complex",34000,240,snacks,pending_reversal,108
+TX-10820,2026-10-10,"Admin Grounds",48000,110,lunch,settled,153
+TX-10821,2026-10-11,"Academic Block",26000,620,breakfast,settled,56
+TX-10822,2026-10-12,"Sports Complex",34000,240,lunch,settled,142
+TX-10823,2026-10-13,"Admin Grounds",48000,110,breakfast,settled,53
+TX-10824,2026-10-14,"Academic Block",26000,620,snacks,settled,153
+TX-10825,2026-10-15,"Sports Complex",34000,240,breakfast,settled,115
+TX-10826,2026-10-16,"Hostel Block D",2200,1480,breakfast,pending_reversal,143
+TX-10827,2026-10-17,"Academic Block",26000,620,dinner,settled,108
+TX-10828,2026-10-18,"Sports Complex",34000,240,lunch,settled,58
+TX-10829,2026-10-19,"Admin Grounds",48000,110,dinner,settled,106
+TX-10830,2026-10-20,"Academic Block",26000,620,snacks,settled,141
+TX-10831,2026-10-21,"Sports Complex",34000,240,snacks,settled,137
+TX-10832,2026-10-22,"Admin Grounds",48000,110,breakfast,pending_reversal,136
+TX-10833,2026-10-23,"Academic Block",26000,620,snacks,settled,93
+TX-10834,2026-10-24,"Sports Complex",34000,240,snacks,cancelled,69
+TX-10835,2026-10-25,"Admin Grounds",48000,110,dinner,settled,100
+TX-10836,2026-10-26,"Academic Block",26000,620,breakfast,pending_reversal,47
+TX-10837,2026-10-27,"Sports Complex",34000,240,breakfast,settled,66
+TX-10838,2026-10-28,"Admin Grounds",48000,110,lunch,pending_reversal,140
+TX-10839,2026-10-29,"Academic Block",26000,620,snacks,settled,83
+TX-10840,2026-10-30,"Sports Complex",34000,240,dinner,settled,103
+TX-10841,2026-10-01,"Admin Grounds",48000,110,snacks,settled,88
+TX-10842,2026-10-02,"Academic Block",26000,620,breakfast,pending_reversal,144
+TX-10843,2026-10-03,"Sports Complex",34000,240,breakfast,settled,148
+TX-10844,2026-10-04,"Admin Grounds",48000,110,breakfast,settled,137
+TX-10845,2026-10-05,"Academic Block",26000,620,dinner,settled,155
+TX-10846,2026-10-06,"Sports Complex",34000,240,snacks,cancelled,58
+TX-10847,2026-10-07,"Admin Grounds",48000,110,dinner,cancelled,117
+TX-10848,2026-10-08,"Academic Block",26000,620,lunch,settled,68
+TX-10849,2026-10-09,"Sports Complex",34000,240,dinner,settled,123
+TX-10850,2026-10-10,"Admin Grounds",48000,110,dinner,settled,136
+TX-10851,2026-10-11,"Hostel Block D",2200,1480,lunch,settled,205
+TX-10852,2026-10-12,"Sports Complex",34000,240,snacks,pending_reversal,127
+TX-10853,2026-10-13,"Admin Grounds",48000,110,snacks,cancelled,62
+TX-10854,2026-10-14,"Academic Block",26000,620,dinner,settled,135
+TX-10855,2026-10-15,"Sports Complex",34000,240,breakfast,cancelled,101
+TX-10856,2026-10-16,"Admin Grounds",48000,110,lunch,pending_reversal,77
+TX-10857,2026-10-17,"Academic Block",26000,620,snacks,cancelled,143
+TX-10858,2026-10-18,"Sports Complex",34000,240,dinner,settled,90
+TX-10859,2026-10-19,"Admin Grounds",48000,110,snacks,pending_reversal,158
+TX-10860,2026-10-20,"Academic Block",26000,620,lunch,settled,109
+TX-10861,2026-10-21,"Sports Complex",34000,240,lunch,settled,45
+TX-10862,2026-10-22,"Admin Grounds",48000,110,breakfast,settled,135
+TX-10863,2026-10-23,"Academic Block",26000,620,snacks,settled,72
+TX-10864,2026-10-24,"Sports Complex",34000,240,dinner,cancelled,158
+TX-10865,2026-10-25,"Admin Grounds",48000,110,snacks,settled,88
+TX-10866,2026-10-26,"Academic Block",26000,620,dinner,pending_reversal,100
+TX-10867,2026-10-27,"Sports Complex",34000,240,lunch,settled,102
+TX-10868,2026-10-28,"Admin Grounds",48000,110,dinner,settled,81
+TX-10869,2026-10-29,"Academic Block",26000,620,dinner,settled,68
+TX-10870,2026-10-30,"Sports Complex",34000,240,lunch,settled,148
+TX-10871,2026-10-01,"Admin Grounds",48000,110,lunch,settled,64
+TX-10872,2026-10-02,"Academic Block",26000,620,dinner,settled,108
+TX-10873,2026-10-03,"Sports Complex",34000,240,lunch,cancelled,98
+TX-10874,2026-10-04,"Admin Grounds",48000,110,lunch,pending_reversal,134
+TX-10875,2026-10-05,"Academic Block",26000,620,lunch,settled,129
+TX-10876,2026-10-06,"Hostel Block D",2200,1480,snacks,settled,133
+TX-10877,2026-10-07,"Admin Grounds",48000,110,breakfast,settled,77
+TX-10878,2026-10-08,"Academic Block",26000,620,dinner,settled,154
+TX-10879,2026-10-09,"Sports Complex",34000,240,snacks,settled,155
+TX-10880,2026-10-10,"Admin Grounds",48000,110,lunch,settled,66
+TX-10881,2026-10-11,"Academic Block",26000,620,lunch,pending_reversal,52
+TX-10882,2026-10-12,"Sports Complex",34000,240,snacks,settled,72
+TX-10883,2026-10-13,"Admin Grounds",48000,110,snacks,settled,51
+TX-10884,2026-10-14,"Academic Block",26000,620,breakfast,settled,156
+TX-10885,2026-10-15,"Sports Complex",34000,240,dinner,cancelled,131
+TX-10886,2026-10-16,"Admin Grounds",48000,110,breakfast,settled,128
+TX-10887,2026-10-17,"Academic Block",26000,620,breakfast,settled,80
+TX-10888,2026-10-18,"Sports Complex",34000,240,snacks,settled,146
+TX-10889,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,53
+TX-10890,2026-10-20,"Academic Block",26000,620,breakfast,cancelled,58
+TX-10891,2026-10-21,"Sports Complex",34000,240,lunch,settled,55
+TX-10892,2026-10-22,"Admin Grounds",48000,110,dinner,pending_reversal,79
+TX-10893,2026-10-23,"Academic Block",26000,620,dinner,pending_reversal,98
+TX-10894,2026-10-24,"Sports Complex",34000,240,dinner,settled,99
+TX-10895,2026-10-25,"Admin Grounds",48000,110,snacks,settled,45
+TX-10896,2026-10-26,"Academic Block",26000,620,snacks,settled,73
+TX-10897,2026-10-27,"Sports Complex",34000,240,lunch,settled,130
+TX-10898,2026-10-28,"Admin Grounds",48000,110,snacks,pending_reversal,78
+TX-10899,2026-10-29,"Academic Block",26000,620,lunch,settled,54
+TX-10900,2026-10-30,"Sports Complex",34000,240,breakfast,settled,88
+TX-10901,2026-10-01,"Hostel Block D",2200,1480,dinner,settled,91
+TX-10902,2026-10-02,"Academic Block",26000,620,breakfast,settled,68
+TX-10903,2026-10-03,"Sports Complex",34000,240,lunch,pending_reversal,123
+TX-10904,2026-10-04,"Admin Grounds",48000,110,lunch,cancelled,48
+TX-10905,2026-10-05,"Academic Block",26000,620,lunch,settled,147
+TX-10906,2026-10-06,"Sports Complex",34000,240,lunch,settled,54
+TX-10907,2026-10-07,"Admin Grounds",48000,110,snacks,settled,50
+TX-10908,2026-10-08,"Academic Block",26000,620,breakfast,settled,104
+TX-10909,2026-10-09,"Sports Complex",34000,240,breakfast,settled,89
+TX-10910,2026-10-10,"Admin Grounds",48000,110,breakfast,settled,89
+TX-10911,2026-10-11,"Academic Block",26000,620,breakfast,cancelled,160
+TX-10912,2026-10-12,"Sports Complex",34000,240,breakfast,settled,107
+TX-10913,2026-10-13,"Admin Grounds",48000,110,lunch,cancelled,157
+TX-10914,2026-10-14,"Academic Block",26000,620,snacks,settled,130
+TX-10915,2026-10-15,"Sports Complex",34000,240,breakfast,settled,125
+TX-10916,2026-10-16,"Admin Grounds",48000,110,snacks,settled,128
+TX-10917,2026-10-17,"Academic Block",26000,620,snacks,pending_reversal,115
+TX-10918,2026-10-18,"Sports Complex",34000,240,breakfast,pending_reversal,102
+TX-10919,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,130
+TX-10920,2026-10-20,"Academic Block",26000,620,snacks,settled,158
+TX-10921,2026-10-21,"Sports Complex",34000,240,lunch,settled,126
+TX-10922,2026-10-22,"Admin Grounds",48000,110,snacks,settled,142
+TX-10923,2026-10-23,"Academic Block",26000,620,breakfast,pending_reversal,80
+TX-10924,2026-10-24,"Sports Complex",34000,240,breakfast,settled,49
+TX-10925,2026-10-25,"Admin Grounds",48000,110,lunch,cancelled,84
+TX-10926,2026-10-26,"Hostel Block D",2200,1480,lunch,settled,102
+TX-10927,2026-10-27,"Sports Complex",34000,240,breakfast,settled,155
+TX-10928,2026-10-28,"Admin Grounds",48000,110,breakfast,pending_reversal,48
+TX-10929,2026-10-29,"Academic Block",26000,620,breakfast,settled,75
+TX-10930,2026-10-30,"Sports Complex",34000,240,snacks,settled,97
+TX-10931,2026-10-01,"Admin Grounds",48000,110,dinner,pending_reversal,152
+TX-10932,2026-10-02,"Academic Block",26000,620,breakfast,settled,76
+TX-10933,2026-10-03,"Sports Complex",34000,240,lunch,settled,91
+TX-10934,2026-10-04,"Admin Grounds",48000,110,lunch,settled,68
+TX-10935,2026-10-05,"Academic Block",26000,620,breakfast,settled,146
+TX-10936,2026-10-06,"Sports Complex",34000,240,lunch,settled,116
+TX-10937,2026-10-07,"Admin Grounds",48000,110,snacks,settled,156
+TX-10938,2026-10-08,"Academic Block",26000,620,dinner,settled,77
+TX-10939,2026-10-09,"Sports Complex",34000,240,lunch,settled,122
+TX-10940,2026-10-10,"Admin Grounds",48000,110,lunch,settled,111
+TX-10941,2026-10-11,"Academic Block",26000,620,lunch,settled,90
+TX-10942,2026-10-12,"Sports Complex",34000,240,lunch,settled,93
+TX-10943,2026-10-13,"Admin Grounds",48000,110,breakfast,settled,72
+TX-10944,2026-10-14,"Academic Block",26000,620,snacks,settled,113
+TX-10945,2026-10-15,"Sports Complex",34000,240,dinner,settled,116
+TX-10946,2026-10-16,"Admin Grounds",48000,110,snacks,pending_reversal,152
+TX-10947,2026-10-17,"Academic Block",26000,620,snacks,settled,53
+TX-10948,2026-10-18,"Sports Complex",34000,240,breakfast,settled,83
+TX-10949,2026-10-19,"Admin Grounds",48000,110,snacks,pending_reversal,120
+TX-10950,2026-10-20,"Academic Block",26000,620,lunch,settled,100
+TX-10951,2026-10-21,"Hostel Block D",2200,1480,dinner,settled,92
+TX-10952,2026-10-22,"Admin Grounds",48000,110,lunch,settled,100
+TX-10953,2026-10-23,"Academic Block",26000,620,snacks,pending_reversal,75
+TX-10954,2026-10-24,"Sports Complex",34000,240,breakfast,settled,57
+TX-10955,2026-10-25,"Admin Grounds",48000,110,breakfast,settled,72
+TX-10956,2026-10-26,"Academic Block",26000,620,dinner,settled,142
+TX-10957,2026-10-27,"Sports Complex",34000,240,breakfast,settled,54
+TX-10958,2026-10-28,"Admin Grounds",48000,110,snacks,cancelled,120
+TX-10959,2026-10-29,"Academic Block",26000,620,lunch,settled,63
+TX-10960,2026-10-30,"Sports Complex",34000,240,snacks,cancelled,127
+TX-10961,2026-10-01,"Admin Grounds",48000,110,lunch,settled,56
+TX-10962,2026-10-02,"Academic Block",26000,620,breakfast,settled,113
+TX-10963,2026-10-03,"Sports Complex",34000,240,breakfast,cancelled,133
+TX-10964,2026-10-04,"Admin Grounds",48000,110,dinner,settled,96
+TX-10965,2026-10-05,"Academic Block",26000,620,dinner,settled,153
+TX-10966,2026-10-06,"Sports Complex",34000,240,lunch,settled,154
+TX-10967,2026-10-07,"Admin Grounds",48000,110,breakfast,cancelled,66
+TX-10968,2026-10-08,"Academic Block",26000,620,breakfast,settled,142
+TX-10969,2026-10-09,"Sports Complex",34000,240,breakfast,pending_reversal,83
+TX-10970,2026-10-10,"Admin Grounds",48000,110,breakfast,cancelled,64
+TX-10971,2026-10-11,"Academic Block",26000,620,snacks,settled,118
+TX-10972,2026-10-12,"Sports Complex",34000,240,snacks,settled,139
+TX-10973,2026-10-13,"Admin Grounds",48000,110,lunch,cancelled,78
+TX-10974,2026-10-14,"Academic Block",26000,620,lunch,settled,150
+TX-10975,2026-10-15,"Sports Complex",34000,240,dinner,cancelled,99
+TX-10976,2026-10-16,"Hostel Block D",2200,1480,breakfast,cancelled,93
+TX-10977,2026-10-17,"Academic Block",26000,620,dinner,settled,120
+TX-10978,2026-10-18,"Sports Complex",34000,240,dinner,pending_reversal,139
+TX-10979,2026-10-19,"Admin Grounds",48000,110,lunch,settled,144
+TX-10980,2026-10-20,"Academic Block",26000,620,lunch,settled,121
+TX-10981,2026-10-21,"Sports Complex",34000,240,lunch,cancelled,64
+TX-10982,2026-10-22,"Admin Grounds",48000,110,breakfast,settled,97
+TX-10983,2026-10-23,"Academic Block",26000,620,dinner,settled,111
+TX-10984,2026-10-24,"Sports Complex",34000,240,dinner,cancelled,59
+TX-10985,2026-10-25,"Admin Grounds",48000,110,lunch,settled,86
+TX-10986,2026-10-26,"Academic Block",26000,620,dinner,settled,82
+TX-10987,2026-10-27,"Sports Complex",34000,240,snacks,pending_reversal,132
+TX-10988,2026-10-28,"Admin Grounds",48000,110,lunch,settled,72
+TX-10989,2026-10-29,"Academic Block",26000,620,lunch,cancelled,143
+TX-10990,2026-10-30,"Sports Complex",34000,240,lunch,settled,157
+TX-10991,2026-10-01,"Admin Grounds",48000,110,dinner,cancelled,114
+TX-10992,2026-10-02,"Academic Block",26000,620,breakfast,settled,126
+TX-10993,2026-10-03,"Sports Complex",34000,240,lunch,settled,79
+TX-10994,2026-10-04,"Admin Grounds",48000,110,breakfast,cancelled,76
+TX-10995,2026-10-05,"Academic Block",26000,620,snacks,settled,129
+TX-10996,2026-10-06,"Sports Complex",34000,240,breakfast,settled,106
+TX-10997,2026-10-07,"Admin Grounds",48000,110,breakfast,pending_reversal,118
+TX-10998,2026-10-08,"Academic Block",26000,620,breakfast,settled,70
+TX-10999,2026-10-09,"Sports Complex",34000,240,dinner,settled,156
+TX-11000,2026-10-10,"Admin Grounds",48000,110,dinner,settled,141
+TX-11001,2026-10-11,"Hostel Block D",2200,1480,dinner,cancelled,172
+TX-11002,2026-10-12,"Hostel Block D",2200,1480,lunch,pending_reversal,71
+TX-11003,2026-10-13,"Hostel Block D",2200,1480,breakfast,pending_reversal,152
+TX-11004,2026-10-14,"Hostel Block D",2200,1480,dinner,pending_reversal,176
+TX-11005,2026-10-15,"Hostel Block D",2200,1480,lunch,settled,128
+TX-11006,2026-10-16,"Hostel Block D",2200,1480,lunch,pending_reversal,98
+TX-11007,2026-10-17,"Academic Block",26000,620,breakfast,settled,60
+TX-11008,2026-10-18,"Hostel Block D",2200,1480,snacks,settled,92
+TX-11009,2026-10-19,"Hostel Block D",2200,1480,dinner,settled,217
+TX-11010,2026-10-20,"Hostel Block D",2200,1480,snacks,settled,142
+TX-11011,2026-10-21,"Hostel Block D",2200,1480,breakfast,cancelled,179
+TX-11012,2026-10-22,"Hostel Block D",2200,1480,lunch,settled,219
+TX-11013,2026-10-23,"Hostel Block D",2200,1480,lunch,settled,186
+TX-11014,2026-10-24,"Hostel Block D",2200,1480,snacks,settled,110
+TX-11015,2026-10-25,"Admin Grounds",48000,110,snacks,settled,145
+TX-11016,2026-10-26,"Hostel Block D",2200,1480,lunch,cancelled,111
+TX-11017,2026-10-27,"Hostel Block D",2200,1480,snacks,pending_reversal,153
+TX-11018,2026-10-28,"Hostel Block D",2200,1480,breakfast,cancelled,120
+TX-11019,2026-10-29,"Academic Block",26000,620,lunch,settled,82
+TX-11020,2026-10-30,"Hostel Block D",2200,1480,snacks,cancelled,126
+TX-11021,2026-10-01,"Hostel Block D",2200,1480,dinner,settled,99
+TX-11022,2026-10-02,"Hostel Block D",2200,1480,breakfast,cancelled,203
+TX-11023,2026-10-03,"Hostel Block D",2200,1480,breakfast,pending_reversal,145
+TX-11024,2026-10-04,"Hostel Block D",2200,1480,dinner,settled,103
+TX-11025,2026-10-05,"Hostel Block D",2200,1480,breakfast,settled,189
+TX-11026,2026-10-06,"Hostel Block D",2200,1480,dinner,settled,150
+TX-11027,2026-10-07,"Hostel Block D",2200,1480,dinner,cancelled,212
+TX-11028,2026-10-08,"Hostel Block D",2200,1480,lunch,settled,137
+TX-11029,2026-10-09,"Hostel Block D",2200,1480,dinner,settled,173
+TX-11030,2026-10-10,"Hostel Block D",2200,1480,lunch,settled,151
+TX-11031,2026-10-11,"Hostel Block D",2200,1480,snacks,pending_reversal,90
+TX-11032,2026-10-12,"Hostel Block D",2200,1480,breakfast,settled,199
+TX-11033,2026-10-13,"Hostel Block D",2200,1480,snacks,settled,108
+TX-11034,2026-10-14,"Hostel Block D",2200,1480,lunch,settled,82
+TX-11035,2026-10-15,"Hostel Block D",2200,1480,breakfast,cancelled,67
+TX-11036,2026-10-16,"Admin Grounds",48000,110,snacks,settled,100
+TX-11037,2026-10-17,"Hostel Block D",2200,1480,snacks,settled,81
+TX-11038,2026-10-18,"Hostel Block D",2200,1480,dinner,settled,113
+TX-11039,2026-10-19,"Hostel Block D",2200,1480,lunch,settled,220
+TX-11040,2026-10-20,"Hostel Block D",2200,1480,lunch,settled,184
+TX-11041,2026-10-21,"Hostel Block D",2200,1480,dinner,cancelled,158
+TX-11042,2026-10-22,"Hostel Block D",2200,1480,dinner,settled,185
+TX-11043,2026-10-23,"Hostel Block D",2200,1480,breakfast,settled,134
+TX-11044,2026-10-24,"Hostel Block D",2200,1480,breakfast,settled,83
+TX-11045,2026-10-25,"Hostel Block D",2200,1480,breakfast,cancelled,187
+TX-11046,2026-10-26,"Hostel Block D",2200,1480,lunch,settled,177
+TX-11047,2026-10-27,"Hostel Block D",2200,1480,breakfast,settled,217
+TX-11048,2026-10-28,"Hostel Block D",2200,1480,dinner,settled,102
+TX-11049,2026-10-29,"Hostel Block D",2200,1480,breakfast,settled,126
+TX-11050,2026-10-30,"Hostel Block D",2200,1480,dinner,settled,152
+TX-11051,2026-10-01,"Hostel Block D",2200,1480,lunch,pending_reversal,67
+TX-11052,2026-10-02,"Hostel Block D",2200,1480,lunch,settled,65
+TX-11053,2026-10-03,"Hostel Block D",2200,1480,dinner,settled,182
+TX-11054,2026-10-04,"Hostel Block D",2200,1480,dinner,settled,130
+TX-11055,2026-10-05,"Hostel Block D",2200,1480,dinner,settled,73
+TX-11056,2026-10-06,"Hostel Block D",2200,1480,dinner,settled,75
+TX-11057,2026-10-07,"Hostel Block D",2200,1480,lunch,settled,197
+TX-11058,2026-10-08,"Hostel Block D",2200,1480,snacks,settled,206
+TX-11059,2026-10-09,"Hostel Block D",2200,1480,snacks,settled,169
+TX-11060,2026-10-10,"Hostel Block D",2200,1480,dinner,pending_reversal,182
+TX-11061,2026-10-11,"Hostel Block D",2200,1480,breakfast,settled,133
+TX-11062,2026-10-12,"Hostel Block D",2200,1480,lunch,settled,201
+TX-11063,2026-10-13,"Admin Grounds",48000,110,lunch,pending_reversal,71
+TX-11064,2026-10-14,"Hostel Block D",2200,1480,lunch,settled,154
+TX-11065,2026-10-15,"Sports Complex",34000,240,dinner,pending_reversal,156
+TX-11066,2026-10-16,"Admin Grounds",48000,110,breakfast,settled,155
+TX-11067,2026-10-17,"Academic Block",26000,620,lunch,pending_reversal,143
+TX-11068,2026-10-18,"Hostel Block D",2200,1480,lunch,settled,212
+TX-11069,2026-10-19,"Admin Grounds",48000,110,breakfast,settled,91
+TX-11070,2026-10-20,"Hostel Block D",2200,1480,snacks,settled,102
+TX-11071,2026-10-21,"Hostel Block D",2200,1480,breakfast,settled,103
+TX-11072,2026-10-22,"Hostel Block D",2200,1480,lunch,settled,68
+TX-11073,2026-10-23,"Hostel Block D",2200,1480,snacks,cancelled,149
+TX-11074,2026-10-24,"Hostel Block D",2200,1480,lunch,settled,203
+TX-11075,2026-10-25,"Hostel Block D",2200,1480,breakfast,pending_reversal,131
+TX-11076,2026-10-26,"Hostel Block D",2200,1480,dinner,settled,175
+TX-11077,2026-10-27,"Hostel Block D",2200,1480,breakfast,settled,84
+TX-11078,2026-10-28,"Hostel Block D",2200,1480,breakfast,settled,122
+TX-11079,2026-10-29,"Hostel Block D",2200,1480,dinner,pending_reversal,209
+TX-11080,2026-10-30,"Hostel Block D",2200,1480,lunch,cancelled,74
+TX-11081,2026-10-01,"Hostel Block D",2200,1480,breakfast,settled,143
+TX-11082,2026-10-02,"Academic Block",26000,620,breakfast,settled,64
+TX-11083,2026-10-03,"Sports Complex",34000,240,lunch,settled,82
+TX-11084,2026-10-04,"Hostel Block D",2200,1480,snacks,settled,194
+TX-11085,2026-10-05,"Hostel Block D",2200,1480,snacks,pending_reversal,131
+TX-11086,2026-10-06,"Hostel Block D",2200,1480,snacks,pending_reversal,85
+TX-11087,2026-10-07,"Hostel Block D",2200,1480,lunch,pending_reversal,209
+TX-11088,2026-10-08,"Academic Block",26000,620,dinner,settled,51
+TX-11089,2026-10-09,"Hostel Block D",2200,1480,breakfast,settled,92
+TX-11090,2026-10-10,"Hostel Block D",2200,1480,dinner,settled,196
+TX-11091,2026-10-11,"Hostel Block D",2200,1480,dinner,pending_reversal,187
+TX-11092,2026-10-12,"Sports Complex",34000,240,lunch,cancelled,109
+TX-11093,2026-10-13,"Hostel Block D",2200,1480,snacks,settled,98
+TX-11094,2026-10-14,"Hostel Block D",2200,1480,lunch,cancelled,94
+TX-11095,2026-10-15,"Hostel Block D",2200,1480,snacks,settled,198
+TX-11096,2026-10-16,"Hostel Block D",2200,1480,breakfast,settled,187
+TX-11097,2026-10-17,"Hostel Block D",2200,1480,dinner,settled,71
+TX-11098,2026-10-18,"Hostel Block D",2200,1480,lunch,settled,104
+TX-11099,2026-10-19,"Hostel Block D",2200,1480,lunch,pending_reversal,158
+TX-11100,2026-10-20,"Hostel Block D",2200,1480,snacks,settled,213
+TX-11101,2026-10-21,"Hostel Block D",2200,1480,snacks,settled,115
+TX-11102,2026-10-22,"Admin Grounds",48000,110,dinner,settled,131
+TX-11103,2026-10-23,"Hostel Block D",2200,1480,dinner,settled,127
+TX-11104,2026-10-24,"Hostel Block D",2200,1480,breakfast,settled,79
+TX-11105,2026-10-25,"Hostel Block D",2200,1480,snacks,settled,188
+TX-11106,2026-10-26,"Hostel Block D",2200,1480,lunch,cancelled,177
+TX-11107,2026-10-27,"Sports Complex",34000,240,breakfast,settled,124
+TX-11108,2026-10-28,"Hostel Block D",2200,1480,dinner,settled,104
+TX-11109,2026-10-29,"Academic Block",26000,620,breakfast,settled,67
+TX-11110,2026-10-30,"Sports Complex",34000,240,dinner,settled,116
+TX-11111,2026-10-01,"Hostel Block D",2200,1480,dinner,pending_reversal,80
+TX-11112,2026-10-02,"Academic Block",26000,620,breakfast,settled,132
+TX-11113,2026-10-03,"Hostel Block D",2200,1480,breakfast,pending_reversal,217
+TX-11114,2026-10-04,"Hostel Block D",2200,1480,snacks,settled,159
+TX-11115,2026-10-05,"Hostel Block D",2200,1480,lunch,settled,68
+TX-11116,2026-10-06,"Hostel Block D",2200,1480,lunch,settled,74
+TX-11117,2026-10-07,"Hostel Block D",2200,1480,snacks,settled,198
+TX-11118,2026-10-08,"Academic Block",26000,620,lunch,settled,87
+TX-11119,2026-10-09,"Hostel Block D",2200,1480,breakfast,settled,186
+TX-11120,2026-10-10,"Hostel Block D",2200,1480,breakfast,settled,181
+TX-11121,2026-10-11,"Hostel Block D",2200,1480,lunch,settled,127
+TX-11122,2026-10-12,"Hostel Block D",2200,1480,breakfast,pending_reversal,70
+TX-11123,2026-10-13,"Hostel Block D",2200,1480,breakfast,cancelled,75
+TX-11124,2026-10-14,"Hostel Block D",2200,1480,snacks,settled,75
+TX-11125,2026-10-15,"Hostel Block D",2200,1480,snacks,pending_reversal,80
+TX-11126,2026-10-16,"Hostel Block D",2200,1480,snacks,settled,67
+TX-11127,2026-10-17,"Hostel Block D",2200,1480,snacks,settled,173
+TX-11128,2026-10-18,"Hostel Block D",2200,1480,lunch,settled,95
+TX-11129,2026-10-19,"Hostel Block D",2200,1480,breakfast,cancelled,219
+TX-11130,2026-10-20,"Hostel Block D",2200,1480,dinner,settled,191
+TX-11131,2026-10-21,"Sports Complex",34000,240,breakfast,settled,125
+TX-11132,2026-10-22,"Hostel Block D",2200,1480,snacks,settled,135
+TX-11133,2026-10-23,"Hostel Block D",2200,1480,snacks,cancelled,195
+TX-11134,2026-10-24,"Hostel Block D",2200,1480,breakfast,cancelled,93
+TX-11135,2026-10-25,"Hostel Block D",2200,1480,snacks,settled,189
+TX-11136,2026-10-26,"Hostel Block D",2200,1480,lunch,pending_reversal,173
+TX-11137,2026-10-27,"Sports Complex",34000,240,snacks,settled,128
+TX-11138,2026-10-28,"Hostel Block D",2200,1480,breakfast,settled,69
+TX-11139,2026-10-29,"Hostel Block D",2200,1480,snacks,settled,136
+TX-11140,2026-10-30,"Hostel Block D",2200,1480,snacks,pending_reversal,171
+TX-11141,2026-10-01,"Admin Grounds",48000,110,lunch,settled,92
+TX-11142,2026-10-02,"Hostel Block D",2200,1480,dinner,settled,122
+TX-11143,2026-10-03,"Hostel Block D",2200,1480,breakfast,pending_reversal,129
+TX-11144,2026-10-04,"Hostel Block D",2200,1480,lunch,settled,147
+TX-11145,2026-10-05,"Hostel Block D",2200,1480,breakfast,settled,111
+TX-11146,2026-10-06,"Hostel Block D",2200,1480,breakfast,settled,163
+TX-11147,2026-10-07,"Hostel Block D",2200,1480,snacks,settled,131
+TX-11148,2026-10-08,"Hostel Block D",2200,1480,snacks,settled,143
+TX-11149,2026-10-09,"Hostel Block D",2200,1480,lunch,settled,69
+TX-11150,2026-10-10,"Hostel Block D",2200,1480,breakfast,pending_reversal,118
+TX-11151,2026-10-11,"Hostel Block D",2200,1480,snacks,cancelled,113
+TX-11152,2026-10-12,"Hostel Block D",2200,1480,dinner,settled,207
+TX-11153,2026-10-13,"Hostel Block D",2200,1480,breakfast,settled,102
+TX-11154,2026-10-14,"Academic Block",26000,620,breakfast,settled,115
+TX-11155,2026-10-15,"Hostel Block D",2200,1480,lunch,settled,189
+TX-11156,2026-10-16,"Hostel Block D",2200,1480,breakfast,cancelled,98
+TX-11157,2026-10-17,"Hostel Block D",2200,1480,dinner,cancelled,90
+TX-11158,2026-10-18,"Hostel Block D",2200,1480,lunch,pending_reversal,184
+TX-11159,2026-10-19,"Hostel Block D",2200,1480,dinner,pending_reversal,190
+TX-11160,2026-10-20,"Academic Block",26000,620,breakfast,settled,103
+TX-11161,2026-10-21,"Hostel Block D",2200,1480,dinner,cancelled,148
+TX-11162,2026-10-22,"Hostel Block D",2200,1480,lunch,settled,220
+TX-11163,2026-10-23,"Hostel Block D",2200,1480,breakfast,cancelled,100
+TX-11164,2026-10-24,"Hostel Block D",2200,1480,dinner,settled,179
+TX-11165,2026-10-25,"Hostel Block D",2200,1480,dinner,settled,162
+TX-11166,2026-10-26,"Hostel Block D",2200,1480,dinner,settled,101
+TX-11167,2026-10-27,"Hostel Block D",2200,1480,breakfast,settled,164
+TX-11168,2026-10-28,"Hostel Block D",2200,1480,snacks,cancelled,214
+TX-11169,2026-10-29,"Hostel Block D",2200,1480,breakfast,settled,213
+TX-11170,2026-10-30,"Hostel Block D",2200,1480,breakfast,pending_reversal,213
+TX-11171,2026-10-01,"Hostel Block D",2200,1480,lunch,settled,174
+TX-11172,2026-10-02,"Hostel Block D",2200,1480,dinner,cancelled,113
+TX-11173,2026-10-03,"Hostel Block D",2200,1480,lunch,settled,162
+TX-11174,2026-10-04,"Hostel Block D",2200,1480,dinner,cancelled,83
+TX-11175,2026-10-05,"Academic Block",26000,620,breakfast,settled,90
+TX-11176,2026-10-06,"Hostel Block D",2200,1480,snacks,settled,103
+TX-11177,2026-10-07,"Hostel Block D",2200,1480,dinner,pending_reversal,200
+TX-11178,2026-10-08,"Hostel Block D",2200,1480,breakfast,cancelled,146
+TX-11179,2026-10-09,"Hostel Block D",2200,1480,snacks,settled,159
+TX-11180,2026-10-10,"Hostel Block D",2200,1480,lunch,settled,72
+TX-11181,2026-10-11,"Hostel Block D",2200,1480,snacks,pending_reversal,184
+TX-11182,2026-10-12,"Hostel Block D",2200,1480,breakfast,pending_reversal,101
+TX-11183,2026-10-13,"Hostel Block D",2200,1480,breakfast,settled,78
+TX-11184,2026-10-14,"Hostel Block D",2200,1480,dinner,settled,176
+TX-11185,2026-10-15,"Hostel Block D",2200,1480,snacks,settled,117
+TX-11186,2026-10-16,"Hostel Block D",2200,1480,snacks,settled,160
+TX-11187,2026-10-17,"Hostel Block D",2200,1480,snacks,pending_reversal,200
+TX-11188,2026-10-18,"Hostel Block D",2200,1480,lunch,cancelled,179
+TX-11189,2026-10-19,"Hostel Block D",2200,1480,snacks,settled,80
+TX-11190,2026-10-20,"Academic Block",26000,620,breakfast,cancelled,87
+TX-11191,2026-10-21,"Hostel Block D",2200,1480,lunch,cancelled,116
+TX-11192,2026-10-22,"Hostel Block D",2200,1480,dinner,settled,95
+TX-11193,2026-10-23,"Hostel Block D",2200,1480,snacks,settled,112
+TX-11194,2026-10-24,"Hostel Block D",2200,1480,lunch,pending_reversal,114
+TX-11195,2026-10-25,"Hostel Block D",2200,1480,dinner,settled,70
+TX-11196,2026-10-26,"Hostel Block D",2200,1480,breakfast,settled,163
+TX-11197,2026-10-27,"Hostel Block D",2200,1480,snacks,settled,65
+TX-11198,2026-10-28,"Hostel Block D",2200,1480,dinner,settled,93
+TX-11199,2026-10-29,"Hostel Block D",2200,1480,lunch,settled,176
+TX-11200,2026-10-30,"Hostel Block D",2200,1480,lunch,settled,132
+TX-11201,2026-10-01,"Hostel Block D",2200,1480,dinner,cancelled,156
+TX-11202,2026-10-02,"Hostel Block D",2200,1480,dinner,settled,75
+TX-11203,2026-10-03,"Hostel Block D",2200,1480,snacks,pending_reversal,114
+TX-11204,2026-10-04,"Hostel Block D",2200,1480,dinner,settled,121
+TX-11205,2026-10-05,"Hostel Block D",2200,1480,dinner,settled,150
+TX-11206,2026-10-06,"Hostel Block D",2200,1480,dinner,settled,201
+TX-11207,2026-10-07,"Hostel Block D",2200,1480,snacks,cancelled,104
+TX-11208,2026-10-08,"Hostel Block D",2200,1480,snacks,cancelled,192
+TX-11209,2026-10-09,"Hostel Block D",2200,1480,lunch,cancelled,149
+TX-11210,2026-10-10,"Admin Grounds",48000,110,snacks,settled,88
+TX-11211,2026-10-11,"Hostel Block D",2200,1480,lunch,settled,150
+TX-11212,2026-10-12,"Hostel Block D",2200,1480,lunch,settled,205
+TX-11213,2026-10-13,"Hostel Block D",2200,1480,dinner,pending_reversal,103
+TX-11214,2026-10-14,"Hostel Block D",2200,1480,lunch,settled,104
+TX-11215,2026-10-15,"Hostel Block D",2200,1480,dinner,settled,153
+TX-11216,2026-10-16,"Admin Grounds",48000,110,breakfast,cancelled,103
+TX-11217,2026-10-17,"Hostel Block D",2200,1480,lunch,cancelled,213
+TX-11218,2026-10-18,"Hostel Block D",2200,1480,breakfast,settled,173
+TX-11219,2026-10-19,"Admin Grounds",48000,110,snacks,settled,113
+TX-11220,2026-10-20,"Hostel Block D",2200,1480,dinner,settled,153
+TX-11221,2026-10-21,"Hostel Block D",2200,1480,snacks,settled,80
+TX-11222,2026-10-22,"Hostel Block D",2200,1480,snacks,pending_reversal,201
+TX-11223,2026-10-23,"Hostel Block D",2200,1480,breakfast,cancelled,151
+TX-11224,2026-10-24,"Hostel Block D",2200,1480,lunch,settled,150
+TX-11225,2026-10-25,"Hostel Block D",2200,1480,snacks,settled,98
+TX-11226,2026-10-26,"Hostel Block D",2200,1480,snacks,settled,83
+TX-11227,2026-10-27,"Sports Complex",34000,240,breakfast,settled,115
+TX-11228,2026-10-28,"Hostel Block D",2200,1480,lunch,cancelled,120
+TX-11229,2026-10-29,"Hostel Block D",2200,1480,breakfast,settled,142
+TX-11230,2026-10-30,"Hostel Block D",2200,1480,snacks,settled,143
+TX-11231,2026-10-01,"Hostel Block D",2200,1480,snacks,cancelled,120
+TX-11232,2026-10-02,"Hostel Block D",2200,1480,dinner,cancelled,127
+TX-11233,2026-10-03,"Hostel Block D",2200,1480,snacks,settled,192
+TX-11234,2026-10-04,"Hostel Block D",2200,1480,snacks,cancelled,176
+TX-11235,2026-10-05,"Hostel Block D",2200,1480,snacks,settled,160
+TX-11236,2026-10-06,"Sports Complex",34000,240,breakfast,settled,83
+TX-11237,2026-10-07,"Hostel Block D",2200,1480,snacks,pending_reversal,167
+TX-11238,2026-10-08,"Hostel Block D",2200,1480,dinner,settled,154
+TX-11239,2026-10-09,"Hostel Block D",2200,1480,breakfast,settled,219
+TX-11240,2026-10-10,"Hostel Block D",2200,1480,dinner,settled,111
+TX-11241,2026-10-11,"Hostel Block D",2200,1480,dinner,settled,125
+TX-11242,2026-10-12,"Hostel Block D",2200,1480,dinner,settled,114
+TX-11243,2026-10-13,"Hostel Block D",2200,1480,dinner,pending_reversal,173
+TX-11244,2026-10-14,"Hostel Block D",2200,1480,lunch,settled,67
+TX-11245,2026-10-15,"Hostel Block D",2200,1480,dinner,cancelled,155
+TX-11246,2026-10-16,"Hostel Block D",2200,1480,snacks,settled,200
+TX-11247,2026-10-17,"Hostel Block D",2200,1480,lunch,settled,67
+TX-11248,2026-10-18,"Hostel Block D",2200,1480,lunch,settled,72
+TX-11249,2026-10-19,"Hostel Block D",2200,1480,breakfast,settled,163
+TX-11250,2026-10-20,"Hostel Block D",2200,1480,breakfast,settled,110
+TX-11251,2026-10-21,"Sports Complex",34000,240,lunch,cancelled,132
+TX-11252,2026-10-22,"Hostel Block D",2200,1480,snacks,settled,148
+TX-11253,2026-10-23,"Academic Block",26000,620,snacks,cancelled,66
+TX-11254,2026-10-24,"Hostel Block D",2200,1480,snacks,cancelled,68
+TX-11255,2026-10-25,"Hostel Block D",2200,1480,snacks,cancelled,181
+TX-11256,2026-10-26,"Hostel Block D",2200,1480,breakfast,settled,104
+TX-11257,2026-10-27,"Hostel Block D",2200,1480,snacks,pending_reversal,103
+TX-11258,2026-10-28,"Hostel Block D",2200,1480,snacks,settled,90
+TX-11259,2026-10-29,"Hostel Block D",2200,1480,lunch,settled,199
+TX-11260,2026-10-30,"Sports Complex",34000,240,snacks,settled,95
+TX-11261,2026-10-01,"Hostel Block D",2200,1480,breakfast,settled,205
+TX-11262,2026-10-02,"Academic Block",26000,620,dinner,settled,47
+TX-11263,2026-10-03,"Sports Complex",34000,240,breakfast,cancelled,97
+TX-11264,2026-10-04,"Admin Grounds",48000,110,dinner,cancelled,130
+TX-11265,2026-10-05,"Hostel Block D",2200,1480,lunch,settled,119
+TX-11266,2026-10-06,"Hostel Block D",2200,1480,breakfast,settled,95
+TX-11267,2026-10-07,"Hostel Block D",2200,1480,breakfast,settled,147
+TX-11268,2026-10-08,"Hostel Block D",2200,1480,snacks,cancelled,163
+TX-11269,2026-10-09,"Hostel Block D",2200,1480,lunch,settled,207
+TX-11270,2026-10-10,"Hostel Block D",2200,1480,breakfast,pending_reversal,129
+TX-11271,2026-10-11,"Hostel Block D",2200,1480,snacks,settled,157
+TX-11272,2026-10-12,"Hostel Block D",2200,1480,dinner,settled,183
+TX-11273,2026-10-13,"Hostel Block D",2200,1480,lunch,cancelled,106
+TX-11274,2026-10-14,"Hostel Block D",2200,1480,snacks,settled,106
+TX-11275,2026-10-15,"Hostel Block D",2200,1480,snacks,cancelled,188
+TX-11276,2026-10-16,"Hostel Block D",2200,1480,lunch,pending_reversal,104
+TX-11277,2026-10-17,"Hostel Block D",2200,1480,dinner,settled,175
+TX-11278,2026-10-18,"Hostel Block D",2200,1480,dinner,settled,76
+TX-11279,2026-10-19,"Hostel Block D",2200,1480,lunch,settled,196
+TX-11280,2026-10-20,"Hostel Block D",2200,1480,dinner,settled,92
+TX-11281,2026-10-21,"Hostel Block D",2200,1480,breakfast,settled,89
+TX-11282,2026-10-22,"Hostel Block D",2200,1480,lunch,cancelled,199
+TX-11283,2026-10-23,"Hostel Block D",2200,1480,lunch,settled,70
+TX-11284,2026-10-24,"Hostel Block D",2200,1480,snacks,settled,65
+TX-11285,2026-10-25,"Hostel Block D",2200,1480,snacks,cancelled,161
+TX-11286,2026-10-26,"Hostel Block D",2200,1480,breakfast,settled,218
+TX-11287,2026-10-27,"Hostel Block D",2200,1480,lunch,settled,117
+TX-11288,2026-10-28,"Hostel Block D",2200,1480,breakfast,settled,112
+TX-11289,2026-10-29,"Hostel Block D",2200,1480,breakfast,settled,81
+TX-11290,2026-10-30,"Hostel Block D",2200,1480,lunch,settled,186
+TX-11291,2026-10-01,"Hostel Block D",2200,1480,lunch,settled,128
+TX-11292,2026-10-02,"Academic Block",26000,620,snacks,cancelled,98
+TX-11293,2026-10-03,"Hostel Block D",2200,1480,snacks,settled,120
+TX-11294,2026-10-04,"Hostel Block D",2200,1480,breakfast,settled,92
+TX-11295,2026-10-05,"Hostel Block D",2200,1480,snacks,pending_reversal,147
+TX-11296,2026-10-06,"Hostel Block D",2200,1480,snacks,settled,158
+TX-11297,2026-10-07,"Hostel Block D",2200,1480,dinner,pending_reversal,119
+TX-11298,2026-10-08,"Hostel Block D",2200,1480,lunch,settled,124
+TX-11299,2026-10-09,"Hostel Block D",2200,1480,lunch,settled,176
+TX-11300,2026-10-10,"Hostel Block D",2200,1480,snacks,settled,193
+TX-11301,2026-10-11,"Hostel Block D",2200,1480,lunch,settled,148
+TX-11302,2026-10-12,"Hostel Block D",2200,1480,snacks,pending_reversal,215
+TX-11303,2026-10-13,"Hostel Block D",2200,1480,breakfast,settled,158
+TX-11304,2026-10-14,"Hostel Block D",2200,1480,snacks,settled,66
+TX-11305,2026-10-15,"Hostel Block D",2200,1480,breakfast,settled,96
+TX-11306,2026-10-16,"Hostel Block D",2200,1480,lunch,settled,204
+TX-11307,2026-10-17,"Hostel Block D",2200,1480,snacks,cancelled,108
+TX-11308,2026-10-18,"Hostel Block D",2200,1480,breakfast,settled,197
+TX-11309,2026-10-19,"Hostel Block D",2200,1480,breakfast,settled,188
+TX-11310,2026-10-20,"Hostel Block D",2200,1480,dinner,settled,185
+TX-11311,2026-10-21,"Hostel Block D",2200,1480,snacks,settled,157
+TX-11312,2026-10-22,"Hostel Block D",2200,1480,snacks,cancelled,81
+TX-11313,2026-10-23,"Hostel Block D",2200,1480,breakfast,settled,94
+TX-11314,2026-10-24,"Hostel Block D",2200,1480,lunch,settled,130
+TX-11315,2026-10-25,"Hostel Block D",2200,1480,dinner,settled,67
+TX-11316,2026-10-26,"Hostel Block D",2200,1480,lunch,settled,219
+TX-11317,2026-10-27,"Hostel Block D",2200,1480,breakfast,pending_reversal,196
+TX-11318,2026-10-28,"Hostel Block D",2200,1480,breakfast,cancelled,138
+TX-11319,2026-10-29,"Hostel Block D",2200,1480,dinner,cancelled,180
+TX-11320,2026-10-30,"Sports Complex",34000,240,snacks,pending_reversal,89

@@ -135,6 +135,44 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
         }
     }
 
+    // Assignment 3 page (13 Nov – 20 Nov 2026): AI Autopsy, Red-Team & Live Curveball
+    {
+        const f = 'assignments/assignment-3.html';
+        const a3Path = path.join(__dirname, '..', 'assignments', 'assignment-3.html');
+        if (!fs.existsSync(a3Path)) {
+            fail(`${f} | file missing`);
+        } else {
+            const html = fs.readFileSync(a3Path, 'utf8');
+            const errors = [];
+            const environmental = m => m.includes('tailwind is not defined');
+            const vc = new VirtualConsole();
+            vc.on('jsdomError', e => { if (!environmental(e.message)) errors.push(e.message); });
+            vc.on('error', (...a) => { const m = a.join(' '); if (!environmental(m)) errors.push(m); });
+            const dom = new JSDOM(html, { runScripts: 'dangerously', pretendToBeVisual: true, virtualConsole: vc, url: 'https://aplly.xyz/assignments/assignment-3.html' });
+            await new Promise(r => setTimeout(r, 300));
+            const doc = dom.window.document;
+            const packCards = doc.querySelectorAll('.pack-card').length;
+            const selfInputs = doc.querySelectorAll('.score-input.self').length;
+            const trainerInputs = doc.querySelectorAll('.score-input.trainer').length;
+            const labelled = doc.querySelectorAll('.score-input[aria-label]').length;
+            dom.window.close();
+
+            if (errors.length) fail(`${f} | script errors: ${errors.join(' ; ')}`);
+            else console.log(`PASS ${f} | pack-cards: ${packCards} | self/trainer: ${selfInputs}/${trainerInputs}`);
+            if (!html.includes('name="last-updated"')) fail(`${f} | missing <meta name="last-updated">`);
+            if (packCards !== 4) fail(`assignment-3 | expected 4 mystery pack cards, got ${packCards}`);
+            if (selfInputs !== trainerInputs || selfInputs === 0) fail(`assignment-3 | self/trainer input mismatch (${selfInputs}/${trainerInputs})`);
+            if (labelled !== selfInputs + trainerInputs) fail(`assignment-3 | aria-labels ${labelled}/${selfInputs + trainerInputs}`);
+            for (const pack of ['a3-pack-alpha.csv', 'a3-pack-beta.csv', 'a3-pack-gamma.csv', 'a3-pack-delta.csv']) {
+                if (!html.includes(`data/${pack}`)) fail(`assignment-3 | missing link to data/${pack}`);
+                if (!fs.existsSync(path.join(__dirname, '..', 'assignments', 'data', pack))) fail(`assignment-3 | missing CSV file assignments/data/${pack}`);
+            }
+            for (const token of ['13 Nov 2026', '20 Nov 2026', 'eflow', '_v2_curveball.csv', 'Red-Team', 'Naive AI Autopsy']) {
+                if (!html.includes(token)) fail(`assignment-3 | missing key token: ${token}`);
+            }
+        }
+    }
+
     // Content coverage: all 22 challenge numbers present across parts
     const parts = [1, 2, 3, 4].map(i => fs.readFileSync(path.join(dir, `part-${i}.html`), 'utf8')).join('');
     const missing = [];
@@ -196,9 +234,9 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     const rootHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
     const rootDom = new JSDOM(rootHtml);
     const hubCards = rootDom.window.document.querySelectorAll('.hub-card').length;
-    if (hubCards !== 10) fail(`root index.html | expected 10 hub cards, got ${hubCards}`);
+    if (hubCards !== 11) fail(`root index.html | expected 11 hub cards, got ${hubCards}`);
     if (!rootHtml.includes('name="last-updated"')) fail('root index.html | missing last-updated meta tag');
-    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/index.html', 'eval-tool/index.html', 'presentation-tool/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
+    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/assignment-3.html', 'assignments/index.html', 'eval-tool/index.html', 'presentation-tool/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
         if (!rootHtml.includes(link)) fail(`root index.html | missing hub link: ${link}`);
     }
     rootDom.window.close();
