@@ -175,6 +175,13 @@ toolkit; assignments → prompts/grader/spec/dashboard; catalog → method).
     drawer, persisted evaluator name (`apllyPeerEvalName`), amber-highlighted
     Live Curveball selector, per-dimension `.dim-tick` completion badges, and
     sticky emerald **Generate & Copy Scorecard** bar.
+- **Capstone Project Work Built (22 Nov 2026):**
+  - **Specifications:** Formulated and approved canonical specifications in `specs/PROJECT-WORK-SPEC.md` (`PROJ-SPEC-2026-GATE` v2.0) and companion `specs/DOMAIN-SCOPING.md` (`PROJ-SPEC-2026-DOMAINS` v1.0), synthesizing `project_idea/prd0.txt` and `prd1.txt`.
+  - **Cryptographic & Invariant Core (`gate-challenge/assets/project-engine.js`):** Dual Node/Browser engine supporting synchronous SHA-256, deterministic Mulberry32 PRNG seeded by `SHA256(studentId + salt)`, synthetic domain dataset generator for Forensic Science, Computer Science, and Nutrition Science with injected failure modes, invariant calculation (`computeStableStats`), graph theory extraction & degree centrality (`computeGraphMetrics`), dynamic calculated probe generator (`computeProbeQuestion`), and automated hash chain verification (`verifySubmission`).
+  - **Student Interactive App (`gate-challenge/index.html`):** Guided 3-gate workflow with in-browser query runner, qualitative Grill-Me interrogations, JavaScript cleaning sandbox with double-execution stability assertion, dual-dashboard view (raw vs cleaned) satisfying the 5 mandatory constraints (3-tab overview/breakdown/detail, interactive filter propagation map, on-the-fly client processing, heterogeneous cross-brushing, 3-level lossless drill-down/roll-up, and topological graph network with degree centrality encoding), and tamper-evident `submission.json` exporter.
+  - **Instructor Verification Engine (`verify.html`):** Zero-network, offline drag-and-drop verifier re-executing seeds, asserting statistical parity, checking dynamic probe ground truths, and validating hash chains in <2 seconds with a built-in Live Curveball Swap Chamber.
+  - **CLI Tools & Test Suites:** `scripts/generate-project-datasets.js` (CLI for seeded exports) and `scripts/test-project-engine.js` (unit and integration test suite passing 100%).
+  - **Hub Integration:** Root `index.html` updated with 13th hub card and quick links; `.quarantine/validate-tutorials.js` updated and green.
   - **Next task (13 Nov 2026 launch):** Assign `P01–P25` student names into
     `assignments/data/a3-pairing-roster.md` on `eflow`; on 20 Nov morning run
     `node scripts/generate-a3-datasets.js --curveball 20261120` (local `var/`)

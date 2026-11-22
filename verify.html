@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor Offline Verifier — Gate Challenge</title>
+    <meta name="description" content="Offline, zero-network cryptographic and invariant verification engine for student submission.json artifacts.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+    <meta name="last-updated" content="2026-11-22T09:30:00+05:30">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandNavy: '#183868',
+                        brandCyan: '#28a8e8',
+                        brandTeal: '#3c9080',
+                        brandGreen: '#48b838',
+                        brandMint: '#c6eeb0',
+                        brandAmber: '#f59e0b',
+                        brandRed: '#dc2626'
+                    },
+                    fontFamily: {
+                        sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'],
+                        heading: ['Sora', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="gate-challenge/assets/project-engine.js"></script>
+
+    <style>
+        body { font-family: 'DM Sans', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Sora', sans-serif; letter-spacing: -0.02em; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .hero-banner { background: linear-gradient(135deg, #183868 0%, #28a8e8 100%); color: #fff; }
+        .dropzone { border: 2px dashed #94a3b8; transition: all 0.2s ease; }
+        .dropzone.dragover { border-color: #28a8e8; background: #f0f9ff; }
+        .badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <header class="hero-banner py-8 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block bg-white/20 text-white font-mono text-xs px-3 py-1 rounded-full mb-3 uppercase tracking-wider">
+                <i class="fas fa-check-double mr-1"></i> Offline Automated Verifier · PROJ-SPEC-2026-GATE
+            </span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-2">Gate Challenge Verification Engine</h1>
+            <p class="text-blue-100 max-w-2xl mx-auto text-sm mb-4">
+                Verify student <code>submission.json</code> in &lt;2 seconds completely offline. Re-executes seeds, tests deterministic invariants, recalculates dynamic probes, and audits cryptographic hash chains.
+            </p>
+            <div class="flex justify-center gap-2">
+                <a href="index.html" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-bold px-3 py-1.5 rounded-full transition">
+                    <i class="fas fa-house mr-1"></i> Course Hub
+                </a>
+                <a href="gate-challenge/index.html" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-bold px-3 py-1.5 rounded-full transition">
+                    <i class="fas fa-desktop mr-1"></i> Student App (gate-challenge)
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-6">
+
+        <!-- DROPZONE / UPLOAD -->
+        <div id="dropzone" class="dropzone bg-white rounded-xl p-8 text-center cursor-pointer shadow-sm">
+            <i class="fas fa-file-import text-4xl text-brandCyan mb-3"></i>
+            <h3 class="text-lg font-bold text-slate-800 mb-1">Drop student <code>submission.json</code> here</h3>
+            <p class="text-xs text-slate-500 mb-4">or click to browse from your filesystem (zero network calls, purely client-side)</p>
+            <input type="file" id="file-input" accept=".json" class="hidden">
+            <div class="flex justify-center gap-2">
+                <button id="btn-browse" class="bg-brandNavy hover:bg-blue-900 text-white text-xs font-bold px-4 py-2 rounded-lg transition">
+                    Browse File
+                </button>
+                <button id="btn-load-sample" class="bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-4 py-2 rounded-lg transition">
+                    Load Valid Demo Submission
+                </button>
+            </div>
+        </div>
+
+        <!-- VERIFICATION RESULT BANNER (HIDDEN INITIALLY) -->
+        <div id="result-banner" class="hidden p-6 rounded-xl border shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                <div class="flex items-center gap-3">
+                    <div id="result-icon" class="w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold">
+                        ✓
+                    </div>
+                    <div>
+                        <h2 id="result-title" class="text-2xl font-extrabold text-slate-900">VERIFICATION RESULT</h2>
+                        <p id="result-subtitle" class="text-xs text-slate-600 font-mono">Student ID · Domain · Timestamp</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span id="result-badge" class="badge text-sm px-4 py-1.5 font-mono">STATUS</span>
+                </div>
+            </div>
+
+            <!-- INVARIANT BREAKDOWN TABLE -->
+            <div class="overflow-x-auto border border-slate-200 rounded-lg bg-white mb-4">
+                <table class="w-full text-xs text-left border-collapse" id="table-checks">
+                    <thead class="bg-slate-50 text-slate-600 border-b border-slate-200 font-mono uppercase text-[10px]">
+                        <tr>
+                            <th class="p-2.5">Verification Check</th>
+                            <th class="p-2.5">Status</th>
+                            <th class="p-2.5">Diagnostic Finding</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-mono text-[11px]"></tbody>
+                </table>
+            </div>
+
+            <!-- STUDENT CODE & DEFENSE INSPECTOR -->
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-3">
+                <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider font-mono">
+                    <i class="fas fa-magnifying-glass mr-1 text-brandNavy"></i> Submission Forensic Inspector
+                </h4>
+                <div>
+                    <span class="text-[11px] font-bold text-slate-700 block mb-1">Gate 2 Cleaning Pipeline:</span>
+                    <pre id="inspect-code" class="bg-slate-900 text-green-300 p-3 rounded text-[11px] max-h-48 overflow-y-auto">No code loaded</pre>
+                </div>
+                <div>
+                    <span class="text-[11px] font-bold text-slate-700 block mb-1">Gate 2 Strategy Justification:</span>
+                    <p id="inspect-justification" class="text-xs bg-white border border-slate-200 rounded p-2 text-slate-700 font-sans"></p>
+                </div>
+                <div>
+                    <span class="text-[11px] font-bold text-slate-700 block mb-1">Gate 3 Comparative Visual Analysis:</span>
+                    <p id="inspect-comparative" class="text-xs bg-white border border-slate-200 rounded p-2 text-slate-700 font-sans"></p>
+                </div>
+            </div>
+
+            <!-- LIVE CURVEBALL SWAP CHAMBER (VIVA STAGE) -->
+            <div class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2">
+                        <span class="badge bg-amber-600 text-white font-mono text-[10px]">VIVA DEFENSE</span>
+                        <h4 class="text-xs font-bold text-amber-900">Live Curveball Swap Chamber</h4>
+                    </div>
+                    <span class="text-[10px] text-amber-800 font-mono">Tests client resilience against unseen schema shifts</span>
+                </div>
+                <p class="text-xs text-amber-800 mb-3">
+                    During oral examination, test the student's submitted cleaning pipeline against an unseen curveball dataset live:
+                </p>
+                <div class="flex gap-2">
+                    <button id="btn-run-curveball" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-3 py-1.5 rounded transition shadow-sm">
+                        <i class="fas fa-bolt mr-1"></i> Execute Live Curveball Swap
+                    </button>
+                    <span id="curveball-verdict" class="text-xs font-mono font-bold text-amber-900 self-center"></span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center py-6 text-xs text-slate-400 border-t border-slate-200 mt-12">
+        <strong>Offline Verifier</strong> &middot; PROJ-SPEC-2026-GATE &middot; Aplly.xyz Trainer Suite
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+        var engine = window.ProjectEngine;
+        var activeSub = null;
+
+        var dropzone = document.getElementById('dropzone');
+        var fileInput = document.getElementById('file-input');
+        var btnBrowse = document.getElementById('btn-browse');
+        var btnLoadSample = document.getElementById('btn-load-sample');
+        var resultBanner = document.getElementById('result-banner');
+        var resultIcon = document.getElementById('result-icon');
+        var resultTitle = document.getElementById('result-title');
+        var resultSubtitle = document.getElementById('result-subtitle');
+        var resultBadge = document.getElementById('result-badge');
+        var tableChecks = document.querySelector('#table-checks tbody');
+        var inspectCode = document.getElementById('inspect-code');
+        var inspectJust = document.getElementById('inspect-justification');
+        var inspectComp = document.getElementById('inspect-comparative');
+        var btnCurveball = document.getElementById('btn-run-curveball');
+        var curveballVerdict = document.getElementById('curveball-verdict');
+
+        // Drag & drop handlers
+        ['dragenter', 'dragover'].forEach(function (e) {
+            dropzone.addEventListener(e, function (evt) {
+                evt.preventDefault();
+                dropzone.classList.add('dragover');
+            });
+        });
+        ['dragleave', 'drop'].forEach(function (e) {
+            dropzone.addEventListener(e, function (evt) {
+                evt.preventDefault();
+                dropzone.classList.remove('dragover');
+            });
+        });
+
+        dropzone.addEventListener('drop', function (e) {
+            var file = e.dataTransfer.files[0];
+            if (file) readFile(file);
+        });
+
+        btnBrowse.addEventListener('click', function () { fileInput.click(); });
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files.length) readFile(fileInput.files[0]);
+        });
+
+        function readFile(file) {
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                try {
+                    var parsed = JSON.parse(evt.target.result);
+                    processSubmission(parsed);
+                } catch (err) {
+                    alert('Invalid JSON file format: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        btnLoadSample.addEventListener('click', function () {
+            // Generate a valid mock submission
+            var id = 'FS-2026-8812';
+            var dom = 'forensic';
+            var ds = engine.generateDataset(id, dom, false);
+            var cleanCode = "function cleanData(data) {\n  return data.map(function(row) {\n    var r = Object.assign({}, row);\n    if (r.relinquishing_auth === 'NA' || r.relinquishing_auth === '' || r.relinquishing_auth === 'unknown') {\n      r.relinquishing_auth = 'UNRECORDED_OFFICER';\n    }\n    return r;\n  });\n}";
+            var cleaner = new Function('rawData', cleanCode + '\nreturn cleanData(rawData);');
+            var cleaned = cleaner(JSON.parse(JSON.stringify(ds.data)));
+            var stats = engine.computeStableStats(cleaned);
+            var probe = engine.computeProbeQuestion(ds.seed, dom, cleaned);
+
+            var g1 = {
+                queries: ["data.filter(r => r.relinquishing_auth === 'NA')"],
+                grillAnswers: [
+                    "Identified string nulls ('NA') in custody logs that mask evidentiary gaps.",
+                    "The turnaround mean of 21.4 days hides 18% of cases exceeding the 30-day statutory deadline."
+                ]
+            };
+            var g2 = {
+                cleaningCode: cleanCode,
+                stableStats: stats,
+                justification: "Harmonized missing officer tags to explicit UNRECORDED_OFFICER to preserve custody integrity without row loss."
+            };
+            var g3 = {
+                chartConfigs: { multiTab: true, crossBrushing: true, graphView: true },
+                comparativeAnalysis: "In raw dashboard, unrecorded officers were dropped, biasing network degree centrality by 35%. Cleaned dashboard restored complete chain.",
+                probeId: probe.probeId,
+                probeAnswer: probe.expectedAnswer
+            };
+
+            var fps = engine.computeFingerprints(ds.seed, g1, g2, g3);
+            g1.fingerprint = fps.fp1;
+            g2.fingerprint = fps.fp2;
+            g3.fingerprint = fps.fp3;
+
+            var sample = {
+                studentName: "Alex Chen",
+                studentId: id,
+                domain: dom,
+                seed: ds.seed,
+                timestamp: new Date().toISOString(),
+                gate1: g1,
+                gate2: g2,
+                gate3: g3,
+                finalPassCode: fps.finalPassCode
+            };
+
+            processSubmission(sample);
+        });
+
+        function processSubmission(sub) {
+            activeSub = sub;
+            var res = engine.verifySubmission(sub);
+
+            resultBanner.classList.remove('hidden');
+            if (res.isValid) {
+                resultBanner.className = 'p-6 rounded-xl border border-brandGreen bg-green-50 shadow-sm';
+                resultIcon.className = 'w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold bg-brandGreen text-white';
+                resultIcon.textContent = '✓';
+                resultTitle.textContent = 'MATCH ✅ · VERIFIED GENUINE WORK';
+                resultTitle.className = 'text-2xl font-extrabold text-brandGreen';
+                resultBadge.className = 'badge bg-brandGreen text-white text-sm px-4 py-1.5 font-mono';
+                resultBadge.textContent = 'INTEGRITY PASS';
+            } else {
+                resultBanner.className = 'p-6 rounded-xl border border-brandRed bg-red-50 shadow-sm';
+                resultIcon.className = 'w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold bg-brandRed text-white';
+                resultIcon.textContent = '✕';
+                resultTitle.textContent = 'MISMATCH ❌ · INTEGRITY DRIFT DETECTED';
+                resultTitle.className = 'text-2xl font-extrabold text-brandRed';
+                resultBadge.className = 'badge bg-brandRed text-white text-sm px-4 py-1.5 font-mono';
+                resultBadge.textContent = 'FAIL: ' + (res.failingGate ? res.failingGate.toUpperCase() : 'DRIFT');
+            }
+
+            resultSubtitle.textContent = (sub.studentName || 'Student') + ' (' + (sub.studentId || 'N/A') + ') · ' + (sub.domain || 'N/A').toUpperCase() + ' · ' + (sub.timestamp || 'No timestamp');
+
+            // Render checks table
+            tableChecks.innerHTML = '';
+            res.checks.forEach(function (c) {
+                var tr = document.createElement('tr');
+                tr.className = 'hover:bg-white/50';
+
+                var tdName = document.createElement('td');
+                tdName.className = 'p-2.5 font-semibold text-slate-800';
+                tdName.textContent = c.name;
+
+                var tdStatus = document.createElement('td');
+                tdStatus.className = 'p-2.5 font-bold';
+                tdStatus.innerHTML = c.pass ? '<span class="text-brandGreen">PASS ✅</span>' : '<span class="text-brandRed">FAIL ❌</span>';
+
+                var tdMsg = document.createElement('td');
+                tdMsg.className = 'p-2.5 text-slate-600';
+                tdMsg.textContent = c.msg;
+
+                tr.appendChild(tdName);
+                tr.appendChild(tdStatus);
+                tr.appendChild(tdMsg);
+                tableChecks.appendChild(tr);
+            });
+
+            // Inspect code & texts
+            inspectCode.textContent = sub.gate2 ? sub.gate2.cleaningCode : 'N/A';
+            inspectJust.textContent = sub.gate2 ? sub.gate2.justification : 'N/A';
+            inspectComp.textContent = sub.gate3 ? sub.gate3.comparativeAnalysis : 'N/A';
+            curveballVerdict.textContent = '';
+        }
+
+        // Live Curveball Test
+        btnCurveball.addEventListener('click', function () {
+            if (!activeSub) return;
+            try {
+                var cbDs = engine.generateDataset(activeSub.studentId, activeSub.domain, true);
+                var userCode = activeSub.gate2 ? activeSub.gate2.cleaningCode : '';
+                var cleaningFn = new Function('rawData', userCode + '\nif (typeof cleanData === "function") return cleanData(rawData); return rawData;');
+                var cbOutput = cleaningFn(JSON.parse(JSON.stringify(cbDs.data)));
+                var cbStats = engine.computeStableStats(cbOutput);
+
+                curveballVerdict.innerHTML = '<span class="text-brandGreen">CURVEBALL SUCCESS ✅ Output ' + cbStats.rows + ' rows (Sum: ' + cbStats.numericSum + ', Zero crashes)</span>';
+            } catch (err) {
+                curveballVerdict.innerHTML = '<span class="text-brandRed">CURVEBALL CRASH ❌ Code threw exception: ' + err.message + '</span>';
+            }
+        });
+
+    })();
+    </script>
+</body>
+</html>

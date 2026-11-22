@@ -235,13 +235,21 @@ const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
     const rootHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
     const rootDom = new JSDOM(rootHtml);
     const hubCards = rootDom.window.document.querySelectorAll('.hub-card').length;
-    if (hubCards !== 12) fail(`root index.html | expected 12 hub cards, got ${hubCards}`);
+    if (hubCards !== 13) fail(`root index.html | expected 13 hub cards, got ${hubCards}`);
     if (!rootHtml.includes('name="last-updated"')) fail('root index.html | missing last-updated meta tag');
-    for (const link of ['tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/assignment-3.html', 'assignments/index.html', 'eval-tool/index.html', 'red-team-tool/index.html', 'presentation-tool/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
+    for (const link of ['gate-challenge/index.html', 'verify.html', 'tutorials/index.html', 'tutorials/grill-method.html', 'tutorials/self-grading-kit.html', 'assignments/assignment-3.html', 'assignments/index.html', 'eval-tool/index.html', 'red-team-tool/index.html', 'presentation-tool/index.html', 'datasets/index.html', 'article/index.html', 'dashboard/index.html', 'challenges/challenges.txt', 'prompts/system_prompt_grill_me.md', 'VALIDATION.md']) {
         if (!rootHtml.includes(link)) fail(`root index.html | missing hub link: ${link}`);
     }
     rootDom.window.close();
     if (!failures) console.log(`PASS root index.html | ${hubCards} hub cards, all entry points linked`);
+
+    // Gate Challenge project section check
+    if (!fs.existsSync(path.join(__dirname, '..', 'gate-challenge', 'index.html'))) fail('missing gate-challenge/index.html');
+    if (!fs.existsSync(path.join(__dirname, '..', 'gate-challenge', 'assets', 'project-engine.js'))) fail('missing gate-challenge/assets/project-engine.js');
+    if (!fs.existsSync(path.join(__dirname, '..', 'verify.html'))) fail('missing verify.html');
+    if (!fs.existsSync(path.join(__dirname, '..', 'specs', 'PROJECT-WORK-SPEC.md'))) fail('missing specs/PROJECT-WORK-SPEC.md');
+    if (!fs.existsSync(path.join(__dirname, '..', 'specs', 'DOMAIN-SCOPING.md'))) fail('missing specs/DOMAIN-SCOPING.md');
+    if (!failures) console.log('PASS gate-challenge & verify.html | capstone project section wired');
 
     // Self-grading kit: wrapper scripts + tutorial page + cross-links
     const bat = fs.readFileSync(path.join(__dirname, '..', 'self-grade.bat'), 'utf8');

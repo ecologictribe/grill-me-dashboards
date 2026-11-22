@@ -100,6 +100,14 @@ and a paginated severity-sorted anomaly log (bottom).
 
 ## For students
 
+### Capstone Project: The Work-Bound Interactive Dashboard (Gate Challenge)
+1. **Interactive Capstone Tool:** Open [`gate-challenge/index.html`](gate-challenge/index.html) and enter your Student ID to deterministically derive your seed and unique domain dataset (Forensic Science, Computer Science, or Nutrition Science).
+2. **Gate 1 (Diagnose):** Discover injected domain-specific structural traps via in-browser queries and defend them in two qualitative Grill-Me interrogations to generate `fp1`.
+3. **Gate 2 (Preprocess):** Author a cleaning pipeline and verify its deterministic stability (`Run 1 stats === Run 2 stats`) to generate `fp2`.
+4. **Gate 3 (Compare & Build):** Implement a dual-view dashboard meeting the **5 Mandatory Interaction Constraints** (multi-tab hierarchy with Filter Propagation Map, on-the-fly client processing, heterogeneous cross-brushing, lossless 3-level drill-down/roll-up, and graph theory $E, V$ integration with computed degree centrality). Resolve your seed's dynamic calculated probe to generate `fp3`.
+5. **Export & Verify:** Export `submission.json` carrying your `FINAL_PASS_CODE`. Submissions verify offline in <2 seconds via [`verify.html`](verify.html) and qualify for the Live Curveball Defense.
+6. **Specifications:** See [`specs/PROJECT-WORK-SPEC.md`](specs/PROJECT-WORK-SPEC.md) and [`specs/DOMAIN-SCOPING.md`](specs/DOMAIN-SCOPING.md).
+
 ### Assignment 3 (Active: 13 Nov – 20 Nov 2026)
 1. Open `assignments/assignment-3.html` and pick/receive 1 Mystery Pack (`Alpha–Zeta`).
 2. Run a 1-prompt **Naive AI Autopsy** (expose ≥3 failures), then Grill → Spec → build a dynamic CSV dashboard (HTML default, or Power BI with `pCsvPath` parameter) + **Custom Gate #5**.

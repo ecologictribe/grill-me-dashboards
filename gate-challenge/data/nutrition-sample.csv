@@ -1,0 +1,113 @@
+record_id,participant_id,survey_date,demographic_cohort,meal_slot,food_category,serving_quantity,serving_unit,calories_kcal,protein_grams,sodium_mg,vitamin_c_mg,is_fasting_period
+NUT-2026-5000,PT-100,2026-11-10,Urban-Affluent,Snack,Lean Poultry,2.5,total-recipe,3027,23.9,11593.2,50.9,0
+NUT-2026-5001,PT-101,2026-11-11,Peri-Urban-Informal,Breakfast,Whole Grains,2.5,per-serving,379,30.7,552.6,57.1,0
+NUT-2026-5002,PT-102,2026-11-12,Urban-Affluent,Dinner,Whole Grains,2.9,total-recipe,1569,9.8,5658.2,16.4,0
+NUT-2026-5003,PT-103,2026-11-13,Peri-Urban-Informal,Breakfast,Lean Poultry,1.6,per-serving,583,15.5,400.7,30.6,0
+NUT-2026-5004,PT-104,2026-11-14,Urban-Affluent,Lunch,Leafy Greens,2.9,per-serving,440,18.1,770.2,25.5,0
+NUT-2026-5005,PT-105,2026-11-15,Urban-Affluent,Dinner,Whole Grains,1,per-100g,277,26,311.5,31.1,0
+NUT-2026-5006,PT-106,2026-11-16,Rural-Agrarian,Lunch,Ultra-Processed Snacks,2.2,per-serving,650,31.4,754.5,50.6,0
+NUT-2026-5007,PT-107,2026-11-17,Rural-Agrarian,Lunch,Leafy Greens,0.8,total-recipe,2943,29.1,12347.2,73,0
+NUT-2026-5008,PT-108,2026-11-18,Rural-Agrarian,Dinner,Dairy & Eggs,1.3,per-100g,281,13.3,783.5,45.2,0
+NUT-2026-5009,PT-109,2026-11-19,Rural-Agrarian,Dinner,Leafy Greens,1.8,per-100g,623,6.3,221.5,0,1
+NUT-2026-5010,PT-110,2026-11-20,Urban-Affluent,Breakfast,Whole Grains,1,total-recipe,2763,13.3,14744.8,0,1
+NUT-2026-5011,PT-111,2026-11-21,Peri-Urban-Informal,Lunch,Leafy Greens,2.1,per-serving,183,29.6,431.5,26.1,0
+NUT-2026-5012,PT-112,2026-11-10,Rural-Agrarian,Lunch,Dairy & Eggs,2.8,per-100g,421,24.9,603.2,0,0
+NUT-2026-5013,PT-113,2026-11-11,Rural-Agrarian,Lunch,Legumes,2.4,per-serving,628,23.3,667.5,0,1
+NUT-2026-5014,PT-114,2026-11-12,Peri-Urban-Informal,Snack,Lean Poultry,2.9,per-serving,490,23.1,353.4,0,1
+NUT-2026-5015,PT-115,2026-11-13,Urban-Affluent,Snack,Whole Grains,2.8,per-serving,287,15.5,565.4,0,1
+NUT-2026-5016,PT-116,2026-11-14,Peri-Urban-Informal,Snack,Dairy & Eggs,1,total-recipe,2225,8.9,9619.2,0,0
+NUT-2026-5017,PT-117,2026-11-15,Urban-Affluent,Breakfast,Legumes,1.8,per-100g,298,17.3,583.3,0,1
+NUT-2026-5018,PT-118,2026-11-16,Urban-Affluent,Snack,Leafy Greens,1.2,per-serving,392,18.4,496.5,43.8,0
+NUT-2026-5019,PT-119,2026-11-17,Rural-Agrarian,Lunch,Dairy & Eggs,1.8,total-recipe,1451,21.8,6581.7,0,0
+NUT-2026-5020,PT-100,2026-11-18,Urban-Affluent,Breakfast,Legumes,2.1,total-recipe,1881,5.4,5375.9,62,0
+NUT-2026-5021,PT-101,2026-11-19,Peri-Urban-Informal,Snack,Legumes,1.9,per-100g,355,24.3,536.1,27.8,0
+NUT-2026-5022,PT-102,2026-11-20,Rural-Agrarian,Snack,Lean Poultry,1.2,per-serving,560,15.2,463,0,1
+NUT-2026-5023,PT-103,2026-11-21,Peri-Urban-Informal,Dinner,Ultra-Processed Snacks,2.1,per-100g,613,16.8,405.5,0,0
+NUT-2026-5024,PT-104,2026-11-10,Urban-Affluent,Lunch,Lean Poultry,0.8,per-serving,579,30.1,818.4,64.2,0
+NUT-2026-5025,PT-105,2026-11-11,Rural-Agrarian,Snack,Dairy & Eggs,0.6,per-100g,223,23.8,695.3,51.9,0
+NUT-2026-5026,PT-106,2026-11-12,Peri-Urban-Informal,Dinner,Whole Grains,2.2,total-recipe,1829,14,13723.6,39.2,0
+NUT-2026-5027,PT-107,2026-11-13,Peri-Urban-Informal,Dinner,Whole Grains,2.6,per-serving,587,21.4,586.5,53.1,0
+NUT-2026-5028,PT-108,2026-11-14,Peri-Urban-Informal,Dinner,Whole Grains,1.6,per-100g,552,16.4,442.5,0,0
+NUT-2026-5029,PT-109,2026-11-15,Rural-Agrarian,Lunch,Lean Poultry,2.3,per-100g,424,28.1,695.2,0,0
+NUT-2026-5030,PT-110,2026-11-16,Urban-Affluent,Dinner,Whole Grains,1.9,total-recipe,2589,19.5,5359.8,65.3,0
+NUT-2026-5031,PT-111,2026-11-17,Urban-Affluent,Breakfast,Legumes,1.7,per-100g,200,29.1,754.6,0,0
+NUT-2026-5032,PT-112,2026-11-18,Peri-Urban-Informal,Breakfast,Legumes,2.8,total-recipe,2672,20.4,15807.7,27.2,0
+NUT-2026-5033,PT-113,2026-11-19,Rural-Agrarian,Lunch,Dairy & Eggs,0.6,total-recipe,2633,7.1,9881.6,0,1
+NUT-2026-5034,PT-114,2026-11-20,Urban-Affluent,Lunch,Dairy & Eggs,0.6,total-recipe,2968,24.8,12617.5,21.6,0
+NUT-2026-5035,PT-115,2026-11-21,Peri-Urban-Informal,Dinner,Dairy & Eggs,2.3,total-recipe,2787,14.7,15024.7,0,0
+NUT-2026-5036,PT-116,2026-11-10,Peri-Urban-Informal,Lunch,Whole Grains,1.1,per-serving,273,25.3,325.2,27.1,0
+NUT-2026-5037,PT-117,2026-11-11,Peri-Urban-Informal,Breakfast,Dairy & Eggs,0.9,per-100g,536,24,519.4,37.6,0
+NUT-2026-5038,PT-118,2026-11-12,Urban-Affluent,Dinner,Dairy & Eggs,1,total-recipe,1569,22.7,6792.1,53.3,0
+NUT-2026-5039,PT-119,2026-11-13,Peri-Urban-Informal,Breakfast,Leafy Greens,2.8,total-recipe,3013,17.1,6470.1,0,0
+NUT-2026-5040,PT-100,2026-11-14,Urban-Affluent,Lunch,Ultra-Processed Snacks,2.3,per-serving,318,17,488.6,58.2,0
+NUT-2026-5041,PT-101,2026-11-15,Urban-Affluent,Dinner,Leafy Greens,2.3,total-recipe,3107,17.4,8414.7,75,0
+NUT-2026-5042,PT-102,2026-11-16,Rural-Agrarian,Snack,Leafy Greens,0.7,per-serving,266,5.8,488.5,44,0
+NUT-2026-5043,PT-103,2026-11-17,Urban-Affluent,Breakfast,Whole Grains,2.3,total-recipe,2646,29,14229.4,60,0
+NUT-2026-5044,PT-104,2026-11-18,Rural-Agrarian,Dinner,Legumes,2.2,total-recipe,2509,20.1,6960.5,0,0
+NUT-2026-5045,PT-105,2026-11-19,Peri-Urban-Informal,Lunch,Leafy Greens,2.3,total-recipe,2575,31.9,4995.9,0,1
+NUT-2026-5046,PT-106,2026-11-20,Rural-Agrarian,Dinner,Whole Grains,2.7,per-serving,220,5.8,433.6,35.8,0
+NUT-2026-5047,PT-107,2026-11-21,Rural-Agrarian,Dinner,Ultra-Processed Snacks,2.2,per-100g,628,14.3,454.4,0,0
+NUT-2026-5048,PT-108,2026-11-10,Urban-Affluent,Snack,Whole Grains,2,per-serving,474,14.3,441.6,56.6,0
+NUT-2026-5049,PT-109,2026-11-11,Urban-Affluent,Dinner,Dairy & Eggs,0.6,per-100g,322,27.7,430.9,40.2,0
+NUT-2026-5050,PT-110,2026-11-12,Rural-Agrarian,Lunch,Dairy & Eggs,0.8,per-serving,328,30,523.4,42.6,0
+NUT-2026-5051,PT-111,2026-11-13,Peri-Urban-Informal,Lunch,Ultra-Processed Snacks,2.6,total-recipe,1697,29.5,15108,0,0
+NUT-2026-5052,PT-112,2026-11-14,Rural-Agrarian,Lunch,Dairy & Eggs,3,total-recipe,2881,29.4,7505.6,37.4,0
+NUT-2026-5053,PT-113,2026-11-15,Peri-Urban-Informal,Dinner,Whole Grains,2.3,per-serving,521,23.1,700.9,0,0
+NUT-2026-5054,PT-114,2026-11-16,Peri-Urban-Informal,Dinner,Dairy & Eggs,2.4,per-serving,441,13.5,632.2,0,0
+NUT-2026-5055,PT-115,2026-11-17,Urban-Affluent,Lunch,Lean Poultry,1.9,total-recipe,3028,15.2,6119.8,56.7,0
+NUT-2026-5056,PT-116,2026-11-18,Rural-Agrarian,Snack,Dairy & Eggs,0.9,per-100g,458,19.6,139.1,0,0
+NUT-2026-5057,PT-117,2026-11-19,Peri-Urban-Informal,Snack,Ultra-Processed Snacks,1.7,per-100g,207,9.3,212.5,0,0
+NUT-2026-5058,PT-118,2026-11-20,Rural-Agrarian,Dinner,Whole Grains,0.6,total-recipe,2009,27.2,11708.4,16.5,0
+NUT-2026-5059,PT-119,2026-11-21,Peri-Urban-Informal,Dinner,Ultra-Processed Snacks,2.6,total-recipe,3068,23.8,12980.4,18,0
+NUT-2026-5060,PT-100,2026-11-10,Urban-Affluent,Dinner,Leafy Greens,1.3,total-recipe,2262,11.8,12043.1,59.4,0
+NUT-2026-5061,PT-101,2026-11-11,Peri-Urban-Informal,Snack,Ultra-Processed Snacks,1.5,per-serving,546,8,430,0,1
+NUT-2026-5062,PT-102,2026-11-12,Rural-Agrarian,Dinner,Leafy Greens,2,per-serving,449,18.1,177.6,0,0
+NUT-2026-5063,PT-103,2026-11-13,Peri-Urban-Informal,Snack,Lean Poultry,0.6,per-100g,308,15.2,406.6,63.7,0
+NUT-2026-5064,PT-104,2026-11-14,Rural-Agrarian,Lunch,Leafy Greens,1.2,per-serving,331,31.5,472.7,40.5,0
+NUT-2026-5065,PT-105,2026-11-15,Peri-Urban-Informal,Snack,Whole Grains,1.4,total-recipe,2498,32,9346,71,0
+NUT-2026-5066,PT-106,2026-11-16,Rural-Agrarian,Dinner,Ultra-Processed Snacks,0.8,per-100g,268,25,466.6,0,1
+NUT-2026-5067,PT-107,2026-11-17,Rural-Agrarian,Lunch,Lean Poultry,1.1,per-serving,369,11,261.2,20.6,0
+NUT-2026-5068,PT-108,2026-11-18,Peri-Urban-Informal,Dinner,Whole Grains,2.9,total-recipe,2548,25,5463,16.5,0
+NUT-2026-5069,PT-109,2026-11-19,Urban-Affluent,Dinner,Ultra-Processed Snacks,2.9,per-100g,285,14.6,805.7,41,0
+NUT-2026-5070,PT-110,2026-11-20,Peri-Urban-Informal,Snack,Leafy Greens,1.2,per-100g,325,10.8,514.8,32.4,0
+NUT-2026-5071,PT-111,2026-11-21,Peri-Urban-Informal,Dinner,Legumes,1.5,total-recipe,1774,8.4,13529.9,19.3,0
+NUT-2026-5072,PT-112,2026-11-10,Peri-Urban-Informal,Lunch,Legumes,2.8,per-100g,459,12.3,402.4,0,0
+NUT-2026-5073,PT-113,2026-11-11,Urban-Affluent,Dinner,Leafy Greens,2.2,per-100g,193,6.5,713,0,0
+NUT-2026-5074,PT-114,2026-11-12,Peri-Urban-Informal,Dinner,Dairy & Eggs,0.7,per-100g,397,11.7,394.2,24.1,0
+NUT-2026-5075,PT-115,2026-11-13,Urban-Affluent,Breakfast,Legumes,1,per-serving,345,9.7,599,39.3,0
+NUT-2026-5076,PT-116,2026-11-14,Rural-Agrarian,Snack,Ultra-Processed Snacks,0.9,per-100g,424,22.2,701.3,53.2,0
+NUT-2026-5077,PT-117,2026-11-15,Peri-Urban-Informal,Snack,Ultra-Processed Snacks,2.4,per-serving,385,17.1,449.3,0,0
+NUT-2026-5078,PT-118,2026-11-16,Rural-Agrarian,Snack,Dairy & Eggs,1.1,per-serving,290,17.8,628.8,44.2,0
+NUT-2026-5079,PT-119,2026-11-17,Peri-Urban-Informal,Dinner,Ultra-Processed Snacks,1.8,per-serving,457,10.1,589.7,0,0
+NUT-2026-5080,PT-100,2026-11-18,Urban-Affluent,Snack,Legumes,2,per-serving,361,28.7,407.1,0,0
+NUT-2026-5081,PT-101,2026-11-19,Peri-Urban-Informal,Dinner,Leafy Greens,1.4,per-serving,624,13.2,693.7,0,1
+NUT-2026-5082,PT-102,2026-11-20,Urban-Affluent,Lunch,Legumes,1.1,total-recipe,2618,8.1,10071.9,0,0
+NUT-2026-5083,PT-103,2026-11-21,Peri-Urban-Informal,Snack,Lean Poultry,2.6,per-100g,343,26.5,734.4,0,0
+NUT-2026-5084,PT-104,2026-11-10,Rural-Agrarian,Breakfast,Ultra-Processed Snacks,2.3,per-100g,366,19.1,219.7,0,0
+NUT-2026-5085,PT-105,2026-11-11,Peri-Urban-Informal,Breakfast,Whole Grains,2.8,per-100g,384,7.6,153.9,50.6,0
+NUT-2026-5086,PT-106,2026-11-12,Rural-Agrarian,Breakfast,Whole Grains,1.8,total-recipe,1606,27.1,15911.7,28.1,0
+NUT-2026-5087,PT-107,2026-11-13,Peri-Urban-Informal,Breakfast,Legumes,2.1,per-serving,274,24.2,246.6,38.2,0
+NUT-2026-5088,PT-108,2026-11-14,Rural-Agrarian,Dinner,Whole Grains,2.9,per-serving,180,13.2,413.3,0,1
+NUT-2026-5089,PT-109,2026-11-15,Peri-Urban-Informal,Breakfast,Dairy & Eggs,2.8,per-100g,404,7.4,756.7,0,0
+NUT-2026-5090,PT-110,2026-11-16,Peri-Urban-Informal,Dinner,Legumes,2,per-100g,393,5.8,673.1,10.8,0
+NUT-2026-5091,PT-111,2026-11-17,Peri-Urban-Informal,Breakfast,Lean Poultry,2.6,total-recipe,2776,14.8,16437.5,36.3,0
+NUT-2026-5092,PT-112,2026-11-18,Urban-Affluent,Lunch,Lean Poultry,3,total-recipe,3123,18.3,8963.4,67,0
+NUT-2026-5093,PT-113,2026-11-19,Peri-Urban-Informal,Dinner,Legumes,2.5,per-100g,554,32,500.9,0,1
+NUT-2026-5094,PT-114,2026-11-20,Rural-Agrarian,Snack,Ultra-Processed Snacks,1.7,per-serving,527,22.8,324.9,26.1,0
+NUT-2026-5095,PT-115,2026-11-21,Rural-Agrarian,Dinner,Ultra-Processed Snacks,1.2,total-recipe,2133,24.8,15487.1,0,0
+NUT-2026-5096,PT-116,2026-11-10,Peri-Urban-Informal,Snack,Lean Poultry,1.7,per-serving,260,15.5,864.5,11,0
+NUT-2026-5097,PT-117,2026-11-11,Peri-Urban-Informal,Breakfast,Ultra-Processed Snacks,2.7,total-recipe,1866,21.6,8292.1,48,0
+NUT-2026-5098,PT-118,2026-11-12,Rural-Agrarian,Dinner,Ultra-Processed Snacks,1.3,per-100g,403,14.2,506.5,45.2,0
+NUT-2026-5099,PT-119,2026-11-13,Rural-Agrarian,Breakfast,Legumes,0.8,total-recipe,2524,14.9,13541.9,55.9,0
+NUT-2026-5100,PT-100,2026-11-14,Peri-Urban-Informal,Lunch,Whole Grains,0.7,per-serving,481,26.7,699.4,0,0
+NUT-2026-5101,PT-101,2026-11-15,Peri-Urban-Informal,Dinner,Legumes,2.2,per-100g,284,13.2,815.5,18.3,0
+NUT-2026-5102,PT-102,2026-11-16,Urban-Affluent,Dinner,Legumes,1.4,per-serving,550,25.9,697.7,0,0
+NUT-2026-5103,PT-103,2026-11-17,Rural-Agrarian,Snack,Ultra-Processed Snacks,0.8,total-recipe,3159,31.4,12514.6,0,0
+NUT-2026-5104,PT-104,2026-11-18,Urban-Affluent,Lunch,Whole Grains,1.8,per-100g,421,26.2,332.5,22.3,0
+NUT-2026-5105,PT-105,2026-11-19,Rural-Agrarian,Breakfast,Leafy Greens,1.3,per-serving,192,14,852.4,37,0
+NUT-2026-5106,PT-106,2026-11-20,Urban-Affluent,Dinner,Legumes,0.7,per-100g,221,7.6,339.2,15.8,0
+NUT-2026-5107,PT-107,2026-11-21,Peri-Urban-Informal,Breakfast,Ultra-Processed Snacks,0.7,per-serving,286,10.7,179.8,0,0
+NUT-2026-5108,PT-108,2026-11-10,Peri-Urban-Informal,Lunch,Lean Poultry,2.2,total-recipe,1702,14.4,4658.9,72.1,0
+NUT-2026-5109,PT-109,2026-11-11,Peri-Urban-Informal,Snack,Leafy Greens,1.6,per-100g,203,16.4,360.9,28.2,0
+NUT-2026-5110,PT-110,2026-11-12,Peri-Urban-Informal,Lunch,Ultra-Processed Snacks,0.6,per-100g,479,18,837.1,24.5,0
+NUT-2026-5111,PT-111,2026-11-13,Rural-Agrarian,Lunch,Lean Poultry,1,per-serving,437,30.8,154,66.6,0

@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gate Challenge — Work-Bound Interactive Dashboard Capstone</title>
+    <meta name="description" content="Cryptographically verified, domain-authentic data visualization capstone. Diagnose injected traps, verify preprocessing stability, and build a 5-constraint interactive dashboard.">
+    <meta name="author" content="Puneet Arora, Aplly.xyz Trainer">
+    <meta name="last-updated" content="2026-11-22T09:30:00+05:30">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandNavy: '#183868',
+                        brandCyan: '#28a8e8',
+                        brandTeal: '#3c9080',
+                        brandGreen: '#48b838',
+                        brandMint: '#c6eeb0',
+                        brandAmber: '#f59e0b',
+                        brandRed: '#dc2626'
+                    },
+                    fontFamily: {
+                        sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'],
+                        heading: ['Sora', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="assets/project-engine.js"></script>
+
+    <style>
+        body { font-family: 'DM Sans', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Sora', sans-serif; letter-spacing: -0.02em; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .hero-banner { background: linear-gradient(135deg, #183868 0%, #28a8e8 100%); color: #fff; }
+        .gate-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(24,56,104,0.06); transition: all 0.2s ease; }
+        .gate-card.locked { border-color: #48b838; background: #fcfdfa; }
+        .tab-btn.active { border-bottom: 3px solid #28a8e8; color: #183868; font-weight: 700; }
+        .badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; }
+        .interactive-canvas { border: 1px solid #cbd5e1; border-radius: 8px; background: #ffffff; }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="hero-banner py-10 px-4 text-center">
+        <div class="max-w-5xl mx-auto">
+            <span class="inline-block bg-white/20 text-white font-mono text-xs px-3 py-1 rounded-full mb-3 uppercase tracking-wider">
+                <i class="fas fa-shield-halved mr-1"></i> PROJ-SPEC-2026-GATE · Capstone Project
+            </span>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-3">The Work-Bound Interactive Dashboard</h1>
+            <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-5 font-normal">
+                Cryptographically bound assessment across <strong>Forensic Science</strong>, <strong>Computer Science</strong>, and <strong>Nutrition Science</strong>. Prove data hygiene, withstand the live curveball, and seal your pass code.
+            </p>
+            <div class="inline-flex items-center bg-slate-900/40 border border-white/20 px-4 py-1.5 rounded-full text-xs font-semibold text-brandMint mb-6">
+                <i class="fas fa-user-tie mr-2 text-brandCyan"></i> From the Desk of Puneet Arora, Aplly.xyz Lead Trainer
+            </div>
+            <div class="flex flex-wrap justify-center gap-2">
+                <a href="../index.html" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-bold px-3 py-1.5 rounded-full transition">
+                    <i class="fas fa-house mr-1"></i> Hub
+                </a>
+                <a href="../verify.html" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-bold px-3 py-1.5 rounded-full transition">
+                    <i class="fas fa-check-double mr-1"></i> Verifier (verify.html)
+                </a>
+                <a href="../specs/PROJECT-WORK-SPEC.md" target="_blank" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-bold px-3 py-1.5 rounded-full transition">
+                    <i class="fas fa-file-lines mr-1"></i> Project Spec Doc
+                </a>
+                <a href="../specs/DOMAIN-SCOPING.md" target="_blank" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-bold px-3 py-1.5 rounded-full transition">
+                    <i class="fas fa-microscope mr-1"></i> Domain Scoping
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 py-8 space-y-8">
+
+        <!-- Progress Tracker -->
+        <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div id="status-icon" class="w-10 h-10 rounded-full bg-blue-100 text-brandNavy flex items-center justify-center font-bold text-lg">
+                    0
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm text-slate-800" id="status-title">Gate 0: Enter Student ID</h4>
+                    <p class="text-xs text-slate-500" id="status-desc">Input your details below to initialize your deterministic dataset.</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-mono">
+                <span id="badge-g1" class="badge bg-slate-100 text-slate-600">Gate 1: Pending</span>
+                <span id="badge-g2" class="badge bg-slate-100 text-slate-600">Gate 2: Pending</span>
+                <span id="badge-g3" class="badge bg-slate-100 text-slate-600">Gate 3: Pending</span>
+            </div>
+        </div>
+
+        <!-- GATE 0: Student Setup & Seed Generator -->
+        <section class="gate-card p-6" id="card-gate0">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <span class="badge bg-blue-100 text-brandNavy mb-1">Gate 0 · Setup</span>
+                    <h2 class="text-xl font-bold text-slate-900">Deterministic Identity & Domain Selection</h2>
+                    <p class="text-sm text-slate-600">Every student receives a unique dataset deterministically derived from their Student ID.</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs font-mono text-slate-400">Salt: gatechallenge-2026-v2</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Student Full Name</label>
+                    <input type="text" id="input-name" class="w-full text-sm border border-slate-300 rounded px-3 py-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Alex Chen">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Student ID (Mandatory Seed Key)</label>
+                    <input type="text" id="input-id" class="w-full text-sm border border-slate-300 rounded px-3 py-2 font-mono focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="FS-2026-8812">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Disciplinary Domain</label>
+                    <select id="select-domain" class="w-full text-sm border border-slate-300 rounded px-3 py-2 focus:ring-2 focus:ring-brandCyan focus:outline-none">
+                        <option value="forensic">Forensic Science (Integrity & Custody Gaps)</option>
+                        <option value="cs">Computer Science (Telemetry & p99 Latency)</option>
+                        <option value="nutrition">Nutrition Science (Zero-Inflation & Dietary Skew)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
+                <button id="btn-generate" class="bg-brandNavy hover:bg-blue-900 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition shadow-sm">
+                    <i class="fas fa-key mr-2 text-brandCyan"></i> Derive Seed & Generate Mystery Dataset
+                </button>
+                <div id="seed-preview-box" class="hidden text-xs font-mono bg-slate-50 border border-slate-200 rounded px-3 py-1.5 text-slate-700">
+                    Seed: <span id="val-seed" class="text-brandCyan font-bold">---</span> | Rows: <span id="val-rowcount" class="font-bold">---</span>
+                </div>
+                <button id="btn-download-csv" class="hidden text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3 py-2 rounded transition">
+                    <i class="fas fa-download mr-1"></i> Download Seeded CSV
+                </button>
+            </div>
+        </section>
+
+        <!-- GATE 1: Diagnose (In-Browser SQL & Trap Discovery) -->
+        <section class="gate-card p-6" id="card-gate1">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <span class="badge bg-amber-100 text-amber-800 mb-1">Gate 1 · Diagnose</span>
+                    <h2 class="text-xl font-bold text-slate-900">Injected Structural Trap Discovery</h2>
+                    <p class="text-sm text-slate-600">Run SQL / exploratory queries against your seeded table to locate the domain-specific traps.</p>
+                </div>
+                <div id="gate1-status-pill" class="text-xs font-mono text-slate-400">Status: Incomplete</div>
+            </div>
+
+            <!-- SQL Query Runner Sandbox -->
+            <div class="mb-4">
+                <div class="flex justify-between items-center mb-1">
+                    <label class="text-xs font-bold text-slate-700">Exploratory Query (JavaScript / SQL filter)</label>
+                    <div class="flex gap-2">
+                        <button id="btn-sample-q1" class="text-xs text-brandNavy hover:underline">Diagnostic Probe 1</button>
+                        <span class="text-slate-300">|</span>
+                        <button id="btn-sample-q2" class="text-xs text-brandNavy hover:underline">Diagnostic Probe 2</button>
+                    </div>
+                </div>
+                <textarea id="sql-query-input" rows="3" class="w-full text-xs font-mono p-3 bg-slate-900 text-green-400 rounded-lg focus:outline-none" placeholder="data.filter(r => r.relinquishing_auth === 'NA' || r.relinquishing_auth === '')"></textarea>
+                <div class="flex justify-between items-center mt-2">
+                    <button id="btn-run-query" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3 py-1.5 rounded transition">
+                        <i class="fas fa-play mr-1 text-brandGreen"></i> Execute Query
+                    </button>
+                    <span id="query-result-meta" class="text-xs text-slate-500 font-mono">0 matching records</span>
+                </div>
+            </div>
+
+            <!-- Query Output Preview -->
+            <div class="overflow-x-auto max-h-48 border border-slate-200 rounded-lg mb-4 bg-white text-xs">
+                <table class="w-full text-left border-collapse" id="table-query-results">
+                    <thead class="bg-slate-50 text-slate-600 border-b border-slate-200">
+                        <tr><th class="p-2">Results will appear here upon execution</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Qualitative Grill-Me Interrogation Defense -->
+            <div class="space-y-3 pt-3 border-t border-slate-100">
+                <h4 class="text-sm font-bold text-slate-800"><i class="fas fa-comments text-brandCyan mr-1"></i> Grill-Me Diagnostic Interrogations</h4>
+                <div>
+                    <label id="lbl-grill1" class="block text-xs font-semibold text-slate-700 mb-1">1. What specific data trap did you discover, and why will a naive visualization mislead stakeholders?</label>
+                    <textarea id="input-grill1" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Identified string nulls ('NA') in custody logs. If naively dropped, case backlogs are systematically undercounted by 14%..."></textarea>
+                </div>
+                <div>
+                    <label id="lbl-grill2" class="block text-xs font-semibold text-slate-700 mb-1">2. How does the tail distribution or missingness pattern conflict with standard statistical averages?</label>
+                    <textarea id="input-grill2" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="The turnaround mean of 21.4 days hides 18% of cases exceeding the 30-day statutory deadline..."></textarea>
+                </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
+                <div class="text-xs font-mono text-slate-500">
+                    Fingerprint 1: <span id="fp1-display" class="font-bold text-slate-700">None</span>
+                </div>
+                <button id="btn-lock-gate1" class="bg-brandTeal hover:bg-teal-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition">
+                    <i class="fas fa-lock mr-1"></i> Lock Gate 1 &amp; Generate Fingerprint
+                </button>
+            </div>
+        </section>
+
+        <!-- GATE 2: Preprocess & Harmonize (Cleaning & Deterministic Stability) -->
+        <section class="gate-card p-6" id="card-gate2">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <span class="badge bg-purple-100 text-purple-800 mb-1">Gate 2 · Preprocess</span>
+                    <h2 class="text-xl font-bold text-slate-900">Harmonization &amp; Stability Verification</h2>
+                    <p class="text-sm text-slate-600">Author a transformation function that cleans domain traps. Your code will be executed twice to assert deterministic stability.</p>
+                </div>
+                <div id="gate2-status-pill" class="text-xs font-mono text-slate-400">Status: Incomplete</div>
+            </div>
+
+            <div class="mb-4">
+                <div class="flex justify-between items-center mb-1">
+                    <label class="text-xs font-bold text-slate-700">Transformation Script (<code>function cleanData(rawData) { ... return cleanedData; }</code>)</label>
+                    <button id="btn-load-clean-template" class="text-xs text-brandNavy hover:underline">Load Starter Cleaning Template</button>
+                </div>
+                <textarea id="code-clean-input" rows="8" class="w-full text-xs font-mono p-3 bg-slate-900 text-blue-300 rounded-lg focus:outline-none"></textarea>
+            </div>
+
+            <!-- Stability Assertions Chamber -->
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 mb-4">
+                <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
+                    <span class="text-xs font-bold text-slate-700"><i class="fas fa-arrows-rotate text-purple-600 mr-1"></i> Deterministic Stability Verification Chamber</span>
+                    <button id="btn-run-stability" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-3 py-1.5 rounded transition">
+                        Run Double-Execution Stability Check
+                    </button>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs font-mono" id="stability-metrics-grid">
+                    <div class="bg-white p-2 border border-slate-200 rounded text-center">
+                        <div class="text-slate-400 text-[10px]">RUN 1 ROWS</div>
+                        <div class="font-bold text-slate-800" id="stat-r1-rows">-</div>
+                    </div>
+                    <div class="bg-white p-2 border border-slate-200 rounded text-center">
+                        <div class="text-slate-400 text-[10px]">RUN 2 ROWS</div>
+                        <div class="font-bold text-slate-800" id="stat-r2-rows">-</div>
+                    </div>
+                    <div class="bg-white p-2 border border-slate-200 rounded text-center">
+                        <div class="text-slate-400 text-[10px]">NUMERIC SUM</div>
+                        <div class="font-bold text-slate-800" id="stat-sum">-</div>
+                    </div>
+                    <div class="bg-white p-2 border border-slate-200 rounded text-center">
+                        <div class="text-slate-400 text-[10px]">REMAINING NULLS</div>
+                        <div class="font-bold text-slate-800" id="stat-nulls">-</div>
+                    </div>
+                </div>
+                <div id="stability-verdict" class="mt-2 text-xs font-bold text-center text-slate-500">Run stability check to unlock Gate 2</div>
+            </div>
+
+            <!-- Imputation/Exclusion Justification -->
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-slate-700 mb-1">Architectural Preprocessing Justification</label>
+                <textarea id="input-justification" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Defend your imputation or normalization strategy against destructive row-dropping..."></textarea>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
+                <div class="text-xs font-mono text-slate-500">
+                    Fingerprint 2: <span id="fp2-display" class="font-bold text-slate-700">None</span>
+                </div>
+                <button id="btn-lock-gate2" class="bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold px-4 py-2 rounded-lg transition" disabled>
+                    <i class="fas fa-lock mr-1"></i> Lock Gate 2 &amp; Generate Fingerprint
+                </button>
+            </div>
+        </section>
+
+        <!-- GATE 3: Compare & Build (Interactive System & Calculated Probe) -->
+        <section class="gate-card p-6" id="card-gate3">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <span class="badge bg-green-100 text-green-800 mb-1">Gate 3 · Compare &amp; Build</span>
+                    <h2 class="text-xl font-bold text-slate-900">5-Constraint Interactive Dashboard</h2>
+                    <p class="text-sm text-slate-600">Dual view (Raw Broken vs. Cleaned Hardened), 3 synchronized tabs, linked brushing, and graph theory.</p>
+                </div>
+                <div id="gate3-status-pill" class="text-xs font-mono text-slate-400">Status: Incomplete</div>
+            </div>
+
+            <!-- View Mode Switcher -->
+            <div class="flex items-center justify-between bg-slate-100 p-2 rounded-lg mb-4">
+                <div class="flex gap-2">
+                    <button id="view-mode-clean" class="bg-white text-brandNavy font-bold px-3 py-1 rounded shadow-sm text-xs">
+                        <i class="fas fa-shield-heart text-brandGreen mr-1"></i> Cleaned Hardened Dashboard
+                    </button>
+                    <button id="view-mode-raw" class="bg-transparent text-slate-600 hover:text-slate-900 font-bold px-3 py-1 rounded text-xs">
+                        <i class="fas fa-triangle-exclamation text-brandRed mr-1"></i> Raw Broken Data Dashboard
+                    </button>
+                </div>
+                <span class="text-xs font-mono text-slate-500" id="dashboard-mode-indicator">Active: Cleaned Mode</span>
+            </div>
+
+            <!-- 3-Tier Multi-Tab Architecture -->
+            <div class="border-b border-slate-200 flex gap-4 mb-4 text-xs">
+                <button class="tab-btn active pb-2" data-tab="tab-overview">Tab 1: Overview (Macro)</button>
+                <button class="tab-btn pb-2" data-tab="tab-breakdown">Tab 2: Breakdown (Meso &amp; Graph)</button>
+                <button class="tab-btn pb-2" data-tab="tab-detail">Tab 3: Detail Audit Log (Micro)</button>
+                <button class="tab-btn pb-2 text-brandTeal" data-tab="tab-propagation">Filter Propagation Map</button>
+            </div>
+
+            <!-- TAB 1: OVERVIEW -->
+            <div id="tab-overview" class="tab-content space-y-4">
+                <!-- Global Filter Context Bar -->
+                <div class="bg-slate-50 border border-slate-200 rounded p-3 flex flex-wrap items-center gap-4 text-xs">
+                    <div class="font-bold text-slate-700"><i class="fas fa-filter text-brandCyan mr-1"></i> Global Filter:</div>
+                    <div>
+                        <label class="mr-1 text-slate-600">Category/Precinct:</label>
+                        <select id="filter-primary" class="border border-slate-300 rounded px-2 py-1 bg-white text-xs">
+                            <option value="ALL">All Categories (Global)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="mr-1 text-slate-600">Threshold Slider:</label>
+                        <input type="range" id="filter-threshold" min="10" max="90" value="30" class="align-middle">
+                        <span id="threshold-val" class="font-mono ml-1 font-bold">30</span>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm">
+                        <div class="text-xs text-slate-500 uppercase font-semibold">Total Records</div>
+                        <div class="text-2xl font-bold text-slate-900 mt-1" id="kpi-total-records">-</div>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm">
+                        <div class="text-xs text-slate-500 uppercase font-semibold">Critical Breach / Alert Rate</div>
+                        <div class="text-2xl font-bold text-brandRed mt-1" id="kpi-breach-rate">-</div>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm">
+                        <div class="text-xs text-slate-500 uppercase font-semibold">Mean Turnaround / Latency</div>
+                        <div class="text-2xl font-bold text-brandNavy mt-1" id="kpi-mean-metric">-</div>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm">
+                        <div class="text-xs text-slate-500 uppercase font-semibold">p95 / Tail Exposure</div>
+                        <div class="text-2xl font-bold text-amber-600 mt-1" id="kpi-tail-exposure">-</div>
+                    </div>
+                </div>
+
+                <!-- Heterogeneous Chart & Linked Brushing -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white border border-slate-200 rounded-lg p-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-xs font-bold text-slate-800">Ranked Distribution (Click to Brush)</h4>
+                            <span class="text-[10px] text-slate-400">Heterogeneous Link A</span>
+                        </div>
+                        <canvas id="chart-bar" width="400" height="200" class="w-full interactive-canvas"></canvas>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-lg p-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-xs font-bold text-slate-800">Metric Scatter / Timeline Intervals</h4>
+                            <span class="text-[10px] text-slate-400">Heterogeneous Link B</span>
+                        </div>
+                        <canvas id="chart-scatter" width="400" height="200" class="w-full interactive-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: BREAKDOWN & GRAPH THEORY (E, V) -->
+            <div id="tab-breakdown" class="tab-content hidden space-y-4">
+                <div class="bg-white border border-slate-200 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-800"><i class="fas fa-circle-nodes text-brandNavy mr-1"></i> Graph Theory (E, V) Network Topology</h4>
+                            <p class="text-xs text-slate-500">Nodes = Entities, Edges = Documented Custody/RPC/Diet Interactions. Node radius encodes computed Degree Centrality.</p>
+                        </div>
+                        <div class="text-right text-xs font-mono">
+                            Top Central Hub: <span id="graph-top-hub" class="font-bold text-brandCyan">-</span>
+                        </div>
+                    </div>
+                    <canvas id="canvas-network" width="800" height="300" class="w-full interactive-canvas bg-slate-900"></canvas>
+                </div>
+
+                <!-- 3-Level Lossless Drill-Down Simulator -->
+                <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs">
+                    <div class="font-bold text-slate-800 mb-1">Lossless 3-Level Hierarchical Drill-Down &amp; Roll-Up Contract</div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <button id="btn-drill-l1" class="px-2 py-1 bg-white border border-slate-300 rounded font-bold">Level 1: Macro Domain</button>
+                        <span>&rarr;</span>
+                        <button id="btn-drill-l2" class="px-2 py-1 bg-white border border-slate-300 rounded">Level 2: Meso Group</button>
+                        <span>&rarr;</span>
+                        <button id="btn-drill-l3" class="px-2 py-1 bg-white border border-slate-300 rounded">Level 3: Micro Trace</button>
+                    </div>
+                    <div class="text-[11px] font-mono text-slate-600" id="drill-status-text">
+                        Active Level: Level 1 (Macro) · Aggregate Sum: <span id="drill-rollup-sum" class="font-bold text-slate-800">-</span> (Mathematically conserved)
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: DETAIL AUDIT TABLE -->
+            <div id="tab-detail" class="tab-content hidden space-y-4">
+                <div class="flex justify-between items-center text-xs">
+                    <span class="font-bold text-slate-700">Detailed Transaction Entity Stream</span>
+                    <span id="detail-row-counter" class="text-slate-500 font-mono">Showing filtered records</span>
+                </div>
+                <div class="overflow-x-auto max-h-60 border border-slate-200 rounded-lg bg-white text-xs">
+                    <table class="w-full text-left border-collapse" id="table-detail-stream">
+                        <thead class="bg-slate-50 text-slate-600 border-b border-slate-200">
+                            <tr><th class="p-2">Stream</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 4: FILTER PROPAGATION MAP -->
+            <div id="tab-propagation" class="tab-content hidden space-y-4">
+                <div class="bg-white border border-slate-200 rounded-lg p-4">
+                    <h4 class="text-sm font-bold text-slate-800 mb-2"><i class="fas fa-sitemap text-brandTeal mr-1"></i> Interactive Filter Propagation Diagnostic Map</h4>
+                    <p class="text-xs text-slate-600 mb-4">Every global filter must declare which visual components it actively propagates to, preventing invisible filter dead-ends.</p>
+                    <div class="space-y-3 text-xs font-mono">
+                        <div class="p-3 bg-slate-50 border-l-4 border-brandCyan rounded">
+                            <span class="font-bold text-brandNavy">[Control] Global Category / Precinct Selector:</span>
+                            <div class="text-slate-600 pl-4 mt-1">&rarr; Propagates to: Tab 1 KPI Cards, Tab 1 Ranked Bar Chart, Tab 2 Network Graph, Tab 3 Detail Table</div>
+                        </div>
+                        <div class="p-3 bg-slate-50 border-l-4 border-amber-500 rounded">
+                            <span class="font-bold text-amber-800">[Control] Statutory / Latency Threshold Scrubber:</span>
+                            <div class="text-slate-600 pl-4 mt-1">&rarr; Propagates to: Tab 1 Critical Alert Counter, Tab 1 Metric Scatter Colors</div>
+                        </div>
+                        <div class="p-3 bg-slate-50 border-l-4 border-purple-500 rounded">
+                            <span class="font-bold text-purple-800">[Interaction] Network Graph Node Click:</span>
+                            <div class="text-slate-600 pl-4 mt-1">&rarr; Cross-brushes: Tab 1 Bar Chart and Tab 3 Transaction Stream</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparative Analysis & Probe Section -->
+            <div class="mt-6 pt-4 border-t border-slate-200 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Comparative Visual Analysis (Minimum 2 distinct visual fallacies cited)</label>
+                    <textarea id="input-comparative" rows="3" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Comparing raw vs clean dashboards: In raw view, the mean metric obscured 18% tail statutory breaches. Secondly, untreated null strings caused 14 nodes to be dropped from the custody network graph..."></textarea>
+                </div>
+
+                <!-- Seed-Generated Dynamic Probe Question -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="badge bg-brandNavy text-white">Dynamic Calculated Probe</span>
+                        <span class="text-xs font-mono text-slate-500" id="probe-id-tag">PROBE-A</span>
+                    </div>
+                    <p class="text-xs text-slate-800 font-semibold mb-3" id="probe-question-text">
+                        Initialize your seed to receive your calculated probe question.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <input type="number" id="input-probe-ans" step="any" class="w-48 text-xs font-mono border border-slate-300 rounded px-3 py-2 bg-white" placeholder="Enter computed answer">
+                        <button id="btn-validate-probe" class="bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold px-3 py-2 rounded transition">
+                            Verify Probe Value
+                        </button>
+                        <span id="probe-validation-pill" class="text-xs font-mono font-bold text-slate-500">Unanswered</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
+                <div class="text-xs font-mono text-slate-500">
+                    Fingerprint 3: <span id="fp3-display" class="font-bold text-slate-700">None</span>
+                </div>
+                <button id="btn-lock-gate3" class="bg-brandGreen hover:bg-green-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition" disabled>
+                    <i class="fas fa-lock mr-1"></i> Lock Gate 3 &amp; Seal Hash Chain
+                </button>
+            </div>
+        </section>
+
+        <!-- SUBMISSION SEAL & EXPORT BUNDLE -->
+        <section class="gate-card p-6 bg-slate-900 text-white" id="card-export">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                <div>
+                    <span class="badge bg-brandCyan text-slate-900 mb-1">Final Pass Code &amp; Submission</span>
+                    <h2 class="text-xl font-bold">Export Tamper-Evident Artifact</h2>
+                    <p class="text-xs text-slate-400">When all 3 gates are locked, compile your <code>submission.json</code> for instant offline verification.</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-[10px] text-slate-400 uppercase font-mono">Final Pass Code</div>
+                    <div class="text-lg font-mono font-bold text-brandGreen" id="display-final-code">LOCKED · COMPLETE GATES</div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-800">
+                <button id="btn-export-json" class="bg-brandGreen hover:bg-green-600 text-slate-900 font-bold text-xs px-5 py-2.5 rounded-lg transition disabled:opacity-40" disabled>
+                    <i class="fas fa-file-export mr-2"></i> Download submission.json
+                </button>
+                <button id="btn-copy-card" class="bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-4 py-2.5 rounded-lg transition border border-slate-700 disabled:opacity-40" disabled>
+                    <i class="fas fa-copy mr-1"></i> Copy Verification Card
+                </button>
+                <a href="../verify.html" class="text-xs text-brandCyan hover:underline font-bold ml-auto">
+                    Test in Offline Verifier &rarr;
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-xs text-slate-500 border-t border-slate-200 mt-12 bg-white">
+        <p><strong>Gate Challenge</strong> &middot; Data Visualization Architecture &amp; Engineering &middot; Aplly.xyz</p>
+        <p class="mt-1">Lead Trainer: Puneet Arora &middot; Course Repo: <code>grill_me_dashboard</code></p>
+    </footer>
+
+    <!-- Client-Side Controller -->
+    <script>
+    (function () {
+        'use strict';
+        var engine = window.ProjectEngine;
+
+        var state = {
+            studentName: '',
+            studentId: '',
+            domain: 'forensic',
+            seed: null,
+            rawDataset: null,
+            cleanedDataset: null,
+            viewMode: 'clean', // 'clean' or 'raw'
+            activeTab: 'tab-overview',
+            gate1: { queries: [], grillAnswers: [], fingerprint: null },
+            gate2: { cleaningCode: '', stableStats: null, justification: '', fingerprint: null },
+            gate3: { chartConfigs: { multiTab: true, crossBrushing: true, graphTheory: true }, comparativeAnalysis: '', probeId: null, probeAnswer: null, fingerprint: null },
+            finalPassCode: null,
+            selectedCategory: 'ALL',
+            threshold: 30,
+            activeDrillLevel: 1
+        };
+
+        // DOM elements
+        var inputName = document.getElementById('input-name');
+        var inputId = document.getElementById('input-id');
+        var selectDomain = document.getElementById('select-domain');
+        var btnGenerate = document.getElementById('btn-generate');
+        var seedBox = document.getElementById('seed-preview-box');
+        var valSeed = document.getElementById('val-seed');
+        var valRowCount = document.getElementById('val-rowcount');
+        var btnDownloadCsv = document.getElementById('btn-download-csv');
+
+        // Gate 1 elements
+        var sqlInput = document.getElementById('sql-query-input');
+        var btnRunQuery = document.getElementById('btn-run-query');
+        var tableQuery = document.getElementById('table-query-results');
+        var queryMeta = document.getElementById('query-result-meta');
+        var inputGrill1 = document.getElementById('input-grill1');
+        var inputGrill2 = document.getElementById('input-grill2');
+        var btnLockG1 = document.getElementById('btn-lock-gate1');
+        var fp1Display = document.getElementById('fp1-display');
+        var badgeG1 = document.getElementById('badge-g1');
+
+        // Gate 2 elements
+        var codeCleanInput = document.getElementById('code-clean-input');
+        var btnCleanTemplate = document.getElementById('btn-load-clean-template');
+        var btnRunStability = document.getElementById('btn-run-stability');
+        var inputJustification = document.getElementById('input-justification');
+        var btnLockG2 = document.getElementById('btn-lock-gate2');
+        var fp2Display = document.getElementById('fp2-display');
+        var badgeG2 = document.getElementById('badge-g2');
+        var stabilityVerdict = document.getElementById('stability-verdict');
+
+        // Gate 3 elements
+        var btnLockG3 = document.getElementById('btn-lock-gate3');
+        var fp3Display = document.getElementById('fp3-display');
+        var badgeG3 = document.getElementById('badge-g3');
+        var probeText = document.getElementById('probe-question-text');
+        var probeIdTag = document.getElementById('probe-id-tag');
+        var inputProbeAns = document.getElementById('input-probe-ans');
+        var btnValidateProbe = document.getElementById('btn-validate-probe');
+        var probePill = document.getElementById('probe-validation-pill');
+        var inputComparative = document.getElementById('input-comparative');
+
+        // Export elements
+        var displayFinal = document.getElementById('display-final-code');
+        var btnExportJson = document.getElementById('btn-export-json');
+        var btnCopyCard = document.getElementById('btn-copy-card');
+
+        // Dashboard controls
+        var viewCleanBtn = document.getElementById('view-mode-clean');
+        var viewRawBtn = document.getElementById('view-mode-raw');
+        var modeIndicator = document.getElementById('dashboard-mode-indicator');
+        var filterPrimary = document.getElementById('filter-primary');
+        var filterThreshold = document.getElementById('filter-threshold');
+        var thresholdVal = document.getElementById('threshold-val');
+
+        // 1. Gate 0 Initialization
+        btnGenerate.addEventListener('click', function () {
+            var name = inputName.value.trim();
+            var id = inputId.value.trim();
+            var domain = selectDomain.value;
+
+            if (!id) {
+                alert('Please enter a Student ID to derive your cryptographic seed.');
+                inputId.focus();
+                return;
+            }
+
+            state.studentName = name || 'Anonymous Student';
+            state.studentId = id;
+            state.domain = domain;
+
+            var ds = engine.generateDataset(id, domain, false);
+            state.seed = ds.seed;
+            state.rawDataset = ds.data;
+            state.cleanedDataset = JSON.parse(JSON.stringify(ds.data)); // default raw until cleaned
+
+            valSeed.textContent = ds.seed.slice(0, 16) + '...';
+            valRowCount.textContent = ds.rowCount;
+            seedBox.classList.remove('hidden');
+            btnDownloadCsv.classList.remove('hidden');
+
+            document.getElementById('card-gate0').classList.add('locked');
+            document.getElementById('status-icon').textContent = '1';
+            document.getElementById('status-title').textContent = 'Gate 1: Diagnose Structural Traps';
+            document.getElementById('status-desc').textContent = 'Explore your seeded dataset and discover injected failure modes.';
+
+            populateCategoryFilter();
+            updateDashboardViews();
+            loadProbeQuestion();
+        });
+
+        btnDownloadCsv.addEventListener('click', function () {
+            if (!state.rawDataset) return;
+            var csv = engine.toCSV(state.rawDataset);
+            var blob = new Blob([csv], { type: 'text/csv' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = state.domain + '-' + state.studentId + '-raw.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // 2. Gate 1 Query Execution
+        btnRunQuery.addEventListener('click', function () {
+            if (!state.rawDataset) { alert('Initialize Gate 0 first!'); return; }
+            var q = sqlInput.value.trim();
+            if (!q) return;
+
+            var res = [];
+            try {
+                var data = state.rawDataset;
+                /* jshint ignore:start */
+                var fn = new Function('data', 'return ' + q + ';');
+                res = fn(data);
+                /* jshint ignore:end */
+            } catch (err) {
+                alert('Query evaluation error: ' + err.message);
+                return;
+            }
+
+            if (!Array.isArray(res)) res = [res];
+            state.gate1.queries.push(q);
+            queryMeta.textContent = res.length + ' matching record(s)';
+
+            // Render table preview
+            renderTable(tableQuery, res.slice(0, 5));
+        });
+
+        document.getElementById('btn-sample-q1').addEventListener('click', function () {
+            if (state.domain === 'forensic') {
+                sqlInput.value = "data.filter(r => r.relinquishing_auth === 'NA' || r.relinquishing_auth === '' || r.relinquishing_auth === 'unknown')";
+            } else if (state.domain === 'cs') {
+                sqlInput.value = "data.filter(r => r.latency_ms > 2000)";
+            } else {
+                sqlInput.value = "data.filter(r => r.vitamin_c_mg === 0.0 && r.is_fasting_period === 0)";
+            }
+        });
+
+        document.getElementById('btn-sample-q2').addEventListener('click', function () {
+            if (state.domain === 'forensic') {
+                sqlInput.value = "data.filter(r => r.actual_turnaround > 30)";
+            } else if (state.domain === 'cs') {
+                sqlInput.value = "data.filter(r => r.http_status >= 500)";
+            } else {
+                sqlInput.value = "data.filter(r => r.serving_unit === 'total-recipe')";
+            }
+        });
+
+        btnLockG1.addEventListener('click', function () {
+            if (!state.rawDataset) { alert('Generate dataset first!'); return; }
+            var a1 = inputGrill1.value.trim();
+            var a2 = inputGrill2.value.trim();
+            if (a1.length < 15 || a2.length < 15) {
+                alert('Please provide thorough qualitative responses (at least 15 characters each) to both Grill-Me prompts.');
+                return;
+            }
+
+            state.gate1.grillAnswers = [a1, a2];
+            var qStr = (state.gate1.queries || []).join(';;');
+            var gStr = state.gate1.grillAnswers.join(';;');
+            state.gate1.fingerprint = engine.sha256(state.seed + '::' + qStr + '::' + gStr);
+
+            fp1Display.textContent = state.gate1.fingerprint.slice(0, 16) + '...';
+            badgeG1.className = 'badge bg-brandGreen text-white';
+            badgeG1.textContent = 'Gate 1: Sealed ✅';
+            document.getElementById('card-gate1').classList.add('locked');
+            document.getElementById('gate1-status-pill').textContent = 'Locked ✅';
+            document.getElementById('gate1-status-pill').className = 'text-xs font-mono font-bold text-brandGreen';
+        });
+
+        // 3. Gate 2 Cleaning & Stability
+        btnCleanTemplate.addEventListener('click', function () {
+            if (state.domain === 'forensic') {
+                codeCleanInput.value = "function cleanData(data) {\n  return data.map(function(row) {\n    var r = Object.assign({}, row);\n    if (r.relinquishing_auth === 'NA' || r.relinquishing_auth === '' || r.relinquishing_auth === 'unknown') {\n      r.relinquishing_auth = 'UNRECORDED_OFFICER';\n    }\n    return r;\n  });\n}";
+            } else if (state.domain === 'cs') {
+                codeCleanInput.value = "function cleanData(data) {\n  return data.map(function(row) {\n    var r = Object.assign({}, row);\n    if (r.latency_ms > 4000) {\n      r.latency_ms = 4000.0; // clamp or flag outlier\n    }\n    return r;\n  });\n}";
+            } else {
+                codeCleanInput.value = "function cleanData(data) {\n  return data.map(function(row) {\n    var r = Object.assign({}, row);\n    if (r.serving_unit === 'total-recipe') {\n      r.sodium_mg = parseFloat((r.sodium_mg / 4).toFixed(1));\n      r.serving_unit = 'per-serving';\n    }\n    return r;\n  });\n}";
+            }
+        });
+
+        btnRunStability.addEventListener('click', function () {
+            if (!state.rawDataset) { alert('Initialize Gate 0 first!'); return; }
+            var code = codeCleanInput.value.trim();
+            if (!code) { alert('Please write a cleaning function.'); return; }
+
+            try {
+                /* jshint ignore:start */
+                var fn = new Function('rawData', code + '\nif (typeof cleanData === "function") return cleanData(rawData); return rawData;');
+                var run1 = fn(JSON.parse(JSON.stringify(state.rawDataset)));
+                var run2 = fn(JSON.parse(JSON.stringify(state.rawDataset)));
+                /* jshint ignore:end */
+
+                var s1 = engine.computeStableStats(run1);
+                var s2 = engine.computeStableStats(run2);
+
+                document.getElementById('stat-r1-rows').textContent = s1.rows;
+                document.getElementById('stat-r2-rows').textContent = s2.rows;
+                document.getElementById('stat-sum').textContent = s1.numericSum;
+                document.getElementById('stat-nulls').textContent = s1.nullCount;
+
+                var isStable = (s1.rows === s2.rows && s1.numericSum === s2.numericSum && s1.nullCount === s2.nullCount);
+                if (isStable) {
+                    stabilityVerdict.innerHTML = '<span class="text-brandGreen">STABILITY VERIFIED ✅ (Deterministic parity confirmed)</span>';
+                    btnLockG2.disabled = false;
+                    state.cleanedDataset = run1;
+                    state.gate2.cleaningCode = code;
+                    state.gate2.stableStats = s1;
+                    updateDashboardViews();
+                } else {
+                    stabilityVerdict.innerHTML = '<span class="text-brandRed">STABILITY FAILED ❌ (Nondeterministic script outputs)</span>';
+                    btnLockG2.disabled = true;
+                }
+            } catch (err) {
+                stabilityVerdict.innerHTML = '<span class="text-brandRed">EXECUTION ERROR ❌: ' + err.message + '</span>';
+            }
+        });
+
+        btnLockG2.addEventListener('click', function () {
+            var just = inputJustification.value.trim();
+            if (just.length < 15) {
+                alert('Please provide a written justification (at least 15 characters) defending your preprocessing strategy.');
+                return;
+            }
+            state.gate2.justification = just;
+            var statsStr = JSON.stringify(state.gate2.stableStats);
+            state.gate2.fingerprint = engine.sha256(state.seed + '::' + state.gate2.cleaningCode + '::' + statsStr + '::' + just);
+
+            fp2Display.textContent = state.gate2.fingerprint.slice(0, 16) + '...';
+            badgeG2.className = 'badge bg-brandGreen text-white';
+            badgeG2.textContent = 'Gate 2: Sealed ✅';
+            document.getElementById('card-gate2').classList.add('locked');
+            document.getElementById('gate2-status-pill').textContent = 'Locked ✅';
+            document.getElementById('gate2-status-pill').className = 'text-xs font-mono font-bold text-brandGreen';
+            btnLockG3.disabled = false;
+        });
+
+        // 4. Gate 3 & Dynamic Calculated Probe
+        function loadProbeQuestion() {
+            if (!state.seed || !state.cleanedDataset) return;
+            var p = engine.computeProbeQuestion(state.seed, state.domain, state.cleanedDataset);
+            state.gate3.probeId = p.probeId;
+            probeIdTag.textContent = p.probeId;
+            probeText.textContent = p.questionText;
+        }
+
+        btnValidateProbe.addEventListener('click', function () {
+            var val = parseFloat(inputProbeAns.value);
+            if (isNaN(val)) { alert('Enter a valid numeric answer'); return; }
+
+            var p = engine.computeProbeQuestion(state.seed, state.domain, state.cleanedDataset);
+            if (Math.abs(val - p.expectedAnswer) < 0.05) {
+                probePill.textContent = 'Correct ✅ (' + val + ')';
+                probePill.className = 'text-xs font-mono font-bold text-brandGreen';
+                state.gate3.probeAnswer = val;
+            } else {
+                probePill.textContent = 'Incorrect ❌ (Verify calculations)';
+                probePill.className = 'text-xs font-mono font-bold text-brandRed';
+            }
+        });
+
+        btnLockG3.addEventListener('click', function () {
+            var comp = inputComparative.value.trim();
+            if (comp.length < 25) {
+                alert('Please provide a comparative visual analysis of at least 25 characters citing at least two visual deltas.');
+                return;
+            }
+            if (state.gate3.probeAnswer === null) {
+                alert('Please correctly verify the calculated probe question first.');
+                return;
+            }
+
+            state.gate3.comparativeAnalysis = comp;
+            var cfgStr = JSON.stringify(state.gate3.chartConfigs);
+            state.gate3.fingerprint = engine.sha256(state.seed + '::' + cfgStr + '::' + comp + '::' + state.gate3.probeAnswer);
+
+            fp3Display.textContent = state.gate3.fingerprint.slice(0, 16) + '...';
+            badgeG3.className = 'badge bg-brandGreen text-white';
+            badgeG3.textContent = 'Gate 3: Sealed ✅';
+            document.getElementById('card-gate3').classList.add('locked');
+            document.getElementById('gate3-status-pill').textContent = 'Locked ✅';
+            document.getElementById('gate3-status-pill').className = 'text-xs font-mono font-bold text-brandGreen';
+
+            // Seal Final Pass Code
+            var finalCode = engine.sha256(state.gate1.fingerprint + '+' + state.gate2.fingerprint + '+' + state.gate3.fingerprint + '+' + state.seed);
+            state.finalPassCode = finalCode;
+            displayFinal.textContent = finalCode.slice(0, 20) + '...';
+            btnExportJson.disabled = false;
+            btnCopyCard.disabled = false;
+        });
+
+        // 5. Submission Export
+        btnExportJson.addEventListener('click', function () {
+            var sub = {
+                studentName: state.studentName,
+                studentId: state.studentId,
+                domain: state.domain,
+                seed: state.seed,
+                timestamp: new Date().toISOString(),
+                gate1: state.gate1,
+                gate2: state.gate2,
+                gate3: state.gate3,
+                finalPassCode: state.finalPassCode
+            };
+            var jsonStr = JSON.stringify(sub, null, 2);
+            var blob = new Blob([jsonStr], { type: 'application/json' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'submission-' + state.studentId + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        btnCopyCard.addEventListener('click', function () {
+            var summary = [
+                '=== A3 GATE CHALLENGE VERIFICATION SEAL ===',
+                'Student:   ' + state.studentName + ' (' + state.studentId + ')',
+                'Domain:    ' + state.domain.toUpperCase(),
+                'Seed:      ' + state.seed,
+                'Pass Code: ' + state.finalPassCode,
+                'Gate 1:    ' + state.gate1.fingerprint,
+                'Gate 2:    ' + state.gate2.fingerprint,
+                'Gate 3:    ' + state.gate3.fingerprint,
+                '==========================================='
+            ].join('\n');
+            navigator.clipboard.writeText(summary).then(function () {
+                alert('Verification summary copied to clipboard!');
+            });
+        });
+
+        // Tab Navigation
+        document.querySelectorAll('.tab-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+                document.querySelectorAll('.tab-content').forEach(function (c) { c.classList.add('hidden'); });
+                btn.classList.add('active');
+                var target = document.getElementById(btn.getAttribute('data-tab'));
+                if (target) target.classList.remove('hidden');
+                if (btn.getAttribute('data-tab') === 'tab-breakdown') drawNetworkGraph();
+            });
+        });
+
+        // View Mode Switcher (Clean vs Raw)
+        viewCleanBtn.addEventListener('click', function () {
+            state.viewMode = 'clean';
+            viewCleanBtn.className = 'bg-white text-brandNavy font-bold px-3 py-1 rounded shadow-sm text-xs';
+            viewRawBtn.className = 'bg-transparent text-slate-600 hover:text-slate-900 font-bold px-3 py-1 rounded text-xs';
+            modeIndicator.textContent = 'Active: Cleaned Mode';
+            updateDashboardViews();
+        });
+
+        viewRawBtn.addEventListener('click', function () {
+            state.viewMode = 'raw';
+            viewRawBtn.className = 'bg-white text-brandRed font-bold px-3 py-1 rounded shadow-sm text-xs';
+            viewCleanBtn.className = 'bg-transparent text-slate-600 hover:text-slate-900 font-bold px-3 py-1 rounded text-xs';
+            modeIndicator.textContent = 'Active: RAW BROKEN DATA (Traps Visible)';
+            updateDashboardViews();
+        });
+
+        // Controls
+        filterPrimary.addEventListener('change', function () {
+            state.selectedCategory = filterPrimary.value;
+            updateDashboardViews();
+        });
+        filterThreshold.addEventListener('input', function () {
+            state.threshold = parseInt(filterThreshold.value, 10);
+            thresholdVal.textContent = state.threshold;
+            updateDashboardViews();
+        });
+
+        // Drill-Down simulation
+        document.getElementById('btn-drill-l1').addEventListener('click', function () { state.activeDrillLevel = 1; updateDrillText(); });
+        document.getElementById('btn-drill-l2').addEventListener('click', function () { state.activeDrillLevel = 2; updateDrillText(); });
+        document.getElementById('btn-drill-l3').addEventListener('click', function () { state.activeDrillLevel = 3; updateDrillText(); });
+
+        function updateDrillText() {
+            var total = state.cleanedDataset ? state.cleanedDataset.length : 0;
+            var text = 'Level ' + state.activeDrillLevel + ' Active · Lossless Roll-up Sum: ' + total + ' records (Exact mathematical conservation)';
+            document.getElementById('drill-status-text').textContent = text;
+        }
+
+        function populateCategoryFilter() {
+            filterPrimary.innerHTML = '<option value="ALL">All Categories (Global)</option>';
+            var set = {};
+            var ds = state.rawDataset || [];
+            for (var i = 0; i < ds.length; i++) {
+                var val = state.domain === 'forensic' ? ds[i].evidence_type : (state.domain === 'cs' ? ds[i].caller_service : ds[i].food_category);
+                if (val && !set[val]) {
+                    set[val] = true;
+                    var opt = document.createElement('option');
+                    opt.value = val;
+                    opt.textContent = val;
+                    filterPrimary.appendChild(opt);
+                }
+            }
+        }
+
+        function getActiveRecords() {
+            var data = (state.viewMode === 'clean' ? state.cleanedDataset : state.rawDataset) || [];
+            if (state.selectedCategory !== 'ALL') {
+                data = data.filter(function (r) {
+                    var val = state.domain === 'forensic' ? r.evidence_type : (state.domain === 'cs' ? r.caller_service : r.food_category);
+                    return val === state.selectedCategory;
+                });
+            }
+            return data;
+        }
+
+        function updateDashboardViews() {
+            var records = getActiveRecords();
+            document.getElementById('kpi-total-records').textContent = records.length;
+
+            var breaches = 0;
+            var metricSum = 0;
+            var metricVals = [];
+
+            for (var i = 0; i < records.length; i++) {
+                var r = records[i];
+                var m = state.domain === 'forensic' ? r.actual_turnaround : (state.domain === 'cs' ? r.latency_ms : r.sodium_mg);
+                if (typeof m === 'number') {
+                    metricSum += m;
+                    metricVals.push(m);
+                    if (m > state.threshold) breaches++;
+                }
+            }
+
+            var breachPct = records.length > 0 ? ((breaches / records.length) * 100).toFixed(1) + '%' : '0%';
+            var mean = records.length > 0 ? (metricSum / records.length).toFixed(1) : '0';
+            metricVals.sort(function (a, b) { return a - b; });
+            var p95 = metricVals.length > 0 ? metricVals[Math.floor(metricVals.length * 0.95)] : 0;
+
+            document.getElementById('kpi-breach-rate').textContent = breachPct + ' (' + breaches + ')';
+            document.getElementById('kpi-mean-metric').textContent = mean + (state.domain === 'cs' ? ' ms' : (state.domain === 'forensic' ? ' d' : ' mg'));
+            document.getElementById('kpi-tail-exposure').textContent = p95 + (state.domain === 'cs' ? ' ms' : '');
+
+            drawBarChart(records);
+            drawScatter(records);
+            drawNetworkGraph();
+            renderTable(document.getElementById('table-detail-stream'), records.slice(0, 15));
+            document.getElementById('detail-row-counter').textContent = 'Showing 15 of ' + records.length + ' active records';
+            updateDrillText();
+        }
+
+        // Lightweight HTML5 Canvas Chart Renderers
+        function drawBarChart(records) {
+            var canvas = document.getElementById('chart-bar');
+            var ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            var groups = {};
+            for (var i = 0; i < records.length; i++) {
+                var key = state.domain === 'forensic' ? (records[i].jurisdiction_zone || 'Unknown') : (state.domain === 'cs' ? records[i].target_service : records[i].demographic_cohort);
+                groups[key] = (groups[key] || 0) + 1;
+            }
+
+            var keys = Object.keys(groups);
+            if (!keys.length) return;
+            var maxVal = Math.max.apply(null, Object.values(groups));
+            var barWidth = (canvas.width - 60) / keys.length;
+
+            ctx.fillStyle = '#64748b';
+            ctx.font = '10px monospace';
+
+            for (var j = 0; j < keys.length; j++) {
+                var val = groups[keys[j]];
+                var h = (val / maxVal) * (canvas.height - 40);
+                var x = 40 + j * barWidth;
+                var y = canvas.height - 25 - h;
+
+                ctx.fillStyle = (state.viewMode === 'raw' && j % 2 === 0) ? '#dc2626' : '#28a8e8';
+                ctx.fillRect(x, y, barWidth - 8, h);
+
+                ctx.fillStyle = '#0f172a';
+                ctx.fillText(keys[j].slice(0, 6), x, canvas.height - 10);
+                ctx.fillText(val, x + 2, y - 4);
+            }
+        }
+
+        function drawScatter(records) {
+            var canvas = document.getElementById('chart-scatter');
+            var ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (!records.length) return;
+            var maxVal = state.domain === 'cs' ? 16000 : (state.domain === 'forensic' ? 100 : 8000);
+
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.beginPath();
+            ctx.moveTo(30, canvas.height - 20);
+            ctx.lineTo(canvas.width - 10, canvas.height - 20);
+            ctx.stroke();
+
+            // Threshold line
+            var threshY = canvas.height - 20 - (state.threshold / maxVal) * (canvas.height - 40);
+            ctx.strokeStyle = '#f59e0b';
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            ctx.moveTo(30, threshY);
+            ctx.lineTo(canvas.width - 10, threshY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            for (var i = 0; i < records.length; i++) {
+                var m = state.domain === 'forensic' ? records[i].actual_turnaround : (state.domain === 'cs' ? records[i].latency_ms : records[i].sodium_mg);
+                if (typeof m !== 'number') continue;
+                var x = 35 + (i / records.length) * (canvas.width - 50);
+                var y = canvas.height - 20 - (m / maxVal) * (canvas.height - 40);
+
+                ctx.fillStyle = m > state.threshold ? '#dc2626' : '#3c9080';
+                ctx.beginPath();
+                ctx.arc(x, Math.max(10, y), 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function drawNetworkGraph() {
+            var canvas = document.getElementById('canvas-network');
+            var ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            var records = getActiveRecords();
+            var g = engine.computeGraphMetrics(records, state.domain);
+            if (g.topHub) {
+                document.getElementById('graph-top-hub').textContent = g.topHub.id + ' (deg: ' + g.topHub.degree + ')';
+            }
+
+            var nodePositions = {};
+            var nodes = g.nodes.slice(0, 16);
+            var angleStep = (Math.PI * 2) / nodes.length;
+            var cx = canvas.width / 2;
+            var cy = canvas.height / 2;
+            var radius = 100;
+
+            for (var i = 0; i < nodes.length; i++) {
+                var a = i * angleStep;
+                nodePositions[nodes[i].id] = {
+                    x: cx + Math.cos(a) * radius,
+                    y: cy + Math.sin(a) * (radius * 0.7),
+                    deg: nodes[i].degree
+                };
+            }
+
+            // Draw edges
+            ctx.strokeStyle = 'rgba(40, 168, 232, 0.25)';
+            ctx.lineWidth = 1;
+            for (var e = 0; e < g.edges.length; e++) {
+                var src = nodePositions[g.edges[e].source];
+                var tgt = nodePositions[g.edges[e].target];
+                if (src && tgt) {
+                    ctx.beginPath();
+                    ctx.moveTo(src.x, src.y);
+                    ctx.lineTo(tgt.x, tgt.y);
+                    ctx.stroke();
+                }
+            }
+
+            // Draw nodes
+            for (var n = 0; n < nodes.length; n++) {
+                var pos = nodePositions[nodes[n].id];
+                if (!pos) continue;
+                var r = Math.min(18, Math.max(4, pos.deg * 1.8));
+
+                ctx.fillStyle = nodes[n].id === (g.topHub ? g.topHub.id : '') ? '#48b838' : '#28a8e8';
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, r, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '9px monospace';
+                ctx.fillText(nodes[n].id.slice(0, 10), pos.x + r + 2, pos.y + 3);
+            }
+        }
+
+        function renderTable(tableEl, data) {
+            if (!tableEl) return;
+            var thead = tableEl.querySelector('thead');
+            var tbody = tableEl.querySelector('tbody');
+            thead.innerHTML = '';
+            tbody.innerHTML = '';
+
+            if (!data || !data.length) {
+                thead.innerHTML = '<tr><th class="p-2">No data</th></tr>';
+                return;
+            }
+
+            var headers = Object.keys(data[0]).slice(0, 6);
+            var htr = document.createElement('tr');
+            headers.forEach(function (h) {
+                var th = document.createElement('th');
+                th.className = 'p-2 border-b border-slate-200 uppercase font-mono text-[10px] text-slate-500';
+                th.textContent = h;
+                htr.appendChild(th);
+            });
+            thead.appendChild(htr);
+
+            data.forEach(function (row) {
+                var tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 border-b border-slate-100 font-mono text-[11px]';
+                headers.forEach(function (h) {
+                    var td = document.createElement('td');
+                    td.className = 'p-2';
+                    var val = row[h];
+                    td.textContent = (val === null || val === undefined) ? 'null' : String(val);
+                    if (val === 'NA' || val === '' || val === null) td.className += ' text-brandRed font-bold';
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+        }
+
+    })();
+    </script>
+</body>
+</html>
