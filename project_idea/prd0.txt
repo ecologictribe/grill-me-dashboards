@@ -1,0 +1,314 @@
+# PRD: Gate Challenge — Work-Bound AI-Assisted Assessment
+
+**Version:** 1.0
+**Owner:** Instructor (course lead)
+**Build budget:** 4 hours (single developer)
+**Status:** Ready to build
+
+---
+
+## 1. Problem Statement
+
+Students in Forensic Science, Computer Science, and Nutrition courses have learned to build Power BI and HTML dashboards using prompting, "grill me" interrogation of LLMs, and preprocessing skills. Three assignments were issued, each with progressive Gates that students were meant to *pass by demonstrating work*. In practice, students bypassed the Gates by asking an LLM to "pass" them, and final submissions were PDFs that could be copied from one another or generated wholesale by an LLM.
+
+**The core failure:** assessment artifacts (PDFs, gate tokens) are *outputs*, not *processes*. They can be produced without the student doing the practical work.
+
+**This product's job:** convert assessment into a **work-bound, per-student, tamper-evident process** where an LLM can *help* but cannot *substitute*, and where collusion produces mismatched results by construction.
+
+---
+
+## 2. Goals & Non-Goals
+
+### Goals
+| # | Goal | Measure |
+|---|------|---------|
+| G1 | Every student's practical work is bound to a unique dataset | 100% of submissions carry a per-student seed |
+| G2 | Gate passes cannot be obtained by asking an LLM | Gate code derived from student's own code/text + seed |
+| G3 | Collusion between students fails verification | Copying produces hash mismatch across seeds |
+| G4 | AI remains a permitted, useful tool | Students may use LLMs freely; only *work* is bound |
+| G5 | Instructor verification takes < 2 min per submission | `verify.html` recomputes in-browser |
+| G6 | Build completes in 4 hours, zero recurring cost | Static site on free hosting |
+
+### Non-Goals
+- **Not** a proctoring system (no webcam, keystroke logging, or identity checks).
+- **Not** a replacement for the existing Power BI / HTML dashboard curriculum — it **assesses** that curriculum.
+- **Not** a student portfolio/hosting platform (students do not deploy sites in v1).
+- **Not** an LMS integration (no Canvas/Moodle hooks in v1).
+- **Not** a persistent server-side database (all state is client-side per submission).
+
+---
+
+## 3. Users & Personas
+
+| Persona | Role | Needs |
+|---------|------|-------|
+| **Student** (Forensic / CS / Nutrition) | Completes 3 gates, submits artifact | Clear instructions, in-browser tools, ability to use AI, feedback that gate passed |
+| **Instructor** (you) | Builds app, verifies submissions | Fast verification, tamper evidence, spot-check ability, no server maintenance |
+| **TA / Grader** (optional) | Reviews a sample orally | Access to the student's raw SQL/text and exported JSON |
+
+---
+
+## 4. Product Overview
+
+A single static web application hosted on **GitHub Pages** (free). It contains:
+
+- **`index.html`** — the student-facing Gate Challenge app.
+- **`verify.html`** — the instructor-facing verifier.
+- **`/assets`** — CDN-loaded `sql.js`, `Chart.js`, and a shared `hash.js` module.
+
+No backend. No student accounts. No student repos. Each student opens the same URL, enters their ID, and the app generates everything they need in-browser.
+
+---
+
+## 5. User Flows
+
+### 5.1 Student Flow (Primary)
+
+```
+Open URL
+  → Enter Name + Roll No/ID
+  → App derives seed = hash(ID), generates unique CSV dataset
+  → Dashboard shows raw data table + list of known issues (masked)
+  ┌─ GATE 1: DIAGNOSE ─────────────────────────────┐
+  │  - Write SQL queries (sql.js sandbox)          │
+  │  - Answer 2 "grill me" prompts (text)          │
+  │  - Click "Submit Gate 1"                       │
+  │  - App computes fingerprint_1, stores it       │
+  └────────────────────────────────────────────────┘
+  ┌─ GATE 2: PREPROCESS ───────────────────────────┐
+  │  - Write cleaning code (SQL or JS)             │
+  │  - App runs it, shows cleaned table            │
+  │  - Answer 1 "grill me" justification prompt    │
+  │  - Click "Submit Gate 2"                       │
+  │  - App computes fingerprint_2                  │
+  └────────────────────────────────────────────────┘
+  ┌─ GATE 3: COMPARE ──────────────────────────────┐
+  │  - Paste Chart.js config or use builder UI     │
+  │  - Renders raw vs cleaned chart side by side   │
+  │  - Write comparative analysis (text)           │
+  │  - Answer randomized probe question            │
+  │  - Click "Submit Gate 3"                       │
+  │  - App computes fingerprint_3                  │
+  └────────────────────────────────────────────────┘
+  → App displays FINAL GATE PASS CODE (SHA-256 of all fingerprints + seed)
+  → "Export Submission" downloads submission.json
+  → Student uploads submission.json to course portal
+```
+
+### 5.2 Instructor Flow
+
+```
+Receive submission.json from student
+  → Open verify.html
+  → Paste/drop submission.json
+  → Verifier recomputes fingerprint chain from the JSON contents
+  → Displays: MATCH ✅ / MISMATCH ❌ + per-gate breakdown
+  → (Optional) spot-check: read raw SQL, grill-me answers, chart config
+```
+
+---
+
+## 6. Functional Requirements
+
+### FR-1: Identity & Seeding
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-1.1 | App accepts `Name` and `ID` (string, free text, min 3 chars) | P0 |
+| FR-1.2 | Seed = SHA-256(`ID` + salt), salt is fixed in app source | P0 |
+| FR-1.3 | Seeded PRNG (e.g., mulberry32) generates a 60–100 row CSV | P0 |
+| FR-1.4 | Dataset is domain-tagged: student selects Forensic / CS / Nutrition; schema differs per domain | P0 |
+| FR-1.5 | Dataset intentionally contains: ≥1 missing-value cluster, ≥1 inconsistent format, ≥1 outlier, ≥1 logical contradiction | P0 |
+| FR-1.6 | Same ID always produces same dataset (deterministic) | P0 |
+| FR-1.7 | Dataset rendered in a scrollable table; downloadable as CSV | P1 |
+
+### FR-2: Gate 1 — Diagnose
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-2.1 | Embedded SQL editor (textarea + "Run" button, `sql.js` in browser) | P0 |
+| FR-2.2 | Query results render as a table below the editor | P0 |
+| FR-2.3 | Two "grill me" prompt text boxes with prompts served from app config | P0 |
+| FR-2.4 | On "Submit Gate 1": compute `fingerprint_1 = SHA256(seed + concat(all_sql_strings) + concat(grill_answers))` | P0 |
+| FR-2.5 | Store fingerprint_1 in `sessionStorage` | P0 |
+| FR-2.6 | App warns if any field is empty (no bypass) | P0 |
+
+### FR-3: Gate 2 — Preprocess
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-3.1 | Accept SQL or JavaScript cleaning code | P0 |
+| FR-3.2 | Execute cleaning code on the dataset; show before/after row counts and a sample | P0 |
+| FR-3.3 | One justification text box ("justify imputation choice vs alternative") | P0 |
+| FR-3.4 | `fingerprint_2 = SHA256(seed + cleaning_code + cleaned_data_stats + justification)` | P0 |
+| FR-3.5 | `cleaned_data_stats` = row count, column count, sum of numeric columns, count of nulls remaining (deterministic) | P0 |
+| FR-3.6 | Store fingerprint_2; gate 3 disabled until gate 2 passed | P0 |
+
+### FR-4: Gate 3 — Compare & Analyze
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-4.1 | Student pastes a Chart.js `config` JSON **or** uses a simple builder UI (x-col, y-col, chart-type) | P0 |
+| FR-4.2 | App renders **two** charts: raw-data chart and cleaned-data chart, side by side | P0 |
+| FR-4.3 | Comparative analysis text box (min 100 chars) | P0 |
+| FR-4.4 | **Randomized probe:** app asks a computed question whose answer depends on the cleaned data (e.g., "How many rows remain after your dedup step?"); student must answer; correct answer is computed from their actual cleaned data | P0 |
+| FR-4.5 | Probe answer auto-checked; wrong answer blocks submission with hint "re-run your cleaning code" | P0 |
+| FR-4.6 | `fingerprint_3 = SHA256(seed + chart_config + comparative_analysis + probe_answer)` | P0 |
+
+### FR-5: Final Code & Export
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-5.1 | `FINAL_CODE = SHA256(fingerprint_1 + fingerprint_2 + fingerprint_3 + seed)` | P0 |
+| FR-5.2 | Display final code prominently with copy button | P0 |
+| FR-5.3 | "Export Submission" downloads `submission.json` containing: name, ID, seed, domain, all SQL/code strings, all grill-me answers, chart config, probe answer, per-gate fingerprints, final code, timestamp | P0 |
+| FR-5.4 | `submission.json` is the **only** required submission artifact | P0 |
+
+### FR-6: Verifier (`verify.html`)
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-6.1 | Accept a dropped/pasted `submission.json` | P0 |
+| FR-6.2 | Recompute seed from ID + salt; assert it matches submitted seed | P0 |
+| FR-6.3 | Recompute fingerprint_1/2/3 from submitted artifacts | P0 |
+| FR-6.4 | Recompute FINAL_CODE; display MATCH / MISMATCH per gate and overall | P0 |
+| FR-6.5 | On mismatch, display which gate failed and a diff hint (e.g., "fingerprint_2 mismatch — code or stats altered") | P1 |
+| FR-6.6 | Render student's raw SQL, grill answers, and chart config for spot-checking | P0 |
+| FR-6.7 | No network calls; verifier runs fully offline | P0 |
+
+### FR-7: Anti-Bypass Mechanics
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-7.1 | Gate submit buttons are disabled until minimum input lengths are met | P0 |
+| FR-7.2 | Fingerprints are computed from **typed content**, not from a button click | P0 |
+| FR-7.3 | Probe question in Gate 3 is randomized per seed and requires a computed answer | P0 |
+| FR-7.4 | App does not display fingerprints until final export (prevents copy-paste of intermediate hashes) | P1 |
+| FR-7.5 | App includes a footer warning: "Submitting another student's code will fail verification" | P2 |
+
+---
+
+## 7. Hashing & Integrity Design (Spec)
+
+```
+salt            = "gatechallenge-v1"           // fixed, in source
+seed            = SHA256(ID + salt)            // hex, first 16 chars used for PRNG
+prng            = mulberry32(parseInt(seed, 16))
+
+fingerprint_1   = SHA256(seed + join(sqlStrings, "|") + join(grillAnswersGate1, "|"))
+fingerprint_2   = SHA256(seed + cleaningCode + stableStats(cleanedData) + justification)
+fingerprint_3   = SHA256(seed + chartConfigJSON + comparativeAnalysis + probeAnswer)
+FINAL_CODE      = SHA256(fingerprint_1 + fingerprint_2 + fingerprint_3 + seed)
+```
+
+`stableStats(cleanedData)` = `{rows, cols, sumNumericCols (fixed 2dp), nullCount}` serialized in fixed key order.
+
+**Key properties:**
+- **Seed-dependent:** two students with different IDs cannot share any fingerprint.
+- **Content-bound:** hashing over code/text, not over UI state.
+- **Order-stable:** normalization rules prevent false mismatches from whitespace/ordering.
+- **Offline-verifiable:** verifier needs nothing but the JSON.
+
+---
+
+## 8. Non-Functional Requirements
+
+| Category | Requirement |
+|----------|-------------|
+| **Hosting** | GitHub Pages, static only, HTTPS |
+| **Cost** | $0 recurring |
+| **Performance** | Full app load < 3s on 3G; sql.js query on 100 rows < 200ms |
+| **Browser support** | Chrome, Edge, Firefox, Safari (last 2 versions) |
+| **Offline** | After first load, app functions offline via service worker (P1) |
+| **Accessibility** | Keyboard-navigable forms; labeled inputs; colorblind-safe chart palette |
+| **Privacy** | No analytics, no third-party calls beyond CDN; all data stays in browser |
+| **Security** | `crypto.subtle` for hashing; no eval of student JS beyond sandboxed function runner (P2: use `new Function` with allowlist or Web Worker) |
+| **Data retention** | None server-side; submission.json is the sole record |
+
+---
+
+## 9. Tech Stack
+
+| Layer | Choice | Reason |
+|-------|--------|--------|
+| Hosting | GitHub Pages | Free, static, 2-min setup |
+| UI | Vanilla HTML + CSS + JS | No build step; 4-hour budget |
+| SQL engine | `sql.js` (CDN) | SQLite in browser, matches the assignment's SQL focus |
+| Charts | `Chart.js` (CDN) | Simple, fast, matches HTML dashboard curriculum |
+| Hashing | `crypto.subtle.digest('SHA-256', ...)` | Native, no lib |
+| Storage | `sessionStorage` | Per-student, per-tab, no backend |
+| Export | `Blob` + `URL.createObjectURL` | Client-side download |
+
+---
+
+## 10. 4-Hour Build Plan
+
+| Hour | Deliverable | Definition of Done |
+|------|-------------|--------------------|
+| **0:00–0:30** | Repo, Pages enabled, HTML skeleton, CDN links, `hash.js` | Page loads with 3 empty gate sections |
+| **0:30–1:30** | Seeding + dataset generator (3 domains) + CSV table render | Same ID → same data; domain switches schema |
+| **1:30–2:30** | Gate 1 & 2: SQL editor, sql.js runner, code runner, fingerprint computation, sessionStorage | Gates submit and store fingerprints; empty fields blocked |
+| **2:30–3:15** | Gate 3: Chart.js dual render, probe question, comparative text, final code, JSON export | Full student flow completes end-to-end |
+| **3:15–3:45** | `verify.html`: JSON drop, recompute chain, MATCH/MISMATCH UI | Two seeds tested: own JSON matches, swapped JSON mismatches |
+| **3:45–4:00** | One-page student instruction sheet + smoke test on 3 IDs, 2 domains | No console errors; submission.json round-trips through verifier |
+
+---
+
+## 11. Acceptance Criteria (Definition of Done)
+
+- [ ] AC-1: Two different IDs produce visibly different datasets.
+- [ ] AC-2: A student can complete all three gates in under 40 minutes.
+- [ ] AC-3: `submission.json` exported by student A verifies as MATCH in `verify.html`.
+- [ ] AC-4: `submission.json` from student A, with ID changed to student B's, verifies as **MISMATCH**.
+- [ ] AC-5: Changing any single grill-me answer in the JSON causes fingerprint mismatch at the corresponding gate.
+- [ ] AC-6: Gate 3 cannot be submitted with a wrong probe answer.
+- [ ] AC-7: Verifier runs offline (after first load) with no network requests.
+- [ ] AC-8: Instructor can read a student's raw SQL and answers directly inside `verify.html`.
+
+---
+
+## 12. Risks & Mitigations
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|------------|--------|------------|
+| Student reads JS and reimplements hash | Low | Medium | Hash is tamper-evidence, not the grade; oral spot-check on 10% sample |
+| Student asks LLM to write all SQL + answers | Medium | Medium | Allowed by design — LLM *may* help; probe question still requires running code on their unique data; grill-me spot-check |
+| Two students collude and swap datasets | Low | Low | Fingerprint mismatch across seeds; probe answers differ |
+| `sql.js` CDN failure | Low | High | Pin version; optionally vendor locally in `/assets` |
+| Student JS in cleaning code is unsafe | Low | Medium | Run in a `Web Worker` with timeout; disallow `fetch`/`import` |
+| Student loses session before export | Medium | Medium | Auto-save state to `localStorage` on each gate submit |
+| Probe answer wrong due to ambiguity | Medium | Medium | Probe question is auto-generated from exact computed value; instructions say "use the number your cleaning output shows" |
+
+---
+
+## 13. Out of Scope (v1)
+
+- Server-side database or persistent student accounts
+- Student-hosted dashboard deployment (candidate for v2 "Gate 4")
+- LMS gradebook sync
+- Power BI file ingestion (v1 focuses on HTML/Chart.js dashboard; Power BI comparison remains in the existing assignment)
+- Multi-language UI
+- Mobile-optimized layout (works, but desktop-first)
+
+---
+
+## 14. Open Questions
+
+1. Should the domain (Forensic/CS/Nutrition) be chosen by the student or assigned by the instructor? *(Recommend: student chooses — supports the three cohorts.)*
+2. Should the probe question be one per gate 3 or a bank of 3 with random selection? *(Recommend: bank of 3, one selected by seed.)*
+3. Is a **Gate 4 (student-hosted dashboard)** wanted for v2? *(Defer.)*
+4. What's the minimum comparative analysis length that reliably resists "one-line LLM answer"? *(Recommend: 100 chars + must reference at least one numeric delta.)*
+
+---
+
+## 15. Success Metrics (post-launch)
+
+- ≥ 90% of submissions verify as MATCH on first attempt.
+- < 5% of submissions require oral spot-check escalation.
+- Instructor verification time ≤ 90 seconds per submission.
+- Zero submissions flagged as collusion (mismatched hashes from copied work).
+- Student feedback: AI still usable, task feels fair, gates feel like *their* work.
+
+---
+
+**End of PRD.**

@@ -1,0 +1,144 @@
+The revised PRD needs to move from "students build a dashboard" to **"students diagnose and solve specific, domain-flavored visualization problems under interaction constraints."** The three domains (Forensic, CS, Nutrition) should not just change the dataset schema — they should each expose a *different failure mode of visualization* that only careful preprocessing and interaction design can fix.
+
+---
+
+## 1. Dashboard Types: A Deliberate Spectrum
+
+Students should not build one generic dashboard. Assign (or let students choose) **one primary type** per domain, with the interaction requirements scaled accordingly. The literature distinguishes operational, tactical/analytical, and strategic dashboards by update frequency, audience, and depth of analysis.
+
+| Dashboard Type | Forensic | CS | Nutrition |
+| :--- | :--- | :--- | :--- |
+| **Operational** (real-time / near-real-time, front-line) | Evidence intake monitor: chain-of-custody gaps, case backlog, lab turnaround | System incident stream: error rates, latency, deployment health | Dietary intake adherence feed: missed logs, implausible calorie entries |
+| **Analytical / Tactical** (exploration, segment discovery) | Link analysis: suspect–victim–location networks, temporal clustering | Dependency graph: module coupling, commit–issue–service relationships | Nutrient deficiency clustering: subpopulation patterns, food-desert mapping |
+| **Strategic** (KPI monitoring, executive) | Case clearance rate vs. national benchmark, backlog trend | Engineering health scorecard: velocity, defect escape rate, on-call load | Population-level nutrition security index, trend vs. policy targets |
+
+**The assessment problem:** An operational dashboard that *looks* like a strategic one is a failure. Students must justify why their chosen type demands specific latency, granularity, and interaction patterns — not just "I picked a bar chart."
+
+---
+
+## 2. Interaction Requirements (Non-Negotiable for All Students)
+
+Every dashboard must implement the following, and the Gate 3 probe will randomly interrogate one of them:
+
+### Multi-tab architecture
+- Minimum **three tabs**: Overview → Breakdown → Detail.
+- Tabs must share a **global filter context** (e.g., date range, population segment, case type).
+- *Assessment twist:* A filter on Tab 1 must visibly change a KPI on Tab 3. Students must submit a "filter propagation map" showing which filters affect which visuals. The most common failure in multi-page dashboards is that filters silently affect only part of the report.
+
+### On-the-fly processing
+- Students must implement at least one **client-side transformation** that runs when a user changes a filter — e.g., re-aggregating, re-ranking, or re-computing a derived metric without a page reload.
+- This forces them to confront the gap between *pre-computed dashboards* and *responsive exploration*. The "on-the-fly" requirement makes the preprocessing decisions visible: if the cleaning was wrong, the live re-aggregation will produce absurd results.
+
+### Cross-linking / linked brushing
+- Selecting a mark in one visual must highlight corresponding marks in at least two other visuals.
+- *Assessment twist:* The linked views must use **different chart types** (e.g., a network graph linked to a timeline linked to a bar chart). This tests whether the student understands the underlying data grain, not just visual sync.
+
+### Deep drill-down and roll-up
+- Minimum **three levels** of hierarchy per domain (e.g., Nutrition: Population → Household → Individual → Meal).
+- Roll-up must be **lossless**: returning to the top level must restore the exact original aggregate.
+- *Common pitfall to teach:* Drill-down often hits a raw table with no pre-aggregation, causing full scans and broken performance. Students must document the grain at each level.
+
+### Graph theory (E, V) integration
+- At least one tab must use a **node–edge representation** where:
+  - Nodes = entities (suspects, services, foods/nutrients).
+  - Edges = relationships (co-occurrence, dependency, substitution).
+  - Edge width/colour encodes a weight or attribute; node size encodes centrality or frequency.
+- Students must compute at least **one graph metric** (degree, betweenness, or community membership) and use it to drive a visual encoding or filter. Graph visualization is not just a pretty network — the structural intelligence (brokers, hubs, isolated clusters) must change what the dashboard *shows*.
+
+---
+
+## 3. Domain-Specific Preprocessing Problems
+
+The dataset generator must inject **different structural defects** per domain, so that the preprocessing code cannot be copy-pasted across cohorts.
+
+### Forensic Science: Integrity and Bias
+The core tension in forensic data is that **missingness is not random** — dropping rows with nulls can introduce evidentiary bias.
+
+| Injected Problem | Why It Matters for Visualization |
+| :--- | :--- |
+| Null-equivalent strings (`""`, `"NA"`, `"unknown"`, `"-"`) in chain-of-custody fields | Standard null checks miss them; a dashboard built on raw data will *undercount* cases and hide procedural gaps |
+| Out-of-range values (e.g., negative time-since-death, impossible age) | Must be flagged, not silently clipped; clipping hides the very anomalies investigators need to see |
+| Duplicate case IDs with conflicting attributes | Deduplication logic determines whether a network graph shows one node or two — changing the topology |
+| Format inconsistency (date formats, ID casing) | Joins silently fail; cross-linked views break because keys do not match |
+
+**Visualization challenge:** *Aggregation hides tail failures.* A mean case-turnaround time can look acceptable while 15% of cases breach the statutory limit — exactly the kind of summary that misleads decision-makers.
+
+### Computer Science: Scale and Dependency
+CS data is **wide, relational, and high-cardinality**. The visualization failure mode is *spaghetti* — a graph or multi-line chart that renders every edge or series, making structure invisible.
+
+| Injected Problem | Why It Matters for Visualization |
+| :--- | :--- |
+| Missing values in optional metadata fields (labels, milestones) | Imputing with a constant creates false clusters; dropping them biases the graph toward well-documented projects |
+| Outliers in latency/error-rate columns (long-tail distributions) | Linear axes compress the signal; log scales are required, but students must justify the axis choice |
+| High-cardinality categorical fields (100+ repo names, service IDs) | A bar chart with 100 categories is unreadable; students must aggregate, filter, or switch to a searchable list |
+| Temporal inconsistency (timezone-naive timestamps, clock skew) | Event ordering in a streaming view becomes wrong; drill-down sequences produce impossible histories |
+
+**Visualization challenge:** *Filter state is invisible.* In a multi-tab CS dashboard, a user can drill into a service and forget that a global date filter is active, leading to conclusions about the wrong time window. The PRD must require persistent, visible filter context.
+
+### Nutrition: Sparsity and Skew
+Nutrition data is **sparse, zero-inflated, and heavy-tailed**. The visualization failure mode is *false precision* — an imputed mean presented as if it were observed.
+
+| Injected Problem | Why It Matters for Visualization |
+| :--- | :--- |
+| Zero-inflated nutrient columns (e.g., 38% zeros for Vitamin C) | Treating zeros as missing versus true zeros changes the distribution shape and every downstream chart |
+| Extreme outliers (sodium, retinol) spanning orders of magnitude | A single outlier can flatten the entire y-axis; students must choose between robust summaries, log scales, or separate outlier views |
+| Missingness clustered by demographic group | Imputing at the global level hides the fact that one subgroup has systematically different missingness — a disparity the dashboard should surface, not erase |
+| Unit inconsistency (per-serving vs. per-100g vs. per-recipe totals) | Failing to normalize means comparisons across food items are meaningless; the dashboard will show spurious rankings |
+
+**Visualization challenge:** *Aggregation hides subgroup divergence.* Overall nutrient intake can appear stable while one demographic group's intake collapses and another's rises — the aggregate is arithmetically correct but decision-useless.
+
+---
+
+## 4. Revised Gate Structure (Integrating the New Requirements)
+
+The original three-gate structure (Diagnose → Preprocess → Compare) remains, but each gate now has **domain-specific and interaction-specific probes**.
+
+### Gate 1: Diagnose (Expanded)
+- **SQL/code task:** Detect the injected defects specific to the student's domain.
+- **Grill Me prompts:**
+  - Forensic: *"You found a null-equivalent string in the chain-of-custody column. If you drop that row, what bias does your network graph introduce?"*
+  - CS: *"Your latency column has a 99th-percentile value 200× the median. What happens to your dashboard's y-axis if you use a linear scale, and who does that mislead?"*
+  - Nutrition: *"Your Vitamin C column is 38% zeros. Are those true zeros or missing values, and how does your answer change the dashboard's message?"*
+- **Fingerprint:** Hash of (SQL queries + grill answers + seed).
+
+### Gate 2: Preprocess (Expanded)
+- **Code task:** Clean the data. Must include at least one **domain-appropriate imputation or exclusion decision** and one **normalization/unit-harmonization step**.
+- **Grill Me prompt:** *"Justify your choice of median imputation over mean imputation for this specific column, given its distribution."*
+- **New requirement:** The cleaned data must pass a **stability check** — running the cleaning code twice produces identical summary statistics. This catches non-deterministic hacks and reinforces reproducibility.
+- **Fingerprint:** Hash of (cleaning code + stable stats + justification + seed).
+
+### Gate 3: Compare & Analyze (Expanded)
+- **Dashboard build:** Must implement the interaction checklist (multi-tab, on-the-fly, cross-linking, drill-down/roll-up, graph tab).
+- **Dual render:** Raw-data dashboard and cleaned-data dashboard, side by side.
+- **Comparative analysis:** Must reference at least **two specific visual differences** caused by preprocessing (e.g., "the outlier removal changed the top-ranked service from A to B").
+- **Randomized probe (computed):** One of the following, selected by seed:
+  - *"After your cleaning, how many rows remain in the [domain-specific table]?"*
+  - *"What is the degree centrality of node X in your graph tab?"*
+  - *"When you roll up from Detail to Overview, what is the aggregate value of [metric]?"*
+- **Fingerprint:** Hash of (chart configs + comparative analysis + probe answer + interaction map + seed).
+
+---
+
+## 5. What This Teaches (The "Specific Problems" Learning Outcomes)
+
+| Problem Class | What Students Learn | How the Gate Forces It |
+| :--- | :--- | :--- |
+| **Summary hides tails** | Mean vs. median vs. percentile; why operational dashboards need threshold-breach views | Gate 3 probe asks for the value that reveals the tail |
+| **Filter ambiguity** | Global vs. local filter scope; why silent filter propagation destroys trust | Filter propagation map submitted with Gate 3 |
+| **Drill-down grain collapse** | Hierarchy levels must have distinct aggregation grains; roll-up must be lossless | Probe asks for roll-up value after drill-down |
+| **Graph legibility** | Not every edge deserves a mark; centrality and filtering are design choices | Graph tab must use a computed metric to drive encoding |
+| **Imputation bias** | Missingness is information; dropping nulls is a decision with visual consequences | Gate 2 stability check + comparative analysis must name the consequence |
+| **Zero vs. missing** | Domain semantics determine preprocessing, not a generic rule | Gate 1 grill prompt forces the distinction |
+| **Axis deception** | Log vs. linear, truncated axes, dual axes | Comparative analysis must justify axis choices |
+
+---
+
+## 6. Updated Success Criteria for a Class of 50
+
+- **≥ 90%** of submissions pass the automated verifier on first attempt (indicating the instructions are clear enough).
+- **100%** of submissions include a filter propagation map and a graph-metric-driven encoding (checked by the verifier's structural validator).
+- **< 10%** of submissions require oral escalation — and those escalations focus on *why* a preprocessing choice was made, not *whether* the work was done.
+- **Zero** verifier matches between students with different seeds (anti-collusion invariant holds).
+- **Post-hoc student survey:** ≥ 80% agree that "the dashboard I built actually answers a question I could defend in a viva."
+
+The key shift is this: the **dataset is not just dirty; it is dirty in a way that maps directly onto a visualization failure mode.** Forensic nulls break network topology. CS outliers break axis honesty. Nutrition zeros break distribution truth. The student cannot separate "preprocessing" from "dashboard design" because the dashboard will visibly fail if the preprocessing is wrong — and the gate probes will catch it if the student did not notice.
