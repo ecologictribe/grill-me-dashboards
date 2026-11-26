@@ -187,16 +187,47 @@
                 </table>
             </div>
 
-            <!-- Qualitative Grill-Me Interrogation Defense -->
+            <!-- Qualitative Grill-Me Interrogation Defense (6 Mandatory Interrogations) -->
             <div class="space-y-3 pt-3 border-t border-slate-100">
-                <h4 class="text-sm font-bold text-slate-800"><i class="fas fa-comments text-brandCyan mr-1"></i> Grill-Me Diagnostic Interrogations</h4>
-                <div>
-                    <label id="lbl-grill1" class="block text-xs font-semibold text-slate-700 mb-1">1. What specific data trap did you discover, and why will a naive visualization mislead stakeholders?</label>
-                    <textarea id="input-grill1" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Identified string nulls ('NA') in custody logs. If naively dropped, case backlogs are systematically undercounted by 14%..."></textarea>
+                <div class="flex justify-between items-center">
+                    <h4 class="text-sm font-bold text-slate-800"><i class="fas fa-comments text-brandCyan mr-1"></i> Grill-Me Diagnostic Interrogations (6 Required)</h4>
+                    <span class="text-[10px] font-mono text-slate-500 uppercase bg-slate-100 px-2 py-0.5 rounded">All 6 Prompts Mandatory</span>
                 </div>
+
+                <!-- Prompt 1 -->
                 <div>
-                    <label id="lbl-grill2" class="block text-xs font-semibold text-slate-700 mb-1">2. How does the tail distribution or missingness pattern conflict with standard statistical averages?</label>
-                    <textarea id="input-grill2" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="The turnaround mean of 21.4 days hides 18% of cases exceeding the 30-day statutory deadline..."></textarea>
+                    <label id="lbl-grill1" class="block text-xs font-semibold text-slate-700 mb-1">1. Trap Identification &amp; Visual Misdirection</label>
+                    <textarea id="input-grill1" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Isolate the specific structural data trap you uncovered with your query and explain why default charts lie..."></textarea>
+                </div>
+
+                <!-- Prompt 2 -->
+                <div>
+                    <label id="lbl-grill2" class="block text-xs font-semibold text-slate-700 mb-1">2. Extremistan Tail vs. Gaussian Average Breakdown</label>
+                    <textarea id="input-grill2" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Explain how the heavy-tailed outlier spike or non-random missingness invalidates standard arithmetic averages..."></textarea>
+                </div>
+
+                <!-- Prompt 3 -->
+                <div>
+                    <label id="lbl-grill3" class="block text-xs font-semibold text-slate-700 mb-1">3. Entity Network &amp; Graph Topology (E, V) Distortion</label>
+                    <textarea id="input-grill3" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Detail how unhandled string nulls or caller-target error routes fracture network vertices (V) or distort interaction edges (E)..."></textarea>
+                </div>
+
+                <!-- Prompt 4 -->
+                <div>
+                    <label id="lbl-grill4" class="block text-xs font-semibold text-slate-700 mb-1">4. Domain Operational / Statutory Blast Radius</label>
+                    <textarea id="input-grill4" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="State the real-world operational, legal, or public health catastrophe if this failure mode is left uncorrected in production..."></textarea>
+                </div>
+
+                <!-- Prompt 5 -->
+                <div>
+                    <label id="lbl-grill5" class="block text-xs font-semibold text-slate-700 mb-1">5. Preprocessing Strategy &amp; Deletion Hazards</label>
+                    <textarea id="input-grill5" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Defend why naive row deletion (DROP NULL) is unacceptable and explain your ethical harmonization/banding strategy..."></textarea>
+                </div>
+
+                <!-- Prompt 6 -->
+                <div>
+                    <label id="lbl-grill6" class="block text-xs font-semibold text-slate-700 mb-1">6. Interactive Control &amp; Architectural Defense</label>
+                    <textarea id="input-grill6" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Explain which interactive mechanism (multi-tab hierarchy, linked cross-brushing, logarithmic toggle, or lossless drill-down) empowers the user to expose this trap..."></textarea>
                 </div>
             </div>
 
@@ -543,9 +574,68 @@
         var queryMeta = document.getElementById('query-result-meta');
         var inputGrill1 = document.getElementById('input-grill1');
         var inputGrill2 = document.getElementById('input-grill2');
+        var inputGrill3 = document.getElementById('input-grill3');
+        var inputGrill4 = document.getElementById('input-grill4');
+        var inputGrill5 = document.getElementById('input-grill5');
+        var inputGrill6 = document.getElementById('input-grill6');
+        var lblGrill1 = document.getElementById('lbl-grill1');
+        var lblGrill2 = document.getElementById('lbl-grill2');
+        var lblGrill3 = document.getElementById('lbl-grill3');
+        var lblGrill4 = document.getElementById('lbl-grill4');
+        var lblGrill5 = document.getElementById('lbl-grill5');
+        var lblGrill6 = document.getElementById('lbl-grill6');
         var btnLockG1 = document.getElementById('btn-lock-gate1');
         var fp1Display = document.getElementById('fp1-display');
         var badgeG1 = document.getElementById('badge-g1');
+
+        function updateGrillPrompts(domain) {
+            domain = String(domain || 'forensic').toLowerCase();
+            if (domain === 'forensic') {
+                lblGrill1.textContent = '1. Evidentiary Trap: What specific custody gap (e.g. string nulls, format mismatch) did you isolate with SQL, and how would standard BI charts undercount evidence?';
+                inputGrill1.placeholder = 'Identified string nulls ("NA") in relinquishing_auth. Automated drop-null deletes 14% of cases, breaking chain of custody...';
+                lblGrill2.textContent = '2. Distribution & Statutory Tail: How does the turnaround tail (>30 day breaches) conflict with the average, and what are the legal ramifications of relying on an average?';
+                inputGrill2.placeholder = 'Mean turnaround is 21.4 days (under 30-day limit), but 18% of cases breach statutory deadline, risking felony court dismissals...';
+                lblGrill3.textContent = '3. Graph Topology (E, V): How do missing officer strings or duplicate case IDs fracture suspect/evidence network nodes (V) or handoff edges (E)?';
+                inputGrill3.placeholder = 'Null strings split a single custody vault into disconnected nodes or create a fictitious officer named "NA", fracturing graph centrality...';
+                lblGrill4.textContent = '4. Procedural & Statutory Blast Radius: What legal crisis occurs in court if evidence transfers with broken seals or unrecorded officers are left unflagged?';
+                inputGrill4.placeholder = 'Unrecorded transfers violate statutory chain-of-custody rules, allowing defense attorneys to suppress evidence under Rule 144/statutory audit...';
+                lblGrill5.textContent = '5. Preprocessing Strategy: Why is naive row dropping (DROP NULL) catastrophic for forensic evidence, and how does explicit null-banding preserve chain integrity?';
+                inputGrill5.placeholder = 'Deleting rows erases the physical record of an item. Explicit null-banding to "UNRECORDED_OFFICER" preserves evidence without data loss...';
+                lblGrill6.textContent = '6. Interactive Architecture: How will your 3-tier multi-tab hierarchy and linked brushing allow a detective to trace a flagged item from macro stats to individual logs?';
+                inputGrill6.placeholder = 'Clicking a breach category in Tab 1 brushes custody nodes in Tab 2 and filters the raw audit trail in Tab 3 without page reload...';
+            } else if (domain === 'cs' || domain === 'computer_science') {
+                lblGrill1.textContent = '1. Telemetry Trap: What telemetry anomaly (e.g. 5xx server cascade, high-cardinality URIs) did you isolate, and how does an aggregate chart mask it behind 200 OK noise?';
+                inputGrill1.placeholder = 'Isolated 9 fatal 5xx errors (500, 503, 504) buried beneath 91% routine 200 OK heartbeats. An aggregate uptime chart deceptively displays 91% health...';
+                lblGrill2.textContent = '2. Heavy-Tailed Latency Outliers: How do 200x p99 latency spikes destroy linear axis scales, and why does an average latency KPI give false operational confidence?';
+                inputGrill2.placeholder = 'Gateway timeouts spike past 12,000 ms, compressing 98% of healthy 25 ms requests into a flat baseline and skewing arithmetic averages...';
+                lblGrill3.textContent = '3. Service Dependency Topology: Based on caller-target error routes, which microservice nodes (V) act as failure sinks or bottlenecks in your call graph?';
+                inputGrill3.placeholder = 'payment-gateway and auth-service exhibit heavy in-degree failure edges from checkout-web and billing-agent, identifying them as core bottlenecks...';
+                lblGrill4.textContent = '4. SLA & Revenue Blast Radius: What is the business and SLA blast radius (e.g. checkout abandonment, payment timeouts) when 5xx errors cascade through these routes?';
+                inputGrill4.placeholder = 'Checkout and billing cascades prevent customer purchases, breach 99.9% uptime SLAs, and cause immediate financial revenue loss...';
+                lblGrill5.textContent = '5. Preprocessing Strategy: Why is deleting timeout rows or clamping outliers dangerous for SREs, and how should high-cardinality endpoint routes be defensively aggregated?';
+                inputGrill5.placeholder = 'Clamping latency hides timeout cascades. Dynamic grouping of 100+ routes into top-N categories preserves operational visibility...';
+                lblGrill6.textContent = '6. Interactive Architecture: How does the Filter Propagation Map and cross-linking (Dependency Graph <-> Latency Timeline) prevent SREs from diagnosing false root causes?';
+                inputGrill6.placeholder = 'Selecting an error node brushes corresponding latency spikes on the timeline and updates downstream trace tables, exposing true cascade paths...';
+            } else {
+                lblGrill1.textContent = '1. Dietary Trap: What specific data trap (e.g. zero-inflation in Vitamin C, unit discordance) did you uncover, and how would a naive chart mislead clinical researchers?';
+                inputGrill1.placeholder = 'Uncovered 38% literal zeros in Vitamin C and unit discordance (per-serving vs total-recipe), causing massive nutritional distortion...';
+                lblGrill2.textContent = '2. Clinical Skew & Zero-Inflation: How does treating structural zeros as missing data (or missing logs as true zeros) distort nutritional adequacy metrics?';
+                inputGrill2.placeholder = 'Imputing zeros invents food that was never eaten; conversely, treating unlogged meals as zero intake falsely diagnoses clinical scurvy...';
+                lblGrill3.textContent = '3. Co-consumption Topology: How does unparsed dietary categorization distort the co-ingestion network between food groups (V) and demographic consumer cohorts (E)?';
+                inputGrill3.placeholder = 'Mixing unharmonized recipes distorts community modularity and co-ingestion clusters between whole foods and ultra-processed diets...';
+                lblGrill4.textContent = '4. Public Health Consequence: What public health failure (e.g. unflagged micronutrient malnutrition vs. false scurvy diagnosis) occurs if this data is published uncorrected?';
+                inputGrill4.placeholder = 'Aggregate nutrition scores hide catastrophic micronutrient deficits in vulnerable cohorts, causing misguided public health policy...';
+                lblGrill5.textContent = '5. Preprocessing Strategy: Why is dropping recipe-level records or imputing zeros with population means statistically flawed, and how should units be normalized?';
+                inputGrill5.placeholder = 'Dropping total-recipe rows removes real meals. Normalizing all entries to 100g equivalents preserves dietary distribution without bias...';
+                lblGrill6.textContent = '6. Interactive Architecture: How does lossless 3-level hierarchical drill-down ensure regional aggregates match granular meal logs without double-counting?';
+                inputGrill6.placeholder = 'Navigating Region -> Household -> Meal Log strictly conserves calorie and protein sums, preventing double-counting during cohort roll-ups...';
+            }
+        }
+
+        selectDomain.addEventListener('change', function () {
+            updateGrillPrompts(selectDomain.value);
+        });
+        updateGrillPrompts('forensic');
 
         // Gate 2 elements
         var codeCleanInput = document.getElementById('code-clean-input');
@@ -677,14 +767,23 @@
 
         btnLockG1.addEventListener('click', function () {
             if (!state.rawDataset) { alert('Generate dataset first!'); return; }
-            var a1 = inputGrill1.value.trim();
-            var a2 = inputGrill2.value.trim();
-            if (a1.length < 15 || a2.length < 15) {
-                alert('Please provide thorough qualitative responses (at least 15 characters each) to both Grill-Me prompts.');
-                return;
+            var answers = [
+                inputGrill1.value.trim(),
+                inputGrill2.value.trim(),
+                inputGrill3.value.trim(),
+                inputGrill4.value.trim(),
+                inputGrill5.value.trim(),
+                inputGrill6.value.trim()
+            ];
+
+            for (var i = 0; i < answers.length; i++) {
+                if (answers[i].length < 15) {
+                    alert('Please provide thorough qualitative responses (at least 15 characters each) for all 6 Grill-Me diagnostic prompts. (Prompt ' + (i + 1) + ' is currently incomplete).');
+                    return;
+                }
             }
 
-            state.gate1.grillAnswers = [a1, a2];
+            state.gate1.grillAnswers = answers;
             var qStr = (state.gate1.queries || []).join(';;');
             var gStr = state.gate1.grillAnswers.join(';;');
             state.gate1.fingerprint = engine.sha256(state.seed + '::' + qStr + '::' + gStr);

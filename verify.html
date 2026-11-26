@@ -124,6 +124,10 @@
                     <i class="fas fa-magnifying-glass mr-1 text-brandNavy"></i> Submission Forensic Inspector
                 </h4>
                 <div>
+                    <span class="text-[11px] font-bold text-slate-700 block mb-1">Gate 1 Grill-Me Diagnostic Interrogations (6 Interrogations):</span>
+                    <div id="inspect-grill-list" class="space-y-1.5 text-xs"></div>
+                </div>
+                <div>
                     <span class="text-[11px] font-bold text-slate-700 block mb-1">Gate 2 Cleaning Pipeline:</span>
                     <pre id="inspect-code" class="bg-slate-900 text-green-300 p-3 rounded text-[11px] max-h-48 overflow-y-auto">No code loaded</pre>
                 </div>
@@ -237,8 +241,12 @@
             var g1 = {
                 queries: ["data.filter(r => r.relinquishing_auth === 'NA')"],
                 grillAnswers: [
-                    "Identified string nulls ('NA') in custody logs that mask evidentiary gaps.",
-                    "The turnaround mean of 21.4 days hides 18% of cases exceeding the 30-day statutory deadline."
+                    "Identified string nulls ('NA') in custody logs that mask evidentiary gaps and drop cases.",
+                    "The turnaround mean of 21.4 days hides 18% of cases exceeding the 30-day statutory deadline.",
+                    "Missing officer names fracture the suspect-evidence-vault graph topology into disconnected subgraphs.",
+                    "Unrecorded transfers violate statutory chain-of-custody rules, allowing evidence suppression in felony trials.",
+                    "Explicit null-banding to UNRECORDED_OFFICER preserves evidence rows without corrupting relational joins.",
+                    "Multi-tab linked brushing allows detectives to drill down from regional breach metrics to raw custody logs."
                 ]
             };
             var g2 = {
@@ -326,6 +334,27 @@
             inspectCode.textContent = sub.gate2 ? sub.gate2.cleaningCode : 'N/A';
             inspectJust.textContent = sub.gate2 ? sub.gate2.justification : 'N/A';
             inspectComp.textContent = sub.gate3 ? sub.gate3.comparativeAnalysis : 'N/A';
+
+            var grillContainer = document.getElementById('inspect-grill-list');
+            if (grillContainer) {
+                grillContainer.innerHTML = '';
+                var grillAns = (sub.gate1 && sub.gate1.grillAnswers) ? sub.gate1.grillAnswers : [];
+                var grillLabels = [
+                    '1. Trap Identification & Visual Misdirection',
+                    '2. Extremistan Tail vs. Gaussian Average Breakdown',
+                    '3. Entity Network & Graph Topology (E, V) Distortion',
+                    '4. Domain Operational / Statutory Blast Radius',
+                    '5. Preprocessing Strategy & Deletion Hazards',
+                    '6. Interactive Control & Architectural Defense'
+                ];
+                grillAns.forEach(function (ans, idx) {
+                    var box = document.createElement('div');
+                    box.className = 'bg-white border border-slate-200 rounded p-2 text-slate-700 font-sans';
+                    var title = grillLabels[idx] || ('Prompt ' + (idx + 1));
+                    box.innerHTML = '<strong class="text-brandNavy text-[11px] block mb-0.5">' + title + ':</strong> ' + ans;
+                    grillContainer.appendChild(box);
+                });
+            }
             curveballVerdict.textContent = '';
         }
 

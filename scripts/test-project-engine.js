@@ -84,7 +84,14 @@ const probeQ = engine.computeProbeQuestion(ds1.seed, 'forensic', cleaned);
 
 const gate1 = {
     queries: ['SELECT * FROM evidence WHERE actual_turnaround > 30;', 'SELECT count(*) FROM evidence WHERE relinquishing_auth IS NULL OR relinquishing_auth = "NA";'],
-    grillAnswers: ['Null strings mask evidence chain gaps.', 'Mean turnaround hides tail cases exceeding 30-day statutory deadline.']
+    grillAnswers: [
+        'Null strings mask evidence chain gaps and delete critical custody history.',
+        'Mean turnaround hides tail cases exceeding 30-day statutory deadline.',
+        'Missing officers fracture suspect network into disconnected graph clusters.',
+        'Procedural chain gaps risk evidence dismissal under statutory audit rules.',
+        'Explicit null-banding preserves data records without statistical distortion.',
+        'Linked brushing across multi-tab hierarchy exposes tail cases directly.'
+    ]
 };
 
 const gate2 = {

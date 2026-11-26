@@ -206,7 +206,13 @@ To prevent LLM bypass and collusion, student progress is bound to a deterministi
 * **Interface:** Integrated in-browser `sql.js` (SQLite WASM) query workbench.
 * **Tasks:**
   1. Write and execute SQL queries to locate the domain-specific data traps (null-equivalents, distribution skews, duplicate keys).
-  2. Complete two domain-specific Grill Me interrogation prompts requiring qualitative justification of discovered traps.
+  2. Complete six domain-specific Grill-Me interrogation prompts requiring qualitative justification of discovered traps:
+     - Prompt 1: Trap Identification & Visual Misdirection
+     - Prompt 2: Extremistan Tail vs. Gaussian Average Breakdown
+     - Prompt 3: Entity Network & Graph Topology ($E, V$) Distortion
+     - Prompt 4: Domain Operational / Statutory Blast Radius
+     - Prompt 5: Preprocessing Strategy & Deletion Hazards
+     - Prompt 6: Interactive Control & Architectural Defense
 * **Fingerprint Formula:**
   $$\text{fingerprint}_1 = \text{SHA-256}(\text{seed} + \sum \text{SQL\_Queries} + \sum \text{Grill\_Answers}_1)$$
 
