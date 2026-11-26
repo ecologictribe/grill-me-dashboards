@@ -252,7 +252,13 @@
             var g2 = {
                 cleaningCode: cleanCode,
                 stableStats: stats,
-                justification: "Harmonized missing officer tags to explicit UNRECORDED_OFFICER to preserve custody integrity without row loss."
+                justifications: [
+                    "Replaced all string null equivalents ('NA', '', 'unknown') with explicit UNRECORDED_OFFICER tags.",
+                    "Zero rows deleted. Deleting evidence rows would violate statutory retention rules and erase physical chain-of-custody items.",
+                    "Retained turnaround days without clamping; extreme delays (>30 days) are tagged as statutory breaches rather than suppressed.",
+                    "Deterministic stability means identical inputs produce byte-identical outputs across independent runs without global state.",
+                    "Verified that the LLM did not invent officer names or alter timestamps, enforcing strict audit compliance."
+                ]
             };
             var g3 = {
                 chartConfigs: { multiTab: true, crossBrushing: true, graphView: true },
@@ -332,7 +338,20 @@
 
             // Inspect code & texts
             inspectCode.textContent = sub.gate2 ? sub.gate2.cleaningCode : 'N/A';
-            inspectJust.textContent = sub.gate2 ? sub.gate2.justification : 'N/A';
+            if (sub.gate2 && Array.isArray(sub.gate2.justifications)) {
+                var g2Labels = [
+                    '1. Plain English Transformation Logic',
+                    '2. Data Preservation & Deletion Audit',
+                    '3. Outlier & Skew Treatment',
+                    '4. Deterministic Stability in Plain Words',
+                    '5. LLM Hallucination & Domain Bias Audit'
+                ];
+                inspectJust.innerHTML = sub.gate2.justifications.map(function(ans, i) {
+                    return '<div class="mb-1.5"><strong class="text-purple-900 text-[11px] block">' + (g2Labels[i] || ('Prompt ' + (i + 1))) + ':</strong> ' + ans + '</div>';
+                }).join('');
+            } else {
+                inspectJust.textContent = sub.gate2 ? (sub.gate2.justification || 'N/A') : 'N/A';
+            }
             inspectComp.textContent = sub.gate3 ? sub.gate3.comparativeAnalysis : 'N/A';
 
             var grillContainer = document.getElementById('inspect-grill-list');

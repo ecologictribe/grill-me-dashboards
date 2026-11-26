@@ -217,15 +217,15 @@ To prevent LLM bypass and collusion, student progress is bound to a deterministi
   $$\text{fingerprint}_1 = \text{SHA-256}(\text{seed} + \sum \text{SQL\_Queries} + \sum \text{Grill\_Answers}_1)$$
 
 #### Gate 2: Preprocess (Data Harmonization & Stability Verification)
-* **Interface:** In-browser SQL / JavaScript data transformation runner.
+* **Interface:** In-browser transformation runner with pre-built prompts for LLMs and built-in starter templates.
 * **Tasks:**
-  1. Author a cleaning pipeline that normalizes date/key formats, handles missing values ethically, harmonizes units, and resolves entity conflicts.
+  1. Author (or prompt an LLM to generate) a transformation function `function cleanData(rawData) { ... return cleanedData; }` that normalizes dates, handles missing values, harmonizes units, and resolves entity conflicts.
   2. Compute deterministic statistical invariants across the cleaned dataset:
      $$\text{stableStats} = \{\text{rows}, \text{cols}, \sum \text{numericCols (2 d.p.)}, \text{remainingNulls}\}$$
-  3. **The Stability Check:** The cleaning script is executed twice in succession. If `stableStats(Run 1) !== stableStats(Run 2)`, the submission is hard-blocked (preventing nondeterministic hacks or mutable global state).
-  4. Submit a written justification defending the imputation/exclusion strategy against alternatives.
+  3. **The Stability Check:** The cleaning script is executed twice in succession. If `stableStats(Run 1) !== stableStats(Run 2)`, the submission is hard-blocked (asserting 100% determinism with zero mutable global state).
+  4. **The AI Autopsy & Plain English Defense:** Complete 5 plain-English Grill-Me interrogations proving deep understanding of what the LLM/script did to the data (transformation rules, row preservation audit, outlier handling, deterministic stability definition, and LLM hallucination checks).
 * **Fingerprint Formula:**
-  $$\text{fingerprint}_2 = \text{SHA-256}(\text{seed} + \text{CleaningCode} + \text{stableStats} + \text{Justification})$$
+  $$\text{fingerprint}_2 = \text{SHA-256}(\text{seed} + \text{CleaningCode} + \text{stableStats} + \sum \text{Justifications})$$
 
 #### Gate 3: Compare & Build (Interactive System & Computed Probe)
 * **Interface:** Full interactive dashboard environment (HTML5/Canvas/Chart.js/D3).

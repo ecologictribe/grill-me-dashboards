@@ -97,6 +97,13 @@ const gate1 = {
 const gate2 = {
     cleaningCode: cleanCode,
     stableStats: cleanedStats,
+    justifications: [
+        'Replaced string nulls with explicit UNRECORDED_OFFICER tags.',
+        'Preserved 100% of rows; zero deletions occurred.',
+        'Turnaround outliers are retained and flagged for statutory breaches.',
+        'Pure deterministic function ensures identical invariants across runs.',
+        'Audited LLM output to prevent fabrication of fictional badge numbers.'
+    ],
     justification: 'Harmonized missing officer tags to explicit UNRECORDED_OFFICER to preserve custody integrity without row loss.'
 };
 

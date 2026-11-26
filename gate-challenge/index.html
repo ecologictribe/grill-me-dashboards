@@ -253,10 +253,16 @@
             </div>
 
             <div class="mb-4">
-                <div class="flex justify-between items-center mb-1">
+                <div class="flex flex-wrap justify-between items-center gap-2 mb-1">
                     <label class="text-xs font-bold text-slate-700">Transformation Script (<code>function cleanData(rawData) { ... return cleanedData; }</code>)</label>
-                    <button id="btn-load-clean-template" class="text-xs text-brandNavy hover:underline">Load Starter Cleaning Template</button>
+                    <div class="flex gap-2">
+                        <button id="btn-copy-llm-prompt" class="text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 font-bold px-2.5 py-1 rounded transition">
+                            <i class="fas fa-robot mr-1"></i> Copy Prompt for LLM (ChatGPT / Claude / Gemini)
+                        </button>
+                        <button id="btn-load-clean-template" class="text-xs text-brandNavy hover:underline">Load Starter Cleaning Template</button>
+                    </div>
                 </div>
+                <p class="text-[11px] text-slate-500 mb-2">Non-programmers: Use the button above to copy a tailored prompt for your LLM, paste the generated JavaScript below, then explain what the LLM did in plain English.</p>
                 <textarea id="code-clean-input" rows="8" class="w-full text-xs font-mono p-3 bg-slate-900 text-blue-300 rounded-lg focus:outline-none"></textarea>
             </div>
 
@@ -289,10 +295,43 @@
                 <div id="stability-verdict" class="mt-2 text-xs font-bold text-center text-slate-500">Run stability check to unlock Gate 2</div>
             </div>
 
-            <!-- Imputation/Exclusion Justification -->
-            <div class="mb-4">
-                <label class="block text-xs font-bold text-slate-700 mb-1">Architectural Preprocessing Justification</label>
-                <textarea id="input-justification" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Defend your imputation or normalization strategy against destructive row-dropping..."></textarea>
+            <!-- AI Autopsy & Plain English Harmonization Defense (5 Interrogations) -->
+            <div class="space-y-3 pt-3 border-t border-slate-100 mb-4">
+                <div class="flex justify-between items-center">
+                    <h4 class="text-sm font-bold text-slate-800"><i class="fas fa-brain text-purple-600 mr-1"></i> AI Autopsy &amp; Plain English Harmonization Defense</h4>
+                    <span class="text-[10px] font-mono text-slate-500 uppercase bg-slate-100 px-2 py-0.5 rounded">Explain What The LLM Did</span>
+                </div>
+                <p class="text-[11px] text-slate-600">You do not need to write code by hand, but you must prove you understand what the LLM or script did to your dataset:</p>
+
+                <!-- Prompt 2.1 -->
+                <div>
+                    <label id="lbl-just1" class="block text-xs font-semibold text-slate-700 mb-1">1. Plain English Transformation Logic: What exact rules did your script apply to fix the traps you found in Gate 1?</label>
+                    <textarea id="input-just1" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Explain in plain words: How did it rename string nulls, harmonize units, or roll up high-cardinality values?"></textarea>
+                </div>
+
+                <!-- Prompt 2.2 -->
+                <div>
+                    <label id="lbl-just2" class="block text-xs font-semibold text-slate-700 mb-1">2. Data Preservation &amp; Deletion Audit: Did the script drop any rows? Prove why retaining rows is critical.</label>
+                    <textarea id="input-just2" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Explain why retaining rows via explicit null-banding (e.g. UNRECORDED_OFFICER or sentinel tags) is vital rather than letting an LLM delete missing data..."></textarea>
+                </div>
+
+                <!-- Prompt 2.3 -->
+                <div>
+                    <label id="lbl-just3" class="block text-xs font-semibold text-slate-700 mb-1">3. Outlier &amp; Skew Treatment: How did the script handle extreme values without fabricating false data?</label>
+                    <textarea id="input-just3" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Explain how 200x latency spikes or recipe-level sodium amounts were treated without distorting distributions..."></textarea>
+                </div>
+
+                <!-- Prompt 2.4 -->
+                <div>
+                    <label id="lbl-just4" class="block text-xs font-semibold text-slate-700 mb-1">4. Deterministic Stability in Plain Words: Why must preprocessing be 100% deterministic?</label>
+                    <textarea id="input-just4" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="In your own words: Why would a script that uses random numbers or page-reload state fail in enterprise data pipelines?"></textarea>
+                </div>
+
+                <!-- Prompt 2.5 -->
+                <div>
+                    <label id="lbl-just5" class="block text-xs font-semibold text-slate-700 mb-1">5. LLM Hallucination &amp; Edge Case Audit: What did you verify in the LLM's suggested code?</label>
+                    <textarea id="input-just5" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Explain what domain assumptions the LLM made and what you had to verify so it did not fabricate numbers..."></textarea>
+                </div>
             </div>
 
             <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
@@ -640,8 +679,13 @@
         // Gate 2 elements
         var codeCleanInput = document.getElementById('code-clean-input');
         var btnCleanTemplate = document.getElementById('btn-load-clean-template');
+        var btnCopyLlmPrompt = document.getElementById('btn-copy-llm-prompt');
         var btnRunStability = document.getElementById('btn-run-stability');
-        var inputJustification = document.getElementById('input-justification');
+        var inputJust1 = document.getElementById('input-just1');
+        var inputJust2 = document.getElementById('input-just2');
+        var inputJust3 = document.getElementById('input-just3');
+        var inputJust4 = document.getElementById('input-just4');
+        var inputJust5 = document.getElementById('input-just5');
         var btnLockG2 = document.getElementById('btn-lock-gate2');
         var fp2Display = document.getElementById('fp2-display');
         var badgeG2 = document.getElementById('badge-g2');
@@ -797,6 +841,35 @@
         });
 
         // 3. Gate 2 Cleaning & Stability
+        btnCopyLlmPrompt.addEventListener('click', function () {
+            var domainName = state.domain === 'forensic' ? 'Forensic Science (Chain of Custody)' : (state.domain === 'cs' ? 'Computer Science (Microservice Telemetry)' : 'Nutrition Science (Dietary Records)');
+            var sampleRow = state.rawDataset && state.rawDataset.length ? JSON.stringify(state.rawDataset[0], null, 2) : '{}';
+            var promptText = [
+                'You are an expert data engineer assisting a student in ' + domainName + '.',
+                'I have a raw dataset where each record is an object with the following schema:',
+                sampleRow,
+                '',
+                'My Gate 1 diagnostic queries identified the following structural data traps in my dataset:',
+                state.domain === 'forensic' ? '- String nulls ("NA", "unknown", "") in relinquishing_auth\n- Duplicate case IDs with conflicting metadata\n- Turnaround outliers and date format inconsistencies' : (state.domain === 'cs' ? '- 200x p99 latency spikes exceeding 10,000ms\n- High cardinality in endpoint_route (100+ dynamic URIs)\n- Alarm storm (88% 200 OK pings vs 3% fatal 5xx cascades)' : '- 38% zero-inflation vs true zeros in vitamin_c_mg\n- Unit discordance (per-serving vs per-100g vs total-recipe)\n- Sodium outliers and demographic skew'),
+                '',
+                'Please write a robust, deterministic JavaScript function with the exact signature:',
+                'function cleanData(rawData) {',
+                '    // harmonize data traps here',
+                '    return cleanedData;',
+                '}',
+                '',
+                'STRICT CONSTRAINTS:',
+                '1. Do NOT delete rows unless strictly duplicate. Preserve all entity records using explicit null-banding or sentinels.',
+                '2. Standardize missing/null values, normalize units, and handle outliers gracefully.',
+                '3. The function must be 100% pure and deterministic (no global window state, no Math.random(), no page reloads).',
+                '4. Return an array of cleaned objects with the same or expanded properties.'
+            ].join('\n');
+
+            navigator.clipboard.writeText(promptText).then(function () {
+                alert('Tailored prompt copied to clipboard! Paste it into ChatGPT, Claude, or Gemini to generate your cleanData() function.');
+            });
+        });
+
         btnCleanTemplate.addEventListener('click', function () {
             if (state.domain === 'forensic') {
                 codeCleanInput.value = "function cleanData(data) {\n  return data.map(function(row) {\n    var r = Object.assign({}, row);\n    if (r.relinquishing_auth === 'NA' || r.relinquishing_auth === '' || r.relinquishing_auth === 'unknown') {\n      r.relinquishing_auth = 'UNRECORDED_OFFICER';\n    }\n    return r;\n  });\n}";
@@ -845,14 +918,25 @@
         });
 
         btnLockG2.addEventListener('click', function () {
-            var just = inputJustification.value.trim();
-            if (just.length < 15) {
-                alert('Please provide a written justification (at least 15 characters) defending your preprocessing strategy.');
-                return;
+            var answers = [
+                inputJust1.value.trim(),
+                inputJust2.value.trim(),
+                inputJust3.value.trim(),
+                inputJust4.value.trim(),
+                inputJust5.value.trim()
+            ];
+
+            for (var j = 0; j < answers.length; j++) {
+                if (answers[j].length < 15) {
+                    alert('Please provide thorough plain-English explanations (at least 15 characters each) for all 5 AI Autopsy & Harmonization interrogations. (Prompt ' + (j + 1) + ' is currently incomplete).');
+                    return;
+                }
             }
-            state.gate2.justification = just;
+
+            state.gate2.justifications = answers;
+            state.gate2.justification = answers.join('\n\n');
             var statsStr = JSON.stringify(state.gate2.stableStats);
-            state.gate2.fingerprint = engine.sha256(state.seed + '::' + state.gate2.cleaningCode + '::' + statsStr + '::' + just);
+            state.gate2.fingerprint = engine.sha256(state.seed + '::' + state.gate2.cleaningCode + '::' + statsStr + '::' + answers.join(';;'));
 
             fp2Display.textContent = state.gate2.fingerprint.slice(0, 16) + '...';
             badgeG2.className = 'badge bg-brandGreen text-white';

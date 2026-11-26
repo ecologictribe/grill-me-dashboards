@@ -394,7 +394,8 @@
         var fp1 = sha256(seed + '::' + qStr + '::' + gStr);
 
         var statsStr = JSON.stringify(gate2.stableStats || {});
-        var fp2 = sha256(seed + '::' + (gate2.cleaningCode || '') + '::' + statsStr + '::' + (gate2.justification || ''));
+        var justStr = Array.isArray(gate2.justifications) ? gate2.justifications.join(';;') : (gate2.justification || '');
+        var fp2 = sha256(seed + '::' + (gate2.cleaningCode || '') + '::' + statsStr + '::' + justStr);
 
         var cfgStr = JSON.stringify(gate3.chartConfigs || {});
         var fp3 = sha256(seed + '::' + cfgStr + '::' + (gate3.comparativeAnalysis || '') + '::' + (gate3.probeAnswer !== undefined ? gate3.probeAnswer : ''));
