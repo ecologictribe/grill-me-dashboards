@@ -262,6 +262,14 @@
             };
             var g3 = {
                 chartConfigs: { multiTab: true, crossBrushing: true, graphView: true },
+                constraintAnswers: [
+                    "Tab 1 Macro filters update Tab 2 and Tab 3 via global context; active filter map prevents invisible dead-ends.",
+                    "Threshold scrubber triggers live client-side re-aggregation without full page reload.",
+                    "Clicking network node simultaneously brushes scatter timeline and ranked bar chart.",
+                    "Navigating Region -> Household -> Meal Log strictly conserves total metric sum upon roll-up.",
+                    "Degree centrality sizes nodes, highlighting high-traffic bottleneck custodians.",
+                    "In raw view, mean turnaround concealed 18% tail statutory breaches and dropped 14 nodes."
+                ],
                 comparativeAnalysis: "In raw dashboard, unrecorded officers were dropped, biasing network degree centrality by 35%. Cleaned dashboard restored complete chain.",
                 probeId: probe.probeId,
                 probeAnswer: probe.expectedAnswer
@@ -352,7 +360,21 @@
             } else {
                 inspectJust.textContent = sub.gate2 ? (sub.gate2.justification || 'N/A') : 'N/A';
             }
-            inspectComp.textContent = sub.gate3 ? sub.gate3.comparativeAnalysis : 'N/A';
+            if (sub.gate3 && Array.isArray(sub.gate3.constraintAnswers)) {
+                var g3Labels = [
+                    '1. Multi-Tab & Filter Propagation Defense',
+                    '2. On-the-Fly Client Processing Defense',
+                    '3. Heterogeneous Linked Brushing Defense',
+                    '4. Lossless Hierarchical Drill-Down / Roll-Up',
+                    '5. Graph Theory (E, V) & Metric-Driven Encoding',
+                    '6. Visual Autopsy: Raw vs. Clean Fallacies'
+                ];
+                inspectComp.innerHTML = sub.gate3.constraintAnswers.map(function(ans, i) {
+                    return '<div class="mb-1.5"><strong class="text-brandGreen text-[11px] block">' + (g3Labels[i] || ('Constraint ' + (i + 1))) + ':</strong> ' + ans + '</div>';
+                }).join('');
+            } else {
+                inspectComp.textContent = sub.gate3 ? (sub.gate3.comparativeAnalysis || 'N/A') : 'N/A';
+            }
 
             var grillContainer = document.getElementById('inspect-grill-list');
             if (grillContainer) {

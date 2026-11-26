@@ -355,8 +355,8 @@
                 <div id="gate3-status-pill" class="text-xs font-mono text-slate-400">Status: Incomplete</div>
             </div>
 
-            <!-- View Mode Switcher -->
-            <div class="flex items-center justify-between bg-slate-100 p-2 rounded-lg mb-4">
+            <!-- View Mode Switcher & LLM Dashboard Prompt -->
+            <div class="flex flex-wrap items-center justify-between bg-slate-100 p-2 rounded-lg mb-4 gap-2">
                 <div class="flex gap-2">
                     <button id="view-mode-clean" class="bg-white text-brandNavy font-bold px-3 py-1 rounded shadow-sm text-xs">
                         <i class="fas fa-shield-heart text-brandGreen mr-1"></i> Cleaned Hardened Dashboard
@@ -365,7 +365,18 @@
                         <i class="fas fa-triangle-exclamation text-brandRed mr-1"></i> Raw Broken Data Dashboard
                     </button>
                 </div>
-                <span class="text-xs font-mono text-slate-500" id="dashboard-mode-indicator">Active: Cleaned Mode</span>
+                <div class="flex items-center gap-2">
+                    <button id="btn-copy-dashboard-prompt" class="text-xs bg-blue-50 hover:bg-blue-100 text-brandNavy border border-blue-200 font-bold px-2.5 py-1 rounded transition">
+                        <i class="fas fa-robot mr-1 text-brandCyan"></i> Copy LLM Prompt for 5-Constraint Dashboard (HTML / Power BI)
+                    </button>
+                    <span class="text-xs font-mono text-slate-500" id="dashboard-mode-indicator">Active: Cleaned Mode</span>
+                </div>
+            </div>
+
+            <!-- Fallacy Warning Callout Banner (visible in Raw Mode) -->
+            <div id="raw-fallacy-banner" class="hidden p-3 bg-red-50 border-l-4 border-brandRed rounded text-xs text-red-900 mb-4 font-mono">
+                <span class="font-bold text-brandRed uppercase mr-2"><i class="fas fa-triangle-exclamation mr-1"></i> Visual Failure Mode Detected:</span>
+                <span id="raw-fallacy-desc">Raw uncleaned data is distorting visuals, skewing arithmetic averages, and breaking network topology.</span>
             </div>
 
             <!-- 3-Tier Multi-Tab Architecture -->
@@ -502,11 +513,48 @@
                 </div>
             </div>
 
-            <!-- Comparative Analysis & Probe Section -->
+            <!-- 5-Constraint Plain-English Architectural Interrogations & Probe Section -->
             <div class="mt-6 pt-4 border-t border-slate-200 space-y-4">
+                <div class="flex justify-between items-center">
+                    <h4 class="text-sm font-bold text-slate-800"><i class="fas fa-layer-group text-brandGreen mr-1"></i> The 5-Constraint Plain-English Architectural Defense</h4>
+                    <span class="text-[10px] font-mono text-slate-500 uppercase bg-slate-100 px-2 py-0.5 rounded">All 6 Interrogations Mandatory</span>
+                </div>
+                <p class="text-[11px] text-slate-600">Explain the architectural and cognitive rationale for each of the 5 mandatory interaction constraints in plain English:</p>
+
+                <!-- Constraint 1 -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">Comparative Visual Analysis (Minimum 2 distinct visual fallacies cited)</label>
-                    <textarea id="input-comparative" rows="3" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Comparing raw vs clean dashboards: In raw view, the mean metric obscured 18% tail statutory breaches. Secondly, untreated null strings caused 14 nodes to be dropped from the custody network graph..."></textarea>
+                    <label id="lbl-c1" class="block text-xs font-semibold text-slate-700 mb-1">1. Multi-Tab Architecture &amp; Filter Propagation: Trace how filters propagate across tabs. How did your design prevent "invisible filter states"?</label>
+                    <textarea id="input-c1" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Explain how Tab 1 Macro filters update Tab 2 Meso and Tab 3 Micro views, and how the Filter Propagation Map makes active filters obvious..."></textarea>
+                </div>
+
+                <!-- Constraint 2 -->
+                <div>
+                    <label id="lbl-c2" class="block text-xs font-semibold text-slate-700 mb-1">2. On-the-Fly Processing: What live transformation recalculates client-side without page reloads, and how would bad preprocessing break it?</label>
+                    <textarea id="input-c2" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Detail which derived metric (e.g. breach rate, log latency, or nutrient adequacy) recalculates live as sliders/dropdowns change..."></textarea>
+                </div>
+
+                <!-- Constraint 3 -->
+                <div>
+                    <label id="lbl-c3" class="block text-xs font-semibold text-slate-700 mb-1">3. Heterogeneous Linked Brushing: Which distinct visual types cross-filter simultaneously, and why are different chart grammars required?</label>
+                    <textarea id="input-c3" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Explain why linking across different chart types (e.g. Network Graph <-> Ranked Bar <-> Scatter Timeline) reveals patterns that identical bar charts cannot..."></textarea>
+                </div>
+
+                <!-- Constraint 4 -->
+                <div>
+                    <label id="lbl-c4" class="block text-xs font-semibold text-slate-700 mb-1">4. Lossless Hierarchical Drill-Down: Walk through your 3-level hierarchy and prove mathematical conservation upon roll-up.</label>
+                    <textarea id="input-c4" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Trace Level 1 Macro -> Level 2 Meso -> Level 3 Micro, and prove mathematically that rolling back up to Level 1 restores the exact initial aggregate sum without loss or double-counting..."></textarea>
+                </div>
+
+                <!-- Constraint 5 -->
+                <div>
+                    <label id="lbl-c5" class="block text-xs font-semibold text-slate-700 mb-1">5. Graph Theory (E, V) Integration: Define your entities and interactions, and explain how computed centrality drives visual encodings.</label>
+                    <textarea id="input-c5" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Define Vertices (V) and Edges (E). Explain how client-side Degree Centrality or In-Degree error weighting sizes nodes and highlights critical bottlenecks..."></textarea>
+                </div>
+
+                <!-- Constraint 6 -->
+                <div>
+                    <label id="lbl-c6" class="block text-xs font-semibold text-slate-700 mb-1">6. Visual Autopsy: Cite at least two specific visual falsehoods present in the Raw Data view that your Cleaned Data view exposed and neutralized.</label>
+                    <textarea id="input-c6" rows="2" class="w-full text-xs border border-slate-300 rounded p-2 focus:ring-2 focus:ring-brandCyan focus:outline-none" placeholder="Cite at least 2 distinct visual deltas (e.g. average turnaround masked 18% tail breaches; untreated null strings dropped 14 nodes from the network)..."></textarea>
                 </div>
 
                 <!-- Seed-Generated Dynamic Probe Question -->
@@ -700,7 +748,15 @@
         var inputProbeAns = document.getElementById('input-probe-ans');
         var btnValidateProbe = document.getElementById('btn-validate-probe');
         var probePill = document.getElementById('probe-validation-pill');
-        var inputComparative = document.getElementById('input-comparative');
+        var btnCopyDashboardPrompt = document.getElementById('btn-copy-dashboard-prompt');
+        var rawFallacyBanner = document.getElementById('raw-fallacy-banner');
+        var rawFallacyDesc = document.getElementById('raw-fallacy-desc');
+        var inputC1 = document.getElementById('input-c1');
+        var inputC2 = document.getElementById('input-c2');
+        var inputC3 = document.getElementById('input-c3');
+        var inputC4 = document.getElementById('input-c4');
+        var inputC5 = document.getElementById('input-c5');
+        var inputC6 = document.getElementById('input-c6');
 
         // Export elements
         var displayFinal = document.getElementById('display-final-code');
@@ -971,20 +1027,66 @@
             }
         });
 
+        btnCopyDashboardPrompt.addEventListener('click', function () {
+            var domainName = state.domain === 'forensic' ? 'Forensic Science (Chain of Custody)' : (state.domain === 'cs' ? 'Computer Science (Microservice Telemetry)' : 'Nutrition Science (Dietary Records)');
+            var sampleClean = state.cleanedDataset && state.cleanedDataset.length ? JSON.stringify(state.cleanedDataset[0], null, 2) : '{}';
+            var promptText = [
+                'You are an expert Data Visualization Architect assisting a student in ' + domainName + '.',
+                'I have cleaned and harmonized my domain dataset. Each record is structured as:',
+                sampleClean,
+                '',
+                'Please design and write a standalone, production-ready interactive dashboard (in HTML5/Tailwind/Canvas or Power BI DAX specification) strictly satisfying the following 5 ARCHITECTURAL CONSTRAINTS:',
+                '',
+                '1. MULTI-TAB ARCHITECTURE & FILTER PROPAGATION MAP:',
+                '   - 3 synchronized views: Overview (Macro KPIs) -> Breakdown (Meso distributions) -> Detail (Micro entity stream).',
+                '   - Global filter context bar with an interactive diagnostic map proving which filters affect which charts.',
+                '',
+                '2. ON-THE-FLY CLIENT PROCESSING:',
+                '   - Zero full-page reloads. All re-aggregations, breach counters, and moving averages must execute live in client memory upon slider or category adjustment.',
+                '',
+                '3. HETEROGENEOUS LINKED BRUSHING:',
+                '   - Cross-linking across distinct visual grammars (e.g. clicking a mark in a Network Graph simultaneously brushes temporal intervals on a Timeline and filters categories on a Ranked Bar).',
+                '',
+                '4. LOSSLESS HIERARCHICAL DRILL-DOWN / ROLL-UP:',
+                '   - 3-level navigation hierarchy (Macro -> Meso -> Micro) where rolling up back to Level 1 strictly and mathematically conserves the total aggregate sum without row loss or double-counting.',
+                '',
+                '5. GRAPH THEORY (E, V) TOPOLOGY & DEGREE CENTRALITY:',
+                '   - Topological node-edge network where node radius/color encodes client-computed Degree Centrality or In-Degree error weighting to highlight single-point-of-failure hubs.',
+                '',
+                'Provide clean, self-contained, well-commented code that runs offline without external server APIs.'
+            ].join('\n');
+
+            navigator.clipboard.writeText(promptText).then(function () {
+                alert('5-Constraint Dashboard prompt copied to clipboard! Paste into ChatGPT, Claude, or Gemini to generate your dashboard architecture.');
+            });
+        });
+
         btnLockG3.addEventListener('click', function () {
-            var comp = inputComparative.value.trim();
-            if (comp.length < 25) {
-                alert('Please provide a comparative visual analysis of at least 25 characters citing at least two visual deltas.');
-                return;
+            var answers = [
+                inputC1.value.trim(),
+                inputC2.value.trim(),
+                inputC3.value.trim(),
+                inputC4.value.trim(),
+                inputC5.value.trim(),
+                inputC6.value.trim()
+            ];
+
+            for (var k = 0; k < answers.length; k++) {
+                if (answers[k].length < 15) {
+                    alert('Please provide thorough plain-English explanations (at least 15 characters each) for all 6 architectural constraint interrogations. (Constraint ' + (k + 1) + ' is currently incomplete).');
+                    return;
+                }
             }
+
             if (state.gate3.probeAnswer === null) {
                 alert('Please correctly verify the calculated probe question first.');
                 return;
             }
 
-            state.gate3.comparativeAnalysis = comp;
+            state.gate3.constraintAnswers = answers;
+            state.gate3.comparativeAnalysis = answers.join('\n\n');
             var cfgStr = JSON.stringify(state.gate3.chartConfigs);
-            state.gate3.fingerprint = engine.sha256(state.seed + '::' + cfgStr + '::' + comp + '::' + state.gate3.probeAnswer);
+            state.gate3.fingerprint = engine.sha256(state.seed + '::' + cfgStr + '::' + answers.join(';;') + '::' + state.gate3.probeAnswer);
 
             fp3Display.textContent = state.gate3.fingerprint.slice(0, 16) + '...';
             badgeG3.className = 'badge bg-brandGreen text-white';
@@ -1059,6 +1161,7 @@
             viewCleanBtn.className = 'bg-white text-brandNavy font-bold px-3 py-1 rounded shadow-sm text-xs';
             viewRawBtn.className = 'bg-transparent text-slate-600 hover:text-slate-900 font-bold px-3 py-1 rounded text-xs';
             modeIndicator.textContent = 'Active: Cleaned Mode';
+            if (rawFallacyBanner) rawFallacyBanner.classList.add('hidden');
             updateDashboardViews();
         });
 
@@ -1067,6 +1170,16 @@
             viewRawBtn.className = 'bg-white text-brandRed font-bold px-3 py-1 rounded shadow-sm text-xs';
             viewCleanBtn.className = 'bg-transparent text-slate-600 hover:text-slate-900 font-bold px-3 py-1 rounded text-xs';
             modeIndicator.textContent = 'Active: RAW BROKEN DATA (Traps Visible)';
+            if (rawFallacyBanner) {
+                rawFallacyBanner.classList.remove('hidden');
+                if (state.domain === 'forensic') {
+                    rawFallacyDesc.textContent = 'Mean turnaround (21.4d) masks 18% statutory 30-day breaches. String nulls ("NA") delete 14 custody transfers and fracture graph topology.';
+                } else if (state.domain === 'cs') {
+                    rawFallacyDesc.textContent = '200x p99 latency spikes (>10,000ms) squash 98% of traffic on linear axes. 88% routine heartbeat pings obscure fatal 5xx cascading outages.';
+                } else {
+                    rawFallacyDesc.textContent = '38% zero-inflation in Vitamin C creates false clinical starvation. Unharmonized total-recipe sodium amounts distort demographic comparisons.';
+                }
+            }
             updateDashboardViews();
         });
 

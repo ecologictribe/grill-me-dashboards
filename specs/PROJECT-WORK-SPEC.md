@@ -227,18 +227,18 @@ To prevent LLM bypass and collusion, student progress is bound to a deterministi
 * **Fingerprint Formula:**
   $$\text{fingerprint}_2 = \text{SHA-256}(\text{seed} + \text{CleaningCode} + \text{stableStats} + \sum \text{Justifications})$$
 
-#### Gate 3: Compare & Build (Interactive System & Computed Probe)
-* **Interface:** Full interactive dashboard environment (HTML5/Canvas/Chart.js/D3).
+#### Gate 3: Compare & Build (Interactive System & The 5-Constraint Plain-English Defense)
+* **Interface:** Full interactive dashboard environment (HTML5/Canvas/Chart.js/D3) with one-click LLM dashboard prompt generator.
 * **Tasks:**
-  1. Render a **Dual Comparison View**: Raw Data Dashboard vs. Cleaned Hardened Dashboard.
-  2. Implement all **Five Interaction Architecture Requirements** (Multi-tab, On-the-fly, Cross-brushing, Lossless Drill-down, and Graph metric integration).
-  3. Author a **Comparative Analysis** (minimum 250 characters) detailing at least two distinct decisions where uncleaned data produced visual falsehoods.
+  1. Render a **Dual Comparison View**: Raw Data Dashboard vs. Cleaned Hardened Dashboard (with live visual fallacy callouts).
+  2. Implement (or prompt an LLM to generate) all **Five Interaction Architecture Requirements** (Multi-tab with Filter Map, On-the-fly client processing, Heterogeneous linked brushing, Lossless 3-level drill-down, and Graph theory $E, V$ degree centrality encoding).
+  3. Author the **5-Constraint Architectural Plain-English Defense** (6 structured interrogations explaining the rationale for multi-tab propagation, live re-aggregation, linked brushing, mathematical conservation, graph centrality, and visual deltas).
   4. Resolve a **Seed-Generated Dynamic Probe Question**. The question is selected from a seed-indexed bank and requires an exact numeric answer computed from the student’s unique cleaned data:
      * *Probe Type A:* Residual row count following deduplication.
      * *Probe Type B:* Degree or betweenness centrality score of a designated entity node.
      * *Probe Type C:* Total roll-up aggregate value when collapsing Level 3 back to Level 1.
 * **Fingerprint Formula:**
-  $$\text{fingerprint}_3 = \text{SHA-256}(\text{seed} + \text{ChartConfigs} + \text{ComparativeAnalysis} + \text{ProbeAnswer})$$
+  $$\text{fingerprint}_3 = \text{SHA-256}(\text{seed} + \text{ChartConfigs} + \sum \text{ConstraintAnswers} + \text{ProbeAnswer})$$
 
 #### Final Pass Code & Export Bundle
 $$\text{FINAL\_PASS\_CODE} = \text{SHA-256}(\text{fingerprint}_1 + \text{fingerprint}_2 + \text{fingerprint}_3 + \text{seed})$$

@@ -398,7 +398,8 @@
         var fp2 = sha256(seed + '::' + (gate2.cleaningCode || '') + '::' + statsStr + '::' + justStr);
 
         var cfgStr = JSON.stringify(gate3.chartConfigs || {});
-        var fp3 = sha256(seed + '::' + cfgStr + '::' + (gate3.comparativeAnalysis || '') + '::' + (gate3.probeAnswer !== undefined ? gate3.probeAnswer : ''));
+        var compStr = Array.isArray(gate3.constraintAnswers) ? gate3.constraintAnswers.join(';;') : (gate3.comparativeAnalysis || '');
+        var fp3 = sha256(seed + '::' + cfgStr + '::' + compStr + '::' + (gate3.probeAnswer !== undefined ? gate3.probeAnswer : ''));
 
         var finalPassCode = sha256(fp1 + '+' + fp2 + '+' + fp3 + '+' + seed);
 

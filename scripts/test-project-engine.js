@@ -109,6 +109,14 @@ const gate2 = {
 
 const gate3 = {
     chartConfigs: { multiTab: true, crossBrushing: true, graphView: true },
+    constraintAnswers: [
+        'Multi-tab hierarchy links Tab 1 macro metrics to Tab 2 and Tab 3.',
+        'Client-side threshold calculations execute live in memory without reload.',
+        'Brushing network nodes highlights temporal scatter and ranked bar visual.',
+        'Lossless drill-down preserves exact regional sum across all 3 levels.',
+        'Degree centrality encodes node radii, identifying high-risk hubs.',
+        'In raw view, mean turnaround masked 18% tail statutory breaches.'
+    ],
     comparativeAnalysis: 'In raw dashboard, unrecorded officers were dropped, biasing network degree centrality by 35%. Cleaned dashboard restored complete chain.',
     probeId: probeQ.probeId,
     probeAnswer: probeQ.expectedAnswer
