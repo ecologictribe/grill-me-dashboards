@@ -1,113 +1,149 @@
 record_id,participant_id,survey_date,demographic_cohort,meal_slot,food_category,serving_quantity,serving_unit,calories_kcal,protein_grams,sodium_mg,vitamin_c_mg,is_fasting_period
-NUT-2026-5000,PT-100,2026-11-10,Urban-Affluent,Snack,Lean Poultry,2.5,total-recipe,3027,23.9,11593.2,50.9,0
-NUT-2026-5001,PT-101,2026-11-11,Peri-Urban-Informal,Breakfast,Whole Grains,2.5,per-serving,379,30.7,552.6,57.1,0
-NUT-2026-5002,PT-102,2026-11-12,Urban-Affluent,Dinner,Whole Grains,2.9,total-recipe,1569,9.8,5658.2,16.4,0
-NUT-2026-5003,PT-103,2026-11-13,Peri-Urban-Informal,Breakfast,Lean Poultry,1.6,per-serving,583,15.5,400.7,30.6,0
-NUT-2026-5004,PT-104,2026-11-14,Urban-Affluent,Lunch,Leafy Greens,2.9,per-serving,440,18.1,770.2,25.5,0
-NUT-2026-5005,PT-105,2026-11-15,Urban-Affluent,Dinner,Whole Grains,1,per-100g,277,26,311.5,31.1,0
-NUT-2026-5006,PT-106,2026-11-16,Rural-Agrarian,Lunch,Ultra-Processed Snacks,2.2,per-serving,650,31.4,754.5,50.6,0
-NUT-2026-5007,PT-107,2026-11-17,Rural-Agrarian,Lunch,Leafy Greens,0.8,total-recipe,2943,29.1,12347.2,73,0
-NUT-2026-5008,PT-108,2026-11-18,Rural-Agrarian,Dinner,Dairy & Eggs,1.3,per-100g,281,13.3,783.5,45.2,0
-NUT-2026-5009,PT-109,2026-11-19,Rural-Agrarian,Dinner,Leafy Greens,1.8,per-100g,623,6.3,221.5,0,1
-NUT-2026-5010,PT-110,2026-11-20,Urban-Affluent,Breakfast,Whole Grains,1,total-recipe,2763,13.3,14744.8,0,1
-NUT-2026-5011,PT-111,2026-11-21,Peri-Urban-Informal,Lunch,Leafy Greens,2.1,per-serving,183,29.6,431.5,26.1,0
-NUT-2026-5012,PT-112,2026-11-10,Rural-Agrarian,Lunch,Dairy & Eggs,2.8,per-100g,421,24.9,603.2,0,0
-NUT-2026-5013,PT-113,2026-11-11,Rural-Agrarian,Lunch,Legumes,2.4,per-serving,628,23.3,667.5,0,1
-NUT-2026-5014,PT-114,2026-11-12,Peri-Urban-Informal,Snack,Lean Poultry,2.9,per-serving,490,23.1,353.4,0,1
-NUT-2026-5015,PT-115,2026-11-13,Urban-Affluent,Snack,Whole Grains,2.8,per-serving,287,15.5,565.4,0,1
-NUT-2026-5016,PT-116,2026-11-14,Peri-Urban-Informal,Snack,Dairy & Eggs,1,total-recipe,2225,8.9,9619.2,0,0
-NUT-2026-5017,PT-117,2026-11-15,Urban-Affluent,Breakfast,Legumes,1.8,per-100g,298,17.3,583.3,0,1
-NUT-2026-5018,PT-118,2026-11-16,Urban-Affluent,Snack,Leafy Greens,1.2,per-serving,392,18.4,496.5,43.8,0
-NUT-2026-5019,PT-119,2026-11-17,Rural-Agrarian,Lunch,Dairy & Eggs,1.8,total-recipe,1451,21.8,6581.7,0,0
-NUT-2026-5020,PT-100,2026-11-18,Urban-Affluent,Breakfast,Legumes,2.1,total-recipe,1881,5.4,5375.9,62,0
-NUT-2026-5021,PT-101,2026-11-19,Peri-Urban-Informal,Snack,Legumes,1.9,per-100g,355,24.3,536.1,27.8,0
-NUT-2026-5022,PT-102,2026-11-20,Rural-Agrarian,Snack,Lean Poultry,1.2,per-serving,560,15.2,463,0,1
-NUT-2026-5023,PT-103,2026-11-21,Peri-Urban-Informal,Dinner,Ultra-Processed Snacks,2.1,per-100g,613,16.8,405.5,0,0
-NUT-2026-5024,PT-104,2026-11-10,Urban-Affluent,Lunch,Lean Poultry,0.8,per-serving,579,30.1,818.4,64.2,0
-NUT-2026-5025,PT-105,2026-11-11,Rural-Agrarian,Snack,Dairy & Eggs,0.6,per-100g,223,23.8,695.3,51.9,0
-NUT-2026-5026,PT-106,2026-11-12,Peri-Urban-Informal,Dinner,Whole Grains,2.2,total-recipe,1829,14,13723.6,39.2,0
-NUT-2026-5027,PT-107,2026-11-13,Peri-Urban-Informal,Dinner,Whole Grains,2.6,per-serving,587,21.4,586.5,53.1,0
-NUT-2026-5028,PT-108,2026-11-14,Peri-Urban-Informal,Dinner,Whole Grains,1.6,per-100g,552,16.4,442.5,0,0
-NUT-2026-5029,PT-109,2026-11-15,Rural-Agrarian,Lunch,Lean Poultry,2.3,per-100g,424,28.1,695.2,0,0
-NUT-2026-5030,PT-110,2026-11-16,Urban-Affluent,Dinner,Whole Grains,1.9,total-recipe,2589,19.5,5359.8,65.3,0
-NUT-2026-5031,PT-111,2026-11-17,Urban-Affluent,Breakfast,Legumes,1.7,per-100g,200,29.1,754.6,0,0
-NUT-2026-5032,PT-112,2026-11-18,Peri-Urban-Informal,Breakfast,Legumes,2.8,total-recipe,2672,20.4,15807.7,27.2,0
-NUT-2026-5033,PT-113,2026-11-19,Rural-Agrarian,Lunch,Dairy & Eggs,0.6,total-recipe,2633,7.1,9881.6,0,1
-NUT-2026-5034,PT-114,2026-11-20,Urban-Affluent,Lunch,Dairy & Eggs,0.6,total-recipe,2968,24.8,12617.5,21.6,0
-NUT-2026-5035,PT-115,2026-11-21,Peri-Urban-Informal,Dinner,Dairy & Eggs,2.3,total-recipe,2787,14.7,15024.7,0,0
-NUT-2026-5036,PT-116,2026-11-10,Peri-Urban-Informal,Lunch,Whole Grains,1.1,per-serving,273,25.3,325.2,27.1,0
-NUT-2026-5037,PT-117,2026-11-11,Peri-Urban-Informal,Breakfast,Dairy & Eggs,0.9,per-100g,536,24,519.4,37.6,0
-NUT-2026-5038,PT-118,2026-11-12,Urban-Affluent,Dinner,Dairy & Eggs,1,total-recipe,1569,22.7,6792.1,53.3,0
-NUT-2026-5039,PT-119,2026-11-13,Peri-Urban-Informal,Breakfast,Leafy Greens,2.8,total-recipe,3013,17.1,6470.1,0,0
-NUT-2026-5040,PT-100,2026-11-14,Urban-Affluent,Lunch,Ultra-Processed Snacks,2.3,per-serving,318,17,488.6,58.2,0
-NUT-2026-5041,PT-101,2026-11-15,Urban-Affluent,Dinner,Leafy Greens,2.3,total-recipe,3107,17.4,8414.7,75,0
-NUT-2026-5042,PT-102,2026-11-16,Rural-Agrarian,Snack,Leafy Greens,0.7,per-serving,266,5.8,488.5,44,0
-NUT-2026-5043,PT-103,2026-11-17,Urban-Affluent,Breakfast,Whole Grains,2.3,total-recipe,2646,29,14229.4,60,0
-NUT-2026-5044,PT-104,2026-11-18,Rural-Agrarian,Dinner,Legumes,2.2,total-recipe,2509,20.1,6960.5,0,0
-NUT-2026-5045,PT-105,2026-11-19,Peri-Urban-Informal,Lunch,Leafy Greens,2.3,total-recipe,2575,31.9,4995.9,0,1
-NUT-2026-5046,PT-106,2026-11-20,Rural-Agrarian,Dinner,Whole Grains,2.7,per-serving,220,5.8,433.6,35.8,0
-NUT-2026-5047,PT-107,2026-11-21,Rural-Agrarian,Dinner,Ultra-Processed Snacks,2.2,per-100g,628,14.3,454.4,0,0
-NUT-2026-5048,PT-108,2026-11-10,Urban-Affluent,Snack,Whole Grains,2,per-serving,474,14.3,441.6,56.6,0
-NUT-2026-5049,PT-109,2026-11-11,Urban-Affluent,Dinner,Dairy & Eggs,0.6,per-100g,322,27.7,430.9,40.2,0
-NUT-2026-5050,PT-110,2026-11-12,Rural-Agrarian,Lunch,Dairy & Eggs,0.8,per-serving,328,30,523.4,42.6,0
-NUT-2026-5051,PT-111,2026-11-13,Peri-Urban-Informal,Lunch,Ultra-Processed Snacks,2.6,total-recipe,1697,29.5,15108,0,0
-NUT-2026-5052,PT-112,2026-11-14,Rural-Agrarian,Lunch,Dairy & Eggs,3,total-recipe,2881,29.4,7505.6,37.4,0
-NUT-2026-5053,PT-113,2026-11-15,Peri-Urban-Informal,Dinner,Whole Grains,2.3,per-serving,521,23.1,700.9,0,0
-NUT-2026-5054,PT-114,2026-11-16,Peri-Urban-Informal,Dinner,Dairy & Eggs,2.4,per-serving,441,13.5,632.2,0,0
-NUT-2026-5055,PT-115,2026-11-17,Urban-Affluent,Lunch,Lean Poultry,1.9,total-recipe,3028,15.2,6119.8,56.7,0
-NUT-2026-5056,PT-116,2026-11-18,Rural-Agrarian,Snack,Dairy & Eggs,0.9,per-100g,458,19.6,139.1,0,0
-NUT-2026-5057,PT-117,2026-11-19,Peri-Urban-Informal,Snack,Ultra-Processed Snacks,1.7,per-100g,207,9.3,212.5,0,0
-NUT-2026-5058,PT-118,2026-11-20,Rural-Agrarian,Dinner,Whole Grains,0.6,total-recipe,2009,27.2,11708.4,16.5,0
-NUT-2026-5059,PT-119,2026-11-21,Peri-Urban-Informal,Dinner,Ultra-Processed Snacks,2.6,total-recipe,3068,23.8,12980.4,18,0
-NUT-2026-5060,PT-100,2026-11-10,Urban-Affluent,Dinner,Leafy Greens,1.3,total-recipe,2262,11.8,12043.1,59.4,0
-NUT-2026-5061,PT-101,2026-11-11,Peri-Urban-Informal,Snack,Ultra-Processed Snacks,1.5,per-serving,546,8,430,0,1
-NUT-2026-5062,PT-102,2026-11-12,Rural-Agrarian,Dinner,Leafy Greens,2,per-serving,449,18.1,177.6,0,0
-NUT-2026-5063,PT-103,2026-11-13,Peri-Urban-Informal,Snack,Lean Poultry,0.6,per-100g,308,15.2,406.6,63.7,0
-NUT-2026-5064,PT-104,2026-11-14,Rural-Agrarian,Lunch,Leafy Greens,1.2,per-serving,331,31.5,472.7,40.5,0
-NUT-2026-5065,PT-105,2026-11-15,Peri-Urban-Informal,Snack,Whole Grains,1.4,total-recipe,2498,32,9346,71,0
-NUT-2026-5066,PT-106,2026-11-16,Rural-Agrarian,Dinner,Ultra-Processed Snacks,0.8,per-100g,268,25,466.6,0,1
-NUT-2026-5067,PT-107,2026-11-17,Rural-Agrarian,Lunch,Lean Poultry,1.1,per-serving,369,11,261.2,20.6,0
-NUT-2026-5068,PT-108,2026-11-18,Peri-Urban-Informal,Dinner,Whole Grains,2.9,total-recipe,2548,25,5463,16.5,0
-NUT-2026-5069,PT-109,2026-11-19,Urban-Affluent,Dinner,Ultra-Processed Snacks,2.9,per-100g,285,14.6,805.7,41,0
-NUT-2026-5070,PT-110,2026-11-20,Peri-Urban-Informal,Snack,Leafy Greens,1.2,per-100g,325,10.8,514.8,32.4,0
-NUT-2026-5071,PT-111,2026-11-21,Peri-Urban-Informal,Dinner,Legumes,1.5,total-recipe,1774,8.4,13529.9,19.3,0
-NUT-2026-5072,PT-112,2026-11-10,Peri-Urban-Informal,Lunch,Legumes,2.8,per-100g,459,12.3,402.4,0,0
-NUT-2026-5073,PT-113,2026-11-11,Urban-Affluent,Dinner,Leafy Greens,2.2,per-100g,193,6.5,713,0,0
-NUT-2026-5074,PT-114,2026-11-12,Peri-Urban-Informal,Dinner,Dairy & Eggs,0.7,per-100g,397,11.7,394.2,24.1,0
-NUT-2026-5075,PT-115,2026-11-13,Urban-Affluent,Breakfast,Legumes,1,per-serving,345,9.7,599,39.3,0
-NUT-2026-5076,PT-116,2026-11-14,Rural-Agrarian,Snack,Ultra-Processed Snacks,0.9,per-100g,424,22.2,701.3,53.2,0
-NUT-2026-5077,PT-117,2026-11-15,Peri-Urban-Informal,Snack,Ultra-Processed Snacks,2.4,per-serving,385,17.1,449.3,0,0
-NUT-2026-5078,PT-118,2026-11-16,Rural-Agrarian,Snack,Dairy & Eggs,1.1,per-serving,290,17.8,628.8,44.2,0
-NUT-2026-5079,PT-119,2026-11-17,Peri-Urban-Informal,Dinner,Ultra-Processed Snacks,1.8,per-serving,457,10.1,589.7,0,0
-NUT-2026-5080,PT-100,2026-11-18,Urban-Affluent,Snack,Legumes,2,per-serving,361,28.7,407.1,0,0
-NUT-2026-5081,PT-101,2026-11-19,Peri-Urban-Informal,Dinner,Leafy Greens,1.4,per-serving,624,13.2,693.7,0,1
-NUT-2026-5082,PT-102,2026-11-20,Urban-Affluent,Lunch,Legumes,1.1,total-recipe,2618,8.1,10071.9,0,0
-NUT-2026-5083,PT-103,2026-11-21,Peri-Urban-Informal,Snack,Lean Poultry,2.6,per-100g,343,26.5,734.4,0,0
-NUT-2026-5084,PT-104,2026-11-10,Rural-Agrarian,Breakfast,Ultra-Processed Snacks,2.3,per-100g,366,19.1,219.7,0,0
-NUT-2026-5085,PT-105,2026-11-11,Peri-Urban-Informal,Breakfast,Whole Grains,2.8,per-100g,384,7.6,153.9,50.6,0
-NUT-2026-5086,PT-106,2026-11-12,Rural-Agrarian,Breakfast,Whole Grains,1.8,total-recipe,1606,27.1,15911.7,28.1,0
-NUT-2026-5087,PT-107,2026-11-13,Peri-Urban-Informal,Breakfast,Legumes,2.1,per-serving,274,24.2,246.6,38.2,0
-NUT-2026-5088,PT-108,2026-11-14,Rural-Agrarian,Dinner,Whole Grains,2.9,per-serving,180,13.2,413.3,0,1
-NUT-2026-5089,PT-109,2026-11-15,Peri-Urban-Informal,Breakfast,Dairy & Eggs,2.8,per-100g,404,7.4,756.7,0,0
-NUT-2026-5090,PT-110,2026-11-16,Peri-Urban-Informal,Dinner,Legumes,2,per-100g,393,5.8,673.1,10.8,0
-NUT-2026-5091,PT-111,2026-11-17,Peri-Urban-Informal,Breakfast,Lean Poultry,2.6,total-recipe,2776,14.8,16437.5,36.3,0
-NUT-2026-5092,PT-112,2026-11-18,Urban-Affluent,Lunch,Lean Poultry,3,total-recipe,3123,18.3,8963.4,67,0
-NUT-2026-5093,PT-113,2026-11-19,Peri-Urban-Informal,Dinner,Legumes,2.5,per-100g,554,32,500.9,0,1
-NUT-2026-5094,PT-114,2026-11-20,Rural-Agrarian,Snack,Ultra-Processed Snacks,1.7,per-serving,527,22.8,324.9,26.1,0
-NUT-2026-5095,PT-115,2026-11-21,Rural-Agrarian,Dinner,Ultra-Processed Snacks,1.2,total-recipe,2133,24.8,15487.1,0,0
-NUT-2026-5096,PT-116,2026-11-10,Peri-Urban-Informal,Snack,Lean Poultry,1.7,per-serving,260,15.5,864.5,11,0
-NUT-2026-5097,PT-117,2026-11-11,Peri-Urban-Informal,Breakfast,Ultra-Processed Snacks,2.7,total-recipe,1866,21.6,8292.1,48,0
-NUT-2026-5098,PT-118,2026-11-12,Rural-Agrarian,Dinner,Ultra-Processed Snacks,1.3,per-100g,403,14.2,506.5,45.2,0
-NUT-2026-5099,PT-119,2026-11-13,Rural-Agrarian,Breakfast,Legumes,0.8,total-recipe,2524,14.9,13541.9,55.9,0
-NUT-2026-5100,PT-100,2026-11-14,Peri-Urban-Informal,Lunch,Whole Grains,0.7,per-serving,481,26.7,699.4,0,0
-NUT-2026-5101,PT-101,2026-11-15,Peri-Urban-Informal,Dinner,Legumes,2.2,per-100g,284,13.2,815.5,18.3,0
-NUT-2026-5102,PT-102,2026-11-16,Urban-Affluent,Dinner,Legumes,1.4,per-serving,550,25.9,697.7,0,0
-NUT-2026-5103,PT-103,2026-11-17,Rural-Agrarian,Snack,Ultra-Processed Snacks,0.8,total-recipe,3159,31.4,12514.6,0,0
-NUT-2026-5104,PT-104,2026-11-18,Urban-Affluent,Lunch,Whole Grains,1.8,per-100g,421,26.2,332.5,22.3,0
-NUT-2026-5105,PT-105,2026-11-19,Rural-Agrarian,Breakfast,Leafy Greens,1.3,per-serving,192,14,852.4,37,0
-NUT-2026-5106,PT-106,2026-11-20,Urban-Affluent,Dinner,Legumes,0.7,per-100g,221,7.6,339.2,15.8,0
-NUT-2026-5107,PT-107,2026-11-21,Peri-Urban-Informal,Breakfast,Ultra-Processed Snacks,0.7,per-serving,286,10.7,179.8,0,0
-NUT-2026-5108,PT-108,2026-11-10,Peri-Urban-Informal,Lunch,Lean Poultry,2.2,total-recipe,1702,14.4,4658.9,72.1,0
-NUT-2026-5109,PT-109,2026-11-11,Peri-Urban-Informal,Snack,Leafy Greens,1.6,per-100g,203,16.4,360.9,28.2,0
-NUT-2026-5110,PT-110,2026-11-12,Peri-Urban-Informal,Lunch,Ultra-Processed Snacks,0.6,per-100g,479,18,837.1,24.5,0
-NUT-2026-5111,PT-111,2026-11-13,Rural-Agrarian,Lunch,Lean Poultry,1,per-serving,437,30.8,154,66.6,0
+NUT-2026-5000,PT-100,2026-11-10,Shift-Worker-Industrial,Dinner,Citrus & Tropical Fruits,3,per-portion,694,6.1,832.1,68.4,0
+NUT-2026-5001,PT-101,2026-11-11,Urban-Affluent,Late-Snack,Lean Poultry & Fish,2.6,per-portion,301,26.9,845.6,88.9,0
+NUT-2026-5002,PT-102,2026-11-12,Pediatric-School-Age,Dinner,Processed Deli Meats,3.3,per-serving,267,39.6,169.3,0,1
+NUT-2026-5003,PT-103,2026-11-13,Urban-Affluent,Late-Snack,Dairy & Fermented Eggs,0.9,per-100g,391,19.2,894.8,39.8,0
+NUT-2026-5004,PT-104,2026-11-14,Peri-Urban-Informal,Morning-Snack,Ultra-Processed Snacks,3.5,total-recipe,3039,22.1,27487.8,0,0
+NUT-2026-5005,PT-105,2026-11-15,Rural-Agrarian,Afternoon-Tea,Cold-Pressed Seed Oils,1,per-100g,266,32.9,322.5,35.5,0
+NUT-2026-5006,PT-106,2026-11-16,Collegiate-Athlete,Morning-Snack,Lean Poultry & Fish,2.6,per-100g,750,40.2,883.8,61.1,0
+NUT-2026-5007,PT-107,2026-11-17,Elderly-Care-Resident,Lunch,Dairy & Fermented Eggs,0.8,per-portion,663,37.1,701.2,90.3,0
+NUT-2026-5008,PT-108,2026-11-18,Collegiate-Athlete,Dinner,Root Tubers & Starch,1.4,per-100g,271,15.6,920.4,54,0
+NUT-2026-5009,PT-109,2026-11-19,Elderly-Care-Resident,Afternoon-Tea,Ultra-Processed Snacks,2,per-portion,715,6.1,208.6,0,1
+NUT-2026-5010,PT-110,2026-11-20,Rural-Agrarian,Breakfast,Fortified Breakfast Cereals,1.1,heaped-tablespoon,602,15.7,891,0,1
+NUT-2026-5011,PT-111,2026-11-21,Shift-Worker-Industrial,Lunch,Dairy & Fermented Eggs,2.5,per-100g,144,37.7,474.5,29,0
+NUT-2026-5012,PT-112,2026-11-22,Elderly-Care-Resident,Lunch,Cruciferous Vegetables,3.4,total-recipe,2936,31.3,23221.7,0,0
+NUT-2026-5013,PT-113,2026-11-23,Peri-Urban-Informal,Morning-Snack,Leafy Dark Greens,2.8,per-serving,722,29.2,773.5,0,1
+NUT-2026-5014,PT-114,2026-11-24,Pediatric-School-Age,Late-Snack,Citrus & Tropical Fruits,3.5,per-serving,543,28.9,375.6,0,1
+NUT-2026-5015,PT-115,2026-11-25,Rural-Agrarian,Dinner,Cold-Pressed Seed Oils,3.4,per-serving,280,18.6,644.2,0,1
+NUT-2026-5016,PT-116,2026-11-26,Pediatric-School-Age,Late-Snack,Root Tubers & Starch,1,per-portion,420,9.7,485.3,0,0
+NUT-2026-5017,PT-117,2026-11-27,Urban-Affluent,Morning-Snack,Legumes & Pulses,2.1,per-100g,293,21.1,666.9,0,1
+NUT-2026-5018,PT-118,2026-11-10,Urban-Affluent,Late-Snack,Dairy & Fermented Eggs,1.3,per-serving,415,22.5,557,52.3,0
+NUT-2026-5019,PT-119,2026-11-11,Elderly-Care-Resident,Lunch,Cruciferous Vegetables,2.1,per-portion,157,27.1,244.8,0,0
+NUT-2026-5020,PT-120,2026-11-12,Rural-Agrarian,Breakfast,Legumes & Pulses,2.5,heaped-tablespoon,303,4.9,149.3,76.1,0
+NUT-2026-5021,PT-121,2026-11-13,Shift-Worker-Industrial,Dinner,Leafy Dark Greens,2.2,per-100g,368,30.5,607,31.3,0
+NUT-2026-5022,PT-122,2026-11-14,Elderly-Care-Resident,Late-Snack,Citrus & Tropical Fruits,1.3,per-serving,633,18.2,514.5,0,1
+NUT-2026-5023,PT-123,2026-11-15,Shift-Worker-Industrial,Afternoon-Tea,Whole Ancient Grains,2.4,total-recipe,3995,20.4,18167.4,0,0
+NUT-2026-5024,PT-124,2026-11-16,Rural-Agrarian,Lunch,Processed Deli Meats,0.8,per-serving,657,38.4,964.6,78.9,0
+NUT-2026-5025,PT-125,2026-11-17,Peri-Urban-Informal,Dinner,Cruciferous Vegetables,0.6,per-100g,195,29.8,808.7,62.8,0
+NUT-2026-5026,PT-126,2026-11-18,Shift-Worker-Industrial,Dinner,Cold-Pressed Seed Oils,2.6,per-portion,285,16.5,810.2,46.1,0
+NUT-2026-5027,PT-127,2026-11-19,Pediatric-School-Age,Dinner,Cold-Pressed Seed Oils,3.1,per-serving,668,26.6,670.8,64.3,0
+NUT-2026-5028,PT-128,2026-11-20,Shift-Worker-Industrial,Dinner,Fortified Breakfast Cereals,1.9,total-recipe,2753,19.7,26027,44.5,0
+NUT-2026-5029,PT-129,2026-11-21,Peri-Urban-Informal,Late-Snack,Root Tubers & Starch,2.7,per-portion,457,35.7,808.6,0,1
+NUT-2026-5030,PT-130,2026-11-22,Urban-Affluent,Afternoon-Tea,Fortified Breakfast Cereals,2.1,heaped-tablespoon,543,24,148.1,80.3,0
+NUT-2026-5031,PT-131,2026-11-23,Urban-Affluent,Breakfast,Leafy Dark Greens,2,total-recipe,1715,37.1,27090.3,0,0
+NUT-2026-5032,PT-132,2026-11-24,Shift-Worker-Industrial,Breakfast,Leafy Dark Greens,3.3,per-portion,571,25.2,975.2,30.6,0
+NUT-2026-5033,PT-133,2026-11-25,Elderly-Care-Resident,Morning-Snack,Cruciferous Vegetables,0.5,heaped-tablespoon,558,7.2,506,0,1
+NUT-2026-5034,PT-134,2026-11-26,Urban-Affluent,Lunch,Cruciferous Vegetables,0.5,per-portion,672,31.2,722.6,23.2,0
+NUT-2026-5035,PT-100,2026-11-27,Shift-Worker-Industrial,Afternoon-Tea,Cruciferous Vegetables,2.7,per-portion,610,17.5,913.2,0,0
+NUT-2026-5036,PT-101,2026-11-10,Shift-Worker-Industrial,Morning-Snack,Fortified Breakfast Cereals,1.1,per-serving,261,32,339.9,30.3,0
+NUT-2026-5037,PT-102,2026-11-11,Pediatric-School-Age,Breakfast,Cruciferous Vegetables,0.9,total-recipe,3567,30.1,21078.5,44.1,0
+NUT-2026-5038,PT-103,2026-11-12,Rural-Agrarian,Dinner,Root Tubers & Starch,1.1,heaped-tablespoon,197,28.4,261.5,64.6,0
+NUT-2026-5039,PT-104,2026-11-13,Pediatric-School-Age,Breakfast,Dairy & Fermented Eggs,3.3,per-portion,687,20.7,236,0,0
+NUT-2026-5040,PT-105,2026-11-14,Rural-Agrarian,Lunch,Whole Ancient Grains,2.6,per-serving,319,20.6,546.9,71,0
+NUT-2026-5041,PT-106,2026-11-15,Urban-Affluent,Afternoon-Tea,Dairy & Fermented Eggs,2.8,per-portion,719,21.1,389.9,92.9,0
+NUT-2026-5042,PT-107,2026-11-16,Elderly-Care-Resident,Late-Snack,Dairy & Fermented Eggs,0.7,per-serving,251,5.4,546.7,52.5,0
+NUT-2026-5043,PT-108,2026-11-17,Peri-Urban-Informal,Breakfast,Cold-Pressed Seed Oils,2.7,heaped-tablespoon,562,37,850.2,73.4,0
+NUT-2026-5044,PT-109,2026-11-18,Elderly-Care-Resident,Dinner,Leafy Dark Greens,2.6,per-portion,516,24.8,274.8,0,0
+NUT-2026-5045,PT-110,2026-11-19,Shift-Worker-Industrial,Morning-Snack,Ultra-Processed Snacks,2.7,heaped-tablespoon,538,40.8,119.3,0,1
+NUT-2026-5046,PT-111,2026-11-20,Elderly-Care-Resident,Afternoon-Tea,Cold-Pressed Seed Oils,3.2,per-serving,192,5.4,477.2,41.8,0
+NUT-2026-5047,PT-112,2026-11-21,Collegiate-Athlete,Dinner,Lean Poultry & Fish,0.5,total-recipe,2553,29.3,29128.3,45.9,0
+NUT-2026-5048,PT-113,2026-11-22,Pediatric-School-Age,Dinner,Legumes & Pulses,0.4,heaped-tablespoon,364,25.5,673.6,44.5,0
+NUT-2026-5049,PT-114,2026-11-23,Elderly-Care-Resident,Afternoon-Tea,Cruciferous Vegetables,1.7,per-100g,656,4.8,367.4,43.2,0
+NUT-2026-5050,PT-115,2026-11-24,Peri-Urban-Informal,Afternoon-Tea,Legumes & Pulses,3.1,heaped-tablespoon,706,7.2,379.5,53.7,0
+NUT-2026-5051,PT-116,2026-11-25,Peri-Urban-Informal,Lunch,Fortified Breakfast Cereals,3,per-100g,240,37.7,919.8,0,1
+NUT-2026-5052,PT-117,2026-11-26,Collegiate-Athlete,Lunch,Cruciferous Vegetables,3.6,heaped-tablespoon,642,37.5,317.9,43.9,0
+NUT-2026-5053,PT-118,2026-11-27,Pediatric-School-Age,Afternoon-Tea,Fortified Breakfast Cereals,2.7,per-100g,583,28.9,815.8,0,0
+NUT-2026-5054,PT-119,2026-11-10,Pediatric-School-Age,Afternoon-Tea,Root Tubers & Starch,2.8,per-serving,479,15.9,728.7,0,0
+NUT-2026-5055,PT-120,2026-11-11,Urban-Affluent,Lunch,Processed Deli Meats,2.2,per-portion,692,18.3,208.2,69,0
+NUT-2026-5056,PT-121,2026-11-12,Elderly-Care-Resident,Late-Snack,Cruciferous Vegetables,1,total-recipe,3139,24.1,11359.4,0,0
+NUT-2026-5057,PT-122,2026-11-13,Pediatric-School-Age,Dinner,Lean Poultry & Fish,1.9,per-portion,175,10.2,197.2,0,0
+NUT-2026-5058,PT-123,2026-11-14,Elderly-Care-Resident,Afternoon-Tea,Cold-Pressed Seed Oils,0.6,per-portion,346,34.5,650.7,16.5,0
+NUT-2026-5059,PT-124,2026-11-15,Pediatric-School-Age,Dinner,Lean Poultry & Fish,3.1,per-portion,705,29.8,751.4,18.5,0
+NUT-2026-5060,PT-125,2026-11-16,Peri-Urban-Informal,Afternoon-Tea,Ultra-Processed Snacks,1.5,heaped-tablespoon,432,13.6,677.2,72.6,0
+NUT-2026-5061,PT-126,2026-11-17,Pediatric-School-Age,Late-Snack,Lean Poultry & Fish,1.7,per-serving,614,8.4,472.7,0,1
+NUT-2026-5062,PT-127,2026-11-18,Elderly-Care-Resident,Afternoon-Tea,Dairy & Fermented Eggs,2.3,per-serving,489,22.2,153,0,0
+NUT-2026-5063,PT-128,2026-11-19,Shift-Worker-Industrial,Dinner,Citrus & Tropical Fruits,0.5,per-portion,306,18.1,443.1,78.2,0
+NUT-2026-5064,PT-129,2026-11-20,Collegiate-Athlete,Morning-Snack,Ultra-Processed Snacks,1.3,per-100g,336,40.3,526.8,47.9,0
+NUT-2026-5065,PT-130,2026-11-21,Pediatric-School-Age,Late-Snack,Cold-Pressed Seed Oils,1.6,heaped-tablespoon,512,41,463.6,87.8,0
+NUT-2026-5066,PT-131,2026-11-22,Elderly-Care-Resident,Afternoon-Tea,Whole Ancient Grains,0.8,total-recipe,2091,31.5,19730.6,0,1
+NUT-2026-5067,PT-132,2026-11-23,Collegiate-Athlete,Lunch,Citrus & Tropical Fruits,1.2,per-100g,385,12.5,258.9,21.9,0
+NUT-2026-5068,PT-133,2026-11-24,Shift-Worker-Industrial,Dinner,Fortified Breakfast Cereals,3.4,heaped-tablespoon,529,31.4,156.2,16.5,0
+NUT-2026-5069,PT-134,2026-11-25,Urban-Affluent,Afternoon-Tea,Whole Ancient Grains,3.4,total-recipe,2183,17.4,28396.6,48.5,0
+NUT-2026-5070,PT-100,2026-11-26,Shift-Worker-Industrial,Late-Snack,Ultra-Processed Snacks,1.3,total-recipe,2404,12.2,20961.8,37.4,0
+NUT-2026-5071,PT-101,2026-11-27,Pediatric-School-Age,Dinner,Legumes & Pulses,1.6,per-portion,267,8.9,794.9,20.1,0
+NUT-2026-5072,PT-102,2026-11-10,Shift-Worker-Industrial,Lunch,Leafy Dark Greens,3.3,per-portion,502,14.2,437.7,0,0
+NUT-2026-5073,PT-103,2026-11-11,Urban-Affluent,Afternoon-Tea,Ultra-Processed Snacks,2.6,per-portion,157,6.4,831.2,0,0
+NUT-2026-5074,PT-104,2026-11-12,Pediatric-School-Age,Afternoon-Tea,Cruciferous Vegetables,0.6,per-portion,422,13.5,427.3,26.5,0
+NUT-2026-5075,PT-105,2026-11-13,Urban-Affluent,Morning-Snack,Leafy Dark Greens,1.1,per-100g,354,10.8,686.7,46.3,0
+NUT-2026-5076,PT-106,2026-11-14,Elderly-Care-Resident,Late-Snack,Whole Ancient Grains,0.9,total-recipe,2951,27.8,25728.2,64.5,0
+NUT-2026-5077,PT-107,2026-11-15,Collegiate-Athlete,Late-Snack,Whole Ancient Grains,2.9,per-100g,406,20.8,497.1,0,0
+NUT-2026-5078,PT-108,2026-11-16,Collegiate-Athlete,Dinner,Cruciferous Vegetables,1.2,per-serving,283,21.7,724.4,52.7,0
+NUT-2026-5079,PT-109,2026-11-17,Shift-Worker-Industrial,Afternoon-Tea,Whole Ancient Grains,2.1,per-serving,500,11.2,675,0,0
+NUT-2026-5080,PT-110,2026-11-18,Urban-Affluent,Late-Snack,Legumes & Pulses,2.3,per-100g,375,36.6,443.7,0,0
+NUT-2026-5081,PT-111,2026-11-19,Pediatric-School-Age,Afternoon-Tea,Dairy & Fermented Eggs,1.6,per-100g,716,15.5,806.7,0,1
+NUT-2026-5082,PT-112,2026-11-20,Rural-Agrarian,Lunch,Legumes & Pulses,1.1,per-portion,553,8.5,521.1,0,0
+NUT-2026-5083,PT-113,2026-11-21,Pediatric-School-Age,Late-Snack,Citrus & Tropical Fruits,3.1,per-portion,351,33.6,858.2,0,0
+NUT-2026-5084,PT-114,2026-11-22,Peri-Urban-Informal,Morning-Snack,Whole Ancient Grains,2.7,total-recipe,2628,23.5,13420.3,0,0
+NUT-2026-5085,PT-115,2026-11-23,Collegiate-Athlete,Breakfast,Fortified Breakfast Cereals,3.4,total-recipe,2728,7.9,11737.3,61,0
+NUT-2026-5086,PT-116,2026-11-24,Peri-Urban-Informal,Breakfast,Cold-Pressed Seed Oils,2,per-portion,210,34.4,983.4,31.6,0
+NUT-2026-5087,PT-117,2026-11-25,Pediatric-School-Age,Breakfast,Leafy Dark Greens,2.4,per-serving,262,30.4,240.3,44.8,0
+NUT-2026-5088,PT-118,2026-11-26,Elderly-Care-Resident,Afternoon-Tea,Cold-Pressed Seed Oils,3.4,per-100g,140,15.5,451.5,0,1
+NUT-2026-5089,PT-119,2026-11-27,Shift-Worker-Industrial,Morning-Snack,Root Tubers & Starch,3.3,total-recipe,2837,7.7,27143.6,0,0
+NUT-2026-5090,PT-120,2026-11-10,Pediatric-School-Age,Dinner,Legumes & Pulses,2.4,total-recipe,2777,5.4,25008,9.1,0
+NUT-2026-5091,PT-121,2026-11-11,Pediatric-School-Age,Breakfast,Citrus & Tropical Fruits,3.1,per-portion,606,17.6,1025.1,42.3,0
+NUT-2026-5092,PT-122,2026-11-12,Peri-Urban-Informal,Lunch,Processed Deli Meats,3.6,heaped-tablespoon,724,22.4,433.4,82.6,0
+NUT-2026-5093,PT-123,2026-11-13,Pediatric-School-Age,Afternoon-Tea,Legumes & Pulses,3,total-recipe,3665,41,20607.5,0,1
+NUT-2026-5094,PT-124,2026-11-14,Peri-Urban-Informal,Dinner,Whole Ancient Grains,2,per-100g,590,28.5,339.6,29.1,0
+NUT-2026-5095,PT-125,2026-11-15,Peri-Urban-Informal,Dinner,Lean Poultry & Fish,2.9,heaped-tablespoon,593,13.6,467,85.8,0
+NUT-2026-5096,PT-126,2026-11-16,Pediatric-School-Age,Late-Snack,Ultra-Processed Snacks,1.9,per-100g,244,18.6,1023,0,0
+NUT-2026-5097,PT-127,2026-11-17,Shift-Worker-Industrial,Morning-Snack,Whole Ancient Grains,3.3,per-portion,298,26.8,380.2,57.6,0
+NUT-2026-5098,PT-128,2026-11-18,Peri-Urban-Informal,Afternoon-Tea,Whole Ancient Grains,1.5,per-100g,429,16.9,569.6,54.1,0
+NUT-2026-5099,PT-129,2026-11-19,Elderly-Care-Resident,Morning-Snack,Leafy Dark Greens,0.8,heaped-tablespoon,521,17.7,795.8,68,0
+NUT-2026-5100,PT-130,2026-11-20,Shift-Worker-Industrial,Lunch,Fortified Breakfast Cereals,0.7,per-100g,531,33.8,813.9,0,0
+NUT-2026-5101,PT-131,2026-11-21,Pediatric-School-Age,Afternoon-Tea,Leafy Dark Greens,2.6,total-recipe,2175,15.5,28647.5,18.8,0
+NUT-2026-5102,PT-132,2026-11-22,Urban-Affluent,Afternoon-Tea,Legumes & Pulses,1.6,per-serving,620,32.7,811.7,0,0
+NUT-2026-5103,PT-133,2026-11-23,Elderly-Care-Resident,Late-Snack,Whole Ancient Grains,0.8,heaped-tablespoon,736,40.2,714.5,0,0
+NUT-2026-5104,PT-134,2026-11-24,Urban-Affluent,Lunch,Cold-Pressed Seed Oils,2,total-recipe,2932,33.1,16301.9,24,0
+NUT-2026-5105,PT-100,2026-11-25,Collegiate-Athlete,Breakfast,Dairy & Fermented Eggs,1.5,per-serving,155,16.6,1007.7,43.3,0
+NUT-2026-5106,PT-101,2026-11-26,Peri-Urban-Informal,Afternoon-Tea,Leafy Dark Greens,0.6,total-recipe,1831,7.9,16474.7,15.6,0
+NUT-2026-5107,PT-102,2026-11-27,Shift-Worker-Industrial,Morning-Snack,Whole Ancient Grains,3.1,per-serving,286,5.6,294.4,14.8,0
+NUT-2026-5108,PT-103,2026-11-10,Rural-Agrarian,Late-Snack,Fortified Breakfast Cereals,3.5,per-portion,365,29,239.6,9.1,0
+NUT-2026-5109,PT-104,2026-11-11,Pediatric-School-Age,Morning-Snack,Lean Poultry & Fish,1.8,per-portion,170,19.8,385.1,0,0
+NUT-2026-5110,PT-105,2026-11-12,Shift-Worker-Industrial,Lunch,Lean Poultry & Fish,0.5,per-portion,528,22,988.4,26.9,0
+NUT-2026-5111,PT-106,2026-11-13,Peri-Urban-Informal,Lunch,Processed Deli Meats,1,per-100g,473,39.3,123.1,82,0
+NUT-2026-5112,PT-107,2026-11-14,Shift-Worker-Industrial,Afternoon-Tea,Root Tubers & Starch,3.2,per-portion,665,11.8,934.5,43.1,0
+NUT-2026-5113,PT-108,2026-11-15,Peri-Urban-Informal,Breakfast,Legumes & Pulses,1.1,per-serving,659,15.9,802,66,0
+NUT-2026-5114,PT-109,2026-11-16,Pediatric-School-Age,Morning-Snack,Leafy Dark Greens,2.4,total-recipe,3009,23.4,28166.8,14.6,0
+NUT-2026-5115,PT-110,2026-11-17,Pediatric-School-Age,Late-Snack,Leafy Dark Greens,1.8,total-recipe,3530,6.1,15882.5,21.5,0
+NUT-2026-5116,PT-111,2026-11-18,Elderly-Care-Resident,Dinner,Ultra-Processed Snacks,2,total-recipe,2824,33.2,24442.8,69.8,0
+NUT-2026-5117,PT-112,2026-11-19,Urban-Affluent,Late-Snack,Citrus & Tropical Fruits,0.5,per-100g,748,21.3,893.9,75.7,0
+NUT-2026-5118,PT-113,2026-11-20,Elderly-Care-Resident,Breakfast,Leafy Dark Greens,0.7,total-recipe,3021,6.8,13907.6,0,0
+NUT-2026-5119,PT-114,2026-11-21,Shift-Worker-Industrial,Afternoon-Tea,Processed Deli Meats,2.2,per-100g,211,39.8,380.6,65.1,0
+NUT-2026-5120,PT-115,2026-11-22,Shift-Worker-Industrial,Late-Snack,Leafy Dark Greens,1.2,total-recipe,1752,18.9,19704.5,91.5,0
+NUT-2026-5121,PT-116,2026-11-23,Rural-Agrarian,Morning-Snack,Whole Ancient Grains,1.3,per-portion,488,3.8,669.5,58.6,0
+NUT-2026-5122,PT-117,2026-11-24,Rural-Agrarian,Dinner,Lean Poultry & Fish,1.8,total-recipe,3586,36,14734.6,33.4,0
+NUT-2026-5123,PT-118,2026-11-25,Elderly-Care-Resident,Late-Snack,Processed Deli Meats,0.6,heaped-tablespoon,745,38.8,170,55.6,0
+NUT-2026-5124,PT-119,2026-11-26,Collegiate-Athlete,Late-Snack,Leafy Dark Greens,1.4,per-serving,241,18.5,449.9,0,1
+NUT-2026-5125,PT-120,2026-11-27,Collegiate-Athlete,Late-Snack,Citrus & Tropical Fruits,0.7,per-portion,228,4.1,1014.7,0,0
+NUT-2026-5126,PT-121,2026-11-10,Rural-Agrarian,Breakfast,Dairy & Fermented Eggs,1.5,heaped-tablespoon,314,31.4,973.4,42.2,0
+NUT-2026-5127,PT-122,2026-11-11,Rural-Agrarian,Dinner,Cruciferous Vegetables,3,heaped-tablespoon,707,12.9,466.2,0,1
+NUT-2026-5128,PT-123,2026-11-12,Elderly-Care-Resident,Breakfast,Ultra-Processed Snacks,2.8,per-serving,492,31.6,730.5,76.5,0
+NUT-2026-5129,PT-124,2026-11-13,Collegiate-Athlete,Breakfast,Cold-Pressed Seed Oils,3,total-recipe,2745,5.1,24331,71.5,0
+NUT-2026-5130,PT-125,2026-11-14,Shift-Worker-Industrial,Breakfast,Fortified Breakfast Cereals,0.8,heaped-tablespoon,589,17.2,485.6,0,1
+NUT-2026-5131,PT-126,2026-11-15,Elderly-Care-Resident,Morning-Snack,Fortified Breakfast Cereals,0.5,total-recipe,3414,4.5,30001.9,0,1
+NUT-2026-5132,PT-127,2026-11-16,Elderly-Care-Resident,Morning-Snack,Lean Poultry & Fish,0.7,per-100g,689,7,805.1,0,0
+NUT-2026-5133,PT-128,2026-11-17,Elderly-Care-Resident,Morning-Snack,Fortified Breakfast Cereals,1.3,per-portion,719,35.5,577.3,0,0
+NUT-2026-5134,PT-129,2026-11-18,Urban-Affluent,Dinner,Lean Poultry & Fish,2.1,per-100g,263,5.8,586.1,29.8,0
+NUT-2026-5135,PT-130,2026-11-19,Collegiate-Athlete,Morning-Snack,Processed Deli Meats,3.4,per-serving,504,25.1,546.2,22.7,0
+NUT-2026-5136,PT-131,2026-11-20,Elderly-Care-Resident,Afternoon-Tea,Whole Ancient Grains,0.8,total-recipe,2339,16.4,22418.4,84.2,0
+NUT-2026-5137,PT-132,2026-11-21,Collegiate-Athlete,Morning-Snack,Lean Poultry & Fish,3.4,per-serving,595,24.2,834.9,11.2,0
+NUT-2026-5138,PT-133,2026-11-22,Peri-Urban-Informal,Late-Snack,Lean Poultry & Fish,0.8,total-recipe,1992,32,24316.2,0,0
+NUT-2026-5139,PT-134,2026-11-23,Shift-Worker-Industrial,Afternoon-Tea,Lean Poultry & Fish,3,per-100g,275,29.6,625.4,74,0
+NUT-2026-5140,PT-100,2026-11-24,Elderly-Care-Resident,Morning-Snack,Cruciferous Vegetables,3.4,total-recipe,3315,31.3,27231.4,77.9,0
+NUT-2026-5141,PT-101,2026-11-25,Pediatric-School-Age,Breakfast,Root Tubers & Starch,2.2,per-portion,657,16.7,539.8,0,1
+NUT-2026-5142,PT-102,2026-11-26,Rural-Agrarian,Afternoon-Tea,Legumes & Pulses,1.7,per-portion,628,29.8,716.2,0,0
+NUT-2026-5143,PT-103,2026-11-27,Pediatric-School-Age,Lunch,Citrus & Tropical Fruits,3.3,per-serving,378,38.1,111,84.6,0
+NUT-2026-5144,PT-104,2026-11-10,Urban-Affluent,Lunch,Processed Deli Meats,2.6,per-serving,166,22.3,955.6,52.5,0
+NUT-2026-5145,PT-105,2026-11-11,Collegiate-Athlete,Dinner,Legumes & Pulses,1.1,total-recipe,2108,25.7,21643.6,85,0
+NUT-2026-5146,PT-106,2026-11-12,Pediatric-School-Age,Afternoon-Tea,Dairy & Fermented Eggs,2.7,heaped-tablespoon,623,5.8,963.1,86.4,0
+NUT-2026-5147,PT-107,2026-11-13,Peri-Urban-Informal,Morning-Snack,Legumes & Pulses,1.9,heaped-tablespoon,193,26.6,438.3,26.6,0

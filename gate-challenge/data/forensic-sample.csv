@@ -1,86 +1,91 @@
 transfer_id,case_id,evidence_type,relinquishing_auth,receiving_auth,transfer_timestamp,statutory_deadline,actual_turnaround,custody_seal_intact,jurisdiction_zone,chain_gap_flag
-TXF-2026-9000,CASE-CR-1000,Digital Media,Inv. Kowalski #118,Sgt. Sterling #890,01/10/2026 15:10,30,11.6,YES,District-West-09,0
-TXF-2026-9001,CASE-CR-1001,Latent Fingerprints,Det. Zhao #512,Inv. Kowalski #118,2026-10-02T18:24:00.000Z,30,10.7,NO,Central-Forensic-Vault,1
-TXF-2026-9002,CASE-CR-1002,Biological/DNA,Capt. Reyes #004,Det. Miller #402,2026-10-03T19:06:00.000Z,30,41.9,UNCHECKED,District-North-01,0
-TXF-2026-9003,CASE-CR-1003,Narcotics,Tech. Vance #224,Sgt. Sterling #890,2026-10-04T17:35:00.000Z,30,23.6,YES,District-South-04,0
-TXF-2026-9004,CASE-CR-1004,Latent Fingerprints,Det. Miller #402,Inv. Kowalski #118,2026-10-05T11:04:00.000Z,30,20.1,YES,Central-Forensic-Vault,0
-TXF-2026-9005,CASE-CR-1005,Biological/DNA,Sgt. Sterling #890,Capt. Reyes #004,06/10/2026 19:22,30,20.5,YES,District-West-09,0
-TXF-2026-9006,CASE-CR-1006,Latent Fingerprints,Capt. Reyes #004,Det. Zhao #512,2026-10-07T15:31:00.000Z,30,25,YES,District-West-09,0
-TXF-2026-9007,CASE-CR-1007,Ballistics,Det. Miller #402,Tech. Vance #224,2026-10-08T20:57:00.000Z,30,11.8,YES,District-East-02,0
-TXF-2026-9008,CASE-CR-1008,Narcotics,Tech. Vance #224,Det. Miller #402,2026-10-09T15:18:00.000Z,30,10.4,YES,District-South-04,0
-TXF-2026-9009,CASE-CR-1009,Ballistics,Inv. Kowalski #118,Det. Miller #402,2026-10-10T14:46:00.000Z,30,19,YES,District-East-02,0
-TXF-2026-9010,CASE-CR-1010,Biological/DNA,Inv. Kowalski #118,Tech. Vance #224,11/10/2026 08:59,30,21.4,YES,Central-Forensic-Vault,0
-TXF-2026-9011,CASE-CR-1011,Latent Fingerprints,Det. Zhao #512,Tech. Vance #224,2026-10-12T13:37:00.000Z,30,41.2,YES,District-East-02,0
-TXF-2026-9012,CASE-CR-1012,Ballistics,Tech. Vance #224,Capt. Reyes #004,2026-10-13T12:13:00.000Z,30,69.2,YES,District-North-01,0
-TXF-2026-9013,CASE-CR-1013,Ballistics,Capt. Reyes #004,Inv. Kowalski #118,2026-10-14T14:24:00.000Z,30,13.9,YES,Central-Forensic-Vault,0
-TXF-2026-9014,CASE-CR-1014,Digital Media,unknown,Det. Miller #402,2026-10-15T13:11:00.000Z,30,36.1,YES,District-North-01,0
-TXF-2026-9015,CASE-CR-1015,Digital Media,Det. Miller #402,Det. Zhao #512,16/10/2026 20:00,30,22.2,YES,District-South-04,0
-TXF-2026-9016,CASE-CR-1016,Narcotics,unknown,Sgt. Sterling #890,2026-10-17T17:05:00.000Z,30,15.4,YES,District-South-04,0
-TXF-2026-9017,CASE-CR-1016,Digital Media,NA,Sgt. Sterling #890,2026-10-18T18:52:00.000Z,30,59.6,YES,District-East-02,1
-TXF-2026-9018,CASE-CR-1018,Ballistics,-,Inv. Kowalski #118,2026-10-19T10:51:00.000Z,30,59.6,YES,District-East-02,0
-TXF-2026-9019,CASE-CR-1019,Digital Media,Sgt. Sterling #890,Tech. Vance #224,2026-10-20T13:57:00.000Z,30,43.8,YES,District-East-02,0
-TXF-2026-9020,CASE-CR-1020,Narcotics,Tech. Vance #224,Det. Miller #402,21/10/2026 18:56,30,16,YES,District-West-09,0
-TXF-2026-9021,CASE-CR-1021,Biological/DNA,Capt. Reyes #004,Sgt. Sterling #890,2026-10-22T11:47:00.000Z,30,12.3,YES,District-North-01,0
-TXF-2026-9022,CASE-CR-1022,Latent Fingerprints,Inv. Kowalski #118,Sgt. Sterling #890,2026-10-23T12:34:00.000Z,30,16.2,YES,District-East-02,0
-TXF-2026-9023,CASE-CR-1023,Narcotics,Capt. Reyes #004,Det. Zhao #512,2026-10-24T17:36:00.000Z,30,4.4,YES,District-West-09,0
-TXF-2026-9024,CASE-CR-1000,Latent Fingerprints,Tech. Vance #224,Sgt. Sterling #890,2026-10-25T15:16:00.000Z,30,9.2,YES,Central-Forensic-Vault,0
-TXF-2026-9025,CASE-CR-1001,Digital Media,Sgt. Sterling #890,Capt. Reyes #004,26/10/2026 09:28,30,42.4,YES,Central-Forensic-Vault,0
-TXF-2026-9026,CASE-CR-1002,Biological/DNA,Det. Zhao #512,Inv. Kowalski #118,2026-10-27T15:46:00.000Z,30,20,UNCHECKED,Central-Forensic-Vault,0
-TXF-2026-9027,CASE-CR-1003,Narcotics,Det. Miller #402,Tech. Vance #224,2026-10-28T17:51:00.000Z,30,4.5,NO,District-South-04,1
-TXF-2026-9028,CASE-CR-1004,Digital Media,Inv. Kowalski #118,Capt. Reyes #004,2026-10-29T15:16:00.000Z,30,66.1,YES,Central-Forensic-Vault,0
-TXF-2026-9029,CASE-CR-1005,Ballistics,Capt. Reyes #004,Tech. Vance #224,2026-10-30T17:58:00.000Z,30,20,UNCHECKED,District-West-09,0
-TXF-2026-9030,CASE-CR-1006,Latent Fingerprints,Det. Miller #402,Capt. Reyes #004,01/10/2026 09:42,30,13.3,YES,District-South-04,0
-TXF-2026-9031,CASE-CR-1007,Biological/DNA,Tech. Vance #224,Det. Miller #402,2026-10-02T09:46:00.000Z,30,6.4,YES,District-East-02,0
-TXF-2026-9032,CASE-CR-1008,Digital Media,Det. Miller #402,Tech. Vance #224,2026-10-03T17:44:00.000Z,30,10.5,YES,Central-Forensic-Vault,0
-TXF-2026-9033,CASE-CR-1009,Digital Media,Capt. Reyes #004,Tech. Vance #224,2026-10-04T18:44:00.000Z,30,51.3,YES,District-North-01,0
-TXF-2026-9034,CASE-CR-1009,Digital Media,Sgt. Sterling #890,Det. Miller #402,2026-10-05T16:50:00.000Z,30,12.3,YES,District-North-01,0
-TXF-2026-9035,CASE-CR-1011,Biological/DNA,Sgt. Sterling #890,Tech. Vance #224,06/10/2026 08:32,30,13.3,YES,District-South-04,0
-TXF-2026-9036,CASE-CR-1012,Biological/DNA,Det. Zhao #512,Sgt. Sterling #890,2026-10-07T14:24:00.000Z,30,25.9,YES,District-East-02,0
-TXF-2026-9037,CASE-CR-1013,Narcotics,Det. Zhao #512,Inv. Kowalski #118,2026-10-08T15:48:00.000Z,30,20.3,YES,District-West-09,0
-TXF-2026-9038,CASE-CR-1014,Biological/DNA,Inv. Kowalski #118,Sgt. Sterling #890,2026-10-09T08:07:00.000Z,30,20.8,YES,Central-Forensic-Vault,0
-TXF-2026-9039,CASE-CR-1015,Narcotics,Det. Miller #402,Tech. Vance #224,2026-10-10T12:27:00.000Z,30,12.6,YES,District-West-09,0
-TXF-2026-9040,CASE-CR-1016,Biological/DNA,Capt. Reyes #004,Inv. Kowalski #118,11/10/2026 08:21,30,52,YES,Central-Forensic-Vault,0
-TXF-2026-9041,CASE-CR-1017,Narcotics,Sgt. Sterling #890,Tech. Vance #224,2026-10-12T17:37:00.000Z,30,10.9,NO,District-East-02,1
-TXF-2026-9042,CASE-CR-1018,Biological/DNA,Inv. Kowalski #118,Sgt. Sterling #890,2026-10-13T13:53:00.000Z,30,11.4,YES,District-North-01,0
-TXF-2026-9043,CASE-CR-1019,Biological/DNA,Det. Miller #402,Inv. Kowalski #118,2026-10-14T13:25:00.000Z,30,20,YES,District-West-09,0
-TXF-2026-9044,CASE-CR-1020,Latent Fingerprints,Inv. Kowalski #118,Tech. Vance #224,2026-10-15T08:39:00.000Z,30,14.8,YES,District-South-04,0
-TXF-2026-9045,CASE-CR-1021,Biological/DNA,Capt. Reyes #004,Det. Zhao #512,16/10/2026 16:18,30,20.1,NO,District-West-09,1
-TXF-2026-9046,CASE-CR-1022,Latent Fingerprints,Tech. Vance #224,Capt. Reyes #004,2026-10-17T17:47:00.000Z,30,7.5,YES,District-South-04,0
-TXF-2026-9047,CASE-CR-1023,Digital Media,Tech. Vance #224,Det. Zhao #512,2026-10-18T17:40:00.000Z,30,8.6,YES,District-West-09,0
-TXF-2026-9048,CASE-CR-1000,Digital Media,Det. Zhao #512,Capt. Reyes #004,2026-10-19T20:08:00.000Z,30,25.5,YES,Central-Forensic-Vault,0
-TXF-2026-9049,CASE-CR-1001,Narcotics,Inv. Kowalski #118,Det. Miller #402,2026-10-20T13:26:00.000Z,30,4.8,YES,District-East-02,0
-TXF-2026-9050,CASE-CR-1002,Ballistics,Sgt. Sterling #890,Capt. Reyes #004,21/10/2026 19:02,30,19.7,YES,Central-Forensic-Vault,0
-TXF-2026-9051,CASE-CR-1002,Digital Media,Det. Miller #402,Inv. Kowalski #118,2026-10-22T15:58:00.000Z,30,74.1,NO,Central-Forensic-Vault,1
-TXF-2026-9052,CASE-CR-1004,Latent Fingerprints,Capt. Reyes #004,Det. Zhao #512,2026-10-23T17:04:00.000Z,30,86.9,YES,Central-Forensic-Vault,0
-TXF-2026-9053,CASE-CR-1005,Latent Fingerprints,Capt. Reyes #004,Det. Zhao #512,2026-10-24T08:28:00.000Z,30,20.2,YES,District-South-04,0
-TXF-2026-9054,CASE-CR-1006,Narcotics,Capt. Reyes #004,Tech. Vance #224,2026-10-25T20:09:00.000Z,30,8,NO,District-North-01,1
-TXF-2026-9055,CASE-CR-1007,Biological/DNA,Tech. Vance #224,Det. Miller #402,26/10/2026 17:29,30,11.3,YES,District-East-02,0
-TXF-2026-9056,CASE-CR-1008,Narcotics,Tech. Vance #224,Capt. Reyes #004,2026-10-27T19:43:00.000Z,30,23.5,YES,District-West-09,0
-TXF-2026-9057,CASE-CR-1009,Ballistics,Sgt. Sterling #890,Det. Miller #402,2026-10-28T15:42:00.000Z,30,18.2,UNCHECKED,District-South-04,0
-TXF-2026-9058,CASE-CR-1010,Narcotics,Det. Miller #402,Inv. Kowalski #118,2026-10-29T13:40:00.000Z,30,23.4,YES,District-East-02,0
-TXF-2026-9059,CASE-CR-1011,Latent Fingerprints,Tech. Vance #224,Sgt. Sterling #890,2026-10-30T11:14:00.000Z,30,60.7,YES,District-North-01,0
-TXF-2026-9060,CASE-CR-1012,Digital Media,Sgt. Sterling #890,Inv. Kowalski #118,01/10/2026 15:06,30,13.4,YES,District-North-01,0
-TXF-2026-9061,CASE-CR-1013,Narcotics,PENDING,Inv. Kowalski #118,2026-10-02T15:31:00.000Z,30,22.4,YES,District-East-02,0
-TXF-2026-9062,CASE-CR-1014,Digital Media,Det. Zhao #512,Tech. Vance #224,2026-10-03T15:37:00.000Z,30,46.8,UNCHECKED,Central-Forensic-Vault,0
-TXF-2026-9063,CASE-CR-1015,Narcotics,Det. Zhao #512,Det. Miller #402,2026-10-04T18:03:00.000Z,30,72.1,YES,District-East-02,0
-TXF-2026-9064,CASE-CR-1016,Narcotics,Sgt. Sterling #890,Inv. Kowalski #118,2026-10-05T13:45:00.000Z,30,39.3,YES,District-West-09,0
-TXF-2026-9065,CASE-CR-1017,Ballistics,Tech. Vance #224,Sgt. Sterling #890,06/10/2026 12:13,30,25.4,YES,District-South-04,0
-TXF-2026-9066,CASE-CR-1018,Latent Fingerprints,Det. Miller #402,Sgt. Sterling #890,2026-10-07T20:37:00.000Z,30,24.2,YES,District-South-04,0
-TXF-2026-9067,CASE-CR-1019,Biological/DNA,Det. Zhao #512,Sgt. Sterling #890,2026-10-08T15:10:00.000Z,30,22.2,YES,District-East-02,0
-TXF-2026-9068,CASE-CR-1019,Biological/DNA,Det. Zhao #512,Capt. Reyes #004,2026-10-09T10:25:00.000Z,30,16.4,YES,District-South-04,0
-TXF-2026-9069,CASE-CR-1021,Latent Fingerprints,Det. Miller #402,Sgt. Sterling #890,2026-10-10T08:36:00.000Z,30,11.8,YES,District-West-09,0
-TXF-2026-9070,CASE-CR-1022,Digital Media,Sgt. Sterling #890,Tech. Vance #224,11/10/2026 19:43,30,4.7,YES,District-East-02,0
-TXF-2026-9071,CASE-CR-1023,Ballistics,Tech. Vance #224,Det. Zhao #512,2026-10-12T18:51:00.000Z,30,11.2,YES,District-North-01,0
-TXF-2026-9072,CASE-CR-1000,Ballistics,Inv. Kowalski #118,Tech. Vance #224,2026-10-13T19:45:00.000Z,30,6.4,YES,District-East-02,0
-TXF-2026-9073,CASE-CR-1001,Digital Media,,Det. Zhao #512,2026-10-14T14:39:00.000Z,30,21,YES,District-North-01,1
-TXF-2026-9074,CASE-CR-1002,Narcotics,Det. Miller #402,Tech. Vance #224,2026-10-15T13:05:00.000Z,30,22.1,YES,District-East-02,0
-TXF-2026-9075,CASE-CR-1003,Narcotics,Inv. Kowalski #118,Capt. Reyes #004,16/10/2026 19:21,30,41.2,YES,District-South-04,0
-TXF-2026-9076,CASE-CR-1004,Biological/DNA,Inv. Kowalski #118,Tech. Vance #224,2026-10-17T12:35:00.000Z,30,23.2,YES,District-North-01,0
-TXF-2026-9077,CASE-CR-1005,Biological/DNA,Det. Zhao #512,Inv. Kowalski #118,2026-10-18T13:35:00.000Z,30,25.4,YES,District-South-04,0
-TXF-2026-9078,CASE-CR-1006,Narcotics,Det. Zhao #512,Sgt. Sterling #890,2026-10-19T08:54:00.000Z,30,15.7,YES,District-East-02,0
-TXF-2026-9079,CASE-CR-1007,Latent Fingerprints,,Det. Zhao #512,2026-10-20T12:03:00.000Z,30,10.9,YES,District-North-01,1
-TXF-2026-9080,CASE-CR-1008,Ballistics,-,Det. Miller #402,21/10/2026 13:54,30,22.3,NO,District-North-01,1
-TXF-2026-9081,CASE-CR-1009,Biological/DNA,Capt. Reyes #004,Inv. Kowalski #118,2026-10-22T12:12:00.000Z,30,72.6,YES,District-East-02,0
-TXF-2026-9082,CASE-CR-1010,Ballistics,Det. Zhao #512,Inv. Kowalski #118,2026-10-23T09:53:00.000Z,30,23.3,YES,Central-Forensic-Vault,0
-TXF-2026-9083,CASE-CR-1011,Digital Media,Sgt. Sterling #890,Tech. Vance #224,2026-10-24T12:10:00.000Z,30,13.2,YES,Central-Forensic-Vault,0
-TXF-2026-9084,CASE-CR-1012,Narcotics,Det. Miller #402,Det. Zhao #512,2026-10-25T10:15:00.000Z,30,19.4,YES,District-East-02,0
+TXF-2026-9000,CASE-CR-1000,Biological / Nuclear DNA,Det. Zhao #512,Tech. Mercer #951,01/09/2026 12:56,30,26.4,YES,Judicial-Evidence-Annex,0
+TXF-2026-9001,CASE-CR-1001,Trace Fiber (Automotive),Tech. Vance #224,Capt. Reyes #004,2026-09-02T20:57:00.000Z,30,60.1,YES,Central-Forensic-Vault,1
+TXF-2026-9002,CASE-CR-1002,Ballistics (9mm Parabellum),Inv. Kowalski #118,Det. Miller #402,2026-09-03T08:07:00.000Z,30,18.6,UNCHECKED,State-DNA-Repository,0
+TXF-2026-9003,CASE-CR-1003,Narcotics (Synthetic Cannabinoid),Tech. Mercer #951,Det. Washington #615,2026-09-04T22:53:00.000Z,30,15.3,YES,Judicial-Evidence-Annex,0
+TXF-2026-9004,CASE-CR-1004,Ballistics (7.62x39mm Casing),NA,Tech. Vance #224,2026-09-05T07:17:00.000Z,30,24.7,YES,Metro-Ballistics-Lab,1
+TXF-2026-9005,CASE-CR-1005,Mobile Device Extraction,Capt. Tanaka #208,Det. Benitez #443,2026-09-06T12:41:00.000Z,30,18.6,UNCHECKED,District-West-09,0
+TXF-2026-9006,CASE-CR-1006,Latent Fingerprints (Cyanoacrylate),Det. Washington #615,Sgt. Patel #109,2026-09-07T15:57:00.000Z,30,16.5,YES,District-South-04,0
+TXF-2026-9007,CASE-CR-1007,Ballistics (9mm Parabellum),-,Sgt. MacLeod #387,08/09/2026 22:23,30,16.2,YES,Harbor-Precinct-11,0
+TXF-2026-9008,CASE-CR-1008,Latent Fingerprints (Cyanoacrylate),Det. Miller #402,Det. Washington #615,2026-09-09T11:35:00.000Z,30,9.7,YES,Metro-Ballistics-Lab,0
+TXF-2026-9009,CASE-CR-1009,Digital Media (Encrypted SSD),Tech. Vance #224,Inv. Kowalski #118,2026-09-10T14:46:00.000Z,30,19.4,YES,Central-Forensic-Vault,0
+TXF-2026-9010,CASE-CR-1010,Digital Media (Encrypted SSD),Sgt. Sterling #890,Det. Washington #615,2026-09-11T06:59:00.000Z,30,21.9,YES,Judicial-Evidence-Annex,0
+TXF-2026-9011,CASE-CR-1011,Blood Spatter Swab,Inv. Al-Mansoor #619,Inv. Lindqvist #804,2026/09/12 12:37,30,47.4,YES,Central-Forensic-Vault,1
+TXF-2026-9012,CASE-CR-1012,Biological / Nuclear DNA,Inv. Lindqvist #804,Tech. Mercer #951,2026-09-13T12:13:00.000Z,30,89.7,YES,District-North-01,1
+TXF-2026-9013,CASE-CR-1012,Ballistics (7.62x39mm Casing),Capt. Tanaka #208,Det. Zhao #512,2026-09-14T13:24:00.000Z,30,13.8,YES,Suburban-Outpost-07,0
+TXF-2026-9014,CASE-CR-1014,Narcotics (Opioid Assay),-,Sgt. Sterling #890,15/09/2026 13:11,30,39.7,UNCHECKED,District-North-01,1
+TXF-2026-9015,CASE-CR-1015,Latent Fingerprints (Cyanoacrylate),,Det. Benitez #443,2026-09-16T22:00:00.000Z,30,22.8,YES,District-West-09,1
+TXF-2026-9016,CASE-CR-1016,Latent Fingerprints (Cyanoacrylate),unknown,Det. Zhao #512,2026-09-17T17:05:00.000Z,30,15.5,YES,District-East-02,0
+TXF-2026-9017,CASE-CR-1017,Digital Media (Encrypted SSD),NA,Insp. Thorne #331,2026-09-18T19:52:00.000Z,30,75.2,YES,Central-Forensic-Vault,1
+TXF-2026-9018,CASE-CR-1018,Ballistics (9mm Parabellum),-,Sgt. Sterling #890,2026-09-19T09:51:00.000Z,30,75.2,YES,Central-Forensic-Vault,1
+TXF-2026-9019,CASE-CR-1019,Narcotics (Synthetic Cannabinoid),Tech. O’Connor #772,Sgt. Patel #109,2026-09-20T13:57:00.000Z,30,51.3,YES,Central-Forensic-Vault,1
+TXF-2026-9020,CASE-CR-1020,Narcotics (Synthetic Cannabinoid),Sgt. Patel #109,Inv. Kowalski #118,2026-09-21T20:56:00.000Z,30,16.1,YES,State-DNA-Repository,0
+TXF-2026-9021,CASE-CR-1021,Biological / Nuclear DNA,Det. Benitez #443,Insp. Thorne #331,22/09/2026 10:47,30,12.1,YES,District-South-04,0
+TXF-2026-9022,CASE-CR-1022,Toxicology (Vitreous Fluid),Tech. Vance #224,Tech. O’Connor #772,2026/09/23 11:34,30,16.3,YES,Harbor-Precinct-11,0
+TXF-2026-9023,CASE-CR-1023,Narcotics (Synthetic Cannabinoid),PENDING,Det. Benitez #443,2026-09-24T17:36:00.000Z,30,3.4,YES,State-DNA-Repository,0
+TXF-2026-9024,CASE-CR-1024,Toxicology (Vitreous Fluid),Sgt. Patel #109,Insp. Thorne #331,2026-09-25T15:16:00.000Z,30,8.7,YES,Suburban-Outpost-07,0
+TXF-2026-9025,CASE-CR-1000,Narcotics (Synthetic Cannabinoid),Insp. Thorne #331,Inv. Lindqvist #804,2026-09-26T08:28:00.000Z,30,49.2,YES,Suburban-Outpost-07,1
+TXF-2026-9026,CASE-CR-1000,Touch DNA Swab,Det. Benitez #443,Tech. Vance #224,2026-09-27T16:46:00.000Z,30,20.5,UNCHECKED,Suburban-Outpost-07,0
+TXF-2026-9027,CASE-CR-1002,Trace Fiber (Automotive),Inv. Kowalski #118,Inv. Lindqvist #804,2026-09-28T18:51:00.000Z,30,3.5,NO,District-East-02,1
+TXF-2026-9028,CASE-CR-1003,Mobile Device Extraction,Capt. Reyes #004,Inv. Lindqvist #804,01/09/2026 15:16,30,84.9,YES,Suburban-Outpost-07,1
+TXF-2026-9029,CASE-CR-1004,Ballistics (9mm Parabellum),Capt. Tanaka #208,Det. Washington #615,2026-09-02T19:58:00.000Z,30,20.5,UNCHECKED,Metro-Ballistics-Lab,0
+TXF-2026-9030,CASE-CR-1005,Trace Fiber (Automotive),Inv. Kowalski #118,Tech. Mercer #951,2026-10-03T07:42:00.000Z,30,13.1,YES,District-West-09,0
+TXF-2026-9031,CASE-CR-1006,Biological / Nuclear DNA,Det. Washington #615,Inv. Kowalski #118,2026-10-04T07:46:00.000Z,30,5.7,YES,Harbor-Precinct-11,0
+TXF-2026-9032,CASE-CR-1007,Mobile Device Extraction,Det. Miller #402,Det. Washington #615,2026-10-05T18:44:00.000Z,30,10,YES,Judicial-Evidence-Annex,0
+TXF-2026-9033,CASE-CR-1008,Mobile Device Extraction,Tech. Mercer #951,Det. Washington #615,2026/10/06 19:44,30,62.6,YES,District-North-01,1
+TXF-2026-9034,CASE-CR-1009,Narcotics (Synthetic Cannabinoid),Tech. O’Connor #772,Inv. Kowalski #118,2026-10-07T16:50:00.000Z,30,12.1,YES,District-South-04,0
+TXF-2026-9035,CASE-CR-1010,Digital Media (Encrypted SSD),Insp. Thorne #331,Sgt. Patel #109,08/10/2026 06:32,30,13.2,YES,District-West-09,0
+TXF-2026-9036,CASE-CR-1011,Digital Media (Encrypted SSD),Det. Benitez #443,Det. Zhao #512,2026-10-09T14:24:00.000Z,30,26.8,YES,Central-Forensic-Vault,0
+TXF-2026-9037,CASE-CR-1012,Latent Fingerprints (Cyanoacrylate),Det. Benitez #443,Sgt. Sterling #890,2026-10-10T16:48:00.000Z,30,20.8,YES,Metro-Ballistics-Lab,0
+TXF-2026-9038,CASE-CR-1013,Touch DNA Swab,Capt. Reyes #004,Det. Zhao #512,2026-10-11T07:07:00.000Z,30,21.4,YES,Judicial-Evidence-Annex,0
+TXF-2026-9039,CASE-CR-1013,Trace Fiber (Automotive),Det. Miller #402,Sgt. Patel #109,2026-10-12T12:27:00.000Z,30,12.4,YES,Metro-Ballistics-Lab,0
+TXF-2026-9040,CASE-CR-1015,Touch DNA Swab,Tech. Mercer #951,Det. Zhao #512,2026-10-13T06:21:00.000Z,30,63.6,YES,Judicial-Evidence-Annex,1
+TXF-2026-9041,CASE-CR-1016,Narcotics (Synthetic Cannabinoid),Tech. O’Connor #772,Det. Washington #615,2026-10-14T18:37:00.000Z,30,10.5,NO,Harbor-Precinct-11,1
+TXF-2026-9042,CASE-CR-1017,Touch DNA Swab,Capt. Reyes #004,Det. Zhao #512,15/10/2026 13:53,30,11.1,YES,District-North-01,0
+TXF-2026-9043,CASE-CR-1018,Biological / Nuclear DNA,Det. Miller #402,Sgt. Sterling #890,2026-10-16T08:16:00.000Z,30,13,YES,Metro-Ballistics-Lab,0
+TXF-2026-9044,CASE-CR-1019,Latent Fingerprints (Cyanoacrylate),Sgt. MacLeod #387,Inv. Lindqvist #804,2026/10/17 10:35,30,90.2,YES,Suburban-Outpost-07,1
+TXF-2026-9045,CASE-CR-1020,Biological / Nuclear DNA,Det. Zhao #512,Capt. Reyes #004,2026-09-01T19:58:00.000Z,30,10.3,YES,District-West-09,0
+TXF-2026-9046,CASE-CR-1021,Trace Fiber (Automotive),Sgt. Sterling #890,Sgt. MacLeod #387,2026-09-02T11:31:00.000Z,30,21.2,NO,State-DNA-Repository,1
+TXF-2026-9047,CASE-CR-1022,Digital Media (Encrypted SSD),Sgt. Patel #109,Inv. Al-Mansoor #619,2026-09-03T14:56:00.000Z,30,19.1,YES,Harbor-Precinct-11,0
+TXF-2026-9048,CASE-CR-1023,Latent Fingerprints (Cyanoacrylate),Det. Washington #615,Capt. Reyes #004,2026-09-04T20:41:00.000Z,30,6.3,UNCHECKED,District-West-09,0
+TXF-2026-9049,CASE-CR-1024,Blood Spatter Swab,Det. Zhao #512,Sgt. Sterling #890,05/09/2026 07:24,30,15.3,YES,District-North-01,0
+TXF-2026-9050,CASE-CR-1000,Ballistics (9mm Parabellum),-,Insp. Thorne #331,2026-09-06T18:54:00.000Z,30,97.8,NO,State-DNA-Repository,1
+TXF-2026-9051,CASE-CR-1001,Mobile Device Extraction,Inv. Kowalski #118,Tech. Vance #224,2026-09-07T15:58:00.000Z,30,97,NO,Judicial-Evidence-Annex,1
+TXF-2026-9052,CASE-CR-1001,Toxicology (Vitreous Fluid),Inv. Lindqvist #804,Tech. Mercer #951,2026-09-08T21:43:00.000Z,30,38.7,NO,Judicial-Evidence-Annex,1
+TXF-2026-9053,CASE-CR-1003,Trace Fiber (Automotive),Inv. Lindqvist #804,Sgt. MacLeod #387,2026-09-09T06:28:00.000Z,30,20.7,YES,District-East-02,0
+TXF-2026-9054,CASE-CR-1004,Latent Fingerprints (Cyanoacrylate),Capt. Tanaka #208,Det. Washington #615,2026-09-10T21:09:00.000Z,30,7.4,NO,District-South-04,1
+TXF-2026-9055,CASE-CR-1005,Biological / Nuclear DNA,Sgt. Patel #109,Det. Miller #402,2026/09/11 18:29,30,10.9,YES,Harbor-Precinct-11,0
+TXF-2026-9056,CASE-CR-1006,Latent Fingerprints (Cyanoacrylate),Sgt. Patel #109,Inv. Lindqvist #804,12/09/2026 14:33,30,24.5,YES,State-DNA-Repository,0
+TXF-2026-9057,CASE-CR-1007,Blood Spatter Swab,Inv. Lindqvist #804,Inv. Kowalski #118,2026-09-13T19:25:00.000Z,30,82.5,YES,State-DNA-Repository,1
+TXF-2026-9058,CASE-CR-1008,Narcotics (Synthetic Cannabinoid),Inv. Al-Mansoor #619,Tech. Mercer #951,2026-09-14T11:02:00.000Z,30,12.7,YES,Metro-Ballistics-Lab,0
+TXF-2026-9059,CASE-CR-1009,Blood Spatter Swab,Capt. Reyes #004,Det. Benitez #443,2026-09-15T10:30:00.000Z,30,8.9,YES,District-East-02,0
+TXF-2026-9060,CASE-CR-1010,Mobile Device Extraction,NA,Tech. O’Connor #772,2026-09-16T14:22:00.000Z,30,8,YES,Harbor-Precinct-11,1
+TXF-2026-9061,CASE-CR-1011,Touch DNA Swab,Sgt. Sterling #890,Det. Washington #615,2026-09-17T06:59:00.000Z,30,17.7,UNCHECKED,Harbor-Precinct-11,0
+TXF-2026-9062,CASE-CR-1012,Narcotics (Opioid Assay),Tech. O’Connor #772,Inv. Al-Mansoor #619,2026-09-18T20:31:00.000Z,30,18.1,YES,District-South-04,0
+TXF-2026-9063,CASE-CR-1013,Toxicology (Vitreous Fluid),Det. Washington #615,Inv. Lindqvist #804,19/09/2026 08:51,30,100.6,YES,District-North-01,1
+TXF-2026-9064,CASE-CR-1014,Latent Fingerprints (Cyanoacrylate),Sgt. Patel #109,Inv. Lindqvist #804,2026-09-20T16:22:00.000Z,30,69.7,YES,State-DNA-Repository,1
+TXF-2026-9065,CASE-CR-1014,Ballistics (9mm Parabellum),Capt. Tanaka #208,Sgt. Sterling #890,2026-09-21T11:36:00.000Z,30,11.2,YES,District-East-02,0
+TXF-2026-9066,CASE-CR-1016,Toxicology (Vitreous Fluid),Tech. Mercer #951,Inv. Al-Mansoor #619,2026/09/22 11:07,30,26.8,YES,Metro-Ballistics-Lab,0
+TXF-2026-9067,CASE-CR-1017,Toxicology (Vitreous Fluid),Tech. Mercer #951,Insp. Thorne #331,2026-09-23T16:51:00.000Z,30,16.8,YES,District-South-04,0
+TXF-2026-9068,CASE-CR-1018,Trace Fiber (Automotive),Det. Zhao #512,Tech. O’Connor #772,2026-09-24T22:59:00.000Z,30,6.9,YES,Central-Forensic-Vault,0
+TXF-2026-9069,CASE-CR-1019,Narcotics (Opioid Assay),Tech. Mercer #951,Sgt. MacLeod #387,2026-09-25T17:02:00.000Z,30,4.5,NO,Metro-Ballistics-Lab,1
+TXF-2026-9070,CASE-CR-1020,Latent Fingerprints (Cyanoacrylate),Sgt. Patel #109,Det. Benitez #443,26/09/2026 13:38,30,20.4,YES,State-DNA-Repository,0
+TXF-2026-9071,CASE-CR-1021,Narcotics (Opioid Assay),Inv. Kowalski #118,Sgt. MacLeod #387,2026-09-27T17:59:00.000Z,30,23.5,YES,District-East-02,0
+TXF-2026-9072,CASE-CR-1022,Ballistics (7.62x39mm Casing),Sgt. Sterling #890,Det. Zhao #512,2026-09-28T11:31:00.000Z,30,21.1,YES,Suburban-Outpost-07,0
+TXF-2026-9073,CASE-CR-1023,Mobile Device Extraction,Sgt. Patel #109,Det. Miller #402,2026-09-01T08:58:00.000Z,30,18.7,YES,Suburban-Outpost-07,0
+TXF-2026-9074,CASE-CR-1024,Biological / Nuclear DNA,Inv. Lindqvist #804,Sgt. Sterling #890,2026-09-02T06:38:00.000Z,30,5.3,YES,District-West-09,0
+TXF-2026-9075,CASE-CR-1000,Narcotics (Opioid Assay),Capt. Tanaka #208,Inv. Lindqvist #804,2026-10-03T11:48:00.000Z,30,11.4,YES,District-South-04,0
+TXF-2026-9076,CASE-CR-1001,Touch DNA Swab,Tech. Vance #224,Tech. O’Connor #772,2026-10-04T11:12:00.000Z,30,18.9,YES,District-West-09,0
+TXF-2026-9077,CASE-CR-1002,Trace Fiber (Automotive),Det. Miller #402,Capt. Tanaka #208,05/10/2026 12:28,30,10.8,YES,Central-Forensic-Vault,0
+TXF-2026-9078,CASE-CR-1002,Biological / Nuclear DNA,Capt. Reyes #004,Tech. O’Connor #772,2026-10-06T19:51:00.000Z,30,14.2,UNCHECKED,District-North-01,0
+TXF-2026-9079,CASE-CR-1004,Narcotics (Opioid Assay),Sgt. Patel #109,Sgt. MacLeod #387,2026-10-07T06:10:00.000Z,30,11.3,YES,District-North-01,0
+TXF-2026-9080,CASE-CR-1005,Touch DNA Swab,PENDING,Sgt. Sterling #890,2026-10-08T07:36:00.000Z,30,69.9,YES,Judicial-Evidence-Annex,1
+TXF-2026-9081,CASE-CR-1006,Trace Fiber (Automotive),UNCHECKED_CUSTODIAN,Det. Miller #402,2026-10-09T11:09:00.000Z,30,8.9,YES,District-West-09,0
+TXF-2026-9082,CASE-CR-1007,Ballistics (9mm Parabellum),Det. Washington #615,Capt. Tanaka #208,2026-10-10T08:44:00.000Z,30,7.4,NO,District-North-01,1
+TXF-2026-9083,CASE-CR-1008,Blood Spatter Swab,Det. Benitez #443,Det. Washington #615,2026-10-11T09:22:00.000Z,30,10.8,YES,District-South-04,0
+TXF-2026-9084,CASE-CR-1009,Mobile Device Extraction,Det. Washington #615,Inv. Lindqvist #804,12/10/2026 13:08,30,105.4,YES,District-East-02,1
+TXF-2026-9085,CASE-CR-1010,Narcotics (Synthetic Cannabinoid),Insp. Thorne #331,Capt. Reyes #004,2026-10-13T07:29:00.000Z,30,16.4,YES,District-West-09,0
+TXF-2026-9086,CASE-CR-1011,Latent Fingerprints (Cyanoacrylate),Inv. Al-Mansoor #619,Tech. O’Connor #772,2026-10-14T16:19:00.000Z,30,25.1,YES,State-DNA-Repository,0
+TXF-2026-9087,CASE-CR-1012,Narcotics (Opioid Assay),Capt. Tanaka #208,Det. Washington #615,2026-10-15T14:40:00.000Z,30,14.7,YES,District-West-09,0
+TXF-2026-9088,CASE-CR-1013,Ballistics (7.62x39mm Casing),Tech. Vance #224,Det. Benitez #443,2026/10/16 15:24,30,10.1,YES,District-West-09,0
+TXF-2026-9089,CASE-CR-1014,Blood Spatter Swab,Det. Miller #402,Det. Zhao #512,2026-10-17T16:32:00.000Z,30,3.5,NO,District-West-09,1

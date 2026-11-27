@@ -79,31 +79,52 @@
         };
     }
 
-    // 4. Domain Dataset Generator
+    // 4. Domain Dataset Generator (High Variance & Rich Diversity Engine)
     function generateDataset(studentId, domain, isCurveball) {
         domain = String(domain || 'forensic').toLowerCase();
         var seed = deriveSeed(studentId, (isCurveball ? SALT + '-curveball' : SALT));
         var rng = createPRNG(seed);
 
-        var rowCount = rng.nextInt(85, 115);
+        // High Variance in Row Count: 90 to 155 rows (dynamically seeded)
+        var rowCount = rng.nextInt(90, 155);
         var rows = [];
 
         if (domain === 'forensic') {
-            var evidenceTypes = ['Ballistics', 'Biological/DNA', 'Digital Media', 'Narcotics', 'Latent Fingerprints'];
-            var officers = ['Det. Miller #402', 'Inv. Kowalski #118', 'Sgt. Sterling #890', 'Tech. Vance #224', 'Capt. Reyes #004', 'Det. Zhao #512'];
-            var precincts = ['District-North-01', 'District-South-04', 'District-East-02', 'District-West-09', 'Central-Forensic-Vault'];
-            var nullEquivalents = ['', 'NA', 'unknown', '-', 'PENDING'];
+            var evidenceTypes = [
+                'Ballistics (9mm Parabellum)', 'Ballistics (7.62x39mm Casing)', 'Biological / Nuclear DNA',
+                'Touch DNA Swab', 'Digital Media (Encrypted SSD)', 'Mobile Device Extraction',
+                'Narcotics (Opioid Assay)', 'Narcotics (Synthetic Cannabinoid)', 'Latent Fingerprints (Cyanoacrylate)',
+                'Trace Fiber (Automotive)', 'Blood Spatter Swab', 'Toxicology (Vitreous Fluid)'
+            ];
+            var officers = [
+                'Det. Miller #402', 'Inv. Kowalski #118', 'Sgt. Sterling #890', 'Tech. Vance #224',
+                'Capt. Reyes #004', 'Det. Zhao #512', 'Insp. Thorne #331', 'Tech. O’Connor #772',
+                'Sgt. Patel #109', 'Det. Washington #615', 'Inv. Lindqvist #804', 'Tech. Mercer #951',
+                'Capt. Tanaka #208', 'Det. Benitez #443', 'Sgt. MacLeod #387', 'Inv. Al-Mansoor #619'
+            ];
+            var precincts = [
+                'District-North-01', 'District-South-04', 'District-East-02', 'District-West-09',
+                'Central-Forensic-Vault', 'Harbor-Precinct-11', 'Metro-Ballistics-Lab', 'State-DNA-Repository',
+                'Suburban-Outpost-07', 'Judicial-Evidence-Annex'
+            ];
+            var nullEquivalents = ['', 'NA', 'unknown', '-', 'PENDING', 'UNCHECKED_CUSTODIAN'];
+
+            // Seed-dependent corruption & distribution regime
+            var nullRate = 0.12 + rng.next() * 0.14; // 12% to 26%
+            var breachRate = 0.16 + rng.next() * 0.16; // 16% to 32%
+            var breachDaysBase = 35 + rng.nextInt(0, 15);
+            var breachDaysSpan = 45 + rng.nextInt(15, 60);
+            var caseClusterSize = rng.nextInt(16, 32);
 
             for (var i = 0; i < rowCount; i++) {
-                var caseNum = 1000 + (i % 24); // generates repeat case_ids for duplicates
-                var isDupConflict = (i > 0 && i % 17 === 0);
-                var caseId = 'CASE-CR-' + (isDupConflict ? (1000 + ((i - 1) % 24)) : caseNum);
+                var caseNum = 1000 + (i % caseClusterSize);
+                var isDupConflict = (i > 0 && i % 13 === 0);
+                var caseId = 'CASE-CR-' + (isDupConflict ? (1000 + ((i - 1) % caseClusterSize)) : caseNum);
                 var evType = rng.choice(evidenceTypes);
                 
-                // Trap A1: Null strings in relinquishing_auth
+                // Trap A1: Null strings in relinquishing_auth with dynamic rate
                 var relinquishing;
-                var randNull = rng.next();
-                if (randNull < 0.14) {
+                if (rng.next() < nullRate) {
                     relinquishing = rng.choice(nullEquivalents);
                 } else {
                     relinquishing = rng.choice(officers);
@@ -114,29 +135,32 @@
                     receiving = rng.choice(officers);
                 }
 
-                // Date formatting trap (mixed ISO vs DD/MM/YYYY)
-                var d = new Date(Date.UTC(2026, 9, 1 + (i % 30), rng.nextInt(8, 20), rng.nextInt(0, 59)));
+                // Date formatting trap (mixed ISO vs DD/MM/YYYY vs YYYY/MM/DD)
+                var dayOffset = (i % 45);
+                var d = new Date(Date.UTC(2026, 8 + Math.floor(dayOffset / 30), (dayOffset % 28) + 1, rng.nextInt(6, 22), rng.nextInt(0, 59)));
                 var timestamp;
-                if (i % 5 === 0) {
-                    var pad = function(n) { return n < 10 ? '0' + n : n; };
+                var pad = function(n) { return n < 10 ? '0' + n : n; };
+                if (i % 7 === 0) {
                     timestamp = pad(d.getUTCDate()) + '/' + pad(d.getUTCMonth() + 1) + '/' + d.getUTCFullYear() + ' ' + pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes());
+                } else if (i % 11 === 0) {
+                    timestamp = d.getUTCFullYear() + '/' + pad(d.getUTCMonth() + 1) + '/' + pad(d.getUTCDate()) + ' ' + pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes());
                 } else {
                     timestamp = d.toISOString();
                 }
 
-                // Trap: Turnaround tail breach (bimodal distribution)
+                // Trap: Turnaround tail breach (bimodal distribution with high variance)
                 var turnaround;
-                if (rng.next() < 0.18) {
-                    // Critical statutory breach: 35 to 88 days
-                    turnaround = parseFloat((rng.next() * 53 + 35).toFixed(1));
+                if (rng.next() < breachRate) {
+                    // Critical statutory breach: 35 to 110 days (varies by seed)
+                    turnaround = parseFloat((rng.next() * breachDaysSpan + breachDaysBase).toFixed(1));
                 } else {
-                    // Normal turnaround: 4 to 26 days
-                    turnaround = parseFloat((rng.next() * 22 + 4).toFixed(1));
+                    // Normal turnaround: 3 to 27 days
+                    turnaround = parseFloat((rng.next() * 24 + 3).toFixed(1));
                 }
 
                 var precinct = rng.choice(precincts);
-                var seal = rng.next() < 0.88 ? 'YES' : (rng.next() < 0.5 ? 'NO' : 'UNCHECKED');
-                var gapFlag = (relinquishing === '' || relinquishing === 'NA' || seal === 'NO') ? 1 : 0;
+                var seal = rng.next() < 0.85 ? 'YES' : (rng.next() < 0.5 ? 'NO' : 'UNCHECKED');
+                var gapFlag = (relinquishing === '' || relinquishing === 'NA' || seal === 'NO' || turnaround > 30) ? 1 : 0;
 
                 rows.push({
                     transfer_id: 'TXF-2026-' + (9000 + i),
@@ -153,32 +177,55 @@
                 });
             }
         } else if (domain === 'cs' || domain === 'computer_science') {
-            var callers = ['api-gateway', 'auth-service', 'checkout-web', 'mobile-backend', 'inventory-worker', 'billing-agent'];
-            var targets = ['user-db-pool', 'payment-gateway', 'redis-cache-cluster', 'order-ledger', 'audit-logger', 'auth-service'];
+            var callers = [
+                'api-gateway', 'auth-service', 'checkout-web', 'mobile-backend', 'inventory-worker',
+                'billing-agent', 'recommendation-engine', 'search-indexer', 'notification-dispatch',
+                'stream-consumer', 'fraud-detector', 'edge-proxy'
+            ];
+            var targets = [
+                'user-db-pool', 'payment-gateway', 'redis-cache-cluster', 'order-ledger', 'audit-logger',
+                'auth-service', 'inventory-db', 'notification-queue', 'search-shard-01', 'elastic-cluster',
+                'session-store', 'analytics-sink'
+            ];
             var routes = [
                 '/v1/auth/token', '/v2/checkout/process', '/api/users/profile', '/v1/orders/create',
-                '/healthz', '/v1/inventory/reserve', '/v2/search/products', '/api/billing/charge'
+                '/healthz', '/v1/inventory/reserve', '/v2/search/products', '/api/billing/charge',
+                '/v1/telemetry/report', '/api/notifications/send', '/v1/fraud/screen', '/v2/cart/sync',
+                '/api/stream/event', '/v1/config/cluster', '/v2/payment/refund'
             ];
-            // Add dynamic high-cardinality routes
-            for (var r = 0; r < 20; r++) routes.push('/api/dynamic/route_' + r + '/trace');
+            // High cardinality dynamic routes (25 to 45 unique per seed)
+            var dynCount = rng.nextInt(25, 45);
+            for (var r = 0; r < dynCount; r++) {
+                routes.push('/api/dynamic/route_' + r + '/trace');
+            }
+
+            var versions = ['v1.4.2', 'v1.4.3', 'v2.0-rc1', 'v2.0.1', 'v2.1-canary', 'v1.3.9-legacy'];
+            var alarmStormRate = 0.78 + rng.next() * 0.11; // 78% to 89% heartbeats
+            var spikeBase = 4500 + rng.nextInt(1000, 5000);
+            var spikeRange = 8000 + rng.nextInt(2000, 15000); // 8,000 to 28,000 ms spikes
 
             for (var j = 0; j < rowCount; j++) {
                 var caller = rng.choice(callers);
                 var target = rng.choice(targets);
                 var route = rng.choice(routes);
-                var isAlarmStorm = rng.next() < 0.88; // 88% info heartbeats
-                var status = isAlarmStorm ? 200 : rng.choice([401, 404, 500, 503, 504]);
+                var isAlarmStorm = rng.next() < alarmStormRate;
+                var status = isAlarmStorm ? 200 : rng.choice([401, 403, 404, 500, 502, 503, 504]);
                 var severity = status >= 500 ? 'critical' : (status >= 400 ? 'warn' : 'info');
 
-                // Trap B1: 200x Latency Spike
+                // Trap B1: 200x Latency Spike with seed variance
                 var latency;
-                if (status >= 500 && rng.next() < 0.6) {
-                    latency = parseFloat((rng.next() * 12000 + 4000).toFixed(1)); // 4,000 - 16,000 ms spike
+                if (status >= 500 && rng.next() < 0.65) {
+                    latency = parseFloat((rng.next() * spikeRange + spikeBase).toFixed(1));
+                } else if (status >= 400) {
+                    latency = parseFloat((rng.next() * 450 + 90).toFixed(1));
                 } else {
-                    latency = parseFloat((rng.next() * 45 + 12).toFixed(1)); // 12 - 57 ms normal
+                    latency = parseFloat((rng.next() * 48 + 10).toFixed(1)); // 10 - 58 ms normal
                 }
 
-                var timestampCS = new Date(Date.UTC(2026, 10, 10, rng.nextInt(0, 23), rng.nextInt(0, 59), rng.nextInt(0, 59))).toISOString();
+                var tsHour = rng.nextInt(0, 23);
+                var tsMin = rng.nextInt(0, 59);
+                var tsSec = rng.nextInt(0, 59);
+                var timestampCS = new Date(Date.UTC(2026, 10, 10 + (j % 15), tsHour, tsMin, tsSec)).toISOString();
 
                 rows.push({
                     trace_id: 'TRC-' + rng.nextInt(100000, 999999) + '-' + j,
@@ -188,57 +235,68 @@
                     endpoint_route: route,
                     http_status: status,
                     latency_ms: latency,
-                    payload_bytes: rng.nextInt(120, 8400),
-                    cpu_util_pct: rng.next() < 0.1 ? null : parseFloat((rng.next() * 75 + 15).toFixed(1)),
-                    memory_rss_mb: parseFloat((rng.next() * 512 + 128).toFixed(1)),
-                    deployment_version: rng.choice(['v1.4.2', 'v1.4.3', 'v2.0-rc1']),
+                    payload_bytes: rng.nextInt(110, 18500),
+                    cpu_util_pct: rng.next() < 0.08 ? null : parseFloat((rng.next() * 85 + 10).toFixed(1)),
+                    memory_rss_mb: parseFloat((rng.next() * 768 + 128).toFixed(1)),
+                    deployment_version: rng.choice(versions),
                     error_severity: severity
                 });
             }
         } else {
             // Nutrition Science
-            var cohorts = ['Urban-Affluent', 'Rural-Agrarian', 'Peri-Urban-Informal'];
-            var slots = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
-            var foods = ['Legumes', 'Leafy Greens', 'Ultra-Processed Snacks', 'Dairy & Eggs', 'Whole Grains', 'Lean Poultry'];
-            var units = ['per-serving', 'per-100g', 'total-recipe'];
+            var cohorts = [
+                'Urban-Affluent', 'Rural-Agrarian', 'Peri-Urban-Informal', 'Elderly-Care-Resident',
+                'Collegiate-Athlete', 'Pediatric-School-Age', 'Shift-Worker-Industrial'
+            ];
+            var slots = ['Breakfast', 'Morning-Snack', 'Lunch', 'Afternoon-Tea', 'Dinner', 'Late-Snack'];
+            var foods = [
+                'Legumes & Pulses', 'Leafy Dark Greens', 'Ultra-Processed Snacks', 'Dairy & Fermented Eggs',
+                'Whole Ancient Grains', 'Lean Poultry & Fish', 'Root Tubers & Starch', 'Cruciferous Vegetables',
+                'Fortified Breakfast Cereals', 'Cold-Pressed Seed Oils', 'Processed Deli Meats', 'Citrus & Tropical Fruits'
+            ];
+            var units = ['per-serving', 'per-100g', 'total-recipe', 'per-portion', 'heaped-tablespoon'];
+
+            var zeroInfRate = 0.28 + rng.next() * 0.18; // 28% to 46% zero inflation
+            var sodiumSpikeBase = 6000 + rng.nextInt(1000, 5000);
+            var sodiumSpikeSpan = 8000 + rng.nextInt(2000, 12000); // reaches 14,000 to 23,000 mg
 
             for (var k = 0; k < rowCount; k++) {
-                var pId = 'PT-' + (100 + (k % 20));
+                var pId = 'PT-' + (100 + (k % 35));
                 var cohort = rng.choice(cohorts);
                 var slot = rng.choice(slots);
                 var food = rng.choice(foods);
                 var unit = rng.choice(units);
-                var isFasting = rng.next() < 0.15 ? 1 : 0;
+                var isFasting = rng.next() < 0.14 ? 1 : 0;
 
                 // Trap C1: Zero-inflation vs true zero in Vitamin C
                 var vitC;
                 if (isFasting) {
                     vitC = 0.0;
-                } else if (rng.next() < 0.35) {
+                } else if (rng.next() < zeroInfRate) {
                     vitC = 0.0; // unlogged or literal zero
                 } else {
-                    vitC = parseFloat((rng.next() * 65 + 10).toFixed(1));
+                    vitC = parseFloat((rng.next() * 85 + 8).toFixed(1));
                 }
 
                 // Trap C2: Unit Discordance & Extreme Sodium
                 var sodium;
                 if (unit === 'total-recipe') {
-                    sodium = parseFloat((rng.next() * 12000 + 4500).toFixed(1)); // whole recipe sodium!
+                    sodium = parseFloat((rng.next() * sodiumSpikeSpan + sodiumSpikeBase).toFixed(1));
                 } else {
-                    sodium = parseFloat((rng.next() * 750 + 120).toFixed(1));
+                    sodium = parseFloat((rng.next() * 950 + 80).toFixed(1));
                 }
 
-                var calories = unit === 'total-recipe' ? rng.nextInt(1400, 3200) : rng.nextInt(180, 650);
-                var protein = parseFloat((rng.next() * 28 + 4).toFixed(1));
+                var calories = unit === 'total-recipe' ? rng.nextInt(1600, 4200) : rng.nextInt(140, 750);
+                var protein = parseFloat((rng.next() * 38 + 3).toFixed(1));
 
                 rows.push({
                     record_id: 'NUT-2026-' + (5000 + k),
                     participant_id: pId,
-                    survey_date: '2026-11-' + (10 + (k % 12)),
+                    survey_date: '2026-11-' + (10 + (k % 18)),
                     demographic_cohort: cohort,
                     meal_slot: slot,
                     food_category: food,
-                    serving_quantity: parseFloat((rng.next() * 2.5 + 0.5).toFixed(1)),
+                    serving_quantity: parseFloat((rng.next() * 3.2 + 0.4).toFixed(1)),
                     serving_unit: unit,
                     calories_kcal: calories,
                     protein_grams: protein,
